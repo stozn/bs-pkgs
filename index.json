@@ -5,7 +5,7 @@
     
     {"type":"file","name":"index.json"},
     {"type":"file","name":"push.sh"},
-    {"type":"file","name":"README.md"},
+    {"type":"file","name":"README.md"}
     
   ]},
   {"type":"report","directories":1,"files":4}

@@ -145,6 +145,10 @@ event dm (user: "黯泣", cont:"^/说", url, tripcode, req)  => {
 event dm (user: "", cont:"", url, tripcode, req)  => {
   drrr.dm("黯泣",user+"说:"+cont );
 }
+//匿名消息
+event dm (user: "", cont:"^/匿名", url, tripcode, req)  => {  
+  drrr.dm(cont.replace("/匿名", "").trim().slice(0,cont.replace("/匿名", "").trim().search(" ")).trim(),"有人对你说"+cont.replace("/匿名", "").trim().slice(cont.replace("/匿名", "").trim().search(" ")));
+}
 //踢人
 event dm (user: "黯泣", cont:"^/踢", url, tripcode, req)  => {  
     drrr.kick(cont.replace("/踢", "").trim());

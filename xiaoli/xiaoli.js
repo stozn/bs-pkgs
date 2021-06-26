@@ -141,25 +141,6 @@ drrr.chown(user)
 event dm (user: "黯泣", cont:"^/说", url, tripcode, req)  => {  
     drrr.print(cont.replace("/说", "").trim());
 }
-//私信转发
-event dm (user: "", cont:"", url, tripcode, req)  => {
-  drrr.dm("黯泣",user+"说:"+cont );
-}
-//匿名消息
-event dm (user: "", cont:"^/匿名", url, tripcode, req)  => {  
-  drrr.dm(cont.replace("/匿名", "").trim().slice(0,cont.replace("/匿名", "").trim().search(" ")).trim(),"有人对你说"+cont.replace("/匿名", "").trim().slice(cont.replace("/匿名", "").trim().search(" ")));
-}
-//踢人
-event dm (user: "黯泣", cont:"^/踢", url, tripcode, req)  => {  
-    drrr.kick(cont.replace("/踢", "").trim());
-}
-event dm (user: "黯泣", cont:"^/kick", url, tripcode, req)  => {  
-    drrr.kick(cont.replace("/kick", "").trim());
-}
-//ban人
-event dm (user: "黯泣", cont:"^/ban", url, tripcode, req)  => {  
-    drrr.ban(cont.replace("/ban", "").trim());
-}
 //悄悄话
 event dm (user: "", cont:"^/悄悄话", url, tripcode, req)  => {   
 const i=0;
@@ -177,10 +158,21 @@ if (a) then {
   event join (user) => {
     if (user == cont.replace("/悄悄话", "").trim().slice(0,cont.replace("/悄悄话", "").trim().search(" ")).trim() && cs<1) then {
       cs=1;
-      drrr.dm(cont.replace("/悄悄话", "").trim().slice(0,cont.replace("/悄悄话", "").trim().search(" ")).trim(),"有人给你留言：" + cont.replace("/悄悄话", "").trim().slice(cont.replace("/悄悄话", "").trim().search(" ")).trim());
+      drrr.dm(cont.replace("/悄悄话", "").trim().slice(0,cont.replace("/悄悄话", "").trim().search(" ")).trim(),"有人给你悄悄话：" + cont.replace("/悄悄话", "").trim().slice(cont.replace("/悄悄话", "").trim().search(" ")).trim());
     }
   }
 }else{
-drrr.dm(cont.replace("/悄悄话", "").trim().slice(0,cont.replace("/悄悄话", "").trim().search(" ")).trim(),"有人让我悄悄你说："+cont.replace("/悄悄话", "").trim().slice(cont.replace("/悄悄话", "").trim().search(" ")));
+drrr.dm(cont.replace("/悄悄话", "").trim().slice(0,cont.replace("/悄悄话", "").trim().search(" ")).trim(),"有人给你悄悄话："+cont.replace("/悄悄话", "").trim().slice(cont.replace("/悄悄话", "").trim().search(" ")));
 }
+}
+//踢人
+event dm (user: "黯泣", cont:"^/踢", url, tripcode, req)  => {  
+    drrr.kick(cont.replace("/踢", "").trim());
+}
+event dm (user: "黯泣", cont:"^/kick", url, tripcode, req)  => {  
+    drrr.kick(cont.replace("/kick", "").trim());
+}
+//ban
+event dm (user: "黯泣", cont:"^/ban", url, tripcode, req)  => {  
+    drrr.ban(cont.replace("/ban", "").trim());
 }

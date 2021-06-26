@@ -1,6 +1,6 @@
 [{"type":"directory","name": ".","contents":[
     {"type":"directory","name":"xiaoli","contents":[
-      {"type":"file","name":"xiaoli.js"}
+      {"type":"file","name":"xiaoli.js","drinks.js","help.js","pachinko.js","timer.js","welcome.js"}
     ]},
     
     {"type":"file","name":"index.json"},
@@ -8,5 +8,5 @@
     {"type":"file","name":"README.md"}
     
   ]},
-  {"type":"report","directories":1,"files":4}
+  {"type":"report","directories":1,"files":9}
 ]

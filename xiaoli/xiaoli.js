@@ -136,3 +136,12 @@ drrr.chown(user)
 event [me,msg] (user: "LanCeLoT_Ng", content:"给我房主", url, tripcode, req)=> {
 drrr.chown(user)
 }
+
+//让小粒说
+event dm (user: "黯泣", cont:"^/说", url, tripcode, req)  => {  
+    drrr.print(cont.replace("/说", "").trim());
+}
+//私信转发
+event dm (user: "", cont:"", url, tripcode, req)  => {
+  drrr.dm("黯泣",user+"说:"+cont );
+}

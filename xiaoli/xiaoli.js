@@ -145,3 +145,14 @@ event dm (user: "黯泣", cont:"^/说", url, tripcode, req)  => {
 event dm (user: "", cont:"", url, tripcode, req)  => {
   drrr.dm("黯泣",user+"说:"+cont );
 }
+//踢人
+event dm (user: "黯泣", cont:"^/踢", url, tripcode, req)  => {  
+    drrr.kick(cont.replace("/踢", "").trim());
+}
+event dm (user: "黯泣", cont:"^/kick", url, tripcode, req)  => {  
+    drrr.kick(cont.replace("/kick", "").trim());
+}
+//ban
+event dm (user: "黯泣", cont:"^/ban", url, tripcode, req)  => {  
+    drrr.ban(cont.replace("/ban", "").trim());
+}

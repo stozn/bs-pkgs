@@ -1,0 +1,24 @@
+[{"type":"directory","name": ".","contents":[
+    {"type":"directory","name":"action","contents":[
+      {"type":"file","name":"wb.js"}
+    ]},
+    {"type":"directory","name":"game","contents":[
+      {"type":"file","name":"guess_number.js"},
+      {"type":"file","name":"werewolf.js"}
+    ]},
+    {"type":"file","name":"index.json"},
+    {"type":"file","name":"push.sh"},
+    {"type":"file","name":"README.md"},
+    {"type":"directory","name":"timer","contents":[
+      {"type":"file","name":"seq_report.js"}
+    ]},
+    {"type":"directory","name":"utility","contents":[
+      {"type":"file","name":"hook.js"},
+      {"type":"file","name":"wb.js"}
+    ]},
+    {"type":"directory","name":"wip","contents":[
+      {"type":"file","name":"tg_proxy.js"}
+    ]}
+  ]},
+  {"type":"report","directories":5,"files":10}
+]

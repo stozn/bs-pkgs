@@ -21,6 +21,6 @@ timer 60 * 1000{
   else
   if (M ==15||M==45)   then { drrr.print(n)}  //每30分钟1次【每15/45分】触发【随机活动】
   else
-   drrr.title("多喝温水"+ns[cur])
+   drrr.title("多喝温水"+bs[cur])
    cur = (cur + 1) % ns.length
 }

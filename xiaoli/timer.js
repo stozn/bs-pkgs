@@ -21,6 +21,9 @@ timer 60 * 1000{
   else
   if (M ==15||M==45)   then { drrr.print(n)}  //每30分钟1次【每15/45分】触发【随机活动】
   else
-   drrr.title("多喝温水"+bs[cur])
-   cur = (cur + 1) % ns.length
+  if (M ==5||M==10||M==20||M==25||M==35||M==40||M==50||M==55)  //每5分钟1次【修改房间ID】
+   then 
+   {drrr.title("多喝温水"+bs[cur])
+   cur = (cur + 1) % ns.length}
+    else
 }

@@ -4,9 +4,19 @@ checkTime = (i) =>{if (i<10) then{i="0" + i} return i}
 timer 60 * 1000{
  const H="";
  const M="";
-  mydate=new Date();
+ const D="";
+mydate=new Date();
+weekday=new Array(7)
+weekday[0]="周日啦！"
+weekday[1]="周一"
+weekday[2]="周二"
+weekday[3]="周三"
+weekday[4]="周四"
+weekday[5]="周五"
+weekday[6]="周六"
   H = mydate.getHours();
   M = mydate.getMinutes();
+  D =mydate.getDay();
   mb = ["🎂","🍰","🍪","🍩","🍮","🍔","🥞","🥗","🍨","🍧","🍦"]
   m = mb[Math.floor(Math.random() * 11)] 
   t = ["/me 整点报时：现在是【"+checkTime(H)+":"+checkTime(M) +"】，努力回忆了一下，好像没啥要紧事要做，回去继续睡吧w"]
@@ -15,6 +25,9 @@ timer 60 * 1000{
   n = ["/me 【迷迷糊糊的爬起来，"+ ns[Math.floor(Math.random() * ns.length)] ];
   cur = 0
   bs = ["(:3[___]","(:[___]","([___]","(:3[」_]","(:3[」＿]=:","|[__]∠)_","_(:з」∠)_"]
+  d =["(o゜▽゜)o☆|"+ weekday[mydate.getDay()+".night"]]
+  if (H==0&&M ==1)   then { drrr.descr(d)}//换主题
+  else
   if (M ==0)   then { drrr.print(t)}//整点报时
   else
   if (M==30)   then { drrr.print(f)}//60分钟1次【每小时的30分】提醒喝水

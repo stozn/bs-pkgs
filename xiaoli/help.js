@@ -8,3 +8,4 @@ event [me,msg] (user: "", content:"/帮助", url, tripcode, req)  => {
  event [dm] (user: "", content:"/adh", url, tripcode, req)  => {
   drrr.dm(user,"高级指令：\n 踢人：【/踢】【/kick】\n ban人：【/ban】\n ban人【/ban】\n让小粒说：【/说】\n房间主题：【/主题】")
  }
+ }

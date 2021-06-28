@@ -10,7 +10,7 @@ later 2000{drrr.dm(user,"收到！你发送给了："+u+"，内容是："+m);}
 while(i<drrr.users.length && a){
   if(drrr.users[i].name == u) then {
     a=false;
-    drrr.dm(u,"有人给你悄悄话："+m);
+    drrr.dm(u,"有人让我悄悄跟你说："+m);
     }
   i++
 }
@@ -19,7 +19,7 @@ Myfor =()=> {
   while(j<drrr.users.length && a){
     if(drrr.users[j].name == u) then {
       a=false;
-      drrr.dm(u,"有人给你悄悄话："+m);
+      drrr.dm(u,"有人让我悄悄跟你说："+m);
      }
    j++
    }

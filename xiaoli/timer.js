@@ -25,8 +25,10 @@ weekday[6]="周六"
   n = ["/me 【迷迷糊糊的爬起来，"+ ns[Math.floor(Math.random() * ns.length)] ];
   cur = 0
   bs = ["(:3[___]","(:[___]","([___]","(:3[」_]","(:3[」＿]=:","|[__]∠)_","_(:з」∠)_"]
-  d =["(o゜▽゜)o☆|"+ weekday[mydate.getDay()+".night"]]
-  if (H==0&&M ==1)   then { drrr.descr(d)}//换主题
+  d =[weekday[mydate.getDay()]]
+    ywz = ["ヾ(≧▽≦*)o","φ(*￣0￣)","q(≧▽≦q)","ψ(｀∇´)ψ","φ(゜▽゜*)♪"]
+  ko = ywz[Math.floor(Math.random() * 5)] 
+  if (H==0&&M ==1)   then { drrr.descr(ko +"今天"+d+".night")}//换主题
   else
   if (M ==0)   then { drrr.print(t)}//整点报时
   else

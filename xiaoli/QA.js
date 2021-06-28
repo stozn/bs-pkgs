@@ -8,6 +8,6 @@ event [me,msg] (user: "", content:"/概率", url, tripcode, req)=> {
 drrr.print("5连概率≈0.005%】\n 4连概率≈0.1%】\n 3连概率≈9%】\n2连概率≈53%】\n allmiss概率≈38%")
 }
  //中奖历史
-  event [dm] (user: "", content:"/中奖历史", url, tripcode, req)  => {
+  event [me,msg] (user: "", content:"/中奖历史", url, tripcode, req)  => {
   drrr.print("","根据不完全统计\n 目前4连中奖人数为3人\n五连中奖人数暂未有记录")
  }

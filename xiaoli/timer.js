@@ -35,7 +35,13 @@ d =[weekday[mydate.getDay()]]
 
 //报时设定
   t = ["/me 整点报时：现在是【"+checkTime(h)+":"+checkTime(m) +"】，努力回忆了一下，好像没啥要紧事要做，回去继续睡吧w"]
+    td = ["/me 整点报时：现在是白天【"+checkTime(h)+":"+checkTime(m) +"】"]
+    tn = ["/me 整点报时：现在是夜晚【"+checkTime(h)+":"+checkTime(m) +"】"]
+
+//喝水提醒器
   f = ["/me ヾ(≧▽≦*)o】现在的时间是【"+checkTime(h)+":"+checkTime(m) +"】每60分钟给大家添水1次，记得好好补充水分哦"]
+  
+//夜晚行动
   ns =["给盖好被子避免着凉","(っ´Ι`)っ翻找冰箱发现（☆▽☆）【"+de+"！！吃了回去继续睡吧w"]
   n = ["/me 【迷迷糊糊的爬起来，"+ ns[Math.floor(Math.random() * ns.length)] ];
   cur = 0
@@ -48,9 +54,10 @@ d =[weekday[mydate.getDay()]]
   {if (N==1 || N==15)//1号与15号规则换主题
   then
   {
-  if (h==0&&m ==0)   //0点换主题
-  then { drrr.descr(ko +"今天是"+d+".night")
-  drrr.print(t)}
+  if (h==0 &&m ==0)   //0点换主题
+  then { drrr.descr(ko +"“渡落揧旯祭（durarara祭）”到啦！开放抽签功能24小时w"+d+".night")
+  drrr.print(t)
+}
   else
   if (m ==0)   then { drrr.print(t)}//整点报时
   else
@@ -62,8 +69,21 @@ d =[weekday[mydate.getDay()]]
    then  
   {drrr.title("多喝温水"+bs[cur])
    cur = (cur + 1) % ns.length}
-}
+else
 //日常规则
+  if (m ==0)   then { drrr.print(t)}//整点报时
+  else
+  if (m==30)   then { drrr.print(f)}//60分钟1次【每小时的30分】提醒喝水
+  else
+  if (m ==15||m==45)   then { drrr.print(n)}  //每30分钟1次【每15/45分】触发【随机活动】
+  else
+  if (m ==5||m==10||m==20||m==25||m==35||m==40||m==50||m==55)  //每5分钟1次【修改房间ID】
+   then  
+  {drrr.title("多喝温水"+bs[cur])
+   cur = (cur + 1) % ns.length}
+
+}
+
 
 
 }}

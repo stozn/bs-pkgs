@@ -56,14 +56,20 @@ d =[weekday[mydate.getDay()]]
   {
   if (h==0 &&m ==0)   //0点换主题
   then { drrr.descr(ko +"“渡落揧旯祭（durarara祭）”到啦！开放抽签功能24小时w"+d+".night")
-  drrr.print(t)
-}
+  drrr.print(t)}
   else
-  if (m ==0)   then { drrr.print(t)}//整点报时
+  if (h>6||m ==0 &&h<23||m==0)   then { drrr.print(td)}//白天整点报时
   else
-  if (m==30)   then { drrr.print(f)}//60分钟1次【每小时的30分】提醒喝水
+  if (m==0)   then { drrr.print(tn)}//夜晚报时
   else
-  if (m ==15||m==45)   then { drrr.print(n)}  //每30分钟1次【每15/45分】触发【随机活动】
+  if (h>6||m ==30 &&h<23||m==30)   then { drrr.print(f)}//白天60分钟1次【每小时的30分】提醒喝水
+  else
+  if (m ==15||m==45)//每30分钟1次【每15/45分】触发【白天随机活动】   
+  then
+  { if (h>6 && h<23)drrr.print(n)
+  else
+  drrr.print(n)
+  }  
   else
   if (m ==5||m==10||m==20||m==25||m==35||m==40||m==50||m==55)  //每5分钟1次【修改房间ID】
    then  

@@ -43,14 +43,5 @@
 
   
   
-  
-  //每日活动
-  else if (h>6 && h<23 && m==0) then {drrr.print(td)} //日间整点报时
-  else if (m==0) then {drrr.print(tn)}               //夜间整点报时
-  else if (m==30) then {drrr.print(f)}               //提醒喝水【30分触发】60分钟1次
-  else if (h>6 && h<23 && (m==15 || m==45)) then {drrr.print(d)}  //日间活动【15/45分触发】30分钟1次
-  else if (m==15 || m==45) then {drrr.print(n)}                   //夜间活动【15/45分触发】30分钟1次
-  else if (m==5||m==10||m==20||m==25||m==35||m==40||m==50||m==55) then  //修改房间ID 5分钟1次 
-  {drrr.title("多喝温水"+bs[Math.floor(Math.random() * bs.length)])}  
 
 }

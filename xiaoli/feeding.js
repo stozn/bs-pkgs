@@ -1,15 +1,15 @@
 // 投喂恶龙
-event [me,msg] (user: "", content:"^/喂食", url, tripcode, req)  => {
+event [me,msg] (user: "", content:"^/喂食")  => {
 ns =["毛豆1kg","毛豆5kg","毛豆10kg","毛豆汁500mL","毛豆汁1000mL","🍕","🍔","🍟","🌭","🥓","🍖","🍗","🥩","🍤","🌯"]
 n = ns[Math.floor(Math.random() * ns.length)];
   drrr.print("/me @" + user + "投喂了 @恶龙 【" + n +"~】看他吃的多开心w")
 }
 // 投喂恶龙套餐
-event [me,msg] (user: "", content:"^/套餐", url, tripcode, req)  => {
+event [me,msg] (user: "", content:"^/套餐")  => {
 ns =["毛豆","毛豆汁","🍕","🍔","🍟","🌭","🥓","🍖","🍗","🥩","🍤","🌯"]
-n = ns[Math.floor(Math.random() * 12)]
-m = ns[Math.floor(Math.random() * 12)]
-b = ns[Math.floor(Math.random() * 12)]
+n = ns[Math.floor(Math.random() * ns.length)]
+m = ns[Math.floor(Math.random() * ns.length)]
+b = ns[Math.floor(Math.random() * ns.length)]
   as =["但是这些东西完全不够恶龙塞牙缝","恶龙开心的吃了起来","双眼开始放光","恶龙视乎对这些食物不感兴趣","恶龙好像吃的有些饱了"]
     a = as[Math.floor(Math.random() * as.length)];  
   drrr.print("/me @" + user + "投喂了 @恶龙 【" + n + m + b +"~】"+a)
@@ -17,9 +17,13 @@ b = ns[Math.floor(Math.random() * 12)]
 //投喂小粒
 var fd=10;  //初始饱食度10
 
-timer 30*60*1000{  //半小时减少1点饱食度
-  if (fd>0) then{fd--}
-  else {drrr.print("/me 小粒饿了")}
+timer 30*60*1000{  
+  mydate=new Date(); 
+  const h=mydate.getHours();   
+  if (h>6 && h<23){       //6-23点减饱食度
+   if (fd>0) then{fd--}
+   else {drrr.print("/me 小粒饿了")}
+  } 
 }
 
 event [me,msg] (user: "", cont:"^/投喂")  => {

@@ -1,5 +1,5 @@
 // 投喂恶龙
-event [me,msg] (user: "", content:"^/投喂恶龙", url, tripcode, req)  => {
+event [me,msg] (user: "", content:"^/喂食", url, tripcode, req)  => {
 ns =["毛豆1kg","毛豆5kg","毛豆10kg","毛豆汁500mL","毛豆汁1000mL","🍕","🍔","🍟","🌭","🥓","🍖","🍗","🥩","🍤","🌯"]
 n = ns[Math.floor(Math.random() * ns.length)];
   drrr.print("/me @" + user + "投喂了 @恶龙 【" + n +"~】看他吃的多开心w")

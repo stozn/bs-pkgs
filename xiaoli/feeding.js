@@ -20,8 +20,8 @@ var fd=10;  //初始饱食度10
 timer 30*60*1000{  
   mydate=new Date(); 
   const h=mydate.getHours();   
-  if (h>6 && h<23){       //6-23点减饱食度
-   if (fd>0) then{fd--}
+  if (h>6 && h<23) then {       //6-23点减饱食度
+   if (fd>0) then {fd--}
    else {drrr.print("/me 小粒饿了")}
   } 
 }

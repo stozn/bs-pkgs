@@ -1,4 +1,4 @@
-# BotScript Packages for drrr.com
+# DRRR 小粒脚本
 
 
 - xiaoli.js

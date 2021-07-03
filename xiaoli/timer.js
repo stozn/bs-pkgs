@@ -16,7 +16,9 @@
   weekday=["周日！","周一","周二","周三","周四","周五","周六"]
   w=weekday[D]
 
- 
+  //甜品
+
+  de=dessert[Math.floor(Math.random() * 11)] 
 
   //报时设定
   td= ["/me 整点报时：现在是日间【"+checkTime(h)+":"+checkTime(m) +"】"]

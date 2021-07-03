@@ -16,7 +16,11 @@
   weekday=["周日！","周一","周二","周三","周四","周五","周六"]
   w=weekday[D]
 
-  
+ 
+
+  //报时设定
+  td= ["/me 整点报时：现在是日间【"+checkTime(h)+":"+checkTime(m) +"】"]
+  tn= ["/me 整点报时：现在是夜间【"+checkTime(h)+":"+checkTime(m) +"】"]
 
   //喝水提醒器
   f="/me ヾ(≧▽≦*)o】现在是【"+checkTime(h)+":"+checkTime(m) +"】 每60分钟给大家添水1次，记得好好补充水分哦"

@@ -1,7 +1,7 @@
 //报时优化
  checkTime = (i) =>{if (i<10) then{i="0" + i} return i}
 //准点报时与活动。每60秒触发1次
- timer 10 * 1000{
+ timer 60 * 1000{
  
   //时间日期设置
   mydate=new Date(); //获取当前日期

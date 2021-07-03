@@ -24,12 +24,7 @@
   td= ["/me 整点报时：现在是日间【"+checkTime(h)+":"+checkTime(m) +"】"]
   tn= ["/me 整点报时：现在是夜间【"+checkTime(h)+":"+checkTime(m) +"】"]
 
-  //喝水提醒器
-  f="/me ヾ(≧▽≦*)o】现在是【"+checkTime(h)+":"+checkTime(m) +"】 每60分钟给大家添水1次，记得好好补充水分哦"
   
-  //日间活动
-  ds=["打扫卫生中...","摸鱼中..."]
-  d=["/me 现在我正在"+ ds[Math.floor(Math.random()*ds.length)] ]
   
 
   

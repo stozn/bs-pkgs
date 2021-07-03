@@ -1,11 +1,11 @@
 // 再来一杯
-event [me,msg] (user: "", content:"/再来一杯", url, tripcode, req)  => {
+event [me,msg] (user: "", content:"/再来一杯)  => {
   ns =["酸梅汤","温水","柠檬水","葡萄糖水","鲜榨🍉汁","鲜榨🍊汁","鲜榨🍇汁","鲜榨🍓汁","鲜榨🥥汁","鲜榨🥝汁"]
   n = ns[Math.floor(Math.random() * ns.length)];
   drrr.print("/me @" + user + "|递【" + n +"~】请慢用")
 }
 //注文
-event [me,msg] (user: "", cont:"^/注文\\s+\\S", url, tripcode, req)  => {
+event [me,msg] (user: "", cont:"^/注文\\s+\\S")  => {
 var r=cont.replace("/注文", "").trim();
 zw=["可乐","茶","啤酒","葡萄酒","红酒","白酒","汁","咖啡","拿铁","卡布奇诺"];
 tb=["🥤","🍵","🍺","🍷","🍷","🍶","🍹","☕","☕","☕"];

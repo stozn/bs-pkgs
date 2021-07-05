@@ -1,11 +1,11 @@
 // 投喂恶龙
-event [me,msg] (user: "", content:"^/喂食")  => {
+event [me,msg] (user: "", content:"/喂食")  => {
 ns =["毛豆1kg","毛豆5kg","毛豆10kg","毛豆汁500mL","毛豆汁1000mL","🍕","🍔","🍟","🌭","🥓","🍖","🍗","🥩","🍤","🌯"]
 n = ns[Math.floor(Math.random() * ns.length)];
   drrr.print("/me @" + user + "投喂了 @恶龙 【" + n +"~】看他吃的多开心w")
 }
 // 投喂恶龙套餐
-event [me,msg] (user: "", content:"^/套餐")  => {
+event [me,msg] (user: "", content:"/套餐")  => {
 ns =["毛豆","毛豆汁","🍕","🍔","🍟","🌭","🥓","🍖","🍗","🥩","🍤","🌯"]
 n = ns[Math.floor(Math.random() * ns.length)]
 m = ns[Math.floor(Math.random() * ns.length)]
@@ -26,7 +26,7 @@ timer 30*60*1000{
   } 
 }
 
-event [me,msg] (user: "", cont:"^/投喂")  => {
+event [me,msg] (user: "", cont:"/投喂")  => {
   //食物种类 ps:食物直接在里面加就好，其他东西不用改
   sw=[
   s1=["🍦","🍧","🍨","🍩","🍪","🍰","🧁","🍫","🍬","🍭","🍮"],  //+1的食物

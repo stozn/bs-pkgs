@@ -49,7 +49,7 @@
   later 5000 drrr.print("/me 开始换上巫女服");}  
   
   //抽签日活动
-  if ((N==1 || N==10 || N==15 || N==20 || N==25 || N==30)  then {   
+  if (N==1 || N==10 || N==15 || N==20 || N==25 || N==30)  then {   
   if (m==0) then {drrr.print(tc)}     //日间整点报时
   else if (m==30) then {drrr.print(cf)}               //提醒喝水【30分触发】60分钟1次
   else if (m==15 || m==45) then {drrr.print(cd)}     //抽签日活动【15/45分触发】30分钟1次

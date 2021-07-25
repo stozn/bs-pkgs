@@ -34,7 +34,8 @@ event [msg, me, dm] (user, cont: "^/导出") => {
 event [msg, me, dm] (user, cont: "^/导入\\s+\\S") => { 
   if admins.some(a => a==user) then {
     data=cont.replace("/导入", "").trim();
-    users=JSON.parse(data)
+    dt=JSON.parse(data)      //支持分批导入，以解决drrr字数限制
+    users=users.concat(dt)
    }
 }  
 //排行榜

@@ -9,17 +9,27 @@ timer 24*60*60*1000 {
 }
 //签到
 event [msg, me, dm] (user, cont: "^/签到") => { 
+ const yb=Math.floor(Math.random() * 3)+1
  let n=users.findIndex(u => u.name == user)
   if (n == -1) then {
-  users.push({ name: user,coins: 1,check: false})
+  users.push({ name: user,coins: yb,check: false})
   n=users.length-1
-  drrr.print(user+"签到成功，现在的硬币数量为"+users[n].coins+"。")
+  drrr.print(user+"签到成功，硬币+"+yb+"，现在的硬币数量为"+users[n].coins+"。")
   } else if users[n].check then {
-  users[n].coins++
+  users[n].coins+=yb
   users[n].check=false
-  drrr.print(user+"签到成功，现在的硬币数量为"+users[n].coins+"。")
+  drrr.print(user+"签到成功，硬币+"+yb+"，现在的硬币数量为"+users[n].coins+"。")
   } else { drrr.print(user+"今天已经签过到了，现在的硬币数量为"+users[n].coins+"。")
 }
+  }
+  
+//排行榜
+event [msg, me, dm] (user, cont: "^/排行榜") => {
+  users.sort((a,b) => b.coins - a.coins)
+  let pm=users
+  if users.length >10 then pm=pm.slice(0,10)    //截取排名前10的用户
+  let p=pm.reduce((a,x,y) => a=a+"\n"+(y+1)+"."+x.name+"\t"+x.coins+"硬币","")
+  drrr.print(p)
   }
 //注文
 event [me,msg] (user, cont:"^/注文\\s+\\S")  => {

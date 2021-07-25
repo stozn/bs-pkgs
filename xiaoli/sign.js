@@ -43,9 +43,9 @@ let n=users.findIndex(u => u.name == user)
   if (n == -1) then {
   users.push({ name: user,coins: 0,check: true})
   n=users.length-1
-  drrr.print(user+"很抱歉，注文功能需要话费1硬币，您的硬币数为"+users[n].coins+"，请签到获取硬币。")
+  drrr.print(user+"很抱歉，注文功能需要花费1硬币，您的硬币数为"+users[n].coins+"，请签到获取硬币。")
 } else if (users[n].coins == 0) then {
-  drrr.print(user+"很抱歉，注文功能需要话费1硬币，您的硬币数为"+users[n].coins+"，请签到获取硬币。")
+  drrr.print(user+"很抱歉，注文功能需要花费1硬币，您的硬币数为"+users[n].coins+"，请签到获取硬币。")
 } else {
   users[n].coins--
   drrr.print("/me @"+ user +" 您使用了1硬币，现在您的硬币数量为"+users[n].coins+"，["+r+"]马上就好，请稍等一分钟" );

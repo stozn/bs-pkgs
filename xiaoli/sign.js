@@ -1,4 +1,5 @@
 let users=[]
+const admins=["黯泣","unica","法官-Bot"]   //设置管理员
 //每日重置可签到
 timer 24*60*60*1000 {  
   let a=0
@@ -22,7 +23,20 @@ event [msg, me, dm] (user, cont: "^/签到") => {
   } else { drrr.print(user+"今天已经签过到了，现在的硬币数量为"+users[n].coins+"。")
 }
   }
-  
+//导出
+event [msg, me, dm] (user, cont: "^/导出") => { 
+  if admins.some(a => a==user) then {
+   print(users)
+   print(false)
+   }
+}
+//导入
+event [msg, me, dm] (user, cont: "^/导入\\s+\\S") => { 
+  if admins.some(a => a==user) then {
+    data=cont.replace("/导入", "").trim();
+    users=JSON.parse(data)
+   }
+}  
 //排行榜
 event [msg, me, dm] (user, cont: "^/排行榜") => {
   users.sort((a,b) => b.coins - a.coins)

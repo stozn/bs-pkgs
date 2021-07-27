@@ -1,5 +1,5 @@
 let users=[]
-const admins=["黯泣","unica","法官-Bot"]   //设置管理员
+const admins=["Ancy.WWeeo","Robot/23Cc","unica/qOLU"]   //设置管理员
 //每日重置可签到
 timer 24*60*60*1000 {  
   let a=0
@@ -8,6 +8,44 @@ timer 24*60*60*1000 {
     a++
   }
 }
+//创建新用户
+newu = (user,tc) =>{
+  users.push({ name: user,tc:tc,coins: 0,check: true})
+}
+//校验用户 返回用户编号，若返回-1，则用户tc不匹配
+checku = (user) =>{
+  let n
+  let tc
+  let i=(-1)
+  let a=true
+ 
+while(i<drrr.users.length && a){
+  if(drrr.users[i+1].name == user) then {
+    a=false;
+    }
+  i++
+ } 
+  if drrr.users[i].tripcode==false then {
+    tc="无"
+  }else {
+    tc=drrr.users[i].tripcode
+  } 
+  if tc=="无" then {
+     n=users.findIndex(u => u.name == user)  
+  } else {
+     n=users.findIndex(u => u.tc == tc) 
+  }
+  if (n == -1) then {
+  newu(user,tc)
+  n=users.length-1
+  return n
+  }else if (users[n].tc==tc) then 
+  {
+    return n
+  }
+  else return -1
+  }  
+
 //排行榜
 sort = () =>{
   users.sort((a,b) => b.coins - a.coins)
@@ -22,21 +60,19 @@ event [msg, me, dm] (user, cont: "^/排行榜") => {
 //签到
 event [msg, me, dm] (user, cont: "^/签到") => { 
  const yb=Math.floor(Math.random() * 3)+1
- let n=users.findIndex(u => u.name == user)
+  let n=checku(user,tc)
   if (n == -1) then {
-  users.push({ name: user,coins: yb,check: false})
-  n=users.length-1
-  drrr.print(user+"签到成功，硬币+"+yb+"，现在的硬币数量为"+users[n].coins+"。")
+  drrr.print("/me @"+user+"您的tc与已有的用户不匹配")
   } else if users[n].check then {
   users[n].coins+=yb
   users[n].check=false
-  drrr.print(user+"签到成功，硬币+"+yb+"，现在的硬币数量为"+users[n].coins+"。")
+  drrr.print("/me @"+user+"签到成功，硬币+"+yb+"，现在的硬币数量为"+users[n].coins+"。")
   } else { drrr.print( "/me @"+ user +"今天已经签过到了，现在的硬币数量为"+users[n].coins+"。")
 }
   }
 //删除
-event [msg, me, dm] (user, cont: "^/删除\\s+\\S") => { 
-  if admins.some(a => a==user) then {
+event [msg, me, dm] (user, cont: "^/删除\\s+\\S", url, tc) => { 
+  if admins.some(a => a==tc) then {
    del=cont.replace("/删除", "").trim();
    let n=users.findIndex(u => u.name == del)
    if (n == -1) then {
@@ -48,16 +84,16 @@ event [msg, me, dm] (user, cont: "^/删除\\s+\\S") => {
    }
 }
 //导出
-event [msg, me, dm] (user, cont: "^/导出") => { 
-  if admins.some(a => a==user) then {
+event [msg, me, dm] (user, cont: "^/导出", url, tc) => { 
+  if admins.some(a => a==tc) then {
    print(users)
-   print(0)
+   print("删除此行")
    drrr.dm(user,"●成功导出数据")
    }
 }
 //导入
-event [msg, me, dm] (user, cont: "^/导入\\s+\\S") => { 
-  if admins.some(a => a==user) then {
+event [msg, me, dm] (user, cont: "^/导入\\s+\\S", url, tc) => { 
+  if admins.some(a => a==tc) then {
     data=cont.replace("/导入", "").trim();
     dt=JSON.parse(data)      //支持分批导入，以解决drrr字数限制
     if dt==false then {
@@ -88,7 +124,7 @@ event [msg, me, dm] (user, cont: "^/导入\\s+\\S") => {
  later 1000 drrr.dm(user,sort())
     }
   }
-}  
+}    
 //注文
 event [me,msg] (user, cont:"^/注文\\s+\\S")  => {
 var r=cont.replace("/注文", "").trim();

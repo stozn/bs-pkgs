@@ -10,7 +10,7 @@ timer 24*60*60*1000 {
 }
 //创建新用户
 newu = (user,tc) =>{
-  users.push({ name: user,tc:tc,coins: 0,check: true})
+  users.push({ name: user,tc:tc,coin: 0,check: true})
 }
 //校验用户 返回用户编号，若返回-1，则用户tc不匹配
 checku = (user) =>{
@@ -48,10 +48,10 @@ while(i<drrr.users.length && a){
 
 //排行榜
 sort = () =>{
-  users.sort((a,b) => b.coins - a.coins)
+  users.sort((a,b) => b.coin - a.coin)
   let pm=users
   if users.length >10 then pm=pm.slice(0,10)    //截取排名前10的用户
-  let p=pm.reduce((a,x,y) => a=a+"\n"+(y+1)+"."+x.name+"\t"+x.coins+"硬币","排行榜 总用户:"+users.length+"人")
+  let p=pm.reduce((a,x,y) => a=a+"\n"+(y+1)+"."+x.name+"\t"+x.coin+"硬币","排行榜 总用户:"+users.length+"人")
   return p
  }
 event [msg, me, dm] (user, cont: "^/排行榜") => {
@@ -64,14 +64,14 @@ event [msg, me, dm] (user, cont: "^/签到") => {
   if (n == -1) then {
   drrr.print("/me @"+user+"您的tc与已有的用户不匹配")
   } else if users[n].check then {
-  users[n].coins+=yb
+  users[n].coin+=yb
   users[n].check=false
-  drrr.print("/me @"+user+"签到成功，硬币+"+yb+"，现在的硬币数量为"+users[n].coins+"。")
-  } else { drrr.print( "/me @"+ user +"今天已经签过到了，现在的硬币数量为"+users[n].coins+"。")
+  drrr.print("/me @"+user+"签到成功，硬币+"+yb+"，现在的硬币数量为"+users[n].coin+"。")
+  } else { drrr.print( "/me @"+ user +"今天已经签过到了，现在的硬币数量为"+users[n].coin+"。")
 }
   }
 //删除
-event [msg, me, dm] (user, cont: "^/删除\\s+\\S") => { 
+event [msg, me, dm] (user, cont: "^/删除\\s+\\S", url, tc) => { 
   if admins.some(a => a==tc) then {
    del=cont.replace("/删除", "").trim();
    let n=users.findIndex(u => u.name == del)
@@ -84,15 +84,16 @@ event [msg, me, dm] (user, cont: "^/删除\\s+\\S") => {
    }
 }
 //导出
-event [msg, me, dm] (user, cont: "^/导出") => { 
+event [msg, me, dm] (user, cont: "^/导出", url, tc) => { 
   if admins.some(a => a==tc) then {
-   print(users)
+  let dt=JSON.stringify(users)
+  let data="/导入"+dt
    print("删除此行")
-   drrr.dm(user,"●成功导出数据")
+   drrr.dm(user,data)
    }
 }
 //导入
-event [msg, me, dm] (user, cont: "^/导入\\s+\\S") => { 
+event [msg, me, dm] (user, cont: "^/导入\\s+\\S", url, tc) => { 
   if admins.some(a => a==tc) then {
     data=cont.replace("/导入", "").trim();
     dt=JSON.parse(data)      //支持分批导入，以解决drrr字数限制
@@ -100,8 +101,8 @@ event [msg, me, dm] (user, cont: "^/导入\\s+\\S") => {
       drrr.dm(user,"●数据有误")
     }else {
     users=users.concat(dt)   
-    var r = []
-    var d = []
+    let r = []
+    let d = []
     let l = users.length
     for  i = 0; i < l; i++  {
      for  j = i + 1; j < l; j++ {
@@ -117,7 +118,7 @@ event [msg, me, dm] (user, cont: "^/导入\\s+\\S") => {
     drrr.dm(user,"●导入数据成功")
   }else {
     users=r
-    let de=d.reduce((a,x,y) => a=a+"\n"+(y+1)+"."+x.name+"\t"+x.coins+"硬币","")
+    let de=d.reduce((a,x,y) => a=a+"\n"+(y+1)+"."+x.name+"\t"+x.coin+"硬币","")
     drrr.dm(user,"●更新数据成功，已删除旧数据:")
     later 500 drrr.dm(user,de)
   }         
@@ -127,22 +128,22 @@ event [msg, me, dm] (user, cont: "^/导入\\s+\\S") => {
 }    
 //注文
 event [me,msg] (user, cont:"^/注文\\s+\\S")  => {
-var r=cont.replace("/注文", "").trim();
+let r=cont.replace("/注文", "").trim();
 zw=["可乐","茶","啤酒","葡萄酒","红酒","白酒","汁","咖啡","拿铁","卡布奇诺"];
 tb=["🥤","🍵","🍺","🍷","🍷","🍶","🍹","☕","☕","☕"];
-var i=0;
-var t="";
-var a=false;
+let i=0;
+let t="";
+let a=false;
 let n=checku(user)
   if (n == -1) then {
-  drrr.print(user+"/me @"+ user +"很抱歉，注文功能需要花费1硬币，您的硬币数为"+users[n].coins+"，请签到获取硬币。")
-} else if (users[n].coins == 0) then {
-  drrr.print(user+"/me @"+ user +"很抱歉，注文功能需要花费1硬币，您的硬币数为"+users[n].coins+"，请签到获取硬币。")
+  drrr.print(user+"/me @"+ user +"很抱歉，注文功能需要花费1硬币，您的硬币数为"+users[n].coin+"，请签到获取硬币。")
+} else if (users[n].coin == 0) then {
+  drrr.print(user+"/me @"+ user +"很抱歉，注文功能需要花费1硬币，您的硬币数为"+users[n].coin+"，请签到获取硬币。")
 } else {
-  users[n].coins--
-  drrr.print("/me @"+ user +" 您使用了1硬币，现在您的硬币数量为"+users[n].coins+"，["+r+"]马上就好，请稍等一分钟" );
+  users[n].coin--
+  drrr.print("/me @"+ user +" 您使用了1硬币，现在您的硬币数量为"+users[n].coin+"，["+r+"]马上就好，请稍等一分钟" );
   while (i<zw.length && !a){
-  var reg = new RegExp(zw[i]);
+  let reg = new RegExp(zw[i]);
   a=reg.test(r);
   if (a) then {
     t=tb[i];

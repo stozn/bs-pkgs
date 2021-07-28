@@ -8,6 +8,11 @@ timer 24*60*60*1000 {
     a++
   }
 }
+//每15分钟在后台输出一次数据
+timer 15*60*1000{
+  print(users)
+   print("删除此行")
+}
 //创建新用户
 newu = (user,tc) =>{
   users.push({ name: user,tc:tc,coin: 0,check: true})
@@ -88,6 +93,7 @@ event [msg, me, dm] (user, cont: "^/导出", url, tc) => {
   if admins.some(a => a==tc) then {
   let dt=JSON.stringify(users)
   let data="/导入"+dt
+   print(data)
    print("删除此行")
    drrr.dm(user,data)
    }

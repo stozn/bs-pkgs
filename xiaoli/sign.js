@@ -283,13 +283,11 @@ event [msg, me, dm] (user, cont: "^/挂机") => {
  }
 }
 //添加
-event [msg, me, dm] (user, cont: "^/添加\\s+\\S+\\s+\\S+\\s+\\d") => {
+event [msg, me, dm] (user, cont: "^/添加\\s+\\S+\\s+\\S+\\s+\\d", url, tc) => {
   if admins.some(a => a==tc) then {
   let name=threekey("/添加",cont)[0]
   let tc=threekey("/添加",cont)[1]
   let coin=parseInt(threekey("/添加",cont)[2])
-  drrr.print(threekey("/添加",cont)[2])
-  drrr.print(tc)
   users.push({ uid: ++duid,name: name,tc: tc,coin: coin,check: true,day: 0})
     let r = []
     let d = []

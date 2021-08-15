@@ -65,8 +65,16 @@ onekey=(cmd,cont)=>{
 }
 twokey=(cmd,cont)=>{
 let u=cont.replace(cmd, "").trim().slice(0,cont.replace(cmd, "").trim().search("\\s")).trim()
-let m=cont.replace(cmd, "").trim().slice(cont.replace(cmd, "").trim().search("\\s"))
+let m=cont.replace(cmd, "").trim().slice(cont.replace(cmd, "").trim().search("\\s")).trim()
 let r=[u,m]
+return r
+}
+threekey=(cmd,cont)=>{
+let u=twokey(cmd,cont)[0]
+let m=twokey(cmd,cont)[1]
+let n=m.slice(0,m.search("\\s")).trim()
+let l=m.slice(m.search("\\s")).trim()
+let r=[u,n,l]
 return r
 }
 //排行榜
@@ -88,8 +96,8 @@ sort = (key) =>{
   return p
  }
 event [msg, me, dm] (user, cont: "^/排行榜") => {
-  drrr.print("资产排行榜       "+sort("coin"))
-  drrr.print("连续签到排行榜   "+sort("day"))
+  drrr.print("资产排行榜      "+sort("coin"))
+  drrr.print("连续签到排行榜  "+sort("day"))
   }
 
 //签到
@@ -124,19 +132,20 @@ event [msg, me, dm] (user, cont: "^/转账\\s+\\S+\\s+\\d") => {
 } else if cn<11 then {
   drrr.dm(user,"@"+ user +"很抱歉，转账最低额度为 10 DRB 并收取 1 DRB手续费")
 }else {
-  let sid=users[n].name
+  let sid=user
   let rid=users[m].name
   trans.push({send: sid,recv: rid,coin: cn})
   drrr.dm(user,"@"+user+"您将要转账给【"+tou+"】"+cn+" DRB,将收取 1 DRB手续费确认操作请回复 /1")
- }
+  let a=trans.findIndex(x=> x.send==sid)
+  }
 }
 //确认转账
 event [msg, me, dm] (user, cont: "^/1") => {
   let n=checku(user)
   let a=trans.findIndex(x=> x.send==user)
-  let m=users.findIndex(x=> x.name==trans[a].recv)
-  let cn=trans[a].coin
-  if a>=0 then {
+  if a>=0 then { 
+    let m=users.findIndex(x=> x.name==trans[a].recv)
+    let cn=trans[a].coin
     users[n].coin=users[n].coin-cn-1
     users[m].coin=users[m].coin+cn
     trans.splice(a,1)
@@ -273,7 +282,39 @@ event [msg, me, dm] (user, cont: "^/挂机") => {
   }
  }
 }
-
+//添加
+event [msg, me, dm] (user, cont: "^/添加\\s+\\S+\\s+\\S+\\s+\\d") => {
+  if admins.some(a => a==tc) then {
+  let name=threekey("/添加",cont)[0]
+  let tc=threekey("/添加",cont)[1]
+  let coin=parseInt(threekey("/添加",cont)[2])
+  drrr.print(threekey("/添加",cont)[2])
+  drrr.print(tc)
+  users.push({ uid: ++duid,name: name,tc: tc,coin: coin,check: true,day: 0})
+    let r = []
+    let d = []
+    let l = users.length
+    for  i = 0; i < l; i++  {
+     for  j = i + 1; j < l; j++ {
+      if (users[i].name === users[j].name) then {
+        j = i+1
+        d.push(users[i])
+        i++
+      } 
+    }  
+    r.push(users[i])
+  }
+  if (r.length==users.length) then{
+    drrr.dm(user,"●添加数据成功")
+  }else {
+    users=r
+    let de=d.reduce((a,x,y) => a=a+"\n"+(y+1)+"."+x.name+"\t"+x.coin+"DRB","")
+    drrr.dm(user,"●更新数据成功，已删除旧数据:")
+    later 500 drrr.dm(user,de)
+  }         
+ later 1000 drrr.dm(user,sort("coin"))
+ }
+}
 //删除
 event [msg, me, dm] (user, cont: "^/删除\\s+\\S", url, tc) => { 
   if admins.some(a => a==tc) then {
@@ -327,7 +368,7 @@ event [msg, me, dm] (user, cont: "^/导入\\s+\\S", url, tc) => {
     drrr.dm(user,"●更新数据成功，已删除旧数据:")
     later 500 drrr.dm(user,de)
   }         
- later 1000 drrr.dm(user,sort())
+ later 1000 drrr.dm(user,sort("coin"))
     }
   }
 }    

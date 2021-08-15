@@ -333,7 +333,7 @@ event [msg, me, dm] (user, cont: "^/导出", url, tc) => {
   let data="/导入"+dt
    print(data)
    print("删除此行")
-   drrr.dm(user,data)
+   drrr.print(data)
    }
 }
 //导入

@@ -14,7 +14,7 @@ let gaini=[]
 let gainu=[]
 let gains=[]
 let pkgs=[]
-const admins=["Ancy.WWeeo","Robot/23Cc","unica/qOLU"]   //设置管理员
+const admins=["Ancy.WWeeo","Robot/23Cc","unica/qOLU","YtIMnsXOBE"]   //设置管理员
 //每日重置可签到
 timer 24*60*60*1000 {  
   for  x of users {

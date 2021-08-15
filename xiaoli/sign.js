@@ -36,7 +36,7 @@ newu = (user,tc) =>{
 }
 //校验用户 返回用户编号，若返回-1，则用户tc不匹配
 checku = (user) =>{
-  let n
+  let n=(-1)
   let tc
   let i=drrr.users.findIndex(u => u.name == user) 
   if drrr.users[i].tripcode==false then {

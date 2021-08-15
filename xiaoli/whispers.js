@@ -16,8 +16,8 @@ while(i<drrr.users.length && a){
   i++
 }
   if a  then {
-    let n=msgs.findIndex(u => u.tou == u)
-    if n>0 then msgs[n].msg.push(m)
+    let n=msgs.findIndex(x => x.tou == u)
+    if n>(-1) then msgs[n].msg.push(m)
     else msgs.push({tou: u ,msg: [m]})
   }
 }
@@ -29,6 +29,7 @@ event join (user) => {
    drrr.dm(user,"有人让我悄悄跟你说："+msgs[n].msg[j]);
    j++
    if j<msgs[n].msg.length then setTimeout(Myfor, 1500) 
+   else msgs.splice(n,1)
    }
    Myfor()
   }

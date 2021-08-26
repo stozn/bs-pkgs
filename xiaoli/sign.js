@@ -272,15 +272,20 @@ event [msg, me, dm] (user, cont: "^/挂机") => {
     drrr.print("/me @"+ user +"您成功挂机30分钟，获得"+a+" DRB,现在共有"+users[n].coin+" DRB")
     setTimeout(Myfor, 30*60*1000)
     }else {
-    let n=users.findIndex(x => x.uid==id)
     let q=hangs.findIndex(x=> x==id)
-    hangs.splice(n,1)
+    hangs.splice(q,1)
      }
     }
     Myfor()
    }
   }
  }
+}
+//清空挂机
+event [msg, me, dm] (user, cont: "^/清空挂机") => { 
+    if admins.some(a => a==tc) then {
+        hangs=[]
+    }
 }
 //添加
 event [msg, me, dm] (user, cont: "^/添加\\s+\\S+\\s+\\S+\\s+\\d", url, tc) => {

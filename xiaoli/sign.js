@@ -288,6 +288,63 @@ event [msg, me, dm] (user, cont: "^/清空挂机", url, tc) => {
         drrr.print("/me挂机已清空")
     }
 }
+//背包
+event [msg, me, dm] (user, cont: "^/背包") => {
+  let n=checku(user)
+  if (n == (-1)) then drrr.print("/me @"+user+"您的tc与已有的用户不匹配")
+  else drrr.dm(user,"@"+users[n].name+"您的背包有【"+users[n].bag.join("】【")+"】")
+  }
+//商店
+event [msg, me, dm] (user, cont: "^/商店") => {
+  let gds=goods.map((x,i) => i+1+". "+x.name+"  "+x.price+" DRB")
+  drrr.print("商店\n"+gds.join("\n"))
+  }
+event [me,msg] (user, cont:"^/买\\s+\\d")  => {
+  let g=parseInt(cont.replace("/买", "").trim())
+  let n=checku(user)
+  if (n == (-1)) then {
+  drrr.print("/me @"+user+"您的tc与已有的用户不匹配")
+} else if g>goods.length then {
+  drrr.print("/me @"+user+"输入的序号不存在")
+}else {
+  let good=goods[g-1].name
+  let p=goods[g-1].price
+  if (users[n].coin < p) then {
+  drrr.print("/me @"+ user +"很抱歉，【"+good+"】需要花费 "+p+" DRB，您只有"+users[n].coin+"DRB")
+} else {
+  users[n].coin-=p
+  users[n].bag.push(good)
+  drrr.print("/me @"+ user +"您已成功购买【"+good+"】，花费了"+p+" DRB，现在您有"+users[n].coin+"DRB")
+  }
+ } 
+}
+//赠送
+
+event [msg, me, dm] (user, cont: "^/上架\\s+\\S+\\s+\\d", url, tc) => { 
+  if admins.some(a => a==tc) then {
+    let good=twokey("/上架",cont)[0]
+    let p=parseInt(twokey("/上架",cont)[1])
+    let i=goods.findIndex(g => g.name==good)
+    if i>=0 then {
+    drrr.print("/me 【"+good+"】 已经上架了")
+    }else {
+    goods.push({name: good,price: p})
+    drrr.print("/me 【"+good+"】 上架啦！")
+    }
+  }
+}
+event [msg, me, dm] (user, cont: "^/下架\\s+\\S", url, tc) => { 
+  if admins.some(a => a==tc) then {
+    let good=cont.replace("/下架", "").trim()
+    let i=goods.findIndex(g => g.name==good)
+    if i>=0 then {
+    goods.splice(i,1)
+    drrr.print("/me 【"+good+"】 下架了")
+    }else {
+    drrr.print("/me 还没有这个商品哦")
+    }
+  }
+}
 //添加
 event [msg, me, dm] (user, cont: "^/添加\\s+\\S+\\s+\\S+\\s+\\d", url, tc) => {
   if admins.some(a => a==tc) then {

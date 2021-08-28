@@ -49,7 +49,7 @@ checku = (user) =>{
   } else {
      n=users.findIndex(u => u.tc == tc) 
   }
-  if (n == -1) then {
+  if (n ==(-1)) then {
   newu(user,tc)
   n=users.length-1
   return n
@@ -105,7 +105,7 @@ event [msg, me, dm] (user, cont: "^/签到") => {
   let dyb=Math.floor(Math.random() * 3)+1
   let yb=4
   let n=checku(user)
-  if (n == -1) then {
+  if (n ==(-1)) then {
   drrr.print("/me @"+user+"您的tc与已有的用户不匹配")
   } else if users[n].check then {
   users[n].day++
@@ -123,9 +123,9 @@ event [msg, me, dm] (user, cont: "^/转账\\s+\\S+\\s+\\d") => {
   let cn=parseInt(twokey("/转账",cont)[1])
   let n=checku(user)
   let m=users.findIndex(x=>x.name==tou)
-  if (n == -1) then {
+  if (n ==(-1)) then {
   drrr.print("/me @"+user+"您的tc与已有的用户不匹配")
-} else if (m == -1) then {
+} else if (m ==(-1)) then {
   drrr.dm(user,"@"+user+"您转账的用户【"+tou+"】不存在"+m)
 } else if users[n].coin < (cn+1) then {
   drrr.dm(user,"@"+ user +"很抱歉，您只有"+users[n].coin+"DRB，不足以转账"+cn+" DRB 并缴纳 1 DRB手续费")
@@ -180,7 +180,7 @@ event [msg, me, dm] (user, cont: "^/发红包\\s+\\d+\\s+\\d") => {
   let amc=parseInt(twokey("/发红包",cont)[0])
   let cn=parseInt(twokey("/发红包",cont)[1])
   let n=checku(user)
-  if (n == -1) then {
+  if (n ==(-1)) then {
   drrr.print("/me @"+user+"您的tc与已有的用户不匹配")
 } else if users[n].coin < cn then {
   drrr.print("/me @"+ user +"很抱歉，您只有"+users[n].coin+"DRB，不足以发出"+cn+" DRB的红包")
@@ -222,7 +222,7 @@ event [msg, me, dm] (user, cont: "^/发红包\\s+\\d+\\s+\\d") => {
 //抢红包
 event [msg, me, dm] (user, cont: "^/抢") => {
   let n=checku(user)
-  if (n == -1) then {
+  if (n ==(-1)) then {
   drrr.print("/me @"+user+"您的tc与已有的用户不匹配")
 } else if pkgs.length==0 then {
   if gains.length==am then
@@ -251,7 +251,7 @@ event [msg, me, dm] (user, cont: "^/抢") => {
 //挂机
 event [msg, me, dm] (user, cont: "^/挂机") => { 
   let n=checku(user)
-  if (n == -1) then {
+  if (n == (-1)) then {
   drrr.print("/me @"+user+"您的tc与已有的用户不匹配")
 } else {
   let id=users[n].uid
@@ -324,7 +324,7 @@ event [msg, me, dm] (user, cont: "^/删除\\s+\\S", url, tc) => {
   if admins.some(a => a==tc) then {
    del=cont.replace("/删除", "").trim();
    let n=users.findIndex(u => u.name == del)
-   if (n == -1) then {
+   if (n ==(-1)) then {
      drrr.dm(user,"●该用户不存在")
   } else {
     users.splice(n,1)
@@ -345,7 +345,7 @@ event [msg, me, dm] (user, cont: "^/导出", url, tc) => {
 //导入
 event [msg, me, dm] (user, cont: "^/导入\\s+\\S", url, tc) => { 
   if admins.some(a => a==tc) then {
-    data=cont.replace("/导入", "").trim();
+    data=cont.replace("/导入", "").trim()
     dt=JSON.parse(data)      //支持分批导入，以解决drrr字数限制
     if dt==false then {
       drrr.dm(user,"●数据有误")
@@ -385,7 +385,7 @@ let i=0;
 let t="";
 let a=false;
 let n=checku(user)
-  if (n == -1) then {
+  if (n ==(-1)) then {
   drrr.print("/me @"+user+"您的tc与已有的用户不匹配")
 } else if (users[n].coin == 0) then {
   drrr.print("/me @"+ user +"很抱歉，注文功能需要花费 1 DRB，您的DRB数为"+users[n].coin+"。")
@@ -408,7 +408,7 @@ let n=checku(user)
 //抽奖
 event [me,msg] (user, content:"^/抽奖")=> {
   let n=checku(user)
-  if (n == -1) then {
+  if (n ==(-1)) then {
   drrr.print("/me @"+user+"您的tc与已有的用户不匹配")
   } else if (users[n].coin < 5) then {
   drrr.print("/me @"+ user +"很抱歉，抽奖功能需要花费 5 DRB，您的DRB数为"+users[n].coin+"。")

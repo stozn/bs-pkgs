@@ -282,9 +282,10 @@ event [msg, me, dm] (user, cont: "^/挂机") => {
  }
 }
 //清空挂机
-event [msg, me, dm] (user, cont: "^/清空挂机") => { 
+event [msg, me, dm] (user, cont: "^/清空挂机", url, tc) => { 
     if admins.some(a => a==tc) then {
         hangs=[]
+        drrr.print("/me挂机已清空")
     }
 }
 //添加
@@ -403,4 +404,78 @@ let n=checku(user)
    drrr.print("/me @"+ user +" 这是你刚刚注文的"+t+"["+r+"]，请慢用");
   }
 }
+}
+//抽奖
+event [me,msg] (user, content:"^/抽奖")=> {
+  let n=checku(user)
+  if (n == -1) then {
+  drrr.print("/me @"+user+"您的tc与已有的用户不匹配")
+  } else if (users[n].coin < 5) then {
+  drrr.print("/me @"+ user +"很抱歉，抽奖功能需要花费 5 DRB，您的DRB数为"+users[n].coin+"。")
+} else {
+  users[n].coin-=5
+  drrr.print("/me @"+ user +" 您使用了 5 DRB，现在您的DRB数量为"+users[n].coin+"，正在抽奖中..." )
+
+array = ["🍉","🍑","🍎","🍇","🍋","🥥","🍊","🍓","🍒","🍈","🎃","🥝"]
+mb = ["🎂","🍰","🍪","🍩","🍮","🍔","🥞","🥗","🍨","🍧","🍦"]
+nb = ["🦁","🐶","🐱","🐯","🦁","🦁","🐼","🐇","🐧","🐿","🐈","🐒"]
+a = array[Math.floor(Math.random() * 12)]
+b = array[Math.floor(Math.random() * 12)]
+c = array[Math.floor(Math.random() * 12)]
+d = array[Math.floor(Math.random() * 12)]
+e = array[Math.floor(Math.random() * 12)]
+m = mb[Math.floor(Math.random() * 11)] 
+g = nb[Math.floor(Math.random() * 12)]  
+later 2*1000 {
+//全中
+  if a == b && b == c && c == d && d == e
+then {
+  users[n].coin+=200
+  drrr.print("@" + user +"抽到的是【"+a+b+c+d+e+"】🎉🎉🎉🎊🎊🎰恭喜中大奖：奖励【u酱特调妹汁】一杯+ 200 DRB")
+}
+  else
+//中4个
+  if a==b && a==c && a==d || a==b && a==c && a==e || a==c && a==d && a==e || b==c && b==d && b==e
+then {
+  users[n].coin+=50
+  drrr.print("@" + user +"抽到的是【"+a+b+c+d+e+"】有四个一样的水果！🎉🎉🎉奖励：【"+g+"玩偶】一只 + 50 DRB！并获得"+m+"一份！")
+}
+else  
+//中3个
+  if a==b && a==c ||a==b && a==d ||a==b && a==e ||a==c && a==d ||a==c && a==e ||a==d && a==e ||b==c && b==d ||b==c && b==e ||b==d && b==e || c==d && c==e
+then {
+  users[n].coin+=10
+  drrr.print("@" + user +"抽到的是【"+a+b+c+d+e+"】有三个一样的水果！🎉🎉奖励："+m+"一份 + 10 DRB！")
+}
+else
+
+//中2个  
+  if a==b || a==c || a==d || a==e
+  then {
+    users[n].coin+=5  
+    drrr.print("/me @" + user +"抽到的是【"+a+b+c+d+e+"】有两个【"+a+"】🎉奖励："+a+"汁一杯 + 5 DRB！")
+  }
+else
+  if b==c || b==d || b==e
+  then {
+    users[n].coin+=5
+    drrr.print("/me @" + user +"抽到的是【"+a+b+c+d+e+"】有两个【"+b+"】🎉奖励："+b+"汁一杯 + 5 DRB！")
+  }
+else
+  if c==d || c==e
+  then {
+    users[n].coin+=5
+    drrr.print("/me @" + user +"抽到的是【"+a+b+c+d+e+"】有两个【"+c+"】🎉奖励："+c+"汁一杯 + 5 DRB！")
+  }
+else
+  if d==e
+  then {
+    users[n].coin+=5
+    drrr.print("/me @" + user +"抽到的是【"+a+b+c+d+e+"】有两个【"+d+"】🎉奖励："+d+"汁一杯 + 5 DRB！")
+  }
+//不中
+  else
+  drrr.print("/me @" + user +" |抽到的 【"+a+b+c+d+e+"】完全没有相同的！")
+  }
+ }
 }

@@ -40,11 +40,11 @@ newu = (user,tc) =>{
 checku = (user) =>{
   let n=(-1)
   let tc
-  let i=drrr.users.findIndex(u => u.name == user) 
-  if drrr.users[i].tripcode==false then {
+  let i=info.room.users.findIndex(u => u.name == user) 
+  if info.room.users[i].tripcode==false then {
     tc="无"
   }else {
-    tc=drrr.users[i].tripcode
+    tc=info.room.users[i].tripcode
   } 
   if tc=="无" then {
      n=users.findIndex(u => u.name == user)  

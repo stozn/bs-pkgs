@@ -5,6 +5,8 @@ let duid
 let hangs=[]
 //转账数据
 let trans=[]
+//商店
+let goods=[]
 //红包数据
 let pkgi=0
 let owner
@@ -14,7 +16,7 @@ let gaini=[]
 let gainu=[]
 let gains=[]
 let pkgs=[]
-const admins=["Ancy.WWeeo","Robot/23Cc","unica/qOLU","YtIMnsXOBE"]   //设置管理员
+const admins=["OG0OPFxOFw","Ancy.WWeeo","Robot/23Cc","unica/qOLU","YtIMnsXOBE"]   //设置管理员
 //每日重置可签到
 timer 24*60*60*1000 {  
   for  x of users {
@@ -32,7 +34,7 @@ timer 15*60*1000{
 }
 //创建新用户
 newu = (user,tc) =>{
-  users.push({ uid: ++duid,name: user,tc: tc,coin: 0,check: true,day: 0})
+  users.push({ uid: ++duid,name: user,tc: tc,coin: 0,check: true,day: 0,bag: []})
 }
 //校验用户 返回用户编号，若返回-1，则用户tc不匹配
 checku = (user) =>{
@@ -83,27 +85,22 @@ sort = (key) =>{
   let pm=users
   let word=" DRB"
   if key=="day" then word="天"
-  if users.length >10 then pm=pm.slice(0,10)    //截取排名前10的用户
+  if users.length >7 then pm=pm.slice(0,7)    //截取排名前7的用户
   let p=pm.reduce((a,x,y) => {
-    let name=x.name
-    let l=name.length
-    let b=" "
-    let c=""
-    if l<18 then{ for i=0;i<(18-l);i++ { c=c+b }}
-    a=a+"\n"+(y+1)+"."+x.name+c+x[key]+word
+    a=a+"\n"+(y+1)+"."+x.name+"\t"+x[key]+word
     return a
   },"总用户:"+users.length+"人")
   return p
  }
 event [msg, me, dm] (user, cont: "^/排行榜") => {
   drrr.print("资产排行榜      "+sort("coin"))
-  drrr.print("连续签到排行榜  "+sort("day"))
+  later 2*1000 drrr.print("连续签到排行榜  "+sort("day"))
   }
 
 //签到
 event [msg, me, dm] (user, cont: "^/签到") => { 
   let dyb=Math.floor(Math.random() * 3)+1
-  let yb=4
+  let yb=14
   let n=checku(user)
   if (n ==(-1)) then {
   drrr.print("/me @"+user+"您的tc与已有的用户不匹配")
@@ -248,46 +245,6 @@ event [msg, me, dm] (user, cont: "^/抢") => {
   }
  } 
  
-//挂机
-event [msg, me, dm] (user, cont: "^/挂机") => { 
-  let n=checku(user)
-  if (n == (-1)) then {
-  drrr.print("/me @"+user+"您的tc与已有的用户不匹配")
-} else {
-  let id=users[n].uid
-  if hangs.some(a => a==id)  then {
-  drrr.print("/me @"+ user +"您已经在挂机了")
-  }else {
-  hangs.push(id)
-  drrr.print("/me @"+ user +"您现在开始挂机了，挂够30分钟将会获得 5-10 DRB")
-  later 30*60*1000 {
-    Myfor =()=> {
-    let i=drrr.users.findIndex(u => {
-      let n=checku(u.name)
-      return id==users[n].uid
-    })
-    if i>=0 then {
-    let a=Math.floor(Math.random() * 6)+5
-    users[n].coin+=a
-    drrr.print("/me @"+ user +"您成功挂机30分钟，获得"+a+" DRB,现在共有"+users[n].coin+" DRB")
-    setTimeout(Myfor, 30*60*1000)
-    }else {
-    let q=hangs.findIndex(x=> x==id)
-    hangs.splice(q,1)
-     }
-    }
-    Myfor()
-   }
-  }
- }
-}
-//清空挂机
-event [msg, me, dm] (user, cont: "^/清空挂机", url, tc) => { 
-    if admins.some(a => a==tc) then {
-        hangs=[]
-        drrr.print("/me挂机已清空")
-    }
-}
 //背包
 event [msg, me, dm] (user, cont: "^/背包") => {
   let n=checku(user)
@@ -319,7 +276,24 @@ event [me,msg] (user, cont:"^/买\\s+\\d")  => {
  } 
 }
 //赠送
-
+event [msg, me, dm] (user, cont: "^/赠送\\s+\\S+\\s+\\S") => {
+  let tou=twokey("/赠送",cont)[0]
+  let gd=twokey("/赠送",cont)[1]
+  let n=checku(user)
+  let m=users.findIndex(x=>x.name==tou)
+  let l=users[n].bag.findIndex(x=>x==gd)
+  if (n ==(-1)) then {
+  drrr.print("/me @"+user+"您的tc与已有的用户不匹配")
+} else if (m ==(-1)) then {
+  drrr.dm(user,"@"+user+"您赠送的用户【"+tou+"】不存在")
+} else if (l ==(-1)) then {
+  drrr.dm(user,"@"+ user +"很抱歉，您的背包没有【"+gd+"】")
+} else {
+  users[n].bag.splice(l,1)
+  users[m].bag.push(gd)
+  drrr.dm(user,"@"+ user +"您已成功将【"+gd+"】赠送给"+tou)
+ }
+}
 event [msg, me, dm] (user, cont: "^/上架\\s+\\S+\\s+\\d", url, tc) => { 
   if admins.some(a => a==tc) then {
     let good=twokey("/上架",cont)[0]
@@ -351,7 +325,7 @@ event [msg, me, dm] (user, cont: "^/添加\\s+\\S+\\s+\\S+\\s+\\d", url, tc) => 
   let name=threekey("/添加",cont)[0]
   let tc=threekey("/添加",cont)[1]
   let coin=parseInt(threekey("/添加",cont)[2])
-  users.push({ uid: ++duid,name: name,tc: tc,coin: coin,check: true,day: 0})
+  users.push({ uid: ++duid,name: name,tc: tc,coin: coin,check: true,day: 0,bag:[]})
     let r = []
     let d = []
     let l = users.length
@@ -462,7 +436,7 @@ let n=checku(user)
   }
 }
 }
-//抽奖
+//DRB特供版抽奖
 event [me,msg] (user, content:"^/抽奖")=> {
   let n=checku(user)
   if (n ==(-1)) then {
@@ -473,66 +447,59 @@ event [me,msg] (user, content:"^/抽奖")=> {
   users[n].coin-=5
   drrr.print("/me @"+ user +" 您使用了 5 DRB，现在您的DRB数量为"+users[n].coin+"，正在抽奖中..." )
 
-array = ["🍉","🍑","🍎","🍇","🍋","🥥","🍊","🍓","🍒","🍈","🎃","🥝"]
-mb = ["🎂","🍰","🍪","🍩","🍮","🍔","🥞","🥗","🍨","🍧","🍦"]
-nb = ["🦁","🐶","🐱","🐯","🦁","🦁","🐼","🐇","🐧","🐿","🐈","🐒"]
-a = array[Math.floor(Math.random() * 12)]
-b = array[Math.floor(Math.random() * 12)]
-c = array[Math.floor(Math.random() * 12)]
-d = array[Math.floor(Math.random() * 12)]
-e = array[Math.floor(Math.random() * 12)]
-m = mb[Math.floor(Math.random() * 11)] 
-g = nb[Math.floor(Math.random() * 12)]  
+array = ["🍉","🍎","🍇","🍊","🍒","🍈"]
+a = array[Math.floor(Math.random() * 6)]
+b = array[Math.floor(Math.random() * 6)]
+c = array[Math.floor(Math.random() * 6)]
 later 2*1000 {
-//全中
-  if a == b && b == c && c == d && d == e
+//中奖 
+  if a == b && b == c 
+then {
+  users[n].coin+=300
+  drrr.print("@" + user +"抽到的是【"+a+b+c+"】🎉🎉🎉🎊🎊🎰恭喜中大奖： + 300 DRB")
+}
+  else
+//不中
+  drrr.print("/me @" + user +" |抽到的 【"+a+b+c+"】没中奖哦~请再接再厉~！")
+  }
+ }
+}
+//刮刮乐
+event [me,msg] (user, content:"^/刮刮乐")=> {
+  let n=checku(user)
+  if (n ==(-1)) then {
+  drrr.print("/me @"+user+"您的tc与已有的用户不匹配")
+  } else if (users[n].coin < 3) then {
+  drrr.print("/me @"+ user +"很抱歉，刮刮乐 需要花费 2 DRB，您的DRB数为"+users[n].coin+"。")
+} else {
+  users[n].coin-=3
+  drrr.print("/me @"+ user +" 您使用了 3 DRB，现在您的DRB数量为"+users[n].coin+"，刮奖中..." )
+
+g = [Math.floor(Math.random()*100+1)]
+later 2*1000 {
+//中奖 10
+  if g == 100
 then {
   users[n].coin+=200
-  drrr.print("@" + user +"抽到的是【"+a+b+c+d+e+"】🎉🎉🎉🎊🎊🎰恭喜中大奖：奖励【u酱特调妹汁】一杯+ 200 DRB")
+  drrr.print("@" + user +" |是 "+g+" 🎉🎊恭喜中奖： + 200 DRB")
+}
+    else
+//中奖 90
+  if g >= 90
+then {
+  users[n].coin+=20
+  drrr.print("/me @" + user +" |是 "+g+" 🎉： + 20 DRB")
 }
   else
-//中4个
-  if a==b && a==c && a==d || a==b && a==c && a==e || a==c && a==d && a==e || b==c && b==d && b==e
+//中奖 75
+  if g >= 75
 then {
-  users[n].coin+=50
-  drrr.print("@" + user +"抽到的是【"+a+b+c+d+e+"】有四个一样的水果！🎉🎉🎉奖励：【"+g+"玩偶】一只 + 50 DRB！并获得"+m+"一份！")
+  users[n].coin+=5
+  drrr.print("/me @" + user + " |是 "+g+"  🎉： + 5 DRB")
 }
-else  
-//中3个
-  if a==b && a==c ||a==b && a==d ||a==b && a==e ||a==c && a==d ||a==c && a==e ||a==d && a==e ||b==c && b==d ||b==c && b==e ||b==d && b==e || c==d && c==e
-then {
-  users[n].coin+=10
-  drrr.print("@" + user +"抽到的是【"+a+b+c+d+e+"】有三个一样的水果！🎉🎉奖励："+m+"一份 + 10 DRB！")
-}
-else
-
-//中2个  
-  if a==b || a==c || a==d || a==e
-  then {
-    users[n].coin+=5  
-    drrr.print("/me @" + user +"抽到的是【"+a+b+c+d+e+"】有两个【"+a+"】🎉奖励："+a+"汁一杯 + 5 DRB！")
-  }
-else
-  if b==c || b==d || b==e
-  then {
-    users[n].coin+=5
-    drrr.print("/me @" + user +"抽到的是【"+a+b+c+d+e+"】有两个【"+b+"】🎉奖励："+b+"汁一杯 + 5 DRB！")
-  }
-else
-  if c==d || c==e
-  then {
-    users[n].coin+=5
-    drrr.print("/me @" + user +"抽到的是【"+a+b+c+d+e+"】有两个【"+c+"】🎉奖励："+c+"汁一杯 + 5 DRB！")
-  }
-else
-  if d==e
-  then {
-    users[n].coin+=5
-    drrr.print("/me @" + user +"抽到的是【"+a+b+c+d+e+"】有两个【"+d+"】🎉奖励："+d+"汁一杯 + 5 DRB！")
-  }
+  else
 //不中
-  else
-  drrr.print("/me @" + user +" |抽到的 【"+a+b+c+d+e+"】完全没有相同的！")
+  drrr.print("/me @" + user +" |是 "+g+" 残念！没中奖~")
   }
  }
 }

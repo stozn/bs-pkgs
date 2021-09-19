@@ -50,15 +50,16 @@ checku = (user) =>{
      n=users.findIndex(u => u.name == user)  
   } else {
      n=users.findIndex(u => u.tc == tc) 
+     if (n ==(-1)) then  n=users.findIndex(u => u.name == user) 
   }
   if (n ==(-1)) then {
   newu(user,tc)
   n=users.length-1
   return n
-  }else if (users[n].tc==tc) then 
-  {
-    return n
-  }
+  }else if (users[n].tc=="无") then { 
+    users[n].tc=tc
+    return n 
+  }else if (users[n].tc==tc) then { return n }
   else return -1
   }  
 //关键字拆分

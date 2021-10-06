@@ -7,6 +7,8 @@ let hangs=[]
 let trans=[]
 //商店
 let goods=[]
+//奖励数据
+let au=[]
 //红包数据
 let pkgi=0
 let owner
@@ -24,13 +26,17 @@ timer 24*60*60*1000 {
     x.check=true
   }
 }
-//每15分钟在后台输出一次数据
+//每15分钟在后台输出一次数据，顺手清理整点奖励的用户
 timer 15*60*1000{
   let mydate=new Date(); 
   let h=mydate.getHours();  
   let m=mydate.getMinutes();
   print(users)
   print("时间:"+h+":"+m)
+ //整点用户清理
+  mydate= new Date()
+  const m=mydate.getMinutes() 
+  if m>2 then au=[]
 }
 //创建新用户
 newu = (user,tc) =>{
@@ -100,7 +106,6 @@ event [msg, me, dm] (user, cont: "^/排行榜") => {
 
 //签到
 event [msg, me, dm] (user, cont: "^/签到") => { 
-  let dyb=Math.floor(Math.random() * 3)+1
   let yb=14
   let n=checku(user)
   if (n ==(-1)) then {
@@ -115,6 +120,28 @@ event [msg, me, dm] (user, cont: "^/签到") => {
   } else { drrr.print( "/me @"+ user +" 今天已经签过到了，明天记得继续来签到哦")
 }
   }
+//整点奖励
+event [msg, me, dm] (user, cont: "^/领取奖励") => { 
+  let yb=Math.floor(Math.random() * 3)+1
+  let n=checku(user)
+  if (n ==(-1)) then {
+  drrr.print("/me @"+user+" 您的tc与已有的用户不匹配")
+  } else {
+  mydate= new Date()
+  const m=mydate.getMinutes() 
+  let nm=users[n].name
+  let i=au.findIndex(u => u==nm)
+  if m>2 then {
+    drrr.print("/me @"+user+" 还未到领取时间，请在每个整点的2分钟内前来领取奖励")
+  }else if i>=0 then {
+    drrr.print("/me @"+user+" 您已领取过本小时奖励了")
+  }else {
+    au.push(nm)
+    users[n].coin+=yb
+    drrr.print("/me @"+user+" 您已成功领取本小时奖励，收获"+yb+" DRB")
+  }
+ }
+}
 //转账
 event [msg, me, dm] (user, cont: "^/转账\\s+\\S+\\s+\\d") => {
   let tou=twokey("/转账",cont)[0]

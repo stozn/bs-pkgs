@@ -1,12 +1,12 @@
 //用户数据
-let users=[]
+let users=[{ uid: 1,name: "管理员",tc: "YtIMnsXOBE",coin: 10000000,check: true,day: 0,bag: []}]
 let duid
 //挂机数据
 let hangs=[]
 //转账数据
 let trans=[]
 //商店
-let goods=[]
+let goods=[{name: "MG-红包",price: 1}]
 //奖励数据
 let au=[]
 //红包数据
@@ -207,12 +207,16 @@ event [msg, me, dm] (user, cont: "^/发红包\\s+\\d+\\s+\\d") => {
   let n=checku(user)
   if (n ==(-1)) then {
   drrr.print("/me @"+user+"您的tc与已有的用户不匹配")
+} else if !users[n].bag.some(x => x=="MG-红包") then {
+  drrr.print("/me @"+ user +"很抱歉，您的背包中没有红包，请前往商店购买")
 } else if users[n].coin < cn then {
   drrr.print("/me @"+ user +"很抱歉，您只有"+users[n].coin+"DRB，不足以发出"+cn+" DRB的红包")
 } else if amc>cn then {
   drrr.print("/me @"+ user +"很抱歉，小粒无法把"+cn+"枚DRB掰开分给"+amc+"个人")
 } else {
   users[n].coin-=cn
+  let k=users[n].bag.findIndex(x => x=="MG-红包")
+  users[n].bag.splice(k,1)
   pkgi++
   owner=user
   owneri=users[n].uid

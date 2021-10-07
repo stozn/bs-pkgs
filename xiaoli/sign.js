@@ -122,7 +122,7 @@ event [msg, me, dm] (user, cont: "^/签到") => {
   }
 //整点奖励
 event [msg, me, dm] (user, cont: "^/领取奖励") => { 
-  let yb=Math.floor(Math.random() * 3)+1
+  let yb=Math.floor(Math.random() * 5)+5
   let n=checku(user)
   if (n ==(-1)) then {
   drrr.print("/me @"+user+" 您的tc与已有的用户不匹配")

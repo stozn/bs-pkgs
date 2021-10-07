@@ -17,8 +17,8 @@
   w=weekday[D]
 
   //报时设定
-  td= ["/me 整点报时：现在是日间【"+checkTime(h)+":"+checkTime(m) +"】"]
-  tn= ["/me 整点报时：现在是夜间【"+checkTime(h)+":"+checkTime(m) +"】"]
+  td= ["/me 整点报时：现在是日间【"+checkTime(h)+":"+checkTime(m) +"】，可以领取整点奖励啦"]
+  tn= ["/me 整点报时：现在是夜间【"+checkTime(h)+":"+checkTime(m) +"】，可以领取整点奖励啦"]
   tc= ["/me 整点报时：现在是【"+checkTime(h)+":"+checkTime(m) +"】抽签请往里走，如果抽到【凶】只要系在绑签绳上就可以逢凶化吉了哦【可以重新抽签】"]
  
   //喝水提醒器

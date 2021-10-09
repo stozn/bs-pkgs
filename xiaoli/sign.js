@@ -1,14 +1,17 @@
 //用户数据
-let users=[{ uid: 1,name: "管理员",tc: "YtIMnsXOBE",coin: 10000000,check: true,day: 0,bag: []}]
+let users=[{ uid: 1,name: "管理员",tc: "YtIMnsXOBE",coin: 10000000,check: true,day: 0,bag: ["MG-精灵球","MG-精灵球","MG-精灵球","MG-精灵球"],pet: []}]
 let duid
 //挂机数据
 let hangs=[]
 //转账数据
 let trans=[]
 //商店
-let goods=[{name: "MG-红包",price: 1}]
+let goods=[{name: "MG-红包",price: 1},{name: "MG-精灵球",price: 50}]
 //奖励数据
 let au=[]
+//宠物数据
+let apet=[]
+let pets=[{name: "猫",level: 1,exp: 0}]
 //红包数据
 let pkgi=0
 let owner
@@ -348,6 +351,85 @@ event [msg, me, dm] (user, cont: "^/下架\\s+\\S", url, tc) => {
     drrr.print("/me 【"+good+"】 下架了")
     }else {
     drrr.print("/me 还没有这个商品哦")
+    }
+  }
+}
+//宠物系统
+timer 5*60*1000{
+if Math.random()<0.15 then {
+  let i=Math.floor(Math.random() * pets.length)
+  let m=pets[i].name
+  let a=Math.random()*20+5
+  apet.push(pets[i])
+  drrr.print("/me 发现一只【"+m+"】，快来捕捉吧")
+  later a*60*1000 {
+    let n=apet.findIndex(x => x.name==m)
+    if n>=0 then {
+      apet.splice(n,1)
+      drrr.print("/me 【"+m+"】逃走了")
+    }
+  }
+  }
+}
+event [msg, me, dm] (user, cont: "^/观察") => {
+  if apet.length==0 then {
+    drrr.print("/me 现在没有宠物出没")
+  }else{
+  let p=apet.reduce((a,x,y) => {
+    a=a+"\n"+(y+1)+".【"+x.name+"】\tLv."+x.level+"\tExp."+x.exp
+    return a
+  }," 现在出没的宠物有:")
+  drrr.print(p)
+  }
+}
+event [msg, me, dm] (user, cont: "^/宠物") => {
+  let n=checku(user)
+  if (n == (-1)) then drrr.print("/me @"+user+"您的tc与已有的用户不匹配")
+  else {
+    
+  let p=users[n].pet.reduce((a,x,y) => {
+    a=a+"\n"+(y+1)+".【"+x.name+"】\tLv."+x.level+"\tExp."+x.exp
+    return a
+  }," 您的宠物有:")
+  drrr.dm(user,"@"+users[n].name+p)
+  }
+}
+event [msg, me, dm] (user, cont: "^/捕捉") => {
+  let n=checku(user)
+  if (n ==(-1)) then {
+  drrr.print("/me @"+user+" 您的tc与已有的用户不匹配")
+} else if apet.length==0 then { 
+  drrr.print("/me @"+user+" 现在还没有宠物出没哦")
+} else if !users[n].bag.some(x => x=="MG-精灵球") then {
+  drrr.print("/me @"+ user +"很抱歉，您的背包中没有精灵球，请前往商店购买")
+} else {
+  let p=users[n].bag.findIndex(x => x=="MG-精灵球")
+  users[n].bag.splice(p,1)
+  drrr.print("/me @"+user+" 正在努力捕捉中...")
+  later 5000 {
+  let i=Math.floor(Math.random() * apet.length)
+  let k=Math.random()<0.2  //成功概率 0.2
+
+  if !k || (apet.length-1)<i then {
+  drrr.print("/me @"+user+" 哎呀，失手了")
+  }else { 
+    let m=apet[i].name
+    users[n].pet.push(apet[i])
+    apet.splice(i,1)
+    drrr.print("/me @"+user+" 成功捕获一只【"+m+"】")
+   }
+  }
+ }
+}
+event [msg, me, dm] (user, cont: "^/创造\\s+\\S", url, tc) => { 
+  if admins.some(a => a==tc) then {
+    let anm=onekey("/创造",cont)
+    let i=pets.findIndex(g => g.name==anm)
+    if i>=0 then {
+    drrr.print("/me 【"+anm+"】 已经存在了")
+    }else {
+    pets.push({name: anm,level: 1,exp: 0})
+    drrr.print("/me 【"+anm+"】 诞生啦！")
     }
   }
 }

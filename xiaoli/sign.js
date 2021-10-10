@@ -6,7 +6,7 @@ let hangs=[]
 //转账数据
 let trans=[]
 //商店
-let goods=[{name: "MG-红包",price: 1},{name: "MG-精灵球",price: 50}]
+let goods=[{name: "MG-红包",price: 1},{name: "MG-精灵球",price: 50},{name: "MG-宠物干粮",price: 10}]
 //奖励数据
 let au=[]
 //宠物数据
@@ -355,6 +355,17 @@ event [msg, me, dm] (user, cont: "^/下架\\s+\\S", url, tc) => {
   }
 }
 //宠物系统
+//经验升级设置
+checke = (e) =>{
+    let s=[0,5,15,50,100,200,500]  //设置等级分界点
+       if e <s[1] then { return [1,s[1]-e] }  //1级 1-4
+  else if e <s[2] then { return [2,s[2]-e]}  //2级 5-14
+  else if e <s[3] then { return [3,s[3]-e] }  //3级 15-49
+  else if e <s[4] then { return [4,s[4]-e] }  //4级 50-99
+  else if e <s[5] then { return [5,s[5]-e] }  //5级 100-199
+  else if e <s[6] then { return [6,s[6]-e] }  //6级 200-499
+  else                 { return [7,0] }       //7级 500-∞
+}
 timer 5*60*1000{
 if Math.random()<0.15 then {
   let i=Math.floor(Math.random() * pets.length)
@@ -421,6 +432,32 @@ event [msg, me, dm] (user, cont: "^/捕捉") => {
   }
  }
 }
+event [me,msg] (user, cont:"^/投喂\\s+\\d")  => {
+  let p=parseInt(cont.replace("/投喂", "").trim())-1
+  let n=checku(user)
+  if (n == (-1)) then {
+  drrr.print("/me @"+user+" 您的tc与已有的用户不匹配")
+} else if !users[n].bag.some(x => x=="MG-宠物干粮") then {
+  drrr.print("/me @"+ user +"很抱歉，您的背包中没有宠物干粮，请前往商店购买")
+} else if p>(users[n].pet.length+1) then {
+  drrr.print("/me @"+user+" 输入的序号不存在")
+} else {
+  let q=users[n].bag.findIndex(x => x=="MG-精灵球")
+  users[n].bag.splice(q,1)
+  let name=users[n].pet[p].name
+  users[n].pet[p].exp++
+  let lv=checke(users[n].pet[p].exp)[0]
+  let dt=checke(users[n].pet[p].exp)[1]
+  if users[n].pet[p].level==7 then {
+    drrr.print("/me @"+ user +" 您已投喂了【"+name+"】一份宠物干粮，【"+name+"】获得1经验值，已经达到最高等级Lv.7")
+  }else if lv==users[n].pet[p].level then {
+    drrr.print("/me @"+ user +" 您已投喂了【"+name+"】一份宠物干粮，【"+name+"】获得1经验值，目前 Lv."+lv+" ,距离下一级还差"+dt+"经验值")
+  }else {
+    users[n].pet[p].level=lv
+    drrr.print("/me @"+ user +" 您已投喂了【"+name+"】一份宠物干粮，【"+name+"】获得1经验值，恭喜升到 Lv."+lv+" ,距离下一级级还差"+dt+"经验值")
+  }
+  }
+} 
 event [msg, me, dm] (user, cont: "^/创造\\s+\\S", url, tc) => { 
   if admins.some(a => a==tc) then {
     let anm=onekey("/创造",cont)

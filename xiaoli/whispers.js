@@ -8,8 +8,8 @@ const u=cont.replace("/悄悄话", "").trim().slice(0,cont.replace("/悄悄话",
 const m=cont.replace("/悄悄话", "").trim().slice(cont.replace("/悄悄话", "").trim().search("\\s"))
 if(u.slice(0,1)=="@") then {u=u.slice(1);}
 later 2000 drrr.dm(user,"收到！你发送给了："+u+"，内容是："+m)
-while(i<drrr.users.length && a){
-  if(drrr.users[i].name == u) then {
+while(i<info.room.users.length && a){
+  if(info.room.users[i].name == u) then {
     a=false;
     drrr.dm(u,"有人让我悄悄跟你说："+m);
     }

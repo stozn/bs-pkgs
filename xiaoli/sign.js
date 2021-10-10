@@ -458,6 +458,28 @@ event [me,msg] (user, cont:"^/投喂\\s+\\d")  => {
   }
   }
 } 
+event [me,msg] (user, cont:"^/放生\\s+\\d")  => {
+  let p=parseInt(cont.replace("/放生", "").trim())-1
+  let n=checku(user)
+  if (n == (-1)) then {
+  drrr.print("/me @"+user+" 您的tc与已有的用户不匹配")
+} else if p>(users[n].pet.length+1) then {
+  drrr.print("/me @"+user+" 输入的序号不存在")
+} else {
+  let a=Math.random()*20+5 //暂留时间5-25
+  let pet=users[n].pet[p]
+  users[n].pet.splice(p,1)
+  apet.push(pet)
+  drrr.print("/me @"+user+" 您已成功放生【"+pet.name+"】，它将在一段时间后离开")
+  later a*60*1000 {
+    let i=apet.findIndex(x => x.name==pet.name && x.exp==pet.exp)
+    if i>=0 then {
+      apet.splice(n,1)
+      drrr.print("/me 【"+pet.name+"】逃走了")
+   }
+  }
+ }
+}
 event [msg, me, dm] (user, cont: "^/创造\\s+\\S", url, tc) => { 
   if admins.some(a => a==tc) then {
     let anm=onekey("/创造",cont)

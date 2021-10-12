@@ -112,7 +112,7 @@ event [msg, me, dm] (user, cont: "^/签到") => {
   let yb=14
   let n=checku(user)
   if (n ==(-1)) then {
-  drrr.print("/me @"+user+"您的tc与已有的用户不匹配")
+  drrr.print("/me @"+user+" 您的tc与已有的用户不匹配")
   } else if users[n].check then {
   users[n].day++
   users[n].check=false
@@ -152,18 +152,18 @@ event [msg, me, dm] (user, cont: "^/转账\\s+\\S+\\s+\\d") => {
   let n=checku(user)
   let m=users.findIndex(x=>x.name==tou)
   if (n ==(-1)) then {
-  drrr.print("/me @"+user+"您的tc与已有的用户不匹配")
+  drrr.print("/me @"+user+" 您的tc与已有的用户不匹配")
 } else if (m ==(-1)) then {
-  drrr.dm(user,"@"+user+"您转账的用户【"+tou+"】不存在"+m)
+  drrr.dm(user,"@"+user+" 您转账的用户【"+tou+"】不存在"+m)
 } else if users[n].coin < (cn+1) then {
-  drrr.dm(user,"@"+ user +"很抱歉，您只有"+users[n].coin+"DRB，不足以转账"+cn+" DRB 并缴纳 1 DRB手续费")
+  drrr.dm(user,"@"+ user +" 很抱歉，您只有"+users[n].coin+"DRB，不足以转账"+cn+" DRB 并缴纳 1 DRB手续费")
 } else if cn<11 then {
-  drrr.dm(user,"@"+ user +"很抱歉，转账最低额度为 10 DRB 并收取 1 DRB手续费")
+  drrr.dm(user,"@"+ user +" 很抱歉，转账最低额度为 10 DRB 并收取 1 DRB手续费")
 }else {
   let sid=user
   let rid=users[m].name
   trans.push({send: sid,recv: rid,coin: cn})
-  drrr.dm(user,"@"+user+"您将要转账给【"+tou+"】"+cn+" DRB,将收取 1 DRB手续费确认操作请回复 /1")
+  drrr.dm(user,"@"+user+" 您将要转账给【"+tou+"】"+cn+" DRB,将收取 1 DRB手续费确认操作请回复 /1")
   let a=trans.findIndex(x=> x.send==sid)
   }
 }
@@ -184,7 +184,7 @@ event [msg, me, dm] (user, cont: "^/1") => {
 event [msg, me, dm] (user, cont: "^/个人") => {
   let n=checku(user)
   if n>=0 then
-  drrr.dm(user,"用户名："+users[n].name+" ,资产："+users[n].coin+" DRB ,连续签到："+users[n].day+"天")
+  drrr.dm(user,"用户名："+users[n].name+" ,tc："+users[n].tc+" ,资产："+users[n].coin+" DRB ,连续签到："+users[n].day+"天")
   }
 
 //查看红包情况
@@ -202,20 +202,20 @@ event [msg, me, dm] (user, cont: "^/红包") => {
 }
 //发红包
 event [msg, me, dm] (user, cont: "^/发红包\\s+\\d+\\s+\\d") => {
- if pkgs.length>0 then drrr.print("/me @"+user+"现在已经有一个正在被领取的红包，"+
+ if pkgs.length>0 then drrr.print("/me @"+user+" 现在已经有一个正在被领取的红包，"+
                                   "请等该红包被领取完或者超时清空后再发出新红包 ")
   else {
   let amc=parseInt(twokey("/发红包",cont)[0])
   let cn=parseInt(twokey("/发红包",cont)[1])
   let n=checku(user)
   if (n ==(-1)) then {
-  drrr.print("/me @"+user+"您的tc与已有的用户不匹配")
+  drrr.print("/me @"+user+" 您的tc与已有的用户不匹配")
 } else if !users[n].bag.some(x => x=="MG-红包") then {
-  drrr.print("/me @"+ user +"很抱歉，您的背包中没有红包，请前往商店购买")
+  drrr.print("/me @"+ user +" 很抱歉，您的背包中没有红包，请前往商店购买")
 } else if users[n].coin < cn then {
-  drrr.print("/me @"+ user +"很抱歉，您只有"+users[n].coin+"DRB，不足以发出"+cn+" DRB的红包")
+  drrr.print("/me @"+ user +" 很抱歉，您只有"+users[n].coin+"DRB，不足以发出"+cn+" DRB的红包")
 } else if amc>cn then {
-  drrr.print("/me @"+ user +"很抱歉，小粒无法把"+cn+"枚DRB掰开分给"+amc+"个人")
+  drrr.print("/me @"+ user +" 很抱歉，小粒无法把"+cn+"枚DRB掰开分给"+amc+"个人")
 } else {
   users[n].coin-=cn
   let k=users[n].bag.findIndex(x => x=="MG-红包")
@@ -255,15 +255,15 @@ event [msg, me, dm] (user, cont: "^/发红包\\s+\\d+\\s+\\d") => {
 event [msg, me, dm] (user, cont: "^/抢") => {
   let n=checku(user)
   if (n ==(-1)) then {
-  drrr.print("/me @"+user+"您的tc与已有的用户不匹配")
+  drrr.print("/me @"+user+" 您的tc与已有的用户不匹配")
 } else if pkgs.length==0 then {
   if gains.length==am then
-  drrr.print("/me @"+ user +"您来晚了，红包已经被抢光了")
-  else drrr.print("/me @"+ user +"您来晚了，红包已经超时了")
+  drrr.print("/me @"+ user +" 您来晚了，红包已经被抢光了")
+  else drrr.print("/me @"+ user +" 您来晚了，红包已经超时了")
 } else{
   let id=users[n].uid
   if gaini.some(a => a==id)  then {
-  drrr.print("/me @"+ user +"您已经抢过这个红包了")
+  drrr.print("/me @"+ user +" 您已经抢过这个红包了")
   }else{
     let gain=pkgs.shift()
     gaini.push(id)
@@ -271,9 +271,9 @@ event [msg, me, dm] (user, cont: "^/抢") => {
     gains.push(gain)
     users[n].coin+=gain
     if pkgs.length>0 then
-    drrr.print("/me @"+ user +"领取了【"+owner+"的红包】，获得"+gain+" DRB   剩余红包【"+pkgs.length+"/"+am+"】")
+    drrr.print("/me @"+ user +" 领取了【"+owner+"的红包】，获得"+gain+" DRB   剩余红包【"+pkgs.length+"/"+am+"】")
     else {
-      drrr.print("/me @"+ user +"领取了【"+owner+"的红包】，获得"+gain+" DRB   红包被抢光啦，现在可以发出新红包了")
+      drrr.print("/me @"+ user +" 领取了【"+owner+"的红包】，获得"+gain+" DRB   红包被抢光啦，现在可以发出新红包了")
       drrr.print(showp())
     }
    } 
@@ -283,8 +283,8 @@ event [msg, me, dm] (user, cont: "^/抢") => {
 //背包
 event [msg, me, dm] (user, cont: "^/背包") => {
   let n=checku(user)
-  if (n == (-1)) then drrr.print("/me @"+user+"您的tc与已有的用户不匹配")
-  else drrr.dm(user,"@"+users[n].name+"您的背包有【"+users[n].bag.join("】【")+"】")
+  if (n == (-1)) then drrr.print("/me @"+user+" 您的tc与已有的用户不匹配")
+  else drrr.dm(user,"@"+users[n].name+" 您的背包有【"+users[n].bag.join("】【")+"】")
   }
 //商店
 event [msg, me, dm] (user, cont: "^/商店") => {
@@ -295,18 +295,18 @@ event [me,msg] (user, cont:"^/买\\s+\\d")  => {
   let g=parseInt(cont.replace("/买", "").trim())
   let n=checku(user)
   if (n == (-1)) then {
-  drrr.print("/me @"+user+"您的tc与已有的用户不匹配")
+  drrr.print("/me @"+user+" 您的tc与已有的用户不匹配")
 } else if g>goods.length then {
-  drrr.print("/me @"+user+"输入的序号不存在")
+  drrr.print("/me @"+user+" 输入的序号不存在")
 }else {
   let good=goods[g-1].name
   let p=goods[g-1].price
   if (users[n].coin < p) then {
-  drrr.print("/me @"+ user +"很抱歉，【"+good+"】需要花费 "+p+" DRB，您只有"+users[n].coin+"DRB")
+  drrr.print("/me @"+ user +" 很抱歉，【"+good+"】需要花费 "+p+" DRB，您只有"+users[n].coin+"DRB")
 } else {
   users[n].coin-=p
   users[n].bag.push(good)
-  drrr.print("/me @"+ user +"您已成功购买【"+good+"】，花费了"+p+" DRB，现在您有"+users[n].coin+"DRB")
+  drrr.print("/me @"+ user +" 您已成功购买【"+good+"】，花费了"+p+" DRB，现在您有"+users[n].coin+"DRB")
   }
  } 
 }
@@ -318,15 +318,15 @@ event [msg, me, dm] (user, cont: "^/赠送\\s+\\S+\\s+\\S") => {
   let m=users.findIndex(x=>x.name==tou)
   let l=users[n].bag.findIndex(x=>x==gd)
   if (n ==(-1)) then {
-  drrr.print("/me @"+user+"您的tc与已有的用户不匹配")
+  drrr.print("/me @"+user+" 您的tc与已有的用户不匹配")
 } else if (m ==(-1)) then {
-  drrr.dm(user,"@"+user+"您赠送的用户【"+tou+"】不存在")
+  drrr.dm(user,"@"+user+" 您赠送的用户【"+tou+"】不存在")
 } else if (l ==(-1)) then {
-  drrr.dm(user,"@"+ user +"很抱歉，您的背包没有【"+gd+"】")
+  drrr.dm(user,"@"+ user +" 很抱歉，您的背包没有【"+gd+"】")
 } else {
   users[n].bag.splice(l,1)
   users[m].bag.push(gd)
-  drrr.dm(user,"@"+ user +"您已成功将【"+gd+"】赠送给"+tou)
+  drrr.dm(user,"@"+ user +" 您已成功将【"+gd+"】赠送给"+tou)
  }
 }
 event [msg, me, dm] (user, cont: "^/上架\\s+\\S+\\s+\\d", url, tc) => { 
@@ -412,7 +412,7 @@ event [msg, me, dm] (user, cont: "^/捕捉") => {
 } else if apet.length==0 then { 
   drrr.print("/me @"+user+" 现在还没有宠物出没哦")
 } else if !users[n].bag.some(x => x=="MG-精灵球") then {
-  drrr.print("/me @"+ user +"很抱歉，您的背包中没有精灵球，请前往商店购买")
+  drrr.print("/me @"+ user +" 很抱歉，您的背包中没有精灵球，请前往商店购买")
 } else {
   let p=users[n].bag.findIndex(x => x=="MG-精灵球")
   users[n].bag.splice(p,1)
@@ -438,7 +438,7 @@ event [me,msg] (user, cont:"^/投喂\\s+\\d")  => {
   if (n == (-1)) then {
   drrr.print("/me @"+user+" 您的tc与已有的用户不匹配")
 } else if !users[n].bag.some(x => x=="MG-宠物干粮") then {
-  drrr.print("/me @"+ user +"很抱歉，您的背包中没有宠物干粮，请前往商店购买")
+  drrr.print("/me @"+ user +" 很抱歉，您的背包中没有宠物干粮，请前往商店购买")
 } else if p>(users[n].pet.length+1) then {
   drrr.print("/me @"+user+" 输入的序号不存在")
 } else {
@@ -457,6 +457,29 @@ event [me,msg] (user, cont:"^/投喂\\s+\\d")  => {
     drrr.print("/me @"+ user +" 您已投喂了【"+name+"】一份宠物干粮，【"+name+"】获得1经验值，恭喜升到 Lv."+lv+" ,距离下一级级还差"+dt+"经验值")
   }
   }
+}
+event [me,msg] (user, cont:"^/更改宠物名\\s+\\d+\\s+\\S")  => {
+  let p=parseInt(twokey("/更改宠物名",cont)[0])-1
+  let nm=twokey("/更改宠物名",cont)[1]
+  let n=checku(user)
+  if (n == (-1)) then {
+  drrr.print("/me @"+user+" 您的tc与已有的用户不匹配")
+} else if p>(users[n].pet.length+1) then {
+  drrr.print("/me @"+user+" 输入的序号不存在")
+} else if users[n].pet[p].level<3 then {
+  drrr.print("/me @"+user+" 您的宠物【"+users[n].pet[p].name+"】未达到Lv.3或以上，暂无法更名")
+} else if nm.search("-")>=0 then {
+  drrr.print("/me @"+user+" 新名字中不能包含“-”字符")
+} else {
+  let onm=users[n].pet[p].name
+  let m=onm.slice(onm.search("-")+1)
+  users[n].pet[p].name=nm+"-"+m
+  if onm==m then {
+  drrr.print("/me @"+user+" 您已成功将宠物【"+onm+"】名字更改为【"+users[n].pet[p].name+"】")
+  }else {
+  drrr.print("/me @"+user+" 您已成功将宠物【"+onm+"】名字更改为【"+users[n].pet[p].name+"】")
+  }
+   }
 } 
 event [me,msg] (user, cont:"^/放生\\s+\\d")  => {
   let p=parseInt(cont.replace("/放生", "").trim())-1

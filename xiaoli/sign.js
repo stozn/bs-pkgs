@@ -382,6 +382,13 @@ if Math.random()<0.15 then {
   }
   }
 }
+event [msg, me, dm] (user, cont: "^/全部宠物") => {
+  let p=pets.reduce((a,x,y) => {
+    a=a+"\n"+(y+1)+".【"+x.name+"】\tLv."+x.level+"\tExp."+x.exp
+    return a
+  }," 全部宠物有:")
+  drrr.print(p)
+}
 event [msg, me, dm] (user, cont: "^/观察") => {
   if apet.length==0 then {
     drrr.print("/me 现在没有宠物出没")

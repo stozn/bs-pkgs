@@ -37,3 +37,4 @@ event [msg, me, dm] (user, cont: "^/删除通知\\s+\\d", url, tc) => {
    drrr.dm(user,"成功删除："+m)
   }
   }
+}

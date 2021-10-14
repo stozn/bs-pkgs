@@ -418,6 +418,8 @@ event [msg, me, dm] (user, cont: "^/捕捉") => {
   drrr.print("/me @"+user+" 您的tc与已有的用户不匹配")
 } else if apet.length==0 then { 
   drrr.print("/me @"+user+" 现在还没有宠物出没哦")
+} else if users[n].bag.length==5 then {
+  drrr.print("/me @"+ user +" 很抱歉，您已拥有5只宠物，已达容量上限，可放生宠物继续捕捉")
 } else if !users[n].bag.some(x => x=="MG-精灵球") then {
   drrr.print("/me @"+ user +" 很抱歉，您的背包中没有精灵球，请前往商店购买")
 } else {

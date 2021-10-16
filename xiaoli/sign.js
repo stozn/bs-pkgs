@@ -6,12 +6,13 @@ let hangs=[]
 //转账数据
 let trans=[]
 //商店
-let goods=[{name: "MG-红包",price: 1},{name: "MG-精灵球",price: 50},{name: "MG-宠物干粮",price: 10}]
+let goods=[{name: "MG-红包",price: 1},{name: "MG-精灵球",price: 10},{name: "MG-宠物干粮",price: 3},{name: "鲜榨果汁",price: 2},{name: "可乐",price: 4}]
+let market=[]
 //奖励数据
 let au=[]
 //宠物数据
 let apet=[]
-let pets=[{name: "猫",level: 1,exp: 0}]
+let pets=[{name: "白泽",level: 7,exp: 500},{name: "钟山神",level: 4,exp: 50},{name: "九尾狐",level: 2,exp: 5},{name: "饕餮",level: 1,exp: 0},{name: "麒麟",level: 3,exp: 15},{name: "白矖",level: 6,exp: 200}]
 //红包数据
 let pkgi=0
 let owner
@@ -411,10 +412,10 @@ checke = (e) =>{
   else                 { return [7,0] }       //7级 500-∞
 }
 timer 5*60*1000{
-if Math.random()<0.15 then {
+if Math.random()<0.35 then {
   let i=Math.floor(Math.random() * pets.length)
   let m=pets[i].name
-  let a=Math.random()*20+5
+  let a=Math.random()*40+5
   apet.push(pets[i])
   drrr.print("/me 发现一只【"+m+"】，快来捕捉吧")
   later a*60*1000 {
@@ -472,7 +473,7 @@ event [msg, me, dm] (user, cont: "^/捕捉") => {
   drrr.print("/me @"+user+" 正在努力捕捉中...")
   later 5000 {
   let i=Math.floor(Math.random() * apet.length)
-  let k=Math.random()<0.2  //成功概率 0.2
+  let k=Math.random()<0.5  //成功概率 0.5
 
   if !k || (apet.length-1)<i then {
   drrr.print("/me @"+user+" 哎呀，失手了")

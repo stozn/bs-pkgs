@@ -41,6 +41,10 @@ timer 15*60*1000{
   const m=mydate.getMinutes() 
   if m>2 then au=[]
 }
+//随机整数
+rand = (a,b) =>{
+  return Math.floor(Math.random() * Math.floor(b-a+1))+a
+}
 //创建新用户
 newu = (user,tc) =>{
   users.push({ uid: ++duid,name: user,tc: tc,coin: 0,check: true,day: 0,bag: [],pet: []})
@@ -231,11 +235,16 @@ event [msg, me, dm] (user, cont: "^/发红包\\s+\\d+\\s+\\d") => {
   pkgs.fill(1)
   let cns=cn-am
   let pi=pkgi
-  while cns>0  {
-   let j=Math.floor(Math.random() * pkgs.length)
-   pkgs[j]=pkgs[j]+1
-   cns--
+  let w=0
+  while w<(amc-1)  {
+   let j=rand(1,2*cns/(amc-w))
+   pkgs[w]=pkgs[w]+j
+   cns-=j
+   w++
   } 
+  pkgs[w]=pkgs[w]+cns
+  print(pkgs)
+  print(bck=pkgs.reduce((a,x)=>a+=x))
   drrr.print("/me 【"+owner+"的红包】快来领取吧！个数：【"+am+"】")
   later 10*60*1000 {
     if (pkgs.length>0 && pkgi==pi)then {

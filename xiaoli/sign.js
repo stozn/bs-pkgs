@@ -491,7 +491,7 @@ event [me,msg] (user, cont:"^/投喂\\s+\\d")  => {
   drrr.print("/me @"+user+" 您的tc与已有的用户不匹配")
 } else if !users[n].bag.some(x => x=="MG-宠物干粮") then {
   drrr.print("/me @"+ user +" 很抱歉，您的背包中没有宠物干粮，请前往商店购买")
-} else if p>(users[n].pet.length+1) then {
+} else if p>users[n].pet.length then {
   drrr.print("/me @"+user+" 输入的序号不存在")
 } else {
   let q=users[n].bag.findIndex(x => x=="MG-精灵球")

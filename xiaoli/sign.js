@@ -244,8 +244,6 @@ event [msg, me, dm] (user, cont: "^/发红包\\s+\\d+\\s+\\d") => {
    w++
   } 
   pkgs[w]=pkgs[w]+cns
-  print(pkgs)
-  print(bck=pkgs.reduce((a,x)=>a+=x))
   drrr.print("/me 【"+owner+"的红包】快来领取吧！个数：【"+am+"】")
   later 10*60*1000 {
     if (pkgs.length>0 && pkgi==pi)then {

@@ -1,8 +1,6 @@
 //用户数据
 let users=[{ uid: 1,name: "管理员",tc: "YtIMnsXOBE",coin: 10000000,check: true,day: 0,bag: ["MG-精灵球","MG-精灵球","MG-精灵球","MG-精灵球"],pet: []}]
 let duid
-//挂机数据
-let hangs=[]
 //转账数据
 let trans=[]
 //商店
@@ -128,6 +126,15 @@ event [msg, me, dm] (user, cont: "^/签到") => {
   } else { drrr.print( "/me @"+ user +" 今天已经签过到了，明天记得继续来签到哦")
 }
   }
+//全服奖励
+event [msg, me, dm] (user, cont: "^/全服奖励\\s+\\S+\\s+\\d", url, tc) => { 
+  if admins.some(a => a==tc) then {
+    let nm=twokey("/全服奖励",cont)[0]
+    let cn=parseInt(twokey("/全服奖励",cont)[1])
+    for  x of users { x.coin+=cn }
+    drrr.print("/me *全服奖励* 【"+nm+"】已发放，金额"+cn+" DRB")
+  }
+}
 //整点奖励
 event [msg, me, dm] (user, cont: "^/领取奖励") => { 
   let yb=Math.floor(Math.random() * 5)+5

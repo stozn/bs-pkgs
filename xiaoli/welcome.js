@@ -1,6 +1,28 @@
 const admins=["OG0OPFxOFw","Ancy.WWeeo","Robot/23Cc","unica/qOLU","YtIMnsXOBE"]   //设置管理员
 let notices=[]
+let msgs=[]
 
+event [msg, me, dm] (user, cont: "^/留言\\s+\\S", url, tc) => { 
+    let msg=cont.replace("/留言", "").trim()     
+    msgs.push(msg)
+    drrr.dm(user,"成功留言："+msg)
+}
+event [msg, me, dm] (user, cont: "^/留言板") => {
+  let msg=msgs.map((x,i) => i+1+". "+x)
+  drrr.print("留言板\n"+msg.join("\n"))
+  }
+event [msg, me, dm] (user, cont: "^/删除留言\\s+\\d", url, tc) => { 
+  if admins.some(a => a==tc) then {
+  let p=parseInt(cont.replace("/删除留言", "").trim())-1
+   if p>(msgs.length+1) then {
+  drrr.dm(user,"输入的序号不存在")
+   } else {
+   let m=msgs[p]
+   msgs.splice(p,1)
+   drrr.dm(user,"成功删除："+m)
+  }
+  }
+}
 event [msg, me, dm] (user, cont: "^/通知\\s+\\S", url, tc) => { 
   if admins.some(a => a==tc) then {
     let nt=cont.replace("/通知", "").trim()     

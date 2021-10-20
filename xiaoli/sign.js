@@ -157,6 +157,40 @@ event [msg, me, dm] (user, cont: "^/领取奖励") => {
   }
  }
 }
+timer 60*1000 {
+   mydate=new Date()
+   const h=mydate.getHours()
+   if h==3 && lottery.length>0 then {
+   let f=Math.floor(Math.random() * lottery.length)
+   let a=Math.floor(lottery.map(x=>x.amount).reduce((a,x)=> a=a+x)*0.5)
+   let n=users.findIndex(x => x.uid==lottery[f].uid)
+   users[n].coin+=a
+   result="恭喜 @"+lottery[f].name+" 中奖，购买金额为"+lottery[f].amount+" DRB，奖金为"+a+"DRB"
+   lottery=[]
+   drrr.print(result)
+  }
+}
+event [msg, me, dm] (user, cont: "^/彩票") => {
+  let lt=lottery.map((x,i) => i+1+". "+x.name+"  "+x.amount+" DRB")
+  drrr.print("今日彩票购买者\n"+lt.join("\n"))
+  print(lottery)
+  }
+event [msg, me, dm] (user, cont: "^/开奖结果") => {
+  drrr.print(result)
+  }
+event [me,msg] (user, cont:"^/买彩票\\s+\\d")  => {
+  let p=parseInt(cont.replace("/买彩票", "").trim())
+  let n=checku(user)
+  if (n == (-1)) then {
+  drrr.print("/me @"+user+" 您的tc与已有的用户不匹配")
+} else if (users[n].coin < p) then {
+  drrr.print("/me @"+ user +" 很抱歉，您没有"+p+" DRB，您只有"+users[n].coin+"DRB")
+} else {
+  users[n].coin-=p
+  lottery.push({name: users[n].name,uid: users[n].uid,amount: p})
+  drrr.print("/me @"+ user +" 您已成功购买金额为"+p+" DRB的【彩票】，现在您有"+users[n].coin+"DRB，请记得在明天前来查看开奖结果")
+  }
+}
 //转账
 event [msg, me, dm] (user, cont: "^/转账\\s+\\S+\\s+\\d") => {
   let tou=twokey("/转账",cont)[0]
@@ -623,8 +657,9 @@ event [msg, me, dm] (user, cont: "^/导出", url, tc) => {
   if admins.some(a => a==tc) then {
   let dt=JSON.stringify(users)
   let data="/导入"+dt
-   print(data)
-   print("删除此行")
+   print(users)
+   print(goods)
+   print(pets)
    drrr.print(data)
    }
 }

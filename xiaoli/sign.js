@@ -6,6 +6,9 @@ let trans=[]
 //商店
 let goods=[{name: "MG-红包",price: 1},{name: "MG-精灵球",price: 10},{name: "MG-宠物干粮",price: 3},{name: "鲜榨果汁",price: 2},{name: "可乐",price: 4}]
 let market=[]
+//彩票数据
+let lottery=[]
+let result="暂无开奖结果"
 //奖励数据
 let au=[]
 //宠物数据

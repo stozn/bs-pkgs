@@ -165,7 +165,8 @@ timer 60*1000 {
    const h=mydate.getHours()
    if h==3 && lottery.length>0 then {
    let f=Math.floor(Math.random() * lottery.length)
-   let a=Math.floor(lottery.map(x=>x.amount).reduce((a,x)=> a=a+x)*0.5)
+   let b=lottery.map(x=>x.amount).reduce((a,x)=> a=a+x)
+   let a=Math.floor(b*0.5*(lottery[f].amount/10+1))
    let n=users.findIndex(x => x.uid==lottery[f].uid)
    users[n].coin+=a
    result="恭喜 @"+lottery[f].name+" 中奖，购买金额为"+lottery[f].amount+" DRB，奖金为"+a+"DRB"
@@ -175,7 +176,9 @@ timer 60*1000 {
 }
 event [msg, me, dm] (user, cont: "^/彩票") => {
   let lt=lottery.map((x,i) => i+1+". "+x.name+"  "+x.amount+" DRB")
-  drrr.print("今日彩票购买者\n"+lt.join("\n"))
+  let b=0
+  if lottery.length>0 then b=lottery.map(x=>x.amount).reduce((a,x)=> a=a+x) 
+  drrr.print("今日彩票 总金额："+b+"DRB\n"+lt.join("\n"))
   print(lottery)
   }
 event [msg, me, dm] (user, cont: "^/开奖结果") => {
@@ -184,10 +187,15 @@ event [msg, me, dm] (user, cont: "^/开奖结果") => {
 event [me,msg] (user, cont:"^/买彩票\\s+\\d")  => {
   let p=parseInt(cont.replace("/买彩票", "").trim())
   let n=checku(user)
+  let id=lottery.findIndex(x=> x.uid==users[n].uid) 
   if (n == (-1)) then {
   drrr.print("/me @"+user+" 您的tc与已有的用户不匹配")
+} else if (id>=0) then {
+  drrr.print("/me @"+ user +" 您今天已经购买过彩票了，金额为"+lottery[id].amount+" DRB")
 } else if (users[n].coin < p) then {
-  drrr.print("/me @"+ user +" 很抱歉，您没有"+p+" DRB，您只有"+users[n].coin+"DRB")
+  drrr.print("/me @"+ user +" 很抱歉，您没有 "+p+" DRB，您只有 "+users[n].coin+"DRB")
+} else if (p<1) then {
+  drrr.print("/me @"+ user +" 买彩票至少花费 1 DRB")
 } else {
   users[n].coin-=p
   lottery.push({name: users[n].name,uid: users[n].uid,amount: p})

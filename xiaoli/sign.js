@@ -1,8 +1,6 @@
 //用户数据
 let users=[{ uid: 1,name: "管理员",tc: "YtIMnsXOBE",coin: 10000000,check: true,day: 0,bag: ["MG-精灵球","MG-精灵球","MG-精灵球","MG-精灵球"],pet: []}]
 let duid
-//转账数据
-let trans=[]
 //商店
 let goods=[{name: "MG-红包",price: 1},{name: "MG-精灵球",price: 10},{name: "MG-宠物干粮",price: 3},{name: "鲜榨果汁",price: 2},{name: "可乐",price: 4}]
 let market=[]
@@ -217,24 +215,9 @@ event [msg, me, dm] (user, cont: "^/转账\\s+\\S+\\s+\\d") => {
 } else if cn<11 then {
   drrr.dm(user,"@"+ user +" 很抱歉，转账最低额度为 10 DRB 并收取 1 DRB手续费")
 }else {
-  let sid=user
-  let rid=users[m].name
-  trans.push({send: sid,recv: rid,coin: cn})
-  drrr.dm(user,"@"+user+" 您将要转账给【"+tou+"】"+cn+" DRB,将收取 1 DRB手续费确认操作请回复 /1")
-  let a=trans.findIndex(x=> x.send==sid)
-  }
-}
-//确认转账
-event [msg, me, dm] (user, cont: "^/1") => {
-  let n=checku(user)
-  let a=trans.findIndex(x=> x.send==user)
-  if a>=0 then { 
-    let m=users.findIndex(x=> x.name==trans[a].recv)
-    let cn=trans[a].coin
-    users[n].coin=users[n].coin-cn-1
-    users[m].coin=users[m].coin+cn
-    trans.splice(a,1)
-    drrr.dm(user,"好的，转帐成功")
+  users[n].coin=users[n].coin-cn-1
+  users[m].coin=users[m].coin+cn
+  drrr.dm(user,"@"+user+" 您已成功转账给【"+tou+"】"+cn+" DRB,收取了 1 DRB手续费")
   }
 }
 //查看个人信息
@@ -461,12 +444,12 @@ checke = (e) =>{
   else if e <s[6] then { return [6,s[6]-e] }  //6级 200-499
   else                 { return [7,0] }       //7级 500-∞
 }
-timer 5*60*1000{
-if Math.random()<0.35 then {
+timer 10*1000{
+if Math.random()<1 then {
   let i=Math.floor(Math.random() * pets.length)
   let m=pets[i].name
   let a=Math.random()*40+5
-  apet.push(pets[i])
+  apet.push({name: pets[i].name,level: pets[i].level,exp: pets[i].exp})
   drrr.print("/me 发现一只【"+m+"】，快来捕捉吧")
   later a*60*1000 {
     let n=apet.findIndex(x => x.name==m)

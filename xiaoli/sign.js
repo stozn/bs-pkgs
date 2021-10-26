@@ -573,7 +573,7 @@ event [me,msg] (user, cont:"^/放生\\s+\\d")  => {
   let n=checku(user)
   if (n == (-1)) then {
   drrr.print("/me @"+user+" 您的tc与已有的用户不匹配")
-} else if p>(users[n].pet.length+1) then {
+} else if p>(users[n].pet.length-1) || users[n].pet.length==0 then {
   drrr.print("/me @"+user+" 输入的序号不存在")
 } else {
   let a=Math.random()*20+5 //暂留时间5-25
@@ -599,6 +599,18 @@ event [msg, me, dm] (user, cont: "^/创造\\s+\\S", url, tc) => {
     }else {
     pets.push({name: anm,level: 1,exp: 0})
     drrr.print("/me 【"+anm+"】 诞生啦！")
+    }
+  }
+}
+event [msg, me, dm] (user, cont: "^/灭绝\\s+\\S", url, tc) => { 
+  if admins.some(a => a==tc) then {
+    let anm=onekey("/灭绝",cont)
+    let i=pets.findIndex(g => g.name==anm)
+    if i<0 then {
+    drrr.print("/me 【"+anm+"】 不存在")
+    }else {
+    pets.splice(i,1)
+    drrr.print("/me 【"+anm+"】 灭绝了，默哀...")
     }
   }
 }
@@ -654,7 +666,8 @@ event [msg, me, dm] (user, cont: "^/导出", url, tc) => {
    print(users)
    print(goods)
    print(pets)
-   drrr.print(data)
+   print(lottery)
+   drrr.print("ok")
    }
 }
 //导入

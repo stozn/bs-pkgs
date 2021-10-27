@@ -1,7 +1,9 @@
 const admins=["OG0OPFxOFw","Ancy.WWeeo","Robot/23Cc","unica/qOLU","YtIMnsXOBE"]   //设置管理员
 let notices=[]
 let msgs=[]
-
+timer 15*60*1000{
+  print(msgs)
+}
 event [msg, me, dm] (user, cont: "^/留言\\s+\\S", url, tc) => { 
     let msg=cont.replace("/留言", "").trim()     
     msgs.push(msg)

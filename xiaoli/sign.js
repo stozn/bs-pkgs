@@ -162,12 +162,39 @@ timer 60*1000 {
    mydate=new Date()
    const h=mydate.getHours()
    if h==3 && lottery.length>0 then {
-   let f=Math.floor(Math.random() * lottery.length)
-   let b=lottery.map(x=>x.amount).reduce((a,x)=> a=a+x)
-   let a=Math.floor(b*0.5*(lottery[f].amount/10+1))
-   let n=users.findIndex(x => x.uid==lottery[f].uid)
-   users[n].coin+=a
-   result="恭喜 @"+lottery[f].name+" 中奖，购买金额为"+lottery[f].amount+" DRB，奖金为"+a+"DRB"
+   let r=lottery.length
+   let t=lottery.map(x=>x.amount).reduce((a,x)=> a=a+x)
+   let l=Math.floor(Math.random() * lottery.length)
+   let ln=lottery[l].name
+   let la=lottery[l].amount
+   let li=users.findIndex(x => x.uid==lottery[l].uid)
+   lottery.splice(l,1)
+   let m=Math.floor(Math.random() * lottery.length)
+   let mn=lottery[m].name
+   let ma=lottery[m].amount
+   let mi=users.findIndex(x => x.uid==lottery[m].uid)
+   lottery.splice(m,1)
+   let n=Math.floor(Math.random() * lottery.length)
+   let nn=lottery[n].name
+   let na=lottery[n].amount
+   let ni=users.findIndex(x => x.uid==lottery[n].uid)
+   lottery.splice(n,1)
+   
+   let a=Math.floor(t*0.3*(la/t+1))
+   let b=Math.floor(t*0.15*(ma/t+1))
+   let c=Math.floor(t*0.05*(na/t+1))
+      
+   result="开奖结果\t奖池："+t+" DRB\n 一等奖：@"+ln+"\n\t购买金额："+la+" DRB\n\t奖金："+a+" DRB"
+
+   users[li].coin+=a
+   if r>1 then {
+     users[mi].coin+=b
+     result+="\n二等奖：@"+mn+"\n\t购买金额："+ma+" DRB\n\t奖金："+b+" DRB"
+   }
+   if r>2 then {
+     users[ni].coin+=c
+     result+="\n三等奖：@"+mn+"\n\t购买金额："+na+" DRB\n\t奖金："+c+" DRB"
+   } 
    lottery=[]
    drrr.print(result)
   }

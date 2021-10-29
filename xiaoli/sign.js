@@ -161,7 +161,8 @@ event [msg, me, dm] (user, cont: "^/领取奖励") => {
 timer 60*1000 {
    mydate=new Date()
    const h=mydate.getHours()
-   if h==3 && lottery.length>0 then {
+   const m=mydate.getMinutes()
+   if h==3 && m==1 && lottery.length>0 then {
    let r=lottery.length
    let t=lottery.map(x=>x.amount).reduce((a,x)=> a=a+x)
    let l=Math.floor(Math.random() * lottery.length)
@@ -204,7 +205,6 @@ event [msg, me, dm] (user, cont: "^/彩票") => {
   let b=0
   if lottery.length>0 then b=lottery.map(x=>x.amount).reduce((a,x)=> a=a+x) 
   drrr.print("今日彩票 总金额："+b+"DRB\n"+lt.join("\n"))
-  print(lottery)
   }
 event [msg, me, dm] (user, cont: "^/开奖结果") => {
   drrr.print(result)
@@ -253,7 +253,11 @@ event [msg, me, dm] (user, cont: "^/个人") => {
   if n>=0 then
   drrr.dm(user,"用户名："+users[n].name+" ,tc："+users[n].tc+" ,资产："+users[n].coin+" DRB ,连续签到："+users[n].day+"天")
   }
-
+event [msg, me, dm] (user, cont: "^/展示个人") => {
+  let n=checku(user)
+  if n>=0 then
+  drrr.print("用户名："+users[n].name+" ,tc："+users[n].tc+" ,资产："+users[n].coin+" DRB ,连续签到："+users[n].day+"天")
+  }
 //查看红包情况
 showp=()=>{
   let res=""
@@ -355,6 +359,11 @@ event [msg, me, dm] (user, cont: "^/背包") => {
   let n=checku(user)
   if (n == (-1)) then drrr.print("/me @"+user+" 您的tc与已有的用户不匹配")
   else drrr.dm(user,"@"+users[n].name+" 您的背包有【"+users[n].bag.join("】【")+"】")
+  }
+event [msg, me, dm] (user, cont: "^/展示背包") => {
+  let n=checku(user)
+  if (n == (-1)) then drrr.print("/me @"+user+" 您的tc与已有的用户不匹配")
+  else drrr.print("@"+users[n].name+" 您的背包有【"+users[n].bag.join("】【")+"】")
   }
 //商店
 event [msg, me, dm] (user, cont: "^/商店") => {
@@ -509,12 +518,22 @@ event [msg, me, dm] (user, cont: "^/宠物") => {
   let n=checku(user)
   if (n == (-1)) then drrr.print("/me @"+user+"您的tc与已有的用户不匹配")
   else {
-    
   let p=users[n].pet.reduce((a,x,y) => {
     a=a+"\n"+(y+1)+".【"+x.name+"】\tLv."+x.level+"\tExp."+x.exp
     return a
   }," 您的宠物有:")
   drrr.dm(user,"@"+users[n].name+p)
+  }
+}
+event [msg, me, dm] (user, cont: "^/展示宠物") => {
+  let n=checku(user)
+  if (n == (-1)) then drrr.print("/me @"+user+"您的tc与已有的用户不匹配")
+  else {
+  let p=users[n].pet.reduce((a,x,y) => {
+    a=a+"\n"+(y+1)+".【"+x.name+"】\tLv."+x.level+"\tExp."+x.exp
+    return a
+  }," 您的宠物有:")
+  drrr.print("@"+users[n].name+p)
   }
 }
 event [msg, me, dm] (user, cont: "^/捕捉") => {
@@ -534,7 +553,6 @@ event [msg, me, dm] (user, cont: "^/捕捉") => {
   later 5000 {
   let i=Math.floor(Math.random() * apet.length)
   let k=Math.random()<0.5  //成功概率 0.5
-
   if !k || (apet.length-1)<i then {
   drrr.print("/me @"+users[n].name+" 哎呀，失手了")
   }else { 
@@ -641,37 +659,7 @@ event [msg, me, dm] (user, cont: "^/灭绝\\s+\\S", url, tc) => {
     }
   }
 }
-//添加
-event [msg, me, dm] (user, cont: "^/添加\\s+\\S+\\s+\\S+\\s+\\d", url, tc) => {
-  if admins.some(a => a==tc) then {
-  let name=threekey("/添加",cont)[0]
-  let tc=threekey("/添加",cont)[1]
-  let coin=parseInt(threekey("/添加",cont)[2])
-  users.push({ uid: ++duid,name: name,tc: tc,coin: coin,check: true,day: 0,bag:[],pet: []})
-    let r = []
-    let d = []
-    let l = users.length
-    for  i = 0; i < l; i++  {
-     for  j = i + 1; j < l; j++ {
-      if (users[i].name === users[j].name) then {
-        j = i+1
-        d.push(users[i])
-        i++
-      } 
-    }  
-    r.push(users[i])
-  }
-  if (r.length==users.length) then{
-    drrr.dm(user,"●添加数据成功")
-  }else {
-    users=r
-    let de=d.reduce((a,x,y) => a=a+"\n"+(y+1)+"."+x.name+"\t"+x.coin+"DRB","")
-    drrr.dm(user,"●更新数据成功，已删除旧数据:")
-    later 500 drrr.dm(user,de)
-  }         
- later 1000 drrr.dm(user,sort("coin"))
- }
-}
+
 //删除
 event [msg, me, dm] (user, cont: "^/删除\\s+\\S", url, tc) => { 
   if admins.some(a => a==tc) then {
@@ -688,8 +676,6 @@ event [msg, me, dm] (user, cont: "^/删除\\s+\\S", url, tc) => {
 //导出
 event [msg, me, dm] (user, cont: "^/导出", url, tc) => { 
   if admins.some(a => a==tc) then {
-  let dt=JSON.stringify(users)
-  let data="/导入"+dt
    print(users)
    print(goods)
    print(pets)

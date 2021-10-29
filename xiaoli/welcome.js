@@ -41,6 +41,11 @@ event [msg, me, dm] (user, cont: "^/通知$", url, tc) => {
    drrr.dm(user,dt)
    }
 }
+event [msg, me, dm] (user, cont: "^/导出", url, tc) => { 
+  if admins.some(a => a==tc) then {
+   print(msgs)
+   }
+}
 event join (user) => {
  let ns =["|进来了就是美少女","|今天也请多多喝水","|你也来喝水啦w"]
  let n = ns[Math.floor(Math.random() * ns.length)]

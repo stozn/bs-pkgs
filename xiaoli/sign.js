@@ -47,7 +47,9 @@ rand = (a,b) =>{
 }
 //创建新用户
 newu = (user,tc) =>{
-  users.push({ uid: ++duid,name: user,tc: tc,coin: 0,check: true,day: 0,bag: [],pet: []})
+  users.sort((a,b) => a.uid - b.uid)
+  duid=users[users.length-1].uid+1
+  users.push({ uid: duid,name: user,tc: tc,coin: 0,check: true,day: 0,bag: [],pet: []})
 }
 //校验用户 返回用户编号，若返回-1，则用户tc不匹配
 checku = (user) =>{

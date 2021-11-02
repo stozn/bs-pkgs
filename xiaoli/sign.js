@@ -1,6 +1,5 @@
 //用户数据
 let users=[{ uid: 1,name: "管理员",tc: "YtIMnsXOBE",coin: 10000000,check: true,day: 0,bag: ["MG-精灵球","MG-精灵球","MG-精灵球","MG-精灵球"],pet: []}]
-let duid
 //商店
 let goods=[{name: "MG-红包",price: 1},{name: "MG-精灵球",price: 10},{name: "MG-宠物干粮",price: 3},{name: "鲜榨果汁",price: 2},{name: "可乐",price: 4}]
 let market=[]
@@ -48,7 +47,7 @@ rand = (a,b) =>{
 //创建新用户
 newu = (user,tc) =>{
   users.sort((a,b) => a.uid - b.uid)
-  duid=users[users.length-1].uid+1
+  let duid=users[users.length-1].uid+1
   users.push({ uid: duid,name: user,tc: tc,coin: 0,check: true,day: 0,bag: [],pet: []})
 }
 //校验用户 返回用户编号，若返回-1，则用户tc不匹配
@@ -183,20 +182,20 @@ timer 60*1000 {
    let ni=users.findIndex(x => x.uid==lottery[n].uid)
    lottery.splice(n,1)
    
-   let a=Math.floor(t*0.3*(la/t+1))
-   let b=Math.floor(t*0.15*(ma/t+1))
-   let c=Math.floor(t*0.05*(na/t+1))
+   let a=Math.floor(t*(-2*la*la/t/t+2*la/t+1/2))
+   let b=Math.floor(t*0.5*(-2*ma*ma/t/t+2*ma/t+1/2))
+   let c=Math.floor(t*0.2*(-2*na*na/t/t+2*na/t+1/2))
       
-   result="开奖结果\t奖池："+t+" DRB\n 一等奖：@"+ln+"\n\t购买金额："+la+" DRB\n\t奖金："+a+" DRB"
+   result="开奖结果\t奖池："+t+" DRB\n一等奖：@"+ln+"\n　购买："+la+" DRB\n　奖金："+a+" DRB"
 
    users[li].coin+=a
    if r>1 then {
      users[mi].coin+=b
-     result+="\n二等奖：@"+mn+"\n\t购买金额："+ma+" DRB\n\t奖金："+b+" DRB"
+     result+="\n二等奖：@"+mn+"\n　购买："+ma+" DRB\n　奖金："+b+" DRB"
    }
    if r>2 then {
      users[ni].coin+=c
-     result+="\n三等奖：@"+mn+"\n\t购买金额："+na+" DRB\n\t奖金："+c+" DRB"
+     result+="\n三等奖：@"+ln+"\n　购买："+na+" DRB\n　奖金："+c+" DRB"
    } 
    lottery=[]
    drrr.print(result)
@@ -221,8 +220,8 @@ event [me,msg] (user, cont:"^/买彩票\\s+\\d")  => {
   drrr.print("/me @"+ users[n].name +" 您今天已经购买过彩票了，金额为"+lottery[id].amount+" DRB")
 } else if (users[n].coin < p) then {
   drrr.print("/me @"+ users[n].name +" 很抱歉，您没有 "+p+" DRB，您只有 "+users[n].coin+"DRB")
-} else if (p<1) then {
-  drrr.print("/me @"+ users[n].name +" 买彩票至少花费 1 DRB")
+} else if (p<5) then {
+  drrr.print("/me @"+ users[n].name +" 买彩票至少花费 5 DRB")
 } else {
   users[n].coin-=p
   lottery.push({name: users[n].name,uid: users[n].uid,amount: p})

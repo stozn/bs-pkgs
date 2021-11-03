@@ -16,7 +16,7 @@ event [msg, me, dm] (user, cont: "^/留言板") => {
 event [msg, me, dm] (user, cont: "^/删除留言\\s+\\d", url, tc) => { 
   if admins.some(a => a==tc) then {
   let p=parseInt(cont.replace("/删除留言", "").trim())-1
-   if p>(msgs.length+1) then {
+   if p>(msgs.length-1) then {
   drrr.dm(user,"输入的序号不存在")
    } else {
    let m=msgs[p]
@@ -58,7 +58,7 @@ event join (user) => {
 event [msg, me, dm] (user, cont: "^/删除通知\\s+\\d", url, tc) => { 
   if admins.some(a => a==tc) then {
   let p=parseInt(cont.replace("/删除通知", "").trim())-1
-   if p>(notices.length+1) then {
+   if p>(notices.length-1) then {
   drrr.dm(user,"输入的序号不存在")
    } else {
    let m=notices[p]

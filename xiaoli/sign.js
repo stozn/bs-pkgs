@@ -266,8 +266,8 @@ showp=()=>{
   let r=gainu.map((x,i) => "\n"+(i+1)+"."+x+"\t"+gains[i]+" DRB")
   res=r.join("")
   }
-  let result="【"+owner+"的红包】 已领取【"+gains.length+"/"+am+"】"+res
-  return result
+  let rt="【"+owner+"的红包】 已领取【"+gains.length+"/"+am+"】"+res
+  return rt
 }
 event [msg, me, dm] (user, cont: "^/红包") => {
   drrr.print(showp())

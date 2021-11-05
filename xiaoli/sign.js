@@ -1,5 +1,5 @@
 //用户数据
-let users=[{ uid: 1,name: "管理员",tc: "YtIMnsXOBE",coin: 10000000,check: true,day: 0,bag: ["MG-精灵球","MG-精灵球","MG-精灵球","MG-精灵球"],pet: []}]
+let users=
 //商店
 let goods=[{name: "MG-红包",price: 1},{name: "MG-精灵球",price: 10},{name: "MG-宠物干粮",price: 3},{name: "鲜榨果汁",price: 2},{name: "可乐",price: 4}]
 let market=[]
@@ -48,7 +48,7 @@ rand = (a,b) =>{
 newu = (user,tc) =>{
   users.sort((a,b) => a.uid - b.uid)
   let duid=users[users.length-1].uid+1
-  users.push({ uid: duid,name: user,tc: tc,coin: 0,check: true,day: 0,bag: [],pet: []})
+  users.push({ uid: duid,name: user,tc: tc,coin: 0,check: true,day: 0,bag: [],pet: [],letters: [],newl: false})
 }
 //校验用户 返回用户编号，若返回-1，则用户tc不匹配
 checku = (user) =>{
@@ -660,7 +660,65 @@ event [msg, me, dm] (user, cont: "^/灭绝\\s+\\S", url, tc) => {
     }
   }
 }
-
+//信箱
+event join (user) => {
+  let n=checku(user)
+  if users[n].newl then latter 3000 drrr.dm(user,"@"+users[n].name+" 您有新的来信，请留意查收")
+}
+event [msg, me, dm] (user, cont: "^/写信\\s+\\S+\\s+\\S") => {
+  let tou=twokey("/写信",cont)[0]
+  let ct=twokey("/写信",cont)[1]
+  let n=checku(user)
+  let m=users.findIndex(x=>x.name==tou)
+  if (n ==(-1)) then {
+  drrr.print("/me @"+user+" 您的tc与已有的用户不匹配")
+} else if (m ==(-1)) then {
+  drrr.dm(user,"@"+users[n].name+" 您写信的用户【"+tou+"】不存在")
+} else {
+  users[m].letters.unshift("@"+users[n].name+"：" +ct)
+  users[m].newl=true
+  drrr.dm(user,"@"+users[n].name+" 您已成功写信给【"+tou+"】，内容为："+ct)
+  }
+}
+event [msg, me, dm] (user, cont: "^/信箱") => {
+  let n=checku(user)
+  if (n == (-1)) then drrr.print("/me @"+user+" 您的tc与已有的用户不匹配")
+  else {
+    users[n].newl=false
+      let p=users[n].letters.reduce((a,x,y) => {
+    a=a+"\n"+(y+1)+"."+x.slice(0,10)+"..."
+    return a
+  }," 的信箱:")
+    drrr.dm(user,"@"+users[n].name+p)
+  }
+  }
+event [me,msg] (user, cont:"^/查阅\\s+\\d")  => {
+  let p=parseInt(cont.replace("/查阅", "").trim())-1
+  let n=checku(user)
+  if (n == (-1)) then {
+  drrr.print("/me @"+user+" 您的tc与已有的用户不匹配")
+}  else if p>(users[n].letters.length-1) then {
+  drrr.print("/me @"+users[n].name+" 输入的序号不存在")
+} else {
+    users[n].newl=false
+    let m=users[n].letters[p]
+    drrr.dm(user,m)
+  }
+  }
+event [msg, me, dm] (user, cont: "^/删除信件\\s+\\d") => { 
+  let n=checku(user)
+  if (n == (-1)) then drrr.print("/me @"+user+" 您的tc与已有的用户不匹配")
+  else {
+  let p=parseInt(cont.replace("/删除信件", "").trim())-1
+   if p>(users[n].letters-1) then {
+  drrr.dm(user,"输入的序号不存在")
+   } else {
+   let m=users[n].letters[p]
+   users[n].letters.splice(p,1)
+   drrr.dm(user,"@"+users[n].name+" 成功删除："+m)
+  }
+  }
+}
 //删除
 event [msg, me, dm] (user, cont: "^/删除\\s+\\S", url, tc) => { 
   if admins.some(a => a==tc) then {

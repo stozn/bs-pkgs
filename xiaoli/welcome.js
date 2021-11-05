@@ -6,7 +6,7 @@ timer 15*60*1000{
 }
 event [msg, me, dm] (user, cont: "^/留言\\s+\\S", url, tc) => { 
     let msg=cont.replace("/留言", "").trim()     
-    msgs.push(msg)
+    msgs.unshift(msg)
     drrr.dm(user,"成功留言："+msg)
 }
 event [msg, me, dm] (user, cont: "^/留言板") => {
@@ -50,9 +50,7 @@ event join (user) => {
  let ns =["|进来了就是美少女","|今天也请多多喝水","|你也来喝水啦w"]
  let n = ns[Math.floor(Math.random() * ns.length)]
  let l = Math.floor(Math.random() * notices.length)
- let m = ["查看指令列表请输入：【/帮助】" ]
   drrr.print("/me 欢迎光临@" + user + n)
-  later 1000 drrr.dm(user,m)
   later 2000 drrr.dm(user,"通知:"+notices[l])
 }
 event [msg, me, dm] (user, cont: "^/删除通知\\s+\\d", url, tc) => { 

@@ -109,7 +109,7 @@ sort = (key) =>{
  }
 event [msg, me, dm] (user, cont: "^/排行榜") => {
   drrr.print("资产排行榜      "+sort("coin"))
-  later 2*1000 drrr.print("连续签到排行榜  "+sort("day"))
+  later 2*1000 drrr.print("签到排行榜  "+sort("day"))
   }
 
 //签到
@@ -195,7 +195,7 @@ timer 60*1000 {
    }
    if r>2 then {
      users[ni].coin+=c
-     result+="\n三等奖：@"+ln+"\n　购买："+na+" DRB\n　奖金："+c+" DRB"
+     result+="\n三等奖：@"+nn+"\n　购买："+na+" DRB\n　奖金："+c+" DRB"
    } 
    lottery=[]
    drrr.print(result)

@@ -677,6 +677,16 @@ event [msg, me, dm] (user, cont: "^/写信\\s+\\S+\\s+\\S") => {
 } else {
   users[m].letters.unshift("@"+users[n].name+"：" +ct)
   users[m].newl=true
+  if users[m].letters.length==9 then{
+    users[m].letters.reverse()
+   let  a=users[m].letters.findIndex(x=> {
+     let reg = new RegExp("【")
+     return reg.test(x)
+   })
+   if a>=0 then { users[m].letters.splice(a,1) }
+  else { users[m].letters.splice(0,1) }
+    users[m].letters.reverse()
+  }
   drrr.dm(user,"@"+users[n].name+" 您已成功写信给【"+tou+"】，内容为："+ct)
   }
 }

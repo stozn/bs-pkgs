@@ -663,7 +663,9 @@ event [msg, me, dm] (user, cont: "^/灭绝\\s+\\S", url, tc) => {
 //信箱
 event join (user) => {
   let n=checku(user)
-  if users[n].newl then latter 3000 drrr.dm(user,"@"+users[n].name+" 您有新的来信，请留意查收")
+  if users[n].newl then {
+  latter 3000 drrr.dm(user,"@"+users[n].name+" 您有新的来信，请留意查收")
+  } 
 }
 event [msg, me, dm] (user, cont: "^/写信\\s+\\S+\\s+\\S") => {
   let tou=twokey("/写信",cont)[0]

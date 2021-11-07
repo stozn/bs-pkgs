@@ -94,6 +94,21 @@ let l=m.slice(m.search("\\s")).trim()
 let r=[u,n,l]
 return r
 }
+//消息推送
+send=(n,c)=>{
+  users[n].letters.unshift(c)
+  users[n].newl=true
+  if users[n].letters.length==8 then{
+    users[n].letters.reverse()
+   let  a=users[n].letters.findIndex(x=> {
+     let reg = new RegExp("【")
+     return reg.test(x)
+   })
+   if a>=0 then { users[n].letters.splice(a,1) }
+  else { users[n].letters.splice(0,1) }
+    users[n].letters.reverse()
+  }
+}
 //排行榜
 sort = (key) =>{
   users.sort((a,b) => b[key] - a[key])
@@ -134,6 +149,9 @@ event [msg, me, dm] (user, cont: "^/全服奖励\\s+\\S+\\s+\\d", url, tc) => {
     let nm=twokey("/全服奖励",cont)[0]
     let cn=parseInt(twokey("/全服奖励",cont)[1])
     for  x of users { x.coin+=cn }
+    for x of users.map((x,y)=> y){
+      send(x,"【全服奖励】*"+nm+"*已发送到您账户，金额为"+cn+" DRB，请留意查收")
+    }
     drrr.print("/me *全服奖励* 【"+nm+"】已发放，金额"+cn+" DRB")
   }
 }
@@ -189,12 +207,15 @@ timer 60*1000 {
    result="开奖结果\t奖池："+t+" DRB\n一等奖：@"+ln+"\n　购买："+la+" DRB\n　奖金："+a+" DRB"
 
    users[li].coin+=a
+   send(li,"【彩票中奖】恭喜您获得一等奖，购买金额为"+la+" DRB，奖金为"+a+" DRB")
    if r>1 then {
      users[mi].coin+=b
+     send(mi,"【彩票中奖】恭喜您获得二等奖，购买金额为"+ma+" DRB，奖金为"+b+" DRB")
      result+="\n二等奖：@"+mn+"\n　购买："+ma+" DRB\n　奖金："+b+" DRB"
    }
    if r>2 then {
      users[ni].coin+=c
+     send(ni,"【彩票中奖】恭喜您获得三等奖，购买金额为"+na+" DRB，奖金为"+c+" DRB")
      result+="\n三等奖：@"+nn+"\n　购买："+na+" DRB\n　奖金："+c+" DRB"
    } 
    lottery=[]
@@ -245,6 +266,7 @@ event [msg, me, dm] (user, cont: "^/转账\\s+\\S+\\s+\\d") => {
 }else {
   users[n].coin=users[n].coin-cn-1
   users[m].coin=users[m].coin+cn
+  send(m,"【转账提醒】@"+users[n].name+" 转账给您"+cn+" DRB")
   drrr.dm(user,"@"+users[n].name+" 您已成功转账给【"+tou+"】"+cn+" DRB,收取了 1 DRB手续费")
   }
 }
@@ -677,18 +699,7 @@ event [msg, me, dm] (user, cont: "^/写信\\s+\\S+\\s+\\S") => {
 } else if (m ==(-1)) then {
   drrr.dm(user,"@"+users[n].name+" 您写信的用户【"+tou+"】不存在")
 } else {
-  users[m].letters.unshift("@"+users[n].name+"：" +ct)
-  users[m].newl=true
-  if users[m].letters.length==9 then{
-    users[m].letters.reverse()
-   let  a=users[m].letters.findIndex(x=> {
-     let reg = new RegExp("【")
-     return reg.test(x)
-   })
-   if a>=0 then { users[m].letters.splice(a,1) }
-  else { users[m].letters.splice(0,1) }
-    users[m].letters.reverse()
-  }
+  send(m,"@"+users[n].name+"：" +ct)
   drrr.dm(user,"@"+users[n].name+" 您已成功写信给【"+tou+"】，内容为："+ct)
   }
 }

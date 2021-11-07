@@ -6,7 +6,7 @@ timer 15*60*1000{
 }
 event [msg, me, dm] (user, cont: "^/留言\\s+\\S", url, tc) => { 
     let msg=cont.replace("/留言", "").trim()     
-    msgs.unshift(msg)
+    msgs.unshift("@"+user+"："+msg)
     drrr.dm(user,"成功留言："+msg)
 }
 event [msg, me, dm] (user, cont: "^/留言板") => {

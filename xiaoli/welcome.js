@@ -51,6 +51,7 @@ event join (user) => {
  let n = ns[Math.floor(Math.random() * ns.length)]
  let l = Math.floor(Math.random() * notices.length)
   drrr.print("/me 欢迎光临@" + user + n)
+  print(user)
   if notices.length>0 then {
   later 1000 drrr.dm(user,"通知:"+notices[l])
   }

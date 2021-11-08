@@ -177,7 +177,7 @@ event [msg, me, dm] (user, cont: "^/领取奖励") => {
   }
  }
 }
-timer 60*1000 {
+timer 58*1000 {
    mydate=new Date()
    const h=mydate.getHours()
    const m=mydate.getMinutes()
@@ -463,6 +463,7 @@ event [msg, me, dm] (user, cont: "^/赠送\\s+\\S+\\s+\\S") => {
 } else {
   users[n].bag.splice(l,1)
   users[m].bag.push(gd)
+  send(m,"【赠送提醒】@"+ users[n].name +" 赠送给您【"+gd+"】")
   drrr.dm(user,"@"+ users[n].name +" 您已成功将【"+gd+"】赠送给"+tou)
  }
 }

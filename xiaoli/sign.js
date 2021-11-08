@@ -177,11 +177,8 @@ event [msg, me, dm] (user, cont: "^/领取奖励") => {
   }
  }
 }
-timer 58*1000 {
-   mydate=new Date()
-   const h=mydate.getHours()
-   const m=mydate.getMinutes()
-   if h==3 && m==1 && lottery.length>0 then {
+//彩票
+kai=()=>{
    let r=lottery.length
    let t=lottery.map(x=>x.amount).reduce((a,x)=> a=a+x)
    let l=Math.floor(Math.random() * lottery.length)
@@ -221,6 +218,15 @@ timer 58*1000 {
    lottery=[]
    drrr.print(result)
   }
+
+event [msg, me, dm] (user, cont: "^/直接开奖", url, tc) => { 
+   if  lottery.length>0 && admins.some(a => a==tc)  then kai()
+}
+timer 58*1000 {
+   mydate=new Date()
+   const h=mydate.getHours()
+   const m=mydate.getMinutes()
+   if h==3 && m==1 && lottery.length>0 then kai()
 }
 event [msg, me, dm] (user, cont: "^/彩票") => {
   let lt=lottery.map((x,i) => i+1+". "+x.name+"  "+x.amount+" DRB")

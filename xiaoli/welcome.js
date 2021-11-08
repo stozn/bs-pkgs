@@ -51,7 +51,9 @@ event join (user) => {
  let n = ns[Math.floor(Math.random() * ns.length)]
  let l = Math.floor(Math.random() * notices.length)
   drrr.print("/me 欢迎光临@" + user + n)
-  later 2000 drrr.dm(user,"通知:"+notices[l])
+  if notices.length>0 then {
+  later 1000 drrr.dm(user,"通知:"+notices[l])
+  }
 }
 event [msg, me, dm] (user, cont: "^/删除通知\\s+\\d", url, tc) => { 
   if admins.some(a => a==tc) then {

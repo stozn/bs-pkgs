@@ -693,7 +693,7 @@ event [msg, me, dm] (user, cont: "^/灭绝\\s+\\S", url, tc) => {
 event join (user) => {
   let n=checku(user)
   if users[n].newl then {
-  latter 3000 drrr.dm(user,"@"+users[n].name+" 您有新的来信，请留意查收")
+  latter 2000 drrr.dm(user,"@"+users[n].name+" 您有新的来信，请留意查收")
   } 
 }
 event [msg, me, dm] (user, cont: "^/写信\\s+\\S+\\s+\\S") => {
@@ -718,7 +718,7 @@ event [msg, me, dm] (user, cont: "^/信箱") => {
       let p=users[n].letters.reduce((a,x,y) => {
     a=a+"\n"+(y+1)+"."+x.slice(0,10)+"..."
     return a
-  }," 的信箱:")
+  }," 您的信箱:")
     drrr.dm(user,"@"+users[n].name+p)
   }
   }

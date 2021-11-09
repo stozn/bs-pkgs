@@ -750,6 +750,37 @@ event [msg, me, dm] (user, cont: "^/删除信件\\s+\\d") => {
   }
   }
 }
+//查找用户
+event [msg, me, dm] (user, cont: "^/查找\\s+\\S", url, tc) => { 
+    let tg=onekey("/查找",cont)
+    let  n=users.findIndex(x=> {
+    let reg = new RegExp(tg)
+    return reg.test(x.name)
+   })
+    if n>=0 && admins.some(a => a==tc) then {
+    let r=JSON.stringify(users[n])
+    drrr.dm(user,r)
+    }else if n>=0 then{
+    drrr.dm(user,"用户名："+users[n].name+" ,tc："+users[n].tc+" ,资产："+users[n].coin+" DRB ,连续签到："+users[n].day+"天")
+    } else {
+      drrr.dm(user,"未找到用户【"+tg+"】")
+    }
+}
+event [msg, me, dm] (user, cont: "^/查找tc\\s+\\S", url, tc) => { 
+    let tg=onekey("/查找tc",cont)
+    let  n=users.findIndex(x=> {
+    let reg = new RegExp(tg)
+    return reg.test(x.tc)
+   })
+    if n>=0 && admins.some(a => a==tc) then {
+    let r=JSON.stringify(users[n])
+    drrr.dm(user,r)
+    }else if n>=0 then{
+    drrr.dm(user,"用户名："+users[n].name+" ,tc："+users[n].tc+" ,资产："+users[n].coin+" DRB ,连续签到："+users[n].day+"天")
+    } else {
+      drrr.dm(user,"未找到用户tc【"+tg+"】")
+    }
+}
 //删除
 event [msg, me, dm] (user, cont: "^/删除\\s+\\S", url, tc) => { 
   if admins.some(a => a==tc) then {

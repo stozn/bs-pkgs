@@ -361,7 +361,7 @@ event [msg, me, dm] (user, cont: "^/抢") => {
   if (n ==(-1)) then {
   drrr.print("/me @"+user+" 您的tc与已有的用户不匹配")
 } else if pkgs.length==0 then {
-  if gains.length==pktamthen
+  if gains.length==pktam then
   drrr.print("/me @"+ users[n].name+" 您来晚了，红包已经被抢光了")
   else drrr.print("/me @"+ users[n].name +" 您来晚了，红包已经超时了")
 } else{

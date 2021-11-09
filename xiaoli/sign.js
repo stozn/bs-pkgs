@@ -111,15 +111,16 @@ send=(n,c)=>{
 }
 //排行榜
 sort = (key) =>{
-  users.sort((a,b) => b[key] - a[key])
-  let pm=users
+  let usr=users
+  usr.sort((a,b) => b[key] - a[key])
+  let pm=usr
   let word=" DRB"
   if key=="day" then word="天"
-  if users.length >7 then pm=pm.slice(0,7)    //截取排名前7的用户
+  if usr.length >7 then pm=pm.slice(0,7)    //截取排名前7的用户
   let p=pm.reduce((a,x,y) => {
     a=a+"\n"+(y+1)+"."+x.name+"\t"+x[key]+word
     return a
-  },"总用户:"+users.length+"人")
+  },"总用户:"+usr.length+"人")
   return p
  }
 event [msg, me, dm] (user, cont: "^/排行榜") => {

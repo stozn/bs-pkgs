@@ -7,7 +7,7 @@ let market=[]
 let lottery=[]
 let result="暂无开奖结果"
 //奖励数据
-let au=[]
+let award=[]
 //宠物数据
 let apet=[]
 let pets=[{name: "白泽",level: 7,exp: 500},{name: "钟山神",level: 4,exp: 50},{name: "九尾狐",level: 2,exp: 5},{name: "饕餮",level: 1,exp: 0},{name: "麒麟",level: 3,exp: 15},{name: "白矖",level: 6,exp: 200}]
@@ -15,7 +15,7 @@ let pets=[{name: "白泽",level: 7,exp: 500},{name: "钟山神",level: 4,exp: 50
 let pkgi=0
 let owner
 let owneri
-let am
+let pktam
 let gaini=[]
 let gainu=[]
 let gains=[]
@@ -38,7 +38,7 @@ timer 15*60*1000{
  //整点用户清理
   mydate= new Date()
   const m=mydate.getMinutes() 
-  if m>2 then au=[]
+  if m>2 then award=[]
 }
 //随机整数
 rand = (a,b) =>{
@@ -166,13 +166,13 @@ event [msg, me, dm] (user, cont: "^/领取奖励") => {
   mydate= new Date()
   const m=mydate.getMinutes() 
   let nm=users[n].name
-  let i=au.findIndex(u => u==nm)
+  let i=award.findIndex(u => u==nm)
   if m>2 then {
     drrr.print("/me @"+users[n].name+" 还未到领取时间，请在每个整点的2分钟内前来领取奖励")
   }else if i>=0 then {
     drrr.print("/me @"+users[n].name+" 您已领取过本小时奖励了")
   }else {
-    au.push(nm)
+    award.push(nm)
     users[n].coin+=yb
     drrr.print("/me @"+users[n].name+" 您已成功领取本小时奖励，收获"+yb+" DRB")
   }
@@ -295,7 +295,7 @@ showp=()=>{
   let r=gainu.map((x,i) => "\n"+(i+1)+"."+x+"\t"+gains[i]+" DRB")
   res=r.join("")
   }
-  let rt="【"+owner+"的红包】 已领取【"+gains.length+"/"+am+"】"+res
+  let rt="【"+owner+"的红包】 已领取【"+gains.length+"/"+pktam+"】"+res
   return rt
 }
 event [msg, me, dm] (user, cont: "^/红包") => {
@@ -324,13 +324,13 @@ event [msg, me, dm] (user, cont: "^/发红包\\s+\\d+\\s+\\d") => {
   pkgi++
   owner=user
   owneri=users[n].uid
-  am=amc
+  pktam=amc
   gaini=[]
   gainu=[]
   gains=[]
-  pkgs= new Array(am)
+  pkgs= new Array(pktam)
   pkgs.fill(1)
-  let cns=cn-am
+  let cns=cn-pktam
   let pi=pkgi
   let w=0
   while w<(amc-1)  {
@@ -340,7 +340,7 @@ event [msg, me, dm] (user, cont: "^/发红包\\s+\\d+\\s+\\d") => {
    w++
   } 
   pkgs[w]=pkgs[w]+cns
-  drrr.print("/me 【"+owner+"的红包】快来领取吧！个数：【"+am+"】")
+  drrr.print("/me 【"+owner+"的红包】快来领取吧！个数：【"+pktam+"】")
   later 10*60*1000 {
     if (pkgs.length>0 && pkgi==pi)then {
       let bck=pkgs.reduce((a,x)=>a+=x)
@@ -361,7 +361,7 @@ event [msg, me, dm] (user, cont: "^/抢") => {
   if (n ==(-1)) then {
   drrr.print("/me @"+user+" 您的tc与已有的用户不匹配")
 } else if pkgs.length==0 then {
-  if gains.length==am then
+  if gains.length==pktamthen
   drrr.print("/me @"+ users[n].name+" 您来晚了，红包已经被抢光了")
   else drrr.print("/me @"+ users[n].name +" 您来晚了，红包已经超时了")
 } else{
@@ -375,7 +375,7 @@ event [msg, me, dm] (user, cont: "^/抢") => {
     gains.push(gain)
     users[n].coin+=gain
     if pkgs.length>0 then
-    drrr.print("/me @"+ users[n].name+" 领取了【"+owner+"的红包】，获得"+gain+" DRB   剩余红包【"+pkgs.length+"/"+am+"】")
+    drrr.print("/me @"+ users[n].name+" 领取了【"+owner+"的红包】，获得"+gain+" DRB   剩余红包【"+pkgs.length+"/"+pktam+"】")
     else {
       drrr.print("/me @"+ users[n].name +" 领取了【"+owner+"的红包】，获得"+gain+" DRB   红包被抢光啦，现在可以发出新红包了")
       drrr.print(showp())

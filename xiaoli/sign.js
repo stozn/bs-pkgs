@@ -235,7 +235,7 @@ event [msg, me, dm] (user, cont: "^/彩票") => {
 event [msg, me, dm] (user, cont: "^/开奖结果") => {
   drrr.print(result)
   }
-event [me,msg] (user, cont:"^/买彩票\\s+\\d")  => {
+event [msg, me, dm] (user, cont:"^/买彩票\\s+\\d")  => {
   let p=parseInt(cont.replace("/买彩票", "").trim())
   let n=checku(user)
   let id=lottery.findIndex(x=> x.uid==users[n].uid) 
@@ -598,7 +598,7 @@ event [msg, me, dm] (user, cont: "^/捕捉") => {
   }
  }
 }
-event [me,msg] (user, cont:"^/投喂\\s+\\d")  => {
+event [msg, me, dm] (user, cont:"^/投喂\\s+\\d")  => {
   let p=parseInt(cont.replace("/投喂", "").trim())-1
   let n=checku(user)
   if (n == (-1)) then {
@@ -624,7 +624,7 @@ event [me,msg] (user, cont:"^/投喂\\s+\\d")  => {
   }
   }
 }
-event [me,msg] (user, cont:"^/更改宠物名\\s+\\d+\\s+\\S")  => {
+event [msg, me, dm] (user, cont:"^/更改宠物名\\s+\\d+\\s+\\S")  => {
   let p=parseInt(twokey("/更改宠物名",cont)[0])-1
   let nm=twokey("/更改宠物名",cont)[1]
   let n=checku(user)
@@ -647,7 +647,7 @@ event [me,msg] (user, cont:"^/更改宠物名\\s+\\d+\\s+\\S")  => {
   }
    }
 } 
-event [me,msg] (user, cont:"^/放生\\s+\\d")  => {
+event [msg, me, dm] (user, cont:"^/放生\\s+\\d")  => {
   let p=parseInt(cont.replace("/放生", "").trim())-1
   let n=checku(user)
   if (n == (-1)) then {
@@ -726,7 +726,7 @@ event [msg, me, dm] (user, cont: "^/信箱") => {
     drrr.dm(user,"@"+users[n].name+p)
   }
   }
-event [me,msg] (user, cont:"^/查阅\\s+\\d")  => {
+event [msg, me, dm] (user, cont:"^/查阅\\s+\\d")  => {
   let p=parseInt(cont.replace("/查阅", "").trim())-1
   let n=checku(user)
   if (n == (-1)) then {
@@ -834,7 +834,7 @@ event [msg, me, dm] (user, cont: "^/导入\\s+\\S", url, tc) => {
   }
 }    
 //注文
-event [me,msg] (user, cont:"^/注文\\s+\\S")  => {
+event [msg, me, dm] (user, cont:"^/注文\\s+\\S")  => {
 let r=cont.replace("/注文", "").trim();
 zw=["可乐","茶","啤酒","葡萄酒","红酒","白酒","汁","咖啡","拿铁","卡布奇诺"];
 tb=["🥤","🍵","🍺","🍷","🍷","🍶","🍹","☕","☕","☕"];
@@ -863,7 +863,7 @@ let n=checku(user)
 }
 }
 //DRB特供版抽奖
-event [me,msg] (user, content:"^/抽奖")=> {
+event [msg, me, dm] (user, content:"^/抽奖")=> {
   let n=checku(user)
   if (n ==(-1)) then {
   drrr.print("/me @"+user+"您的tc与已有的用户不匹配")
@@ -881,8 +881,8 @@ later 2*1000 {
 //中奖 
   if a == b && b == c 
 then {
-  users[n].coin+=50
-  drrr.print("@" + users[n].name +"抽到的是【"+a+b+c+"】🎉🎉🎉🎊🎊🎰恭喜中奖： + 50 DRB")
+  users[n].coin+=100
+  drrr.print("@" + users[n].name +"抽到的是【"+a+b+c+"】🎉🎉🎉🎊🎊🎰恭喜中奖： + 100 DRB")
 }
   else
 //不中
@@ -891,7 +891,7 @@ then {
  }
 }
 //刮刮乐
-event [me,msg] (user, content:"^/刮刮乐")=> {
+event [msg, me, dm] (user, content:"^/刮刮乐")=> {
   let n=checku(user)
   if (n ==(-1)) then {
   drrr.print("/me @"+user+"您的tc与已有的用户不匹配")
@@ -901,7 +901,7 @@ event [me,msg] (user, content:"^/刮刮乐")=> {
   users[n].coin-=10
   drrr.print("/me @"+ users[n].name +" 您使用了 10 DRB，现在您的DRB数量为"+users[n].coin+"，刮奖中..." )
 
-g = [Math.floor(Math.random()*100+1)]
+g = Math.floor(Math.random()*100+1)
 later 2*1000 {
 //中奖 10
   if g == 100

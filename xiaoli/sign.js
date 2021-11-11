@@ -696,9 +696,16 @@ event [msg, me, dm] (user, cont: "^/灭绝\\s+\\S", url, tc) => {
 //信箱
 event join (user) => {
   let n=checku(user)
+  let a=""
   if users[n].newl then {
-  latter 2000 drrr.dm(user,"@"+users[n].name+" 您有新的来信，请留意查收")
-  } 
+    a+="\n您有新的来信，请留意查收"
+   }
+  if users[n].letters.length==8 then {
+    a+="\n您的信箱已满，请及时清理已阅的信件"
+   }
+  if !a=="" then {
+   latter 2000 drrr.dm(user,"@"+users[n].name+"："+a)
+  }
 }
 event [msg, me, dm] (user, cont: "^/写信\\s+\\S+\\s+\\S") => {
   let tou=twokey("/写信",cont)[0]
@@ -722,7 +729,7 @@ event [msg, me, dm] (user, cont: "^/信箱") => {
       let p=users[n].letters.reduce((a,x,y) => {
     a=a+"\n"+(y+1)+"."+x.slice(0,10)+"..."
     return a
-  }," 您的信箱:")
+  },"的信箱\t【"+users[n].letters.length+"/8】")
     drrr.dm(user,"@"+users[n].name+p)
   }
   }

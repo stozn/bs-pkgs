@@ -98,14 +98,11 @@ return r
 send=(n,c)=>{
   users[n].letters.unshift(c)
   users[n].newl=true
-  if users[n].letters.length==8 then{
+  if users[n].letters.length==9 then{
     users[n].letters.reverse()
-   let  a=users[n].letters.findIndex(x=> {
-     let reg = new RegExp("【")
-     return reg.test(x)
-   })
+   let  a=users[n].letters.findIndex(x=> x.slice(0,1)=="【")
    if a>=0 then { users[n].letters.splice(a,1) }
-  else { users[n].letters.splice(0,1) }
+   else { users[n].letters.splice(0,1) }
     users[n].letters.reverse()
   }
 }
@@ -280,14 +277,20 @@ event [msg, me, dm] (user, cont: "^/转账\\s+\\S+\\s+\\d") => {
 //查看个人信息
 event [msg, me, dm] (user, cont: "^/个人") => {
   let n=checku(user)
-  if n>=0 then
-  drrr.dm(user,"用户名："+users[n].name+" ,tc："+users[n].tc+" ,资产："+users[n].coin+" DRB ,连续签到："+users[n].day+"天")
-  }
+  if (n ==(-1)) then {
+  drrr.print("/me @"+user+" 您的tc与已有的用户不匹配")
+  }else {
+  drrr.dm(user,"用户名："+users[n].name+" ,tc："+users[n].tc+" ,UID："+users[n].uid+" ,资产："+users[n].coin+" DRB ,连续签到："+users[n].day+"天")
+ }
+}
 event [msg, me, dm] (user, cont: "^/展示个人") => {
   let n=checku(user)
-  if n>=0 then
-  drrr.print("用户名："+users[n].name+" ,tc："+users[n].tc+" ,资产："+users[n].coin+" DRB ,连续签到："+users[n].day+"天")
-  }
+  if (n ==(-1)) then {
+  drrr.print("/me @"+user+" 您的tc与已有的用户不匹配")
+  }else {
+  drrr.print("用户名："+users[n].name+" ,tc："+users[n].tc+" ,UID："+users[n].uid+" ,资产："+users[n].coin+" DRB ,连续签到："+users[n].day+"天")
+ }
+}
 //查看红包情况
 showp=()=>{
   let res=""
@@ -757,7 +760,7 @@ event [msg, me, dm] (user, cont: "^/查找\\s+\\S") => {
     let reg = new RegExp(tg)
     for x of users { if reg.test(x.name) then arr.push(x) }
     if arr.length>0 then{
-    drrr.dm(user,arr.map((x,y)=> (y+1)+".用户名："+x.name+"｜tc："+x.tc+"｜UID："+x.uid).join("\n"))
+    drrr.dm(user,arr.map((x,y)=> (y+1)+".用户名："+x.name+" ,tc："+x.tc+" ,UID："+x.uid).join("\n"))
     } else {
       drrr.dm(user,"未找到用户【"+tg+"】")
     }
@@ -768,7 +771,7 @@ event [msg, me, dm] (user, cont: "^/查找tc\\s+\\S") => {
     let reg = new RegExp(tg)
     for x of users { if reg.test(x.tc) then arr.push(x) }
     if arr.length>0 then{
-    drrr.dm(user,arr.map((x,y)=> (y+1)+".用户名："+x.name+"｜tc："+x.tc+"｜UID："+x.uid).join("\n"))
+    drrr.dm(user,arr.map((x,y)=> (y+1)+".用户名："+x.name+" ,tc："+x.tc+" ,UID："+x.uid).join("\n"))
     } else {
       drrr.dm(user,"未找到用户【"+tg+"】")
     }

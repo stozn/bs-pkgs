@@ -516,8 +516,8 @@ checke = (e) =>{
   else if e <s[6] then { return [6,s[6]-e] }  //6级 200-499
   else                 { return [7,0] }       //7级 500-∞
 }
-timer 5*60*1000{
-if Math.random()<0.35 then {
+timer 10*60*1000{
+if Math.random()<0.55 then {
   let i=Math.floor(Math.random() * pets.length)
   let m=pets[i].name
   let a=Math.random()*40+5

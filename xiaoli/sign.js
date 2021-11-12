@@ -699,6 +699,10 @@ event [msg, me, dm] (user, cont: "^/灭绝\\s+\\S", url, tc) => {
 event join (user) => {
   let n=checku(user)
   let a=""
+  let i=info.room.users.findIndex(u => u.name == user) 
+  if info.room.users[i].tripcode==false then {
+    a+="\n您还未设置tc，请尽快设置，未来将清空无tc的用户/n设置方法请看https://drrr.wiki/Tripcode"
+  }
   if users[n].newl then {
     a+="\n您有新的来信，请留意查收"
    }
@@ -769,7 +773,7 @@ event [msg, me, dm] (user, cont: "^/查找\\s+\\S") => {
     let reg = new RegExp(tg)
     for x of users { if reg.test(x.name) then arr.push(x) }
     if arr.length>0 then{
-    drrr.dm(user,arr.map((x,y)=> (y+1)+".用户名："+x.name+" ,tc："+x.tc+" ,UID："+x.uid).join("\n"))
+    drrr.dm(user,arr.map((x,y)=> (y+1)+".用户名："+x.name+" ,tc："+x.tc+" ,UID："+x.uid+" ,资产："+x.coin+" DRB").join("\n"))
     } else {
       drrr.dm(user,"未找到用户【"+tg+"】")
     }
@@ -780,7 +784,7 @@ event [msg, me, dm] (user, cont: "^/查找tc\\s+\\S") => {
     let reg = new RegExp(tg)
     for x of users { if reg.test(x.tc) then arr.push(x) }
     if arr.length>0 then{
-    drrr.dm(user,arr.map((x,y)=> (y+1)+".用户名："+x.name+" ,tc："+x.tc+" ,UID："+x.uid).join("\n"))
+    drrr.dm(user,arr.map((x,y)=> (y+1)+".用户名："+x.name+" ,tc："+x.tc+" ,UID："+x.uid+" ,资产："+x.coin+" DRB").join("\n"))
     } else {
       drrr.dm(user,"未找到用户【"+tg+"】")
     }

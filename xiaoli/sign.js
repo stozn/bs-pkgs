@@ -21,11 +21,17 @@ let gainu=[]
 let gains=[]
 let pkgs=[]
 const admins=["OG0OPFxOFw","Ancy.WWeeo","Robot/23Cc","unica/qOLU","YtIMnsXOBE"]   //设置管理员
-//每日重置可签到
-timer 24*60*60*1000 {  
-  for  x of users {
-    if x.check==true then x.day=0
-    x.check=true
+//签到重置 开奖
+timer 58*1000 {
+   mydate=new Date()
+   const h=mydate.getHours()
+   const m=mydate.getMinutes()
+   if h==3 && m==1 && lottery.length>0 then kai()
+   if h==0 && m==0 then{
+    for  x of users {
+     if x.check==true then x.day=0
+     x.check=true
+    }
   }
 }
 //每15分钟在后台输出一次数据，顺手清理整点奖励的用户
@@ -220,12 +226,6 @@ kai=()=>{
 event [msg, me, dm] (user, cont: "^/直接开奖", url, tc) => { 
    if  lottery.length>0 && admins.some(a => a==tc)  then kai()
 }
-timer 58*1000 {
-   mydate=new Date()
-   const h=mydate.getHours()
-   const m=mydate.getMinutes()
-   if h==3 && m==1 && lottery.length>0 then kai()
-}
 event [msg, me, dm] (user, cont: "^/彩票") => {
   let lt=lottery.map((x,i) => i+1+". "+x.name+"  "+x.amount+" DRB")
   let b=0
@@ -264,14 +264,14 @@ event [msg, me, dm] (user, cont: "^/转账\\s+\\S+\\s+\\d") => {
 } else if (m ==(-1)) then {
   drrr.dm(user,"@"+users[n].name+" 您转账的用户【"+tou+"】不存在"+m)
 } else if users[n].coin < (cn+1) then {
-  drrr.dm(user,"@"+ users[n].name +" 很抱歉，您只有"+users[n].coin+"DRB，不足以转账"+cn+" DRB 并缴纳 1 DRB手续费")
-} else if cn<11 then {
-  drrr.dm(user,"@"+ users[n].name +" 很抱歉，转账最低额度为 10 DRB 并收取 1 DRB手续费")
+  drrr.dm(user,"@"+ users[n].name +" 很抱歉，您只有"+users[n].coin+"DRB，不足以支付"+cn+"(转账金额)+"+Math.floor(cn*0.05)+"(5%手续费)="+(Math.floor(cn*0.05)+cn)+" DRB")
+} else if cn<20 then {
+  drrr.dm(user,"@"+ users[n].name +" 很抱歉，转账最低额度为 20 DRB 并收取转账金额5%手续费")
 }else {
-  users[n].coin=users[n].coin-cn-1
+  users[n].coin=users[n].coin-Math.floor(cn*0.05)-cn
   users[m].coin=users[m].coin+cn
   send(m,"【转账提醒】@"+users[n].name+" 转账给您"+cn+" DRB")
-  drrr.dm(user,"@"+users[n].name+" 您已成功转账给【"+tou+"】"+cn+" DRB,收取了 1 DRB手续费")
+  drrr.dm(user,"@"+users[n].name+" 您已成功转账给【"+tou+"】"+cn+" DRB,收取了"+Math.floor(cn*0.05)+" DRB手续费")
   }
 }
 //查看个人信息
@@ -316,10 +316,12 @@ event [msg, me, dm] (user, cont: "^/发红包\\s+\\d+\\s+\\d") => {
   drrr.print("/me @"+user+" 您的tc与已有的用户不匹配")
 } else if !users[n].bag.some(x => x=="MG-红包") then {
   drrr.print("/me @"+ users[n].name +" 很抱歉，您的背包中没有红包，请前往商店购买")
+} else if cn<20 then {
+  drrr.print("/me @"+ users[n].name +" 很抱歉，红包总金额至少为20 DRB")
 } else if users[n].coin < cn then {
   drrr.print("/me @"+ users[n].name +" 很抱歉，您只有"+users[n].coin+"DRB，不足以发出"+cn+" DRB的红包")
-} else if amc>cn then {
-  drrr.print("/me @"+ users[n].name +" 很抱歉，小粒无法把"+cn+"枚DRB掰开分给"+amc+"个人")
+} else if amc>20 then {
+  drrr.print("/me @"+ users[n].name +" 很抱歉，红包个数最多为20个")
 } else {
   users[n].coin-=cn
   let k=users[n].bag.findIndex(x => x=="MG-红包")

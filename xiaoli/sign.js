@@ -33,6 +33,7 @@ timer 58*1000 {
      x.check=true
     }
   }
+ users=users.filter(x=> (x.coin+x.day+x.bag.length+x.letters.length)>0)
 }
 //每15分钟在后台输出一次数据，顺手清理整点奖励的用户
 timer 15*60*1000{

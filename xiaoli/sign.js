@@ -50,6 +50,12 @@ timer 15*60*1000{
 rand = (a,b) =>{
   return Math.floor(Math.random() * Math.floor(b-a+1))+a
 }
+//支持@
+checka = (name) =>{
+    let a=name
+    if(name.slice(0,1)=="@") then a=name.slice(1)
+    return a
+}
 //创建新用户
 newu = (user,tc) =>{
   users.sort((a,b) => a.uid - b.uid)
@@ -177,7 +183,7 @@ event [msg, me, dm] (user, cont: "^/奖励\\s+\\d+\\s+\\S+\\s+\\d", url, tc) => 
 }
 event [msg, me, dm] (user, cont: "^/奖励\\s+\\S+\\s+\\S+\\s+\\d", url, tc) => { 
   if admins.some(a => a==tc) then {
-    let name=threekey("/奖励",cont)[0]
+    let name=checka(threekey("/奖励",cont)[0])
     let nm=threekey("/奖励",cont)[1]
     let cn=parseInt(threekey("/奖励",cont)[2])
     let n=users.findIndex(x=> x.name==name)
@@ -208,7 +214,7 @@ event [msg, me, dm] (user, cont: "^/惩罚\\s+\\d+\\s+\\S+\\s+\\d", url, tc) => 
 }
 event [msg, me, dm] (user, cont: "^/惩罚\\s+\\S+\\s+\\S+\\s+\\d", url, tc) => { 
   if admins.some(a => a==tc) then {
-    let name=threekey("/惩罚",cont)[0]
+    let name=checka(threekey("/惩罚",cont)[0])
     let nm=threekey("/惩罚",cont)[1]
     let cn=parseInt(threekey("/惩罚",cont)[2])
     let n=users.findIndex(x=> x.name==name)
@@ -317,7 +323,7 @@ event [msg, me, dm] (user, cont:"^/买彩票\\s+\\d")  => {
 }
 //转账
 event [msg, me, dm] (user, cont: "^/转账\\s+\\S+\\s+\\d") => {
-  let tou=twokey("/转账",cont)[0]
+  let tou=checka(twokey("/转账",cont)[0])
   let cn=parseInt(twokey("/转账",cont)[1])
   let n=checku(user)
   let m=users.findIndex(x=>x.name==tou)
@@ -523,7 +529,7 @@ event [msg, me, dm] (user, cont: "^/卖\\s+\\S+\\s+\\d") => {
 }
 //赠送
 event [msg, me, dm] (user, cont: "^/赠送\\s+\\S+\\s+\\S") => {
-  let tou=twokey("/赠送",cont)[0]
+  let tou=checka(twokey("/赠送",cont)[0])
   let gd=twokey("/赠送",cont)[1]
   let n=checku(user)
   let m=users.findIndex(x=>x.name==tou)
@@ -776,7 +782,7 @@ event join (user) => {
   }
 }
 event [msg, me, dm] (user, cont: "^/写信\\s+\\S+\\s+\\S") => {
-  let tou=twokey("/写信",cont)[0]
+  let tou=checka(twokey("/写信",cont)[0])
   let ct=twokey("/写信",cont)[1]
   let n=checku(user)
   let m=users.findIndex(x=>x.name==tou)
@@ -830,7 +836,7 @@ event [msg, me, dm] (user, cont: "^/删除信件\\s+\\d") => {
 }
 //查找用户
 event [msg, me, dm] (user, cont: "^/查找\\s+\\S") => { 
-    let tg=onekey("/查找",cont)
+    let tg=checka(onekey("/查找",cont))
     let  arr=[]
     let reg = new RegExp(tg)
     for x of users { if reg.test(x.name) then arr.push(x) }
@@ -854,7 +860,7 @@ event [msg, me, dm] (user, cont: "^/查找tc\\s+\\S") => {
 //删除
 event [msg, me, dm] (user, cont: "^/删除\\s+\\S", url, tc) => { 
   if admins.some(a => a==tc) then {
-   del=cont.replace("/删除", "").trim();
+   del=checka(cont.replace("/删除", "").trim())
    let n=users.findIndex(u => u.name == del)
    if (n ==(-1)) then {
      drrr.dm(user,"●该用户不存在")
@@ -862,7 +868,21 @@ event [msg, me, dm] (user, cont: "^/删除\\s+\\S", url, tc) => {
     users.splice(n,1)
     drrr.dm(user,"●成功删除用户"+del)
   }
-   }
+ }
+}
+event [msg, me, dm] (user, cont: "^/删除\\s+\\d", url, tc) => { 
+  if admins.some(a => a==tc) then {
+   del=parseInt(onekey("/删除",cont))
+   let n=users.findIndex(u => u.uid == del)
+   if (n ==(-1)) then {
+     drrr.dm(user,"●该用户UID不存在")
+  } else {
+    let name=users[n].name
+    print(users[n])
+    users.splice(n,1)
+    drrr.dm(user,"●成功删除用户"+name)
+  }
+ }
 }
 //导出
 event [msg, me, dm] (user, cont: "^/导出$", url, tc) => { 
@@ -874,60 +894,55 @@ event [msg, me, dm] (user, cont: "^/导出$", url, tc) => {
    drrr.print("ok")
    }
 }
-event [msg, me, dm] (user, cont: "^/导出\\s+\\S") => { 
-    let tg=onekey("/导出",cont)
+event [msg, me, dm] (user, cont: "^/导出\\s+\\S", url, tc) => { 
+    let tg=checka(onekey("/导出",cont))
     let n=users.findIndex(x=> x.name==tg)
+    if admins.some(a => a==tc) then {
     if n<0 then{
     drrr.dm(user,"未找到用户【"+tg+"】")
     } else {
       print(users[n])
       drrr.dm(user,"已导出用户："+users[n].name)
     }
+  }
 }
-event [msg, me, dm] (user, cont: "^/导出\\s+\\d") => { 
+event [msg, me, dm] (user, cont: "^/导出\\s+\\d", url, tc) => { 
     let tg=parseInt(onekey("/导出",cont))
     let n=users.findIndex(x=> x.uid==tg)
+    if admins.some(a => a==tc) then {
     if n<0 then{
     drrr.dm(user,"未找到UID【"+tg+"】")
     } else {
       print(users[n])
       drrr.dm(user,"已导出用户："+users[n].name)
     }
+  }
 }
 //导入
-event [msg, me, dm] (user, cont: "^/导入\\s+\\S", url, tc) => { 
-  if admins.some(a => a==tc) then {
-    data=cont.replace("/导入", "").trim()
-    dt=JSON.parse(data)      //支持分批导入，以解决drrr字数限制
-    if dt==false then {
-      drrr.dm(user,"●数据有误")
-    }else {
-    users=users.concat(dt)   
-    let r = []
-    let d = []
-    let l = users.length
-    for  i = 0; i < l; i++  {
-     for  j = i + 1; j < l; j++ {
-      if (users[i].name === users[j].name) then {
-        j = i+1
-        d.push(users[i])
-        i++
-      } 
-    }  
-    r.push(users[i])
-  }
-  if (r.length==users.length) then{
-    drrr.dm(user,"●导入数据成功")
-  }else {
-    users=r
-    let de=d.reduce((a,x,y) => a=a+"\n"+(y+1)+"."+x.name+"\t"+x.coin+"DRB","")
-    drrr.dm(user,"●更新数据成功，已删除旧数据:")
-    later 500 drrr.dm(user,de)
-  }         
- later 1000 drrr.dm(user,sort("coin"))
+event [msg, me, dm] (user, cont: "^/导入", url, tc) => { 
+    if admins.some(a => a==tc) then {
+    if input.length==0 then{
+    drrr.dm(user,"无导入数据")
+    } else {
+      let a=[]
+      let b=[]
+      for x of input{
+        if users.some(m=> (m.name==x.name || m.tc==x.tc) && m.uid!=x.uid) then{
+          b.push(x)
+        }else{
+          a.push(x)
+        }
+      }
+      users=users.concat(a)
+      input=[]
+      if b.length>0 then {
+      print("未成功导入：")
+      print(b)  
+      }
+      drrr.dm(user,"已导入"+a.length+"名用户，有"+b.length+"名用户冲突")   
     }
   }
-}    
+}
 //注文
 event [msg, me, dm] (user, cont:"^/注文\\s+\\S")  => {
 let r=cont.replace("/注文", "").trim();

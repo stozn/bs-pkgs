@@ -1,5 +1,6 @@
 //用户数据
 let users=
+let input=[]
 //商店
 let goods=[{name: "MG-红包",price: 1},{name: "MG-精灵球",price: 10},{name: "MG-宠物干粮",price: 3},{name: "鲜榨果汁",price: 2},{name: "可乐",price: 4}]
 let market=[]
@@ -589,7 +590,7 @@ timer 10*60*1000{
 if Math.random()<0.55 then {
   let i=Math.floor(Math.random() * pets.length)
   let m=pets[i].name
-  let a=Math.random()*40+5
+  let a=Math.random()*10+5
   apet.push({name: pets[i].name,level: pets[i].level,exp: pets[i].exp})
   drrr.print("/me 发现一只【"+m+"】，快来捕捉吧")
   later a*60*1000 {
@@ -770,7 +771,7 @@ event join (user) => {
   let a=""
   let i=info.room.users.findIndex(u => u.name == user) 
   if info.room.users[i].tripcode==false then {
-    a+="\n您还未设置tc，请尽快设置，未来将清空无tc的用户/n设置方法请看https://drrr.wiki/Tripcode"
+    a+="\n您还未设置tc，请尽快设置，未来将清空无tc的用户\n设置方法请看https://drrr.wiki/Tripcode"
   }
   if users[n].newl then {
     a+="\n您有新的来信，请留意查收"

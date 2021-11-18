@@ -827,7 +827,7 @@ event [msg, me, dm] (user, cont: "^/删除信件\\s+\\d") => {
   if (n == (-1)) then drrr.print("/me @"+user+" 您的tc与已有的用户不匹配")
   else {
   let p=parseInt(cont.replace("/删除信件", "").trim())-1
-   if p>(users[n].letters-1) then {
+   if p>(users[n].letters.length-1) then {
   drrr.dm(user,"输入的序号不存在")
    } else {
    let m=users[n].letters[p]

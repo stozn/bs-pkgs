@@ -138,7 +138,9 @@ event [msg, me, dm] (user, cont: "^/排行榜") => {
   drrr.print("资产排行榜      "+sort("coin"))
   later 2*1000 drrr.print("签到排行榜  "+sort("day"))
   }
-
+event [msg, me, dm] (user, cont: "^/帮助") => {
+  drrr.dm(user,"请前往小粒个人网站查看详细帮助页","http://xiaoli.22web.org/help/")
+  }
 //签到
 event [msg, me, dm] (user, cont: "^/签到") => { 
   let yb=14

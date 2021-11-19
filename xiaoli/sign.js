@@ -347,20 +347,16 @@ event [msg, me, dm] (user, cont: "^/转账\\s+\\S+\\s+\\d") => {
   }
 }
 //查看个人信息
-event [msg, me, dm] (user, cont: "^/个人") => {
+event [msg, me, dm] (user, cont: "^/(展示)?个人") => {
   let n=checku(user)
   if (n ==(-1)) then {
   drrr.print("/me @"+user+" 您的tc与已有的用户不匹配")
   }else {
-  drrr.dm(user,"用户名："+users[n].name+" ,tc："+users[n].tc+" ,UID："+users[n].uid+" ,资产："+users[n].coin+" DRB ,连续签到："+users[n].day+"天")
- }
-}
-event [msg, me, dm] (user, cont: "^/展示个人") => {
-  let n=checku(user)
-  if (n ==(-1)) then {
-  drrr.print("/me @"+user+" 您的tc与已有的用户不匹配")
-  }else {
-  drrr.print("用户名："+users[n].name+" ,tc："+users[n].tc+" ,UID："+users[n].uid+" ,资产："+users[n].coin+" DRB ,连续签到："+users[n].day+"天")
+      if cont=="/个人" then {
+      drrr.dm(user,"用户名："+users[n].name+" ,tc："+users[n].tc+" ,UID："+users[n].uid+" ,资产："+users[n].coin+" DRB ,连续签到："+users[n].day+"天")
+    }else {
+      drrr.print("用户名："+users[n].name+" ,tc："+users[n].tc+" ,UID："+users[n].uid+" ,资产："+users[n].coin+" DRB ,连续签到："+users[n].day+"天")
+    }
  }
 }
 //查看红包情况
@@ -462,16 +458,21 @@ event [msg, me, dm] (user, cont: "^/抢") => {
  } 
  
 //背包
-event [msg, me, dm] (user, cont: "^/背包") => {
+event [msg, me, dm] (user, cont: "^/(展示)?背包") => {
   let n=checku(user)
   if (n == (-1)) then drrr.print("/me @"+user+" 您的tc与已有的用户不匹配")
-  else drrr.dm(user,"@"+users[n].name+" 您的背包有【"+users[n].bag.join("】【")+"】")
+  else {
+     let p=users[n].bag.reduce((a,x,y) => {
+    a=a+"\n"+(y+1)+".【"+x.name+"】 ×"+x.amount
+    return a
+  }," 您的背包有:")
+    if cont=="/背包" then {
+      drrr.dm(user,"@"+users[n].name+p)
+    }else {
+      drrr.print("@"+users[n].name+p)
+    }
   }
-event [msg, me, dm] (user, cont: "^/展示背包") => {
-  let n=checku(user)
-  if (n == (-1)) then drrr.print("/me @"+user+" 您的tc与已有的用户不匹配")
-  else drrr.print("@"+users[n].name+" 您的背包有【"+users[n].bag.join("】【")+"】")
-  }
+}
 //商店
 event [msg, me, dm] (user, cont: "^/商店") => {
   let gds=goods.map((x,i) => i+1+". "+x.name+"  "+x.price+" DRB")
@@ -622,7 +623,7 @@ event [msg, me, dm] (user, cont: "^/观察") => {
   drrr.print(p)
   }
 }
-event [msg, me, dm] (user, cont: "^/宠物") => {
+event [msg, me, dm] (user, cont: "^/(展示)?宠物") => {
   let n=checku(user)
   if (n == (-1)) then drrr.print("/me @"+user+"您的tc与已有的用户不匹配")
   else {
@@ -630,18 +631,11 @@ event [msg, me, dm] (user, cont: "^/宠物") => {
     a=a+"\n"+(y+1)+".【"+x.name+"】\tLv."+x.level+"\tExp."+x.exp
     return a
   }," 您的宠物有:")
-  drrr.dm(user,"@"+users[n].name+p)
-  }
-}
-event [msg, me, dm] (user, cont: "^/展示宠物") => {
-  let n=checku(user)
-  if (n == (-1)) then drrr.print("/me @"+user+"您的tc与已有的用户不匹配")
-  else {
-  let p=users[n].pet.reduce((a,x,y) => {
-    a=a+"\n"+(y+1)+".【"+x.name+"】\tLv."+x.level+"\tExp."+x.exp
-    return a
-  }," 您的宠物有:")
-  drrr.print("@"+users[n].name+p)
+  if cont=="/宠物" then {
+      drrr.dm(user,"@"+users[n].name+p)
+    }else {
+      drrr.print("@"+users[n].name+p)
+    }
   }
 }
 event [msg, me, dm] (user, cont: "^/捕捉") => {

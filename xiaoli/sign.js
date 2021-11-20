@@ -482,25 +482,35 @@ event [msg, me, dm] (user, cont: "^/集市") => {
   let gds=market.map((x,i) => i+101+". "+x.name+"  "+x.price+" DRB")
   drrr.print("集市\n"+gds.join("\n"))
   }
-event [me,msg] (user, cont:"^/买\\s+\\d")  => {
+event [me,msg] (user, cont:"^/买\\s+\\d+(\\s+\\d)?")  => {
+  let reg = new RegExp("^/买\\s+\\d+\\s+\\d")
+  let a=1
   let g=parseInt(cont.replace("/买", "").trim())
+  if reg.test(cont) then{
+     g=parseInt(twokey("/买",cont)[0])
+     a=parseInt(twokey("/买",cont)[1])
+  }
   let n=checku(user)
   if (n == (-1)) then {
   drrr.print("/me @"+user+" 您的tc与已有的用户不匹配")
 } else if (g>goods.length && g<101 )|| g>(market.length+100 || g<1) then {
   drrr.print("/me @"+users[n].name+" 输入的序号不存在")
-}else {
-  if g<=goods.length then{
+} else if g<=goods.length then{
   let good=goods[g-1].name
-  let p=goods[g-1].price
+  let p=goods[g-1].price*a
   if (users[n].coin < p) then {
   drrr.print("/me @"+ users[n].name +" 很抱歉，【"+good+"】需要花费 "+p+" DRB，您只有"+users[n].coin+"DRB")
 } else {
   users[n].coin-=p
-  users[n].bag.push(good)
+  let j=users[n].bag.findIndex(x=> x.name==good)
+  if j>=0 then{
+    users[n].bag[j].amount++
+  }else {
+    users[n].bag.push({name: good,amount: a})
+  }
   drrr.print("/me @"+ users[n].name +" 您已成功购买【"+good+"】，花费了"+p+" DRB，现在您有"+users[n].coin+"DRB")
   }
-  }else {
+  }else if a==1 then {
   let good=market[g-101].name
   let p=market[g-101].price
   let own=market[g-101].own
@@ -511,12 +521,19 @@ event [me,msg] (user, cont:"^/买\\s+\\d")  => {
   users[n].coin-=p
   users[i].coin+=p
   market.splice(g-101,1)
-  users[n].bag.push(good)
+  let j=users[n].bag.findIndex(x=> x.name==good)
+  if j>=0 then{
+    users[n].bag[j].amount++
+  }else {
+    users[n].bag.push({name: good,amount: a})
+  }
   drrr.print("/me @"+users[n].name +" 您已成功购买【"+good+"】，花费了"+p+" DRB，现在您有"+users[n].coin+"DRB")
    }
+  }else {
+  let good=market[g-101].name
+  drrr.print("/me @"+ users[n].name +" 很抱歉，您最多只能购买1件【"+good+"】")
   }
- } 
-}
+ }
 event [msg, me, dm] (user, cont: "^/卖\\s+\\S+\\s+\\d") => { 
   let gd=twokey("/卖",cont)[0]
   let p=parseInt(twokey("/卖",cont)[1])
@@ -533,9 +550,9 @@ event [msg, me, dm] (user, cont: "^/卖\\s+\\S+\\s+\\d") => {
   }
 }
 //赠送
-event [msg, me, dm] (user, cont: "^/赠送\\s+\\S+\\s+\\S") => {
+event [msg, me, dm] (user, cont: "^/赠送\\s+\\S+\\s+\\d") => {
   let tou=checka(twokey("/赠送",cont)[0])
-  let gd=twokey("/赠送",cont)[1]
+  let gd=parseInt(twokey("/赠送",cont)[1])-1
   let n=checku(user)
   let m=users.findIndex(x=>x.name==tou)
   let l=users[n].bag.findIndex(x=>x==gd)
@@ -543,15 +560,24 @@ event [msg, me, dm] (user, cont: "^/赠送\\s+\\S+\\s+\\S") => {
   drrr.print("/me @"+user+" 您的tc与已有的用户不匹配")
 } else if (m ==(-1)) then {
   drrr.dm(user,"@"+users[n].name+" 您赠送的用户【"+tou+"】不存在，请检查输入是否为对方【用户名】")
-} else if (l ==(-1)) then {
-  drrr.dm(user,"@"+ users[n].name +" 很抱歉，您的背包没有【"+gd+"】")
+} else if gd >= users[n].bag.length then {
+  drrr.dm(user,"@"+ users[n].name +" 输入的序号不存在")
 } else {
-  users[n].bag.splice(l,1)
-  users[m].bag.push(gd)
-  send(m,"【赠送提醒】@"+ users[n].name +" 赠送给您【"+gd+"】")
-  drrr.dm(user,"@"+ users[n].name +" 您已成功将【"+gd+"】赠送给"+tou)
+  let good=users[n].bag[gd].name
+  if users[n].bag[gd].amount==1 then {
+    users[n].bag.splice(gd,1)
+  }else {
+    users[n].bag[gd].amount--
+  }
+  let j=users[m].bag.findIndex(x=> x.name==good)
+  if j>=0 then{
+    users[m].bag[j].amount++
+  }else {
+    users[m].bag.push({name: good,amount: 1})
+  }
+  send(m,"【赠送提醒】@"+ users[n].name +" 赠送给您【"+good+"】")
+  drrr.dm(user,"@"+ users[n].name +" 您已成功将【"+good+"】赠送给"+tou)
  }
-}
 event [msg, me, dm] (user, cont: "^/上架\\s+\\S+\\s+\\d", url, tc) => { 
   if admins.some(a => a==tc) then {
     let good=twokey("/上架",cont)[0]

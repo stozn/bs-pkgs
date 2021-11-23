@@ -398,7 +398,7 @@ event [msg, me, dm] (user, cont: "^/发红包\\s+\\d+\\s+\\d") => {
   let n=checku(user)
   if (n ==(-1)) then {
   drrr.print("/me @"+user+" 您的tc与已有的用户不匹配")
-} else if !users[n].bag.some(x => x=="MG-红包") then {
+} else if !users[n].bag.some(x => x.name=="MG-红包") then {
   drrr.print("/me @"+ users[n].name +" 很抱歉，您的背包中没有红包，请前往商店购买")
 } else if cn<20 then {
   drrr.print("/me @"+ users[n].name +" 很抱歉，红包总金额至少为20 DRB")
@@ -408,8 +408,7 @@ event [msg, me, dm] (user, cont: "^/发红包\\s+\\d+\\s+\\d") => {
   drrr.print("/me @"+ users[n].name +" 很抱歉，红包个数最多为20个")
 } else {
   users[n].coin-=cn
-  let k=users[n].bag.findIndex(x => x=="MG-红包")
-  users[n].bag.splice(k,1)
+  use(n,"MG-红包")
   pkgi++
   owner=user
   owneri=users[n].uid
@@ -670,13 +669,12 @@ event [msg, me, dm] (user, cont: "^/捕捉") => {
   drrr.print("/me @"+users[n].name+" 现在还没有宠物出没哦")
 } else if users[n].pet.length==5 then {
   drrr.print("/me @"+users[n].name +" 很抱歉，您已拥有5只宠物，已达容量上限，可放生宠物继续捕捉")
-} else if !users[n].bag.some(x => x=="MG-精灵球") then {
+} else if !users[n].bag.some(x => x.name=="MG-精灵球") then {
   drrr.print("/me @"+ users[n].name+" 很抱歉，您的背包中没有精灵球，请前往商店购买")
 } else {
-  let p=users[n].bag.findIndex(x => x=="MG-精灵球")
-  users[n].bag.splice(p,1)
+  use(n,"MG-精灵球")
   drrr.print("/me @"+users[n].name+" 正在努力捕捉中...")
-  later 5000 {
+  later 500 {
   let i=Math.floor(Math.random() * apet.length)
   let k=Math.random()<0.5  //成功概率 0.5
   if !k || (apet.length-1)<i then {
@@ -695,13 +693,12 @@ event [msg, me, dm] (user, cont:"^/投喂\\s+\\d")  => {
   let n=checku(user)
   if (n == (-1)) then {
   drrr.print("/me @"+user+" 您的tc与已有的用户不匹配")
-} else if !users[n].bag.some(x => x=="MG-宠物干粮") then {
+} else if !users[n].bag.some(x => x.name=="MG-宠物干粮") then {
   drrr.print("/me @"+ users[n].name +" 很抱歉，您的背包中没有宠物干粮，请前往商店购买")
 } else if p>(users[n].pet.length-1) then {
   drrr.print("/me @"+users[n].name+" 输入的序号不存在")
 } else {
-  let q=users[n].bag.findIndex(x => x=="MG-精灵球")
-  users[n].bag.splice(q,1)
+  use(n,"MG-精灵球")
   let name=users[n].pet[p].name
   users[n].pet[p].exp++
   let lv=checke(users[n].pet[p].exp)[0]
@@ -1009,7 +1006,7 @@ array = ["🍉","🍎","🍇","🍊","🍒","🍈"]
 a = array[Math.floor(Math.random() * 6)]
 b = array[Math.floor(Math.random() * 6)]
 c = array[Math.floor(Math.random() * 6)]
-later 2*1000 {
+ 
 //中奖 
   if a == b && b == c 
 then {
@@ -1034,7 +1031,7 @@ event [msg, me, dm] (user, content:"^/刮刮乐")=> {
   drrr.print("/me @"+ users[n].name +" 您使用了 10 DRB，现在您的DRB数量为"+users[n].coin+"，刮奖中..." )
 
 g = Math.floor(Math.random()*100+1)
-later 2*1000 {
+
 //中奖 10
   if g == 100
 then {
@@ -1058,6 +1055,6 @@ then {
   else
 //不中
   drrr.print("/me @" + users[n].name +" |是 "+g+" 残念！没中奖~")
-  }
+  
  }
 }

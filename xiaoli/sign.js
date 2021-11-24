@@ -23,11 +23,21 @@ let gains=[]
 let pkgs=[]
 const admins=["OG0OPFxOFw","Ancy.WWeeo","Robot/23Cc","unica/qOLU","YtIMnsXOBE"]   //设置管理员
 //签到重置 开奖
-timer 58*1000 {
+timer 57*1000 {
    mydate=new Date()
    const h=mydate.getHours()
    const m=mydate.getMinutes()
    if h==3 && m==1 && lottery.length>0 then kai()
+   if h==3 && m==2 && market.length>0 then {
+    for x of market {
+     let n=users.findIndex(a => a.uid==x.own)
+     if n>=0 then {
+     add(n,x.name,1)
+     send(n,"【物品退回】您在集市售卖的【"+x.name+"】暂无人购买，已退回您的背包")
+     }
+   } 
+    market=[]
+   }
    if h==0 && m==0 then{
     for  x of users {
      if x.check==true then x.day=0
@@ -797,7 +807,7 @@ event join (user) => {
     a+="\n您的信箱已满，请及时清理已阅的信件"
    }
   if !a=="" then {
-   latter 2000 drrr.dm(user,"@"+users[n].name+"："+a)
+   latter 1000 drrr.dm(user,"@"+users[n].name+"："+a)
   }
 }
 event [msg, me, dm] (user, cont: "^/写信\\s+\\S+\\s+\\S") => {

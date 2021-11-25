@@ -1,8 +1,8 @@
 //用户数据
-let users=
+let users=[]
 let input=[]
 //商店
-let goods=[{name: "MG-红包",price: 1},{name: "MG-精灵球",price: 10},{name: "MG-宠物干粮",price: 3},{name: "鲜榨果汁",price: 2},{name: "可乐",price: 4}]
+let goods=[{name: "MG-红包",price: 1},{name: "MG-精灵球",price: 10},{name: "MG-宠物干粮",price: 3},{name: "MG-刮刮乐",price: 10},{name: "MG-奖券",price: 5},{name: "鲜榨果汁",price: 2},{name: "可乐",price: 4}]
 let market=[]
 //彩票数据
 let lottery=[]
@@ -983,11 +983,11 @@ let a=false;
 let n=checku(user)
   if (n ==(-1)) then {
   drrr.print("/me @"+user+"您的tc与已有的用户不匹配")
-} else if (users[n].coin == 0) then {
-  drrr.print("/me @"+ user +"很抱歉，注文功能需要花费 1 DRB，您的DRB数为"+users[n].coin+"。")
+} else if (users[n].coin < 10) then {
+  drrr.print("/me @"+ user +"很抱歉，注文功能需要花费 10 DRB，您的DRB数为"+users[n].coin+"。")
 } else {
-  users[n].coin--
-  drrr.print("/me @"+ user +" 您使用了 1 DRB，现在您的DRB数量为"+users[n].coin+"，["+r+"]马上就好，请稍等一分钟" );
+  users[n].coin-=10
+  drrr.print("/me @"+ user +" 您使用了 10 DRB，现在您的DRB数量为"+users[n].coin+"，["+r+"]马上就好，请稍等一分钟" );
   while (i<zw.length && !a){
   let reg = new RegExp(zw[i]);
   a=reg.test(r);
@@ -1006,11 +1006,10 @@ event [msg, me, dm] (user, content:"^/抽奖")=> {
   let n=checku(user)
   if (n ==(-1)) then {
   drrr.print("/me @"+user+"您的tc与已有的用户不匹配")
-  } else if (users[n].coin < 5) then {
-  drrr.print("/me @"+ users[n].name +"很抱歉，抽奖功能需要花费 5 DRB，您的DRB数为"+users[n].coin+"。")
+  } else if !users[n].bag.some(x => x.name=="MG-奖券") then {
+  drrr.print("/me @"+ users[n].name +" 很抱歉，您的背包中没有奖券，请前往商店购买")
 } else {
-  users[n].coin-=5
-  drrr.print("/me @"+ users[n].name +" 您使用了 5 DRB，现在您的DRB数量为"+users[n].coin+"，正在抽奖中..." )
+  use(n,"MG-奖券")
 
 array = ["🍉","🍎","🍇","🍊","🍒","🍈"]
 a = array[Math.floor(Math.random() * 6)]
@@ -1028,18 +1027,16 @@ then {
   drrr.print("/me @" + users[n].name +" |抽到的 【"+a+b+c+"】没中奖哦~请再接再厉~！")
   }
  }
-}
 //刮刮乐
 event [msg, me, dm] (user, content:"^/刮刮乐")=> {
   let n=checku(user)
   if (n ==(-1)) then {
   drrr.print("/me @"+user+"您的tc与已有的用户不匹配")
-  } else if (users[n].coin < 10) then {
-  drrr.print("/me @"+ users[n].name +"很抱歉，刮刮乐 需要花费 10 DRB，您的DRB数为"+users[n].coin+"。")
+  }else if !users[n].bag.some(x => x.name=="MG-刮刮乐") then {
+  drrr.print("/me @"+ users[n].name +" 很抱歉，您的背包中没有刮刮乐，请前往商店购买")
 } else {
-  users[n].coin-=10
-  drrr.print("/me @"+ users[n].name +" 您使用了 10 DRB，现在您的DRB数量为"+users[n].coin+"，刮奖中..." )
-
+  use(n,"MG-刮刮乐")
+  
 g = Math.floor(Math.random()*100+1)
 
 //中奖 10
@@ -1068,3 +1065,4 @@ then {
   
  }
 }
+

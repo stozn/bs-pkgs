@@ -1,5 +1,5 @@
 //用户数据
-let users=[]
+let users=
 let input=[]
 //商店
 let goods=[{name: "MG-红包",price: 1},{name: "MG-精灵球",price: 10},{name: "MG-宠物干粮",price: 3},{name: "MG-刮刮乐",price: 10},{name: "MG-奖券",price: 5},{name: "鲜榨果汁",price: 2},{name: "可乐",price: 4}]
@@ -139,7 +139,8 @@ add=(m,good,amt)=>{
     users[m].bag.push({name: good,amount: amt})
   }
 }
-use=(n,gd)=>{
+use=(n,good)=>{
+let gd=users[m].bag.findIndex(x=> x.name==good)
   if users[n].bag[gd].amount==1 then {
     users[n].bag.splice(gd,1)
   }else {
@@ -579,7 +580,7 @@ event [msg, me, dm] (user, cont: "^/赠送\\s+\\S+\\s+\\d") => {
   drrr.dm(user,"@"+ users[n].name +" 输入的序号不存在")
 } else {
   let good=users[n].bag[gd].name
-  use(n,gd)
+  use(n,good)
   add(m,good,1)
   send(m,"【赠送提醒】@"+ users[n].name +" 赠送给您【"+good+"】")
   drrr.dm(user,"@"+ users[n].name +" 您已成功将【"+good+"】赠送给"+tou)

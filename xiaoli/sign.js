@@ -70,6 +70,7 @@ checka = (name) =>{
 }
 //创建新用户
 newu = (user,tc) =>{
+  drrr.dm(user,"如需详细指引，请前往小粒个人网站查看详细帮助页\n http://xiaoli.22web.org/help/","http://xiaoli.22web.org/help/")
   users.sort((a,b) => a.uid - b.uid)
   let duid=users[users.length-1].uid+1
   users.push({ uid: duid,name: user,tc: tc,coin: 0,check: true,day: 0,bag: [],pet: [],letters: [],newl: false})
@@ -166,7 +167,7 @@ event [msg, me, dm] (user, cont: "^/排行榜") => {
   later 500 drrr.print("签到排行榜  "+sort("day"))
   }
 event [msg, me, dm] (user, cont: "^/帮助") => {
-  drrr.udm(user,"请前往小粒个人网站查看详细帮助页","http://xiaoli.22web.org/help/")
+  drrr.dm(user,"请前往小粒个人网站查看详细帮助页","http://xiaoli.22web.org/help/")
   }
 //签到
 event [msg, me, dm] (user, cont: "^/签到") => { 

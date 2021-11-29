@@ -141,7 +141,7 @@ add=(m,good,amt)=>{
   }
 }
 use=(n,good)=>{
-let gd=users[m].bag.findIndex(x=> x.name==good)
+let gd=users[n].bag.findIndex(x=> x.name==good)
   if users[n].bag[gd].amount==1 then {
     users[n].bag.splice(gd,1)
   }else {
@@ -208,7 +208,7 @@ event [msg, me, dm] (user, cont: "^/奖励\\s+\\d+\\s+\\S+\\s+\\d", url, tc) => 
       drrr.dm(user,"未找到UID为【"+uid+"】的用户")
     }else {
       users[n].coin+=cn
-      send(x,"【个人奖励】*"+nm+"*已发送到您账户，金额为"+cn+" DRB，请留意查收")
+      send(n,"【个人奖励】*"+nm+"*已发送到您账户，金额为"+cn+" DRB，请留意查收")
       drrr.dm(user,"【个人奖励】*"+nm+"*已发送到@"+users[n].name+"的账户，金额为"+cn+" DRB")
     }
   }
@@ -223,7 +223,7 @@ event [msg, me, dm] (user, cont: "^/奖励\\s+\\S+\\s+\\S+\\s+\\d", url, tc) => 
       drrr.dm(user,"未找到用户名为【"+name+"】的用户")
     }else {
       users[n].coin+=cn
-      send(x,"【个人奖励】*"+nm+"*已发送到您账户，金额为"+cn+" DRB，请留意查收")
+      send(n,"【个人奖励】*"+nm+"*已发送到您账户，金额为"+cn+" DRB，请留意查收")
       drrr.dm(user,"【个人奖励】*"+nm+"*已发送到@"+users[n].name+"的账户，金额为"+cn+" DRB")
     }
   }
@@ -239,7 +239,7 @@ event [msg, me, dm] (user, cont: "^/惩罚\\s+\\d+\\s+\\S+\\s+\\d", url, tc) => 
       drrr.dm(user,"未找到UID为【"+uid+"】的用户")
     }else {
       users[n].coin-=cn
-      send(x,"【个人惩罚】您因*"+nm+"*受到惩罚，罚金为"+cn+" DRB")
+      send(n,"【个人惩罚】您因*"+nm+"*受到惩罚，罚金为"+cn+" DRB")
       drrr.dm(user,"【个人惩罚】@"+users[n].name+"因*"+nm+"*受到惩罚，罚金为"+cn+" DRB")
     }
   }
@@ -254,7 +254,7 @@ event [msg, me, dm] (user, cont: "^/惩罚\\s+\\S+\\s+\\S+\\s+\\d", url, tc) => 
       drrr.dm(user,"未找到用户名为【"+name+"】的用户")
     }else {
       users[n].coin-=cn
-      send(x,"【个人惩罚】您因*"+nm+"*受到惩罚，罚金为"+cn+" DRB")
+      send(n,"【个人惩罚】您因*"+nm+"*受到惩罚，罚金为"+cn+" DRB")
       drrr.dm(user,"【个人惩罚】@"+users[n].name+"因*"+nm+"*受到惩罚，罚金为"+cn+" DRB")
     }
   }
@@ -422,7 +422,7 @@ event [msg, me, dm] (user, cont: "^/发红包\\s+\\d+\\s+\\d") => {
   users[n].coin-=cn
   use(n,"MG-红包")
   pkgi++
-  owner=user
+  owner=users[n].name
   owneri=users[n].uid
   pktam=amc
   gaini=[]
@@ -541,10 +541,12 @@ event [me,msg] (user, cont:"^/买\\s+\\d+(\\s+\\d)?")  => {
 } else {
   let i=users.findIndex(x=> x.uid==own)
   users[n].coin-=p
-  users[i].coin+=p
+  let s=Math.floor(p*0.05)
+  users[i].coin+=p-s
   market.splice(g-101,1)
   add(n,good,a)
   drrr.print("/me @"+users[n].name +" 您已成功购买【"+good+"】，花费了"+p+" DRB，现在您有"+users[n].coin+"DRB")
+  send(i,"【售出提醒】@"+ users[n].name +" 花费"+p+" DRB 购买了您在集市出售的【"+good+"】，已收取"+s+" DRB 交易费用")
    }
   }else {
   let good=market[g-101].name
@@ -625,7 +627,7 @@ checke = (e) =>{
   else                 { return [7,0] }       //7级 500-∞
 }
 timer 10*60*1000{
-if Math.random()<0.55 then {
+if Math.random()<0.25 then {
   let i=Math.floor(Math.random() * pets.length)
   let m=pets[i].name
   let a=Math.random()*10+5
@@ -688,7 +690,7 @@ event [msg, me, dm] (user, cont: "^/捕捉") => {
   drrr.print("/me @"+users[n].name+" 正在努力捕捉中...")
   later 500 {
   let i=Math.floor(Math.random() * apet.length)
-  let k=Math.random()<0.5  //成功概率 0.5
+  let k=Math.random()<0.3  //成功概率 0.3
   if !k || (apet.length-1)<i then {
   drrr.print("/me @"+users[n].name+" 哎呀，失手了")
   }else { 
@@ -710,13 +712,13 @@ event [msg, me, dm] (user, cont:"^/投喂\\s+\\d")  => {
 } else if p>(users[n].pet.length-1) then {
   drrr.print("/me @"+users[n].name+" 输入的序号不存在")
 } else {
-  use(n,"MG-精灵球")
+  use(n,"MG-宠物干粮")
   let name=users[n].pet[p].name
   users[n].pet[p].exp++
   let lv=checke(users[n].pet[p].exp)[0]
   let dt=checke(users[n].pet[p].exp)[1]
   if users[n].pet[p].level==7 then {
-    drrr.print("/me @"+ users[n].name +" 您已投喂了【"+name+"】一份宠物干粮，【"+name+"】获得1经验值，已经达到最高等级Lv.7")
+    drrr.print("/me @"+ users[n].name +" 您已投喂了【"+name+"】一份宠物干粮，【"+name+"】获得1经验值，目前 Lv."+lv+" ，已经达到最高等级Lv.7")
   }else if lv==users[n].pet[p].level then {
     drrr.print("/me @"+users[n].name+" 您已投喂了【"+name+"】一份宠物干粮，【"+name+"】获得1经验值，目前 Lv."+lv+" ,距离下一级还差"+dt+"经验值")
   }else {
@@ -863,6 +865,14 @@ event [msg, me, dm] (user, cont: "^/删除信件\\s+\\d") => {
    users[n].letters.splice(p,1)
    drrr.dm(user,"@"+users[n].name+" 成功删除："+m)
   }
+  }
+}
+event [msg, me, dm] (user, cont: "^/清空信箱") => { 
+  let n=checku(user)
+  if (n == (-1)) then drrr.print("/me @"+user+" 您的tc与已有的用户不匹配")
+  else {
+     users[n].letters=[]
+     drrr.dm(user,"@"+users[n].name+" 成功清空信箱")
   }
 }
 //查找用户

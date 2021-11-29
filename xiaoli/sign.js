@@ -766,7 +766,7 @@ event [msg, me, dm] (user, cont:"^/放生\\s+\\d")  => {
   later a*60*1000 {
     let i=apet.findIndex(x => x.name==pet.name && x.exp==pet.exp)
     if i>=0 then {
-      apet.splice(n,1)
+      apet.splice(i,1)
       drrr.print("/me 【"+pet.name+"】逃走了")
    }
   }

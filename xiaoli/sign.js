@@ -2,7 +2,7 @@
 let users=
 let input=[]
 //商店
-let goods=[{name: "MG-红包",price: 1},{name: "MG-精灵球",price: 10},{name: "MG-宠物干粮",price: 3},{name: "MG-刮刮乐",price: 10},{name: "MG-奖券",price: 5},{name: "鲜榨果汁",price: 2},{name: "可乐",price: 4}]
+let goods=[{name: "MG-红包",price: 5},{name: "MG-精灵球",price: 20},{name: "MG-宠物干粮",price: 5},{name: "MG-刮刮乐",price: 10},{name: "MG-奖券",price: 5},{name: "鲜榨果汁",price: 2},{name: "可乐",price: 4}]
 let market=[]
 //彩票数据
 let lottery=[]

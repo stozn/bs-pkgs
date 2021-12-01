@@ -162,9 +162,11 @@ sort = (key) =>{
   },"总用户:"+usr.length+"人")
   return p
  }
-event [msg, me, dm] (user, cont: "^/排行榜") => {
+event [msg, me, dm] (user, cont: "^/(资产)?排行榜") => {
   drrr.print("资产排行榜      "+sort("coin"))
-  later 500 drrr.print("签到排行榜  "+sort("day"))
+  }
+event [msg, me, dm] (user, cont: "^/签到排行榜") => {
+  drrr.print("签到排行榜  "+sort("day"))
   }
 event [msg, me, dm] (user, cont: "^/帮助") => {
   drrr.dm(user,"请前往小粒个人网站查看详细帮助页","http://xiaoli.22web.org/help/")
@@ -520,7 +522,7 @@ event [me,msg] (user, cont:"^/买\\s+\\d+(\\s+\\d)?")  => {
   let n=checku(user)
   if (n == (-1)) then {
   drrr.print("/me @"+user+" 您的tc与已有的用户不匹配")
-} else if (g>goods.length && g<101 )|| g>(market.length+100 || g<1) then {
+} else if ((g>goods.length && g<101 ) || g>market.length+100 || g<1) then {
   drrr.print("/me @"+users[n].name+" 输入的序号不存在")
 } else if g<=goods.length then{
   let good=goods[g-1].name
@@ -687,8 +689,7 @@ event [msg, me, dm] (user, cont: "^/捕捉") => {
   drrr.print("/me @"+ users[n].name+" 很抱歉，您的背包中没有精灵球，请前往商店购买")
 } else {
   use(n,"MG-精灵球")
-  drrr.print("/me @"+users[n].name+" 正在努力捕捉中...")
-  later 500 {
+
   let i=Math.floor(Math.random() * apet.length)
   let k=Math.random()<0.3  //成功概率 0.3
   if !k || (apet.length-1)<i then {
@@ -698,7 +699,7 @@ event [msg, me, dm] (user, cont: "^/捕捉") => {
     users[n].pet.push(apet[i])
     apet.splice(i,1)
     drrr.print("/me @"+users[n].name+" 成功捕获一只【"+m+"】")
-   }
+   
   }
  }
 }

@@ -70,6 +70,7 @@ timer 15*60*1000{
   mydate= new Date()
   m=mydate.getMinutes()
   if m>2 then award=[]
+  users=users.filter(x=> (x.coin+x.day+x.bag.length+x.letters.length)>0)
 }
 //随机整数
 rand = (a,b) =>{

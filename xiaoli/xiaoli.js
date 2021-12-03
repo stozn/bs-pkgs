@@ -1,3 +1,25 @@
+fmtNow = () => {
+  now = new Date()
+  String(now.getHours()).padStart(2, "0")
+   + ":" + String(now.getMinutes()).padStart(2, "0")
+}
+
+sample = array => array[Math.floor(Math.random() * array.length)]
+
+onTimeDo = (h, m, s, callback) => {
+  next = new Date()
+  h >= 0 && next.setHours(h)
+  m >= 0 && next.setMinutes(m)
+  s >= 0 && next.setSeconds(s)
+  interval = (h >= 0 && (24 * 3600)) || (m >= 0 && 3600) || (s >= 0 && 60)
+  delta = next.getTime() - Date.now()
+  delta += (delta < 0) * (interval * 1000)
+  later delta {
+    callback()
+    timer (interval * 1000) callback()
+  }
+}
+
 //进入房间【欢迎
 event join (user) => {
   ns =["||进来了就是美少女","||今天也请多多喝水","||你也来喝水啦w"]
@@ -7,38 +29,37 @@ event join (user) => {
   drrr.dm(user,m);
 }
 //帮助
-event [me,msg] (user: "", content:"/帮助", url, tripcode, req)  => {
+event [me,msg] (user: "", content:"/帮助")  => {
   drrr.dm(user,"指令列表：（简体）\n新功能【悄悄话（dm）】：【/悄悄话 + 空格 + 对方ID（不用@） + 空格 +（内容）】\n续杯指令（msg/me）：【/再来一杯】\n投喂指令（msg/me）：【/投喂】【/套餐】\n查看帮助（msg/me）：【/帮助】\n抽奖指令（msg/me）：【/抽奖】【/概率】【/中奖历史】\n※适当抽奖，请勿影响大家的聊天体验" );
 }
 //递水服务
 event join (user:"")  => {
   ns =["酸梅汤","温水","柠檬水","葡萄糖水","鲜榨🍉汁","鲜榨🍊汁","鲜榨🍇汁","鲜榨🍓汁","鲜榨🥥汁","鲜榨🥝汁"]
-  n = ns[Math.floor(Math.random() * ns.length)];
-  drrr.print("/me @" + user + "|递 【"+ n +"】请慢用")}
-//报时优化
-checkTime = (i) =>{if (i<10) then{i="0" + i} return i}
+  drrr.print("/me @" + user + "|递 【"+ sample(ns) +"】请慢用")
+}
+
+onTimeDo(-1, 0, 0, () => {
+  drrr.print("/me 整点报时：现在是【"+fmtNow() +"】，努力回忆了一下，好像没啥要紧事要做，回去继续睡吧w")
+})
+
+onTimeDo(-1, 30, 0, () => {
+  drrr.print("/me ヾ(≧▽≦*)o】现在的时间是【"+fmtNow()+"】每60分钟给大家添水1次，记得好好补充水分哦")
+})
+
+randomActivity = () => {
+  ns =["给盖好被子避免着凉","(っ´Ι`)っ翻找冰箱发现（☆▽☆）【"+
+    sample(["🎂","🍰","🍪","🍩","🍮","🍔","🥞","🥗","🍨","🍧","🍦"])
+    +"！！吃了回去继续睡吧w"]
+  drrr.print("/me 【迷迷糊糊的爬起来，"+ sample(s))
+}
+
+onTimeDo(-1, 15, 0, randomActivity)
+onTimeDo(-1, 45, 0, randomActivity)
+
 //准点报时与活动。每60秒触发1次
-timer 60 * 1000{
- const H="";
- const M="";
-  mydate=new Date();
-  H = mydate.getHours();
-  M = mydate.getMinutes();
-  mb = ["🎂","🍰","🍪","🍩","🍮","🍔","🥞","🥗","🍨","🍧","🍦"]
-  m = mb[Math.floor(Math.random() * 11)] 
-  t = ["/me 整点报时：现在是【"+checkTime(H)+":"+checkTime(M) +"】，努力回忆了一下，好像没啥要紧事要做，回去继续睡吧w"]
-  f = ["/me ヾ(≧▽≦*)o】现在的时间是【"+checkTime(H)+":"+checkTime(M) +"】每60分钟给大家添水1次，记得好好补充水分哦"]
-  ns =["给盖好被子避免着凉","(っ´Ι`)っ翻找冰箱发现（☆▽☆）【"+m+"！！吃了回去继续睡吧w"]
-  n = ["/me 【迷迷糊糊的爬起来，"+ ns[Math.floor(Math.random() * ns.length)] ];
+timer 60 * 1000 {
   ds =["(:3[___]","(:[___]","([___]","(:3[」_]","(:3[」＿]=:","|[__]∠)_","_(:з」∠)_"]
-  d = ds[Math.floor(Math.random() * 7)] 
-  if (M ==0)   then { drrr.print(t)}//整点报时
-  else
-  if (M==30)   then { drrr.print(f)}//60分钟1次【每小时的30分】提醒喝水
-  else
-  if (M ==15||M==45)   then { drrr.print(n)}  //每30分钟1次【每15/45分】触发【随机活动】
-  else
-  drrr.title("多喝温水"+d) //否则换房间标题【也就是大约60秒换一次】
+  drrr.title("多喝温水"+sample(ds)) //否则换房间标题【也就是大约60秒换一次】
 }
 //播放音乐
 event msg (user, msg: "^/播放") => {
@@ -48,136 +69,104 @@ event msg (user, msg: "^/播放") => {
 //控制温度
 timer 2500 * 1000{
   ns = ["/me 好像有点冷了，【关掉空调再盖好被子】","/me 好像有点冷了，【把空调调到27°】","/me 好像有点热欸，，，【打开空调并调到25°】","/me 起床去喝了一杯水🥛"]
-  n = ns[Math.floor(Math.random() * ns.length)];
-  drrr.print(n)
+  drrr.print(sample(ns))
 }
 // 再来一杯
-event [me,msg] (user: "", content:"/再来一杯", url, tripcode, req)  => {
+event [me,msg] (user: "", content:"/再来一杯")  => {
   ns =["酸梅汤","温水","柠檬水","葡萄糖水","鲜榨🍉汁","鲜榨🍊汁","鲜榨🍇汁","鲜榨🍓汁","鲜榨🥥汁","鲜榨🥝汁"]
-  n = ns[Math.floor(Math.random() * ns.length)];
-  drrr.print("/me @" + user + "|递【" + n +"~】请慢用")
+  drrr.print("/me @" + user + "|递【" + sample(ns) +"~】请慢用")
 }
 // 投喂恶龙
-event [me,msg] (user: "", content:"/投喂", url, tripcode, req)  => {
+event [me,msg] (user: "", content:"/投喂")  => {
   ns =["毛豆1kg","毛豆5kg","毛豆10kg","毛豆汁500mL","毛豆汁1000mL","🍕","🍔","🍟","🌭","🥓","🍖","🍗","🥩","🍤","🌯"]
-    n = ns[Math.floor(Math.random() * ns.length)];
-  drrr.print("/me @" + user + "投喂了 @恶龙 【" + n +"~】看他吃的多开心w")
+  drrr.print("/me @" + user + "投喂了 @恶龙 【" + sample(ns) +"~】看他吃的多开心w")
 }
 // 投喂恶龙套餐
-event [me,msg] (user: "", content:"/套餐", url, tripcode, req)  => {
+event [me,msg] (user: "", content:"/套餐")  => {
   ns =["毛豆","毛豆汁","🍕","🍔","🍟","🌭","🥓","🍖","🍗","🥩","🍤","🌯"]
-n = ns[Math.floor(Math.random() * 12)]
-m = ns[Math.floor(Math.random() * 12)]
-b = ns[Math.floor(Math.random() * 12)]
   as =["但是这些东西完全不够恶龙塞牙缝","恶龙开心的吃了起来","双眼开始放光","恶龙视乎对这些食物不感兴趣","恶龙好像吃的有些饱了"]
-    a = as[Math.floor(Math.random() * as.length)];  
-  drrr.print("/me @" + user + "投喂了 @恶龙 【" + n + m + b +"~】"+a)
+  drrr.print("/me @" + user + "投喂了 @恶龙 【" + sample(ns) + sample(ns) + sample(ns) +"~】"+ sample(as))
 }
 //抽奖系统
-event [me,msg] (user: "", content:"/抽奖", url, tripcode, req)=> {
-array = ["🍉","🍑","🍎","🍇","🍋","🥥","🍊","🍓","🍒","🍈","🎃","🥝"]
-mb = ["🎂","🍰","🍪","🍩","🍮","🍔","🥞","🥗","🍨","🍧","🍦"]
-nb = ["🦁","🐶","🐱","🐯","🦁","🦁","🐼","🐇","🐧","🐿","🐈","🐒"]
-a = array[Math.floor(Math.random() * 12)]
-b = array[Math.floor(Math.random() * 12)]
-c = array[Math.floor(Math.random() * 12)]
-d = array[Math.floor(Math.random() * 12)]
-e = array[Math.floor(Math.random() * 12)]
-m = mb[Math.floor(Math.random() * 11)] 
-n = nb[Math.floor(Math.random() * 12)]  
-//全中
-  if a == b && b == c && c == d && d 	== e
-then
-  drrr.print("@" + user +"抽到的是【"+a+b+c+d+e+"】🎉🎉🎉🎊🎊🎰恭喜中大奖：奖励【u酱特调妹汁一杯】")
-  else
-//中4个
-  if a==b && a==c && a==d || a==b && a==c && a==e || a==c && a==d && a==e || b==c && b==d && b==e
-then
-  drrr.print("@" + user +"抽到的是【"+a+b+c+d+e+"】有四个一样的水果！🎉🎉🎉奖励：【"+n+"玩偶】一只！并获得"+m+"一份！")
-else  
-//中3个
-  if a==b && a==c ||a==b && a==d ||a==b && a==e ||a==c && a==d ||a==c && a==e ||a==d && a==e ||b==c && b==d ||b==c && b==e ||b==d && b==e || c==d && c==e
-then
-  drrr.print("@" + user +"抽到的是【"+a+b+c+d+e+"】有三个一样的水果！🎉🎉奖励："+m+"一份！")
-else
+event [me,msg] (user: "", content:"/抽奖")=> {
+  mb = ["🎂","🍰","🍪","🍩","🍮","🍔","🥞","🥗","🍨","🍧","🍦"]
+  nb = ["🦁","🐶","🐱","🐯","🦁","🦁","🐼","🐇","🐧","🐿","🐈","🐒"]
+  array = ["🍉","🍑","🍎","🍇","🍋","🥥","🍊","🍓","🍒","🍈","🎃","🥝"]
 
-//中2个  
-  if a==b || a==c || a==d || a==e
-  then
-  drrr.print("/me @" + user +"抽到的是【"+a+b+c+d+e+"】有两个【"+a+"】🎉奖励："+a+"汁一杯哒！")
-else
-  if b==c || b==d || b==e
-  then
-  drrr.print("/me @" + user +"抽到的是【"+a+b+c+d+e+"】有两个【"+b+"】🎉奖励："+b+"汁一杯哒！")
-else
-  if c==d || c==e
-  then
-  drrr.print("/me @" + user +"抽到的是【"+a+b+c+d+e+"】有两个【"+c+"】🎉奖励："+c+"汁一杯哒！")
-else
-  if d==e
-  then
-  drrr.print("/me @" + user +"抽到的是【"+a+b+c+d+e+"】有两个【"+d+"】🎉奖励："+d+"汁一杯哒！")
-//不中
-  else
-  drrr.print("/me @" + user +" |抽到的 【"+a+b+c+d+e+"】完全没有相同的！")
+  fruits = Array.from({length: 5}, (x, i) => sample(array));
+  bucket = array.map(() => 0)
+  fruits.forEach(d => bucket[array.indexOf(d)] += 1)
+  most_freq = Math.max.apply(Math, bucket)
+  most_fruit = array[bucket.indexOf(most_freq)]
+
+  leading = "@" + user +"抽到的是【"+fruits.join("")+"】"
+
+  hints = ["",
+    "/me @" + user +" |抽到的 【"+fruits.join("")+"】完全没有相同的！",
+    leading + "有两个【"+most_fruit+"】🎉奖励："+most_fruit+"汁一杯哒！",
+    leading + "有三个一样的水果！🎉🎉奖励："+sample(mb)+"一份！",
+    leading + "有四个一样的水果！🎉🎉🎉奖励：【"+sample(nb)+"玩偶】一只！并获得"+sample(mb)+"一份！",
+    leading + "🎉🎉🎉🎊🎊🎰恭喜中大奖：奖励【u酱特调妹汁一杯】"]
+
+  drrr.print(hints[most_freq])
 }
 //乖嘛
-event [me,msg] (user: "黯泣", content:"小粒今天乖嘛", url, tripcode, req)=> {
-drrr.print("我今天超乖的！")
-drrr.print("/me 【<(ˉ^ˉ)>")  
+event [me,msg] (user: "黯泣", content:"小粒今天乖嘛")=> {
+  drrr.print("我今天超乖的！")
+  drrr.print("/me 【<(ˉ^ˉ)>")
 }
 //换房主
-event [me,msg] (user: "黯泣", content:"给我房主", url, tripcode, req)=> {
-drrr.chown(user)
+event [me,msg] (user: "黯泣", content:"给我房主")=> {
+  drrr.chown(user)
 }
-event [me,msg] (user: "unica", content:"给我房主", url, tripcode, req)=> {
-drrr.chown(user)
+event [me,msg] (user: "unica", content:"给我房主")=> {
+  drrr.chown(user)
 }
-event [me,msg] (user: "LanCeLoT_Ng", content:"给我房主", url, tripcode, req)=> {
-drrr.chown(user)
+event [me,msg] (user: "LanCeLoT_Ng", content:"给我房主")=> {
+  drrr.chown(user)
 }
 
 //让小粒说
-event dm (user: "黯泣", cont:"^/说", url, tripcode, req)  => {  
-    drrr.print(cont.replace("/说", "").trim());
+event dm (user: "黯泣", cont:"^/说")  => {
+  drrr.print(cont.replace("/说", "").trim());
 }
 //悄悄话
-event dm (user: "", cont:"^/悄悄话", url, tripcode, req)  => {   
-const i=0;
-const ts=0;
-const a=true;
-const u=cont.replace("/悄悄话", "").trim().slice(0,cont.replace("/悄悄话", "").trim().search(" ")).trim();
-const m=cont.replace("/悄悄话", "").trim().slice(cont.replace("/悄悄话", "").trim().search(" "));
-drrr.dm(user,"收到！");
-while(i<drrr.users.length && a){
-  if(drrr.users[i].name == u) then {
+event dm (user: "", cont:"^/悄悄话")  => {
+  ts=0;
+  a=true;
+  u=cont.replace("/悄悄话", "").trim().slice(0,cont.replace("/悄悄话", "").trim().search(" ")).trim();
+  m=cont.replace("/悄悄话", "").trim().slice(cont.replace("/悄悄话", "").trim().search(" "));
+  drrr.dm(user,"收到！");
+
+  target = drrr.users.find(user => user.name == u)
+  if target then {
     a=false;
     drrr.dm(u,"有人给你悄悄话："+m);
+  }
+  else {
+    // may replace by join
+    Myfor =()=> {
+      target = drrr.users.find(user => user.name == u)
+      if target then {
+        a=false;
+        drrr.dm(u,"有人给你悄悄话："+m);
+      }
+      else {
+        ts++;
+        if (ts<60*24*3) then{setTimeout(Myfor, 60*1000);}
+      }
     }
-  i++
-}
-Myfor =()=> {
-  const j=0; 
-  while(j<drrr.users.length && a){
-    if(drrr.users[j].name == u) then {
-      a=false;
-      drrr.dm(u,"有人给你悄悄话："+m);
-     }
-   j++
-   }
- ts++;
- if (a && ts<60*24*3) then{setTimeout(Myfor, 60*1000);}
-}
-Myfor();
+    Myfor();
+  }
 }
 //踢人
-event dm (user: "黯泣", cont:"^/踢", url, tripcode, req)  => {  
-    drrr.kick(cont.replace("/踢", "").trim());
+event dm (user: "黯泣", cont:"^/踢")  => {
+  drrr.kick(cont.replace("/踢", "").trim());
 }
-event dm (user: "黯泣", cont:"^/kick", url, tripcode, req)  => {  
-    drrr.kick(cont.replace("/kick", "").trim());
+event dm (user: "黯泣", cont:"^/kick")  => {
+  drrr.kick(cont.replace("/kick", "").trim());
 }
 //ban
-event dm (user: "黯泣", cont:"^/ban", url, tripcode, req)  => {  
-    drrr.ban(cont.replace("/ban", "").trim());
+event dm (user: "黯泣", cont:"^/ban")  => {
+  drrr.ban(cont.replace("/ban", "").trim());
 }

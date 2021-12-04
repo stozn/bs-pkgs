@@ -51,7 +51,7 @@ onTimeDo(3, 2, 0, () => {
  }
 })
 
-onTimeDo(0, 0, 0, () => {
+onTimeDo(0, 1, 0, () => {
   for  x of users {
    if x.check==true then x.day=0
    x.check=true

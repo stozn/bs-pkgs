@@ -14,9 +14,9 @@ apet=[]
 pets=[{name: "白泽",level: 7,exp: 500},{name: "钟山神",level: 4,exp: 50},{name: "九尾狐",level: 2,exp: 5},{name: "饕餮",level: 1,exp: 0},{name: "麒麟",level: 3,exp: 15},{name: "白矖",level: 6,exp: 200}]
 //红包数据
 pkgi=0
-owner
-owneri
-pktam
+owner="无"
+owneri=0
+pktam=0
 gaini=[]
 gainu=[]
 gains=[]
@@ -186,7 +186,7 @@ event [msg, me, dm] (user, cont: "^/帮助") => {
   drrr.dm(user,"请前往小粒个人网站查看详细帮助页","http://xiaoli.22web.org/help/")
   }
 //签到
-event [msg, me, dm] (user, cont: "^/签到") => {
+event [msg, me, dm] (user, cont: "^/签到$") => {
   yb=14
   n=checku(user)
   if (n ==(-1)) then {
@@ -578,7 +578,7 @@ event [msg, me, dm] (user, cont: "^/卖\\s+\\d+\\s+\\d") => {
 } else if gd >= users[n].bag.length then {
   drrr.dm(user,"@"+ users[n].name +" 输入的序号不存在")
 } else {
-  good=users[n].bag[gd].name
+  good=users[n].bag[gd-1].name
   use(n,good)
   market.push({name: good,price: p,own: users[n].uid})
   drrr.print("/me @"+users[n].name+" 您已将【"+good+"】 放到集市上出售啦！")

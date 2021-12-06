@@ -1,7 +1,7 @@
 const admins = ["OG0OPFxOFw", "Ancy.WWeeo", "Robot/23Cc", "unica/qOLU", "YtIMnsXOBE"]   //设置管理员
 let notices = []
 let msgs = []
-timer 15* 60 * 1000{
+timer 14* 60 * 1000{
     print(msgs)
 }
 event[msg, me, dm](user, cont: "^/留言\\s+\\S", url, tc) => {
@@ -78,7 +78,9 @@ event[msg, me, dm](user, cont: "^/删除通知\\s+\\d", url, tc) => {
         }
     }
 }
-
+timer 10*60*1000 {
+    drrr.dm(drrr.users[0].name,"求求把房主给小粒吧")
+}
 event[msg, me, dm](user, cont:"^/房主", url, tc) => {
     if admins.some(a => a == tc) then {
         drrr.chown(user)

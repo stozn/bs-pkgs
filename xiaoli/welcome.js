@@ -1,25 +1,25 @@
-const admins = ["OG0OPFxOFw", "Ancy.WWeeo", "Robot/23Cc", "unica/qOLU", "YtIMnsXOBE"]   //设置管理员
-let notices = []
-let msgs = []
+ admins = ["OG0OPFxOFw", "Ancy.WWeeo", "Robot/23Cc", "unica/qOLU", "YtIMnsXOBE"]   //设置管理员
+ notices = []
+ msgs = []
 timer 14* 60 * 1000{
     print(msgs)
 }
 event[msg, me, dm](user, cont: "^/留言\\s+\\S", url, tc) => {
-    let msg = cont.replace("/留言", "").trim()
+     msg = cont.replace("/留言", "").trim()
     msgs.unshift("@" + user + "：" + msg)
     drrr.dm(user, "成功留言：" + msg)
 }
 event[msg, me, dm](user, cont: "^/留言板") => {
-    let msg = msgs.map((x, i) => i + 1 + ". " + x)
+     msg = msgs.map((x, i) => i + 1 + ". " + x)
     drrr.print("留言板\n" + msg.join("\n"))
 }
 event[msg, me, dm](user, cont: "^/删除留言\\s+\\d", url, tc) => {
     if admins.some(a => a == tc) then {
-        let p = parseInt(cont.replace("/删除留言", "").trim()) - 1
+         p = parseInt(cont.replace("/删除留言", "").trim()) - 1
         if p> (msgs.length - 1) then {
             drrr.dm(user, "输入的序号不存在")
         } else {
-            let m = msgs[p]
+             m = msgs[p]
             msgs.splice(p, 1)
             drrr.dm(user, "成功删除：" + m)
         }
@@ -27,7 +27,7 @@ event[msg, me, dm](user, cont: "^/删除留言\\s+\\d", url, tc) => {
 }
 event[msg, me, dm](user, cont: "^/通知\\s+\\S", url, tc) => {
     if admins.some(a => a == tc) then {
-        let nt = cont.replace("/通知", "").trim()
+         nt = cont.replace("/通知", "").trim()
         notices.push(nt)
         drrr.dm(user, "成功添加通知：" + nt)
     }
@@ -37,7 +37,7 @@ event[msg, me, dm](user, cont: "^/说\\s+\\S", url, tc) => {
 }
 event[msg, me, dm](user, cont: "^/通知$", url, tc) => {
     if admins.some(a => a == tc) then {
-        let dt = JSON.stringify(notices)
+         dt = JSON.stringify(notices)
         drrr.dm(user, dt)
     }
 }
@@ -45,6 +45,22 @@ event[msg, me, dm](user, cont: "^/导出", url, tc) => {
     if admins.some(a => a == tc) then {
         print(msgs)
     }
+}
+
+//乖嘛
+event [me,msg] (user: "", content:"小粒今天乖嘛")=> {
+if (user=="黯泣") then {
+drrr.print("我今天超乖的！")
+drrr.print("/me 【<(ˉ^ˉ)>")  
+}
+else {
+drrr.print("才不告诉你呢！")
+drrr.print("/me 【<(ˉ^ˉ)>") 
+}
+}
+//概率
+event [me,msg] (user: "", content:"/概率")=> {
+drrr.print("5连概率≈0.005%】\n 4连概率≈0.1%】\n 3连概率≈9%】\n2连概率≈53%】\n allmiss概率≈38%")
 }
 
 
@@ -55,11 +71,11 @@ event[me, msg](user: "", content:"^/再来一杯")  => {
     drrr.print("/me @" + user + "|递【" + n + "~】请慢用")
 }
 event join (user) => {
-    let ns = ["|进来了就是美少女", "|今天也请多多喝水", "|你也来喝水啦w"]
-    let ds = ["酸梅汤", "温水", "柠檬水", "葡萄糖水", "鲜榨🍉汁", "鲜榨🍊汁", "鲜榨🍇汁", "鲜榨🍓汁", "鲜榨🥥汁", "鲜榨🥝汁"]
-    let n = ns[Math.floor(Math.random() * ns.length)]
-    let d = ds[Math.floor(Math.random() * ds.length)]
-    let l = Math.floor(Math.random() * notices.length)
+     ns = ["|进来了就是美少女", "|今天也请多多喝水", "|你也来喝水啦w"]
+     ds = ["酸梅汤", "温水", "柠檬水", "葡萄糖水", "鲜榨🍉汁", "鲜榨🍊汁", "鲜榨🍇汁", "鲜榨🍓汁", "鲜榨🥥汁", "鲜榨🥝汁"]
+     n = ns[Math.floor(Math.random() * ns.length)]
+     d = ds[Math.floor(Math.random() * ds.length)]
+     l = Math.floor(Math.random() * notices.length)
     drrr.print("/me 欢迎光临@" + user + n + "|递【" + d + "~】请慢用")
     print(user)
     if notices.length > 0 then {
@@ -68,11 +84,11 @@ event join (user) => {
 }
 event[msg, me, dm](user, cont: "^/删除通知\\s+\\d", url, tc) => {
     if admins.some(a => a == tc) then {
-        let p = parseInt(cont.replace("/删除通知", "").trim()) - 1
+         p = parseInt(cont.replace("/删除通知", "").trim()) - 1
         if p> (notices.length - 1) then {
             drrr.dm(user, "输入的序号不存在")
         } else {
-            let m = notices[p]
+             m = notices[p]
             notices.splice(p, 1)
             drrr.dm(user, "成功删除：" + m)
         }

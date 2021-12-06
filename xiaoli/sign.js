@@ -93,11 +93,11 @@ newu = (user,tc) =>{
 checku = (user) =>{
   n=(-1)
   tc
-  i=info.room.users.findIndex(u => u.name == user)
-  if info.room.users[i].tripcode==false then {
+  i=drrr.users.findIndex(u => u.name == user)
+  if drrr.users[i].tripcode==false then {
     tc="无"
   }else {
-    tc=info.room.users[i].tripcode
+    tc=drrr.users[i].tripcode
   }
   if tc=="无" then {
      n=users.findIndex(u => u.name == user)
@@ -815,8 +815,8 @@ event [msg, me, dm] (user, cont: "^/灭绝\\s+\\S", url, tc) => {
 event join (user) => {
   n=checku(user)
   a=""
-  i=info.room.users.findIndex(u => u.name == user)
-  if info.room.users[i].tripcode==false then {
+  i=drrr.users.findIndex(u => u.name == user)
+  if drrr.users[i].tripcode==false then {
     a+="\n您还未设置tc，请尽快设置，未来将清空无tc的用户\n设置方法请看https://drrr.wiki/Tripcode"
   }
   if users[n].newl then {

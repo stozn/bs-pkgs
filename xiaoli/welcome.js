@@ -58,11 +58,6 @@ drrr.print("才不告诉你呢！")
 drrr.print("/me 【<(ˉ^ˉ)>") 
 }
 }
-//概率
-event [me,msg] (user: "", content:"/概率")=> {
-drrr.print("5连概率≈0.005%】\n 4连概率≈0.1%】\n 3连概率≈9%】\n2连概率≈53%】\n allmiss概率≈38%")
-}
-
 
 
 event[me, msg](user: "", content:"^/再来一杯")  => {
@@ -76,10 +71,10 @@ event join (user) => {
      n = ns[Math.floor(Math.random() * ns.length)]
      d = ds[Math.floor(Math.random() * ds.length)]
      l = Math.floor(Math.random() * notices.length)
-    drrr.print("/me 欢迎光临@" + user + n + "|递【" + d + "~】请慢用")
+    drrr.print("/me 欢迎光临@" + user + n + "|递【" + d + "~】请慢用  *如需帮助请回复 /帮助")
     print(user)
     if notices.length > 0 then {
-        later 500 drrr.dm(user, "通知:" + notices[l])
+      drrr.dm(user, "通知:" + notices[l])
     }
 }
 event[msg, me, dm](user, cont: "^/删除通知\\s+\\d", url, tc) => {

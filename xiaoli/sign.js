@@ -961,7 +961,7 @@ event [msg, me, dm] (user, cont: "^/导出\\s+\\S", url, tc) => {
     if n<0 then{
     drrr.dm(user,"未找到用户【"+tg+"】")
     } else {
-      print(users[n])
+      print([users[n]])
       drrr.dm(user,"已导出用户："+users[n].name)
     }
   }
@@ -973,7 +973,7 @@ event [msg, me, dm] (user, cont: "^/导出\\s+\\d", url, tc) => {
     if n<0 then{
     drrr.dm(user,"未找到UID【"+tg+"】")
     } else {
-      print(users[n])
+      print([users[n]])
       drrr.dm(user,"已导出用户："+users[n].name)
     }
   }
@@ -986,14 +986,19 @@ event [msg, me, dm] (user, cont: "^/导入", url, tc) => {
     } else {
       a=[]
       b=[]
+      c=[]
       for x of input{
         if users.some(m=> (m.name==x.name || m.tc==x.tc) && m.uid!=x.uid) then{
           b.push(x)
+        }else if users.some(m=> m.uid=x.uid){
+          n=users.findIndex(i=> i.uid==x.uid)
+          users[n]=x
         }else{
           a.push(x)
         }
       }
       users=users.concat(a)
+      
       input=[]
       if b.length>0 then {
       print("未成功导入：")

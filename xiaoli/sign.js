@@ -24,17 +24,20 @@ pkgs=[]
 admins=["OG0OPFxOFw","Ancy.WWeeo","Robot/23Cc","unica/qOLU","YtIMnsXOBE"]   //设置管理员
 //签到重置 开奖
 onTimeDo = (h, m, s, callback) => {
-  next = new Date()
-  h >= 0 && next.setHours(h)
-  m >= 0 && next.setMinutes(m)
-  s >= 0 && next.setSeconds(s)
-  interval = (h >= 0 && (24 * 3600)) || (m >= 0 && 3600) || (s >= 0 && 60)
-  delta = next.getTime() - Date.now()
-  delta += (delta < 0) * (interval * 1000)
-  later delta {
-    callback()
-    timer (interval * 1000) callback()
+  interval =  (h >= 0 && (24 * 3600)) || (m >= 0 && 3600) || (s >= 0 && 60)
+  loop = () => {
+    next = new Date()
+    h >= 0 && next.setHours(h)
+    m >= 0 && next.setMinutes(m)
+    s >= 0 && next.setSeconds(s)
+    delta = next.getTime() - Date.now()
+    delta += (delta < 0) * (interval * 1000)
+    later delta {
+      callback()
+      loop()
+    }
   }
+  loop()
 }
 
 onTimeDo(3, 1, 0, () => { lottery.length > 0 && kai() })

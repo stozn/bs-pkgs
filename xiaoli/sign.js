@@ -1,12 +1,12 @@
 //用户数据
-users=
+users=JSON.parse(localStorage["users"])
 input=[]
 //商店
 goods=[{name: "MG-红包",price: 5},{name: "MG-精灵球",price: 20},{name: "MG-宠物干粮",price: 5},{name: "MG-刮刮乐",price: 10},{name: "MG-奖券",price: 5},{name: "鲜榨果汁",price: 2},{name: "可乐",price: 4}]
-market=[]
+market=JSON.parse(localStorage["market"])
 //彩票数据
-lottery=[]
-result="暂无开奖结果"
+lottery=JSON.parse(localStorage["lottery"])
+result=JSON.parse(localStorage["result"])
 //奖励数据
 award=[]
 //宠物数据
@@ -40,6 +40,46 @@ onTimeDo = (h, m, s, callback) => {
   loop()
 }
 
+kai=()=>{
+   r=lottery.length
+   t=lottery.map(x=>x.amount).reduce((a,x)=> a=a+x)
+   l=Math.floor(Math.random() * lottery.length)
+   ln=lottery[l].name
+   la=lottery[l].amount
+   li=users.findIndex(x => x.uid==lottery[l].uid)
+   lottery.splice(l,1)
+   m=Math.floor(Math.random() * lottery.length)
+   mn=lottery[m].name
+   ma=lottery[m].amount
+   mi=users.findIndex(x => x.uid==lottery[m].uid)
+   lottery.splice(m,1)
+   n=Math.floor(Math.random() * lottery.length)
+   nn=lottery[n].name
+   na=lottery[n].amount
+   ni=users.findIndex(x => x.uid==lottery[n].uid)
+   lottery.splice(n,1)
+
+   a=Math.floor(t*(-2*la*la/t/t+2*la/t+1/2))
+   b=Math.floor(t*0.5*(-2*ma*ma/t/t+2*ma/t+1/2))
+   c=Math.floor(t*0.2*(-2*na*na/t/t+2*na/t+1/2))
+
+   result="开奖结果\t奖池："+t+" DRB\n一等奖：@"+ln+"\n　购买："+la+" DRB\n　奖金："+a+" DRB"
+
+   users[li].coin+=a
+   send(li,"【彩票中奖】恭喜您获得一等奖，购买金额为"+la+" DRB，奖金为"+a+" DRB")
+   if r>1 then {
+     users[mi].coin+=b
+     send(mi,"【彩票中奖】恭喜您获得二等奖，购买金额为"+ma+" DRB，奖金为"+b+" DRB")
+     result+="\n二等奖：@"+mn+"\n　购买："+ma+" DRB\n　奖金："+b+" DRB"
+   }
+   if r>2 then {
+     users[ni].coin+=c
+     send(ni,"【彩票中奖】恭喜您获得三等奖，购买金额为"+na+" DRB，奖金为"+c+" DRB")
+     result+="\n三等奖：@"+nn+"\n　购买："+na+" DRB\n　奖金："+c+" DRB"
+   }
+   lottery=[]
+   drrr.print(result)
+  }
 onTimeDo(3, 1, 0, () => { lottery.length > 0 && kai() })
 onTimeDo(3, 2, 0, () => {
   if market.length > 0 then {
@@ -68,6 +108,10 @@ timer 15*60*1000{
   m=mydate.getMinutes();
   users=users.filter(x=> (x.coin+x.day+x.bag.length+x.letters.length)>0)
   print(users)
+  localStorage["users"] = JSON.stringify(users)
+  localStorage["lottery"] = JSON.stringify(lottery)
+  localStorage["result"] = JSON.stringify(result)
+  localStorage["market"] = JSON.stringify(market)
   print("时间:"+h+":"+m)
  //整点用户清理
   mydate= new Date()
@@ -305,46 +349,6 @@ event [msg, me, dm] (user, cont: "^/领取奖励") => {
  }
 }
 //彩票
-kai=()=>{
-   r=lottery.length
-   t=lottery.map(x=>x.amount).reduce((a,x)=> a=a+x)
-   l=Math.floor(Math.random() * lottery.length)
-   ln=lottery[l].name
-   la=lottery[l].amount
-   li=users.findIndex(x => x.uid==lottery[l].uid)
-   lottery.splice(l,1)
-   m=Math.floor(Math.random() * lottery.length)
-   mn=lottery[m].name
-   ma=lottery[m].amount
-   mi=users.findIndex(x => x.uid==lottery[m].uid)
-   lottery.splice(m,1)
-   n=Math.floor(Math.random() * lottery.length)
-   nn=lottery[n].name
-   na=lottery[n].amount
-   ni=users.findIndex(x => x.uid==lottery[n].uid)
-   lottery.splice(n,1)
-
-   a=Math.floor(t*(-2*la*la/t/t+2*la/t+1/2))
-   b=Math.floor(t*0.5*(-2*ma*ma/t/t+2*ma/t+1/2))
-   c=Math.floor(t*0.2*(-2*na*na/t/t+2*na/t+1/2))
-
-   result="开奖结果\t奖池："+t+" DRB\n一等奖：@"+ln+"\n　购买："+la+" DRB\n　奖金："+a+" DRB"
-
-   users[li].coin+=a
-   send(li,"【彩票中奖】恭喜您获得一等奖，购买金额为"+la+" DRB，奖金为"+a+" DRB")
-   if r>1 then {
-     users[mi].coin+=b
-     send(mi,"【彩票中奖】恭喜您获得二等奖，购买金额为"+ma+" DRB，奖金为"+b+" DRB")
-     result+="\n二等奖：@"+mn+"\n　购买："+ma+" DRB\n　奖金："+b+" DRB"
-   }
-   if r>2 then {
-     users[ni].coin+=c
-     send(ni,"【彩票中奖】恭喜您获得三等奖，购买金额为"+na+" DRB，奖金为"+c+" DRB")
-     result+="\n三等奖：@"+nn+"\n　购买："+na+" DRB\n　奖金："+c+" DRB"
-   }
-   lottery=[]
-   drrr.print(result)
-  }
 
 event [msg, me, dm] (user, cont: "^/直接开奖", url, tc) => {
    if  lottery.length>0 && admins.some(a => a==tc)  then kai()

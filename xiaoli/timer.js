@@ -6,21 +6,24 @@ tNow = () => {
 
 sample = array => array[Math.floor(Math.random() * array.length)]
 
-onTimeDo = (h, m, s, f, callback) => {
+onTimeDo = (h, m, s, callback) => {
+  interval =  (h >= 0 && (24 * 3600)) || (m >= 0 && 3600) || (s >= 0 && 60)
+  loop = () => {
     next = new Date()
     h >= 0 && next.setHours(h)
     m >= 0 && next.setMinutes(m)
     s >= 0 && next.setSeconds(s)
-    interval = (f > 0 && f) || (h >= 0 && (24 * 3600)) || (m >= 0 && 3600) || (s >= 0 && 60)
     delta = next.getTime() - Date.now()
     delta += (delta < 0) * (interval * 1000)
     later delta {
-        callback()
-        timer(interval * 1000) callback()
+      callback()
+      loop()
     }
+  }
+  loop()
 }
 
-onTimeDo(0, 0, 0, 0, () => {
+onTimeDo(0, 0, 0, () => {
     mydate = new Date()
     M = mydate.getMonth() + 1
     N = mydate.getDate()
@@ -36,7 +39,7 @@ onTimeDo(0, 0, 0, 0, () => {
     }
 })
 
-onTimeDo(-1, 0, 0, 0, () => {
+onTimeDo(-1, 0, 0, () => {
     mydate = new Date()
     N = mydate.getDate()
     if [1, 10, 15, 20, 25, 30].includes(N)  then { 
@@ -46,7 +49,7 @@ onTimeDo(-1, 0, 0, 0, () => {
     }
 })
 
-onTimeDo(-1, 30, 0, 0, () => {
+onTimeDo(-1, 30, 0, () => {
     mydate = new Date()
     N = mydate.getDate()
     if [1, 10, 15, 20, 25, 30].includes(N)  then {
@@ -56,7 +59,7 @@ onTimeDo(-1, 30, 0, 0, () => {
     }
 })
 
-onTimeDo(-1, 15, 0, 30 * 60, () => {
+onTimeDo(-1, 15, 0, () => {
     now = new Date()
     N = now.getDate()
     if [1, 10, 15, 20, 25, 30].includes(N)  then {
@@ -70,7 +73,7 @@ onTimeDo(-1, 15, 0, 30 * 60, () => {
     }
 })
 
-onTimeDo(-1, 5, 0, 5 * 60, () => {
+onTimeDo(-1, 5, 0, () => {
     mydate = new Date()
     N = mydate.getDate()
     bs = ["(:3[___]", "(:[___]", "([___]", "(:3[」_]", "(:3[」＿]=:", "|[__]∠)_", "_(:з」∠)_"]

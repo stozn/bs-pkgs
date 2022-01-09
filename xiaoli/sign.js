@@ -107,12 +107,10 @@ timer 15*60*1000{
   h=mydate.getHours();
   m=mydate.getMinutes();
   users=users.filter(x=> (x.coin+x.day+x.bag.length+x.letters.length)>0)
-  print(users)
   localStorage["users"] = JSON.stringify(users)
   localStorage["lottery"] = JSON.stringify(lottery)
   localStorage["result"] = JSON.stringify(result)
   localStorage["market"] = JSON.stringify(market)
-  print("时间:"+h+":"+m)
  //整点用户清理
   mydate= new Date()
   m=mydate.getMinutes()

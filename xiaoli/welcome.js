@@ -2,7 +2,7 @@
  notices = []
  msgs = []
 timer 14* 60 * 1000{
-    print(msgs)
+      localStorage["msgs"] = JSON.stringify(msgs)
 }
 event[msg, me, dm](user, cont: "^/留言\\s+\\S", url, tc) => {
      msg = cont.replace("/留言", "").trim()

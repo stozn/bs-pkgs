@@ -7,12 +7,11 @@ tNow = () => {
 sample = array => array[Math.floor(Math.random() * array.length)]
 
 onTimeDo = (h, m, s, callback) => {
-  i=1
   interval =  (h >= 0 && (24 * 3600)) || (m >= 0 && 3600) || (s >= 0 && 60)
   loop = () => {
     next = new Date()
     h >= 0 && next.setHours(h)
-    (m.constructor.toString().indexOf("Arrary")>=0 && next.setMinutes(m[(i++)%m.length]) ) || (m >= 0 && next.setMinutes(m)) 
+    m >= 0 && next.setMinutes(m)
     s >= 0 && next.setSeconds(s)
     delta = next.getTime() - Date.now()
     delta += (delta < 0) * (interval * 1000)
@@ -60,7 +59,7 @@ onTimeDo(-1, 30, 0, () => {
     }
 })
 
-onTimeDo(-1, [15,45], 0, () => {
+onTimeDo(-1, 15, 0, () => {
     now = new Date()
     N = now.getDate()
     if [1, 10, 15, 20, 25, 30].includes(N)  then {
@@ -74,7 +73,7 @@ onTimeDo(-1, [15,45], 0, () => {
     }
 })
 
-onTimeDo(-1, [5,10,20,25,35,40,50,55], 0, () => {
+onTimeDo(-1, 5, 0, () => {
     mydate = new Date()
     N = mydate.getDate()
     bs = ["(:3[___]", "(:[___]", "([___]", "(:3[」_]", "(:3[」＿]=:", "|[__]∠)_", "_(:з」∠)_"]

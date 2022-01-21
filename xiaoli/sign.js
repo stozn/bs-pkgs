@@ -34,7 +34,7 @@ onTimeDo = (h, m, s, callback) => {
     delta += (delta < 0) * (interval * 1000)
     later delta {
       callback()
-      loop()
+      later 2000 loop()
     }
   }
   loop()
@@ -129,7 +129,7 @@ checka = (name) =>{
 }
 //创建新用户
 newu = (user,tc) =>{
-  drrr.dm(user,"如需详细指引，请前往小粒个人网站查看详细帮助页\n http://xiaoli.22web.org/help/","http://xiaoli.22web.org/help/")
+  drrr.dm(user,"如需详细指引，请前往小粒个人网站查看详细帮助\n http://xiaoli.22web.org/help/","http://xiaoli.22web.org/help/")
   users.sort((a,b) => a.uid - b.uid)
   duid=users[users.length-1].uid+1
   users.push({ uid: duid,name: user,tc: tc,coin: 0,check: true,day: 0,bag: [],pet: [],letters: [],newl: false})
@@ -137,29 +137,27 @@ newu = (user,tc) =>{
 //校验用户 返回用户编号，若返回-1，则用户tc不匹配
 checku = (user) =>{
   n=(-1)
-  tc
+  m=(-1)
+  tc="无"
   i=drrr.users.findIndex(u => u.name == user)
-  if drrr.users[i].tripcode==false then {
-    tc="无"
-  }else {
-    tc=drrr.users[i].tripcode
-  }
-  if tc=="无" then {
-     n=users.findIndex(u => u.name == user)
-  } else {
-     n=users.findIndex(u => u.tc == tc)
-     if (n ==(-1)) then  n=users.findIndex(u => u.name == user)
-  }
-  if (n ==(-1)) then {
-  newu(user,tc)
-  n=users.length-1
-  n
-  }else if (users[n].tc=="无") then {
-    users[n].tc=tc
+  if drrr.users[i].tripcode==false then  drrr.print("/me @"+user+" 请设置tc | 设置方法请看 https://drrr.wiki/Tripcode")
+  else tc=drrr.users[i].tripcode
+
+  if tc=="无" then -1
+  else {
+    n=users.findIndex(u => u.tc == tc)
+    m=users.findIndex(u => u.name == user)
+    if n ==(-1) && m ==(-1) then {
+    newu(user,tc)
+    n=users.length-1
     n
-  }else if (users[n].tc==tc) then { n }
-  else -1
+   }else if m ==(-1) || (users[m].tc==tc) then  n 
+    else {
+      drrr.print("/me @"+user+" 您的tc与已有的用户不匹配")
+      -1
+    }
   }
+}
 //关键字拆分
 onekey=(cmd,cont)=>{
   cont.replace(cmd, "").trim();
@@ -826,7 +824,7 @@ event join (user) => {
   a=""
   i=drrr.users.findIndex(u => u.name == user)
   if drrr.users[i].tripcode==false then {
-    a+="\n您还未设置tc，请尽快设置，未来将清空无tc的用户\n设置方法请看https://drrr.wiki/Tripcode"
+    a+="\n您还未设置tc，无法使用用户系统\n设置方法请看https://drrr.wiki/Tripcode"
   }
   if users[n].newl then {
     a+="\n您有新的来信，请留意查收"

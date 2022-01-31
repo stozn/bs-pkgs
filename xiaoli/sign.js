@@ -665,6 +665,7 @@ if Math.random()<0.25 then {
   }
   }
 }
+
 event [msg, me, dm] (user, cont: "^/全部宠物") => {
   p=pets.reduce((a,x,y) => {
     a=a+"\n"+(y+1)+".【"+x.name+"】\tLv."+x.level+"\tExp."+x.exp
@@ -817,6 +818,24 @@ event [msg, me, dm] (user, cont: "^/灭绝\\s+\\S", url, tc) => {
     drrr.print("/me 【"+anm+"】 灭绝了，默哀...")
     }
   }
+}
+event [msg, me, dm] (user, cont: "^/召唤", url, tc) => {
+  if admins.some(a => a==tc) then {
+    
+  i=Math.floor(Math.random() * pets.length)
+  m=pets[i].name
+  a=Math.random()*10+5
+  apet.push({name: pets[i].name,level: pets[i].level,exp: pets[i].exp})
+  drrr.print("/me 发现一只【"+m+"】，快来捕捉吧")
+  later a*60*1000 {
+    n=apet.findIndex(x => x.name==m)
+    if n>=0 then {
+      apet.splice(n,1)
+      drrr.print("/me 【"+m+"】逃走了")
+    }
+  
+  }
+ }
 }
 //信箱
 event join (user) => {

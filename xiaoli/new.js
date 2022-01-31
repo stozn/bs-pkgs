@@ -16,7 +16,7 @@ onTimeDo = (h, m, s, callback) => {
     h >= 0 && next.setHours(h)
     m >= 0 && next.setMinutes(m)
     s >= 0 && next.setSeconds(s)
-    delta = next.gecime() - Date.now()
+    delta = next.getTime() - Date.now()
     delta += (delta < 0) * (interval * 1000)
     later delta {
       callback()

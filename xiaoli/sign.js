@@ -969,6 +969,10 @@ event [msg, me, dm] (user, cont: "^/删除\\s+\\d", url, tc) => {
 //导出
 event [msg, me, dm] (user, cont: "^/导出$", url, tc) => {
   if admins.some(a => a==tc) then {
+  localStorage["users"] = JSON.stringify(users)
+  localStorage["lottery"] = JSON.stringify(lottery)
+  localStorage["result"] = JSON.stringify(result)
+  localStorage["market"] = JSON.stringify(market)
    print(users)
    print(goods)
    print(pets)
@@ -1015,6 +1019,7 @@ event [msg, me, dm] (user, cont: "^/导入", url, tc) => {
         }else if users.some(m=> m.uid=x.uid) then {
           n=users.findIndex(i=> i.uid==x.uid)
           users[n]=x
+          c.push(x)
         }else{
           a.push(x)
         }
@@ -1026,7 +1031,7 @@ event [msg, me, dm] (user, cont: "^/导入", url, tc) => {
       print("未成功导入：")
       print(b)
       }
-      drrr.dm(user,"已导入"+a.length+"名用户，有"+b.length+"名用户冲突")
+      drrr.dm(user,"已导入"+a.length+"名新用户，更改了"+c.length+"名旧用户，有"+b.length+"名用户冲突")
     }
   }
 }

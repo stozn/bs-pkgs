@@ -38,7 +38,7 @@ event[msg, me, dm](user, cont: "^/倒计时") => {
     h=c(Math.floor(delta/(3600*1000)))
     m=c(Math.floor((delta%(3600*1000))/(60*1000)))
     s=c(Math.floor(((delta%(3600*1000))%(60*1000))/1000))  
-    drrr.print("现在的时间是：  "+tNow()+"\n距离虎年还有： " +h+"时"+m+"分"+s+"秒")
+    drrr.print("现在的时间是：  "+tNow()+"\n距离虎年还有：  " +h+"时"+m+"分"+s+"秒")
   }
 }
 

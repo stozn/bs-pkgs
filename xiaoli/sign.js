@@ -39,7 +39,7 @@ onTimeDo = (h, m, s, callback) => {
   }
   loop()
 }
-tNow = () => {
+tDay = () => {
     now = new Date()
     now.getMonth()+1 + "月" 
     + String(now.getDate()).padStart(2, "0")+"日"
@@ -111,7 +111,7 @@ onTimeDo(0, 1, 0, () => {
    if x.check==true then x.day=0
    x.check=true
   }
-  txt(users,tNow()+"数据")
+  txt(users,tDay()+"数据")
 })
 
 //每15分钟在后台输出一次数据，顺手清理整点奖励的用户

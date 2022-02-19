@@ -72,7 +72,6 @@ event join (user) => {
      d = ds[Math.floor(Math.random() * ds.length)]
      l = Math.floor(Math.random() * notices.length)
     drrr.print("/me 欢迎光临@" + user + n + "|递【" + d + "~】请慢用  *如需帮助请回复 /帮助")
-    print(user)
     if notices.length > 0 then {
       drrr.dm(user, "通知:" + notices[l])
     }

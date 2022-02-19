@@ -39,7 +39,19 @@ onTimeDo = (h, m, s, callback) => {
   }
   loop()
 }
-
+tNow = () => {
+    now = new Date()
+    now.getMonth()+1 + "月" 
+    + String(now.getDate()).padStart(2, "0")+"日"
+}
+txt = (_data, _name) => {
+    blob = new Blob([JSON.stringify(_data)])
+    aLink = document.createElement('a')
+    aLink.href = URL.createObjectURL(blob)
+    aLink.setAttribute('download', _name)
+    document.body.appendChild(aLink)
+    aLink.click()
+}
 kai=()=>{
    r=lottery.length
    t=lottery.map(x=>x.amount).reduce((a,x)=> a=a+x)
@@ -99,6 +111,7 @@ onTimeDo(0, 1, 0, () => {
    if x.check==true then x.day=0
    x.check=true
   }
+  txt(users,tNow()+"数据")
 })
 
 //每15分钟在后台输出一次数据，顺手清理整点奖励的用户

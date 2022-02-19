@@ -808,14 +808,15 @@ event [msg, me, dm] (user, cont:"^/放生\\s+\\d")  => {
   }
  }
 }
-event [msg, me, dm] (user, cont: "^/创造\\s+\\S", url, tc) => {
+event [msg, me, dm] (user, cont: "^/创造\\s+\\S+\\s+\\d", url, tc) => {
   if admins.some(a => a==tc) then {
-    anm=onekey("/创造",cont)
+    anm=twokey("/创造",cont)[0]
+    ex=parseInt(twokey("/创造",cont)[1])
     i=pets.findIndex(g => g.name==anm)
     if i>=0 then {
     drrr.print("/me 【"+anm+"】 已经存在了")
     }else {
-    pets.push({name: anm,level: 1,exp: 0})
+    pets.push({name: anm,level: checke(ex)[0],exp: ex})
     drrr.print("/me 【"+anm+"】 诞生啦！")
     }
   }

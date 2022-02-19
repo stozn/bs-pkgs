@@ -23,7 +23,7 @@ users = JSON.parse(localStorage["users"])       //读取
 
 //导出txt
 txt = (_data, _name) => {
-    blob = new Blob([_data])
+    blob = new Blob([JSON.stringify(_data)])
     aLink = document.createElement('a')
     aLink.href = URL.createObjectURL(blob)
     aLink.setAttribute('download', _name)

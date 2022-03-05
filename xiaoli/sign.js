@@ -595,7 +595,7 @@ event [msg, me, dm] (user, cont: "^/卖\\s+\\d+\\s+\\d") => {
   n=checku(user)
   if (n ==(-1)) then {
   drrr.print("/me @"+user+" 您的tc与已有的用户不匹配")
-} else if gd >= users[n].bag.length then {
+} else if gd > users[n].bag.length || gd==0 then {
   drrr.dm(user,"@"+ users[n].name +" 输入的序号不存在")
 } else {
   good=users[n].bag[gd-1].name

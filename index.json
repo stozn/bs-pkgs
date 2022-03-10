@@ -2,10 +2,11 @@
     {"type":"directory","name":"xiaoli","contents":[
      {"type":"file","name":"xiaoli.js"},{"type":"file","name":"feeding.js"},{"type":"file","name":"pachinko.js"},
      {"type":"file","name":"timer.js"},{"type":"file","name":"welcome.js"},{"type":"file","name":"Lucky_sign.js"},
-     {"type":"file","name":"sign.js"}]},
+     {"type":"file","name":"sign.js"},
+     {"type":"file","name":"music.js"}]},
     {"type":"file","name":"index.json"},
     {"type":"file","name":"push.sh"},
     {"type":"file","name":"README.md"}
   ]},
-  {"type":"report","directories":1,"files":10}
+  {"type":"report","directories":1,"files":11}
 ]

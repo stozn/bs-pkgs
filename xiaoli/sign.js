@@ -21,7 +21,7 @@ gaini=[]
 gainu=[]
 gains=[]
 pkgs=[]
-admins=["OG0OPFxOFw","Ancy.WWeeo","Robot/23Cc","unica/qOLU","YtIMnsXOBE"]   //设置管理员
+admins=["OG0OPFxOFw","Ancy.WWeeo",".bLVj9fdOM","unica/qOLU","YtIMnsXOBE"]   //设置管理员
 //签到重置 开奖
 onTimeDo = (h, m, s, callback) => {
   interval =  (h >= 0 && (24 * 3600)) || (m >= 0 && 3600) || (s >= 0 && 60)

@@ -28,7 +28,7 @@ event [msg, me, dm] (user, cont: "^/播放\\s+\\d$")=> {
   if (n>mid.length || n==0) then
   drrr.print("/me@"+user+" 输入序号有误")
   else drrr.music("http://link.hhtjim.com/163/"+mid[n-1]+".mp3",songs[n-1])
-  } 
+  
 }
 
 

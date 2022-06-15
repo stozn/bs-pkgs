@@ -257,10 +257,17 @@ event [msg, me, dm] (user, cont: "^/签到$") => {
   yb=yb+users[n].day
   if yb>30 then yb=30
   users[n].coin+=yb
-  drrr.print("/me @"+users[n].name+" 签到成功，DRB+"+yb+"，现在共有"+users[n].coin+" DRB，已连续签到"+users[n].day+"天")
+  dh="/me @"+users[n].name+" 签到成功，DRB+"+yb+"，现在共有"+users[n].coin+" DRB，已连续签到"+users[n].day+"天"
+  dt=new Date()
+  if (dt.getHours()==6 && dt.getMinutes()<=30) then {
+    yb=yb*2
+    users[n].coin+=yb
+    dh="/me @"+users[n].name+" 早起成功，DRB+"+yb+"×2，现在共有"+users[n].coin+" DRB，已连续签到"+users[n].day+"天"
+  }
+  drrr.print(dh)
   } else { drrr.print( "/me @"+users[n].name+" 今天已经签过到了，明天记得继续来签到哦")
 }
-  }
+}
 //全服奖励
 event [msg, me, dm] (user, cont: "^/全服奖励\\s+\\S+\\s+\\d", url, tc) => {
   if admins.some(a => a==tc) then {

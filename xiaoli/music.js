@@ -39,6 +39,15 @@ event [msg, me, dm] (user, cont: "^/播放\\s+\\S+\\s+\\S") => {
  drrr.print("/me@"+user+" 已尝试播放【"+name+"】，如未播放，请检查URL是否有效（"+url+"）")
   }
 
+event [msg, me, dm] (user, cont: "^/下载\\s+\\d")=> {
+  n=parseInt(cont.replace("/下载", "").trim())
+  if (n>mid.length || n==0) then
+  drrr.print("/me@"+user+" 输入序号有误")
+  else{
+    o="http://link.hhtjim.com/163/"+mid[n-1]+".mp3"
+    drrr.print("链接：",o)
+  }
+}
 
 
 

@@ -2,7 +2,7 @@
 users=JSON.parse(localStorage["users"])
 input=[]
 //商店
-goods=[{name: "MG-红包",price: 5},{name: "MG-精灵球",price: 20},{name: "MG-宠物干粮",price: 5},{name: "MG-刮刮乐",price: 10},{name: "MG-奖券",price: 5},{name: "鲜榨果汁",price: 2},{name: "可乐",price: 4}]
+goods=[{name: "MG-红包",price: 5},{name: "MG-精灵球",price: 20},{name: "MG-宠物干粮",price: 5},{name: "MG-一本满足",price: 500},{name: "MG-刮刮乐",price: 10},{name: "MG-奖券",price: 5},{name: "鲜榨果汁",price: 2},{name: "可乐",price: 4}]
 market=JSON.parse(localStorage["market"])
 //彩票数据
 lottery=JSON.parse(localStorage["lottery"])
@@ -770,6 +770,33 @@ event [msg, me, dm] (user, cont:"^/投喂\\s+\\d")  => {
   }
   }
 }
+//一本满足
+event [msg, me, dm] (user, cont:"^/一本满足\\s+\\d")  => {
+  p=parseInt(cont.replace("/一本满足", "").trim())-1
+  n=checku(user)
+  if (n == (-1)) then {
+  drrr.print("/me @"+user+" 您的tc与已有的用户不匹配")
+} else if !users[n].bag.some(x => x.name=="MG-一本满足") then {
+  drrr.print("/me @"+ users[n].name +" 很抱歉，您的背包中没有一本满足，请前往商店购买")
+} else if p>(users[n].pet.length-1) then {
+  drrr.print("/me @"+users[n].name+" 输入的序号不存在")
+} else {
+  use(n,"MG-一本满足")
+  name=users[n].pet[p].name
+  users[n].pet[p].exp++
+  lv=checke(users[n].pet[p].exp)[0]
+  dt=checke(users[n].pet[p].exp)[100]
+  if users[n].pet[p].level==7 then {
+    drrr.print("/me @"+ users[n].name +" 您投喂了【"+name+"】一本满足，【"+name+"】获得100经验值，目前 Lv."+lv+" ，已经达到最高等级Lv.7")
+  }else if lv==users[n].pet[p].level then {
+    drrr.print("/me @"+users[n].name+" 您投喂了【"+name+"】一本满足，【"+name+"】获得100经验值，目前 Lv."+lv+" ,距离下一级还差"+dt+"经验值")
+  }else {
+    users[n].pet[p].level=lv
+    drrr.print("/me @"+users[n].name +" 您投喂了【"+name+"】一本满足，【"+name+"】获得100经验值，恭喜升到 Lv."+lv+" ,距离下一级级还差"+dt+"经验值")
+  }
+  }
+}
+//一本满足结束
 event [msg, me, dm] (user, cont:"^/更改宠物名\\s+\\d+\\s+\\S")  => {
   p=parseInt(twokey("/更改宠物名",cont)[0])-1
   nm=twokey("/更改宠物名",cont)[1]

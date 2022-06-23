@@ -757,8 +757,8 @@ event [msg, me, dm] (user, cont:"^/投喂\\s+\\d")  => {
 } else {
   use(n,"MG-宠物干粮")
   name=users[n].pet[p].name
-  users[n].pet[p].exp++
-  lv=checke(users[n].pet[p].exp)[0]
+  users[n].pet[p].exp++   //这行改成 users[n].pet[p].exp+=100
+  lv=checke(users[n].pet[p].exp)[0]  
   dt=checke(users[n].pet[p].exp)[1]
   if users[n].pet[p].level==7 then {
     drrr.print("/me @"+ users[n].name +" 您已投喂了【"+name+"】一份宠物干粮，【"+name+"】获得1经验值，目前 Lv."+lv+" ，已经达到最高等级Lv.7")

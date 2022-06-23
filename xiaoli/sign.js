@@ -783,9 +783,9 @@ event [msg, me, dm] (user, cont:"^/一本满足\\s+\\d")  => {
 } else {
   use(n,"MG-一本满足")
   name=users[n].pet[p].name
-  users[n].pet[p].exp++
+  users[n].pet[p].exp+=100
   lv=checke(users[n].pet[p].exp)[0]
-  dt=checke(users[n].pet[p].exp)[100]
+  dt=checke(users[n].pet[p].exp)[1]
   if users[n].pet[p].level==7 then {
     drrr.print("/me @"+ users[n].name +" 您投喂了【"+name+"】一本满足，【"+name+"】获得100经验值，目前 Lv."+lv+" ，已经达到最高等级Lv.7")
   }else if lv==users[n].pet[p].level then {

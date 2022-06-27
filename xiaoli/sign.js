@@ -270,7 +270,7 @@ event [msg, me, dm] (user, cont: "^/签到$") => {
   users[n].coin+=yb
   dh="/me @"+users[n].name+" 签到成功，DRB+"+yb+"，现在共有"+users[n].coin+" DRB，已连续签到"+users[n].day+"天"
   dt=new Date()
-  if true then {  //6:00-6:20
+  if (dt.getHours()==6 && dt.getMinutes()<=30) then {  //6:00-6:30
     yb=yb*2
     users[n].coin+=yb
     users[n].dayz++

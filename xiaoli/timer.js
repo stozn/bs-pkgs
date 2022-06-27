@@ -43,9 +43,9 @@ onTimeDo(-1, 0, 0, () => {
     mydate = new Date()
     N = mydate.getDate()
     if [1, 10, 15, 20, 25, 30].includes(N)  then { 
-        drrr.print("/me 整点报时：现在是【" + tNow() + "】抽签请往里走，如果抽到【凶】只要系在绑签绳上就可以逢凶化吉了哦【可以重新抽签】|别忘了领取整点奖励哦")
+        drrr.print("/me 整点报时：现在是【" + tNow() + "】抽签请往里走，如果抽到【凶】只要系在绑签绳上就可以逢凶化吉了哦【可以重新抽签】")
     }else {
-        drrr.print("/me 整点报时：现在是【" + tNow() + "】，可以领取整点奖励啦")
+        drrr.print("/me 整点报时：现在是【" + tNow() + "】")
     }
 })
 

@@ -1,8 +1,12 @@
 //用户数据
 users=JSON.parse(localStorage["users"])
 input=[]
+//树
+ckd=false
+drd=0
+drk=[]
 //商店
-goods=[{name: "MG-红包",price: 5},{name: "MG-精灵球",price: 20},{name: "MG-宠物干粮",price: 5},{name: "MG-一本满足",price: 500},{name: "MG-刮刮乐",price: 10},{name: "MG-奖券",price: 5},{name: "鲜榨果汁",price: 2},{name: "可乐",price: 4}]
+goods=[{name: "MG-红包",price: 5},{name: "MG-精灵球",price: 30},{name: "MG-宠物干粮",price: 10},{name: "MG-一本满足",price: 500},{name: "MG-水",price: 10},{name: "MG-刮刮乐",price: 10},{name: "MG-奖券",price: 10},{name: "鲜榨果汁",price: 5},{name: "可乐",price: 4}]
 market=JSON.parse(localStorage["market"])
 //彩票数据
 lottery=JSON.parse(localStorage["lottery"])
@@ -109,8 +113,21 @@ onTimeDo(3, 2, 0, () => {
 onTimeDo(0, 1, 0, () => {
   for  x of users {
    if x.check==true then x.day=0
+   if (x.trc==true && !(x.tree==0)) then {
+     x.tree=0
+     x.letters.unshift("【树木枯死】您的树因为没有每天浇水而枯死了")
+     x.newl=true
+    if x.letters.length==9 then{
+     x.letters.reverse()
+     a=x.letters.findIndex(i=> i.slice(0,1)=="【")
+    if a>=0 then { x.letters.splice(a,1) }
+   else { x.letters.splice(0,1) }
+    x.letters.reverse()
+    }
+   }else if (x.tree.level>2 && !(x.tree==0)) then x.tree.fruit=x.tree.level
    x.check=true
-  }
+   x.trc==true
+ }
   txt(users,tDay()+"数据")
 })
 
@@ -145,7 +162,7 @@ newu = (user,tc) =>{
   drrr.dm(user,"如需详细指引，请前往小粒个人网站查看详细帮助\n http://xiaoli.22web.org/help/","http://xiaoli.22web.org/help/")
   users.sort((a,b) => a.uid - b.uid)
   duid=users[users.length-1].uid+1
-  users.push({ uid: duid,name: user,tc: tc,coin: 0,check: true,day: 0,bag: [],pet: [],letters: [],newl: false})
+  users.push({ uid: duid,name: user,tc: tc,coin: 0,check: true,day: 0,dayz: 0,drink: 0,tree: 0,trc: true,bag: [],pet: [],letters: [],newl: false})
 }
 //校验用户 返回用户编号，若返回-1，则用户tc不匹配
 checku = (user) =>{
@@ -223,8 +240,9 @@ sort = (key) =>{
   usr=users
   usr.sort((a,b) => b[key] - a[key])
   pm=usr
-  word=" DRB"
-  if key=="day" then word="天"
+  word="天"
+  if key=="coin" then word=" DRB"
+  if key=="drink" then word="次"
   if usr.length >7 then pm=pm.slice(0,7)    //截取排名前7的用户
   p=pm.reduce((a,x,y) => {
     a=a+"\n"+(y+1)+"."+x.name+"\t"+x[key]+word
@@ -232,22 +250,15 @@ sort = (key) =>{
   },"\t总用户:"+usr.length+"人")
   p
  }
-event [msg, me, dm] (user, cont: "^/排行榜") => {
-  drrr.print("资产排行榜"+sort("coin"))
-  drrr.print("签到排行榜"+sort("day"))
-  }
-event [msg, me, dm] (user, cont: "^/资产排行榜") => {
-  drrr.print("资产排行榜"+sort("coin"))
-  }
-event [msg, me, dm] (user, cont: "^/签到排行榜") => {
-  drrr.print("签到排行榜"+sort("day"))
-  }
-event [msg, me, dm] (user, cont: "^/帮助") => {
-  drrr.dm(user,"请前往小粒个人网站查看详细帮助页","http://xiaoli.22web.org/help/")
-  }
+event [msg, me, dm] (user, cont: "^/(资产|签到|早起|喝水)榜") => {
+     if cont=="/资产榜" then drrr.print("资产榜"+sort("coin"))
+else if cont=="/签到榜" then drrr.print("签到榜"+sort("day"))
+else if cont=="/早起榜" then drrr.print("早起榜"+sort("dayz")) 
+else drrr.print("喝水榜"+sort("drink"))
+}
 //签到
 event [msg, me, dm] (user, cont: "^/签到$") => {
-  yb=14
+  yb=4
   n=checku(user)
   if (n ==(-1)) then {
   drrr.print("/me @"+user+" 您的tc与已有的用户不匹配")
@@ -255,18 +266,22 @@ event [msg, me, dm] (user, cont: "^/签到$") => {
   users[n].day++
   users[n].check=false
   yb=yb+users[n].day
-  if yb>30 then yb=30
+  if yb>20 then yb=20
   users[n].coin+=yb
   dh="/me @"+users[n].name+" 签到成功，DRB+"+yb+"，现在共有"+users[n].coin+" DRB，已连续签到"+users[n].day+"天"
   dt=new Date()
-  if (dt.getHours()==6 && dt.getMinutes()<=30) then {
+  if true then {  //6:00-6:20
     yb=yb*2
     users[n].coin+=yb
-    dh="/me @"+users[n].name+" 早起成功，DRB+"+yb+"×2，现在共有"+users[n].coin+" DRB，已连续签到"+users[n].day+"天"
+    users[n].dayz++
+    dh="/me @"+users[n].name+" 早起成功，DRB+"+yb+"×2，现在共有"+users[n].coin+" DRB，已连续签到"+users[n].day+"天，已连续早起"+users[n].dayz+"天"
+    if (users[n].dayz==10 && users[n].tree==0) then {
+      dh+="，恭喜您获得一棵树苗！"
+      users[n].tree={level: 1,water: 0,fruit: 0}
+    }
   }
   drrr.print(dh)
-  } else { drrr.print( "/me @"+users[n].name+" 今天已经签过到了，明天记得继续来签到哦")
-}
+  } else { drrr.print( "/me @"+users[n].name+" 今天已经签过到了，明天记得继续来签到哦") }
 }
 //全服奖励
 event [msg, me, dm] (user, cont: "^/全服奖励\\s+\\S+\\s+\\d", url, tc) => {
@@ -342,25 +357,117 @@ event [msg, me, dm] (user, cont: "^/惩罚\\s+\\S+\\s+\\S+\\s+\\d", url, tc) => 
     }
   }
 }
-//整点奖励
-event [msg, me, dm] (user, cont: "^/领取奖励") => {
-  yb=Math.floor(Math.random() * 5)+5
+//种树
+//经验升级设置
+chcke = (e) =>{
+    s=[0,5,10,20,30]  //设置等级分界点
+       if e <s[1] then { [1,s[1]-e] }  //1级 1-4
+  else if e <s[2] then { [2,s[2]-e]}  //2级 5-9
+  else if e <s[3] then { [3,s[3]-e] }  //3级 10-19
+  else if e <s[4] then { [4,s[4]-e] }  //4级 20-29
+  else if e <s[5] then { [5,s[5]-e] }  //5级 30
+
+}
+event [msg, me, dm] (user, cont: "^/(展示)?树") => {
+  n=checku(user)
+  p=" 您还没有树，早起签到10天后（时间为6:00-6:30），将获得树苗"
+  if (n == (-1)) then drrr.print("/me @"+user+"您的tc与已有的用户不匹配")
+  else {
+    if !users[n].tree==0 then
+  p="您的树:\n等级：."+users[n].tree.level+"级\t浇水："+users[n].tree.water+"天\t果子："+users[n].tree.fruit+"个"
+  if cont=="/宠物" then {
+      drrr.dm(user,"@"+users[n].name+p)
+    }else {
+      drrr.print("@"+users[n].name+p)
+    }
+  }
+}
+event [msg, me, dm] (user, cont:"^/浇水")  => {
+  n=checku(user)
+  if (n == (-1)) then {
+  drrr.print("/me @"+user+" 您的tc与已有的用户不匹配")
+} else if !users[n].bag.some(x => x.name=="MG-水") then {
+  drrr.print("/me @"+ users[n].name +" 很抱歉，您的背包中没有【MG-水】，请前往商店购买")
+} else if users[n].tree==0 then {
+  drrr.print("/me @"+ users[n].name +" 很抱歉，您还没有树，早起签到10天后（时间为6:00-6:30），将获得树苗")
+}else {
+  use(n,"MG-水")
+  users[n].tree.water++   
+  users[n].trc=false
+  lv=chcke(users[n].tree.water)[0]  
+  dt=chcke(users[n].tree.water)[1]
+  if users[n].tree.level==7 then {
+    drrr.print("/me @"+ users[n].name +" 您已给您的树浇了水，目前已浇水"+users[n].tree.water+"次 ，已经达到最高等级Lv.5")
+  }else if lv==users[n].tree.level then {
+    drrr.print("/me @"+users[n].name+" 您已给您的树浇了水，目前已浇水"+users[n].tree.water+"次 ，距离下一级还差"+dt+"次")
+  }else {
+    users[n].tree.level=lv
+    drrr.print("/me @"+users[n].name +" 您已给您的树浇了水，目前已浇水"+users[n].tree.water+"次 ，恭喜升到 Lv."+lv+" ,距离下一级级还差"+dt+"次")
+  }
+  }
+}
+event [msg, me, dm] (user, cont:"^/摘果")  => {
+  n=checku(user)
+  if (n == (-1)) then {
+  drrr.print("/me @"+user+" 您的tc与已有的用户不匹配")
+} else if users[n].tree==0 then {
+  drrr.print("/me @"+ users[n].name +" 很抱歉，您还没有树，早起签到10天后（时间为6:00-6:30），将获得树苗")
+}else if users[n].tree.fruit==0 then {
+  drrr.print("/me @"+ users[n].name +" 很抱歉，您的树还没有结果子，快来浇水吧")
+}  else {
+  fruits=["🍊","🍋","🥭","🍑","🍐","🍎","🍏","🥝"]
+  nm=users[n].tree.fruit
+  f=()=> fruits[Math.floor(Math.random() * fruits.length)]
+  a=f() 
+  add(n,a,1)
+  b=f()
+  add(n,b,1)
+  c=f()
+  add(n,c,1)
+  ft=a+b+c
+  if nm==4 then{
+    d=f()
+    add(n,d,1)
+    ft=a+b+c+d
+  }
+  if nm==5 then{
+    d=f()
+    add(n,d,1)
+    e=f()
+    add(n,e,1)
+    ft=a+b+c+d+e
+  }
+  users[n].tree.fruit=0
+  drrr.print("/me @"+users[n].name +" 您成功摘下"+nm+"个果子，分别是【"+ft+"】")
+   
+  }
+}
+//喝水提醒
+  loop = () => {
+    ckd=true
+    drrr.print("/me 已经过"+drd+"分钟了，快来喝水领奖励吧")
+    drd = rand(15,30)
+    later 2*60*1000 ckd=false
+    later drd*60*1000 loop()
+}
+  loop()
+event [msg, me, dm] (user, cont: "^/喝完了") => {
+  yb=rand(2,5)
   n=checku(user)
   if (n ==(-1)) then {
   drrr.print("/me @"+user+" 您的tc与已有的用户不匹配")
   } else {
-  mydate= new Date()
-  m=mydate.getMinutes()
   nm=users[n].name
-  i=award.findIndex(u => u==nm)
-  if m>2 then {
-    drrr.print("/me @"+users[n].name+" 还未到领取时间，请在每个整点的2分钟内前来领取奖励")
+  i=drk.findIndex(u => u==nm)
+  if !ckd then {
+    drrr.print("/me @"+users[n].name+" 棒棒哒，但可惜错过了奖励时间，请在下次喝水提醒时，2分钟内前来领取奖励")
   }else if i>=0 then {
-    drrr.print("/me @"+users[n].name+" 您已领取过本小时奖励了")
+    drrr.print("/me @"+users[n].name+" 您已领取过本次喝水奖励了")
   }else {
-    award.push(nm)
+    drk.push(nm)
     users[n].coin+=yb
-    drrr.print("/me @"+users[n].name+" 您已成功领取本小时奖励，收获"+yb+" DRB")
+    users[n].drink++
+    drrr.print("/me @"+users[n].name+" 您已成功领取本次喝水奖励，收获"+yb+" DRB，共已喝水"+users[n].drink+"次")
   }
  }
 }

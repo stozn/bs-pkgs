@@ -137,7 +137,7 @@ timer 15*60*1000{
 }
 //随机整数
 rand = (a,b) =>{
-  Math.floor(Math.random() * Math.floor(b-a+1))+a
+  Math.floor(Math.random() * Math.floor(1+b-a))+a
 }
 //支持@
 checka = (name) =>{

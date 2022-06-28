@@ -97,18 +97,6 @@ kai=()=>{
    drrr.print(result)
   }
 onTimeDo(3, 1, 0, () => { lottery.length > 0 && kai() })
-onTimeDo(3, 2, 0, () => {
-  if market.length > 0 then {
-    for x of market {
-      n=users.findIndex(a => a.uid==x.own)
-      if n>=0 then {
-        add(n,x.name,1)
-        send(n,"【物品退回】您在集市售卖的【"+x.name+"】暂无人购买，已退回您的背包")
-     }
-    }
-    market=[]
- }
-})
 
 onTimeDo(0, 1, 0, () => {
   for  x of users {
@@ -173,20 +161,33 @@ checku = (user) =>{
   if drrr.users[i].tripcode==false then  drrr.print("/me @"+user+" 请设置tc | 设置方法请看 https://drrr.wiki/Tripcode")
   else tc=drrr.users[i].tripcode
 
-  if tc=="无" then -1
-  else {
     n=users.findIndex(u => u.tc == tc)
     m=users.findIndex(u => u.name == user)
     if n ==(-1) && m ==(-1) then {
+  if user.search("\\s") >=0 then {
+    drrr.print("/me @"+user+" 您的用户名中含有空格，暂不支持，请修改")
+    -1
+  }
+  else{
     newu(user,tc)
     n=users.length-1
     n
+      }
    }else if m ==(-1) || (users[m].tc==tc) then  n 
     else {
       drrr.print("/me @"+user+" 您的tc与已有的用户不匹配")
       -1
     }
-  }
+  
+}
+mess=(array)=>{
+  for m = array.length-1 ; m>0 ; m-- {
+        i = Math.floor(Math.random() *m );
+        t = array[m];
+        array[m] = array[i];
+        array[i] = t;
+    }
+  array
 }
 //关键字拆分
 onekey=(cmd,cont)=>{
@@ -656,6 +657,7 @@ event [msg, me, dm] (user, cont: "^/商店") => {
   drrr.print("商店\n"+gds.join("\n"))
   }
 event [msg, me, dm] (user, cont: "^/集市") => {
+  market=mess(market)
   gds=market.map((x,i) => i+101+". "+x.name+"  "+x.price+" DRB")
   drrr.print("集市\n"+gds.join("\n"))
   }

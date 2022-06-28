@@ -655,13 +655,15 @@ event[msg, me, dm](user, cont: "^/(展示)?背包") => {
 }
 //商店
 event[msg, me, dm](user, cont: "^/商店") => {
-    goods=mess(goods)
-    gds = goods.map((x, i) => i + 1 + ". " + x.name + "  " + x.price + " DRB")
+    good=mess(goods)
+    if good.length > 7 then good= good.slice(0, 7)
+    gds = good.map((x, i) => i + 1 + ". " + x.name + "  " + x.price + " DRB")
     drrr.print("商店\n" + gds.join("\n"))
 }
 event[msg, me, dm](user, cont: "^/集市") => {
-    market = mess(market)
-    gds = market.map((x, i) => i + 101 + ". " + x.name + "  " + x.price + " DRB")
+    mt = mess(market)
+    if mt.length > 7 then mt= mt.slice(0, 7)
+    gds = mt.map((x, i) => i + 101 + ". " + x.name + "  " + x.price + " DRB")
     drrr.print("集市\n" + gds.join("\n"))
 }
 event[me, msg](user, cont:"^/买\\s+\\d+(\\s+\\d)?")  => {

@@ -99,6 +99,7 @@ kai = () => {
 onTimeDo(3, 1, 0, () => { lottery.length > 0 && kai() })
 
 onTimeDo(0, 1, 0, () => {
+    for x of goods x.price=Math.round(x.price*(0.8+Math.random()*0.4))
     for  x of users {
         if x.check == true then x.day = 0
         if (x.trc == true && !(x.tree == 0)) then {

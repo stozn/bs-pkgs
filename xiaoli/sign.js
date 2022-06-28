@@ -6,7 +6,7 @@ ckd=false
 drd=0
 drk=[]
 //商店
-goods=[{name: "MG-红包",price: 5},{name: "MG-精灵球",price: 30},{name: "MG-宠物干粮",price: 10},{name: "MG-一本满足",price: 500},{name: "MG-水",price: 10},{name: "MG-刮刮乐",price: 10},{name: "MG-奖券",price: 10},{name: "鲜榨果汁",price: 5},{name: "可乐",price: 4}]
+goods=[{name: "MG-红包",price: 5},{name: "MG-精灵球",price: 40},{name: "MG-宠物干粮",price: 10},{name: "MG-一本满足",price: 500},{name: "MG-水",price: 10},{name: "MG-刮刮乐",price: 10},{name: "MG-奖券",price: 10},{name: "鲜榨果汁",price: 5},{name: "可乐",price: 4}]
 market=JSON.parse(localStorage["market"])
 //彩票数据
 lottery=JSON.parse(localStorage["lottery"])
@@ -267,7 +267,7 @@ event [msg, me, dm] (user, cont: "^/签到$") => {
   users[n].day++
   users[n].check=false
   yb=yb+users[n].day
-  if yb>20 then yb=20
+  if yb>10 then yb=10
   users[n].coin+=yb
   dh="/me @"+users[n].name+" 签到成功，DRB+"+yb+"，现在共有"+users[n].coin+" DRB，已连续签到"+users[n].day+"天"
   dt=new Date()
@@ -1262,8 +1262,8 @@ g = Math.floor(Math.random()*100+1)
 //中奖 10
   if g == 100
 then {
-  users[n].coin+=200
-  drrr.print("@" + users[n].name +" |是 "+g+" 🎉🎊恭喜中奖： + 200 DRB")
+  users[n].coin+=100
+  drrr.print("@" + users[n].name +" |是 "+g+" 🎉🎊恭喜中奖： + 100 DRB")
 }
     else
 //中奖 90

@@ -655,6 +655,7 @@ event[msg, me, dm](user, cont: "^/(展示)?背包") => {
 }
 //商店
 event[msg, me, dm](user, cont: "^/商店") => {
+    goods=mess(goods)
     gds = goods.map((x, i) => i + 1 + ". " + x.name + "  " + x.price + " DRB")
     drrr.print("商店\n" + gds.join("\n"))
 }

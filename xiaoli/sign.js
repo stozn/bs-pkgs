@@ -25,6 +25,7 @@ gaini = []
 gainu = []
 gains = []
 pkgs = []
+fruits = ["🍊", "🍋", "🥭", "🍑", "🍐", "🍎", "🍏", "🥝"]
 admins = ["OG0OPFxOFw", "Ancy.WWeeo", ".bLVj9fdOM", "unica/qOLU", "YtIMnsXOBE"]   //设置管理员
 //签到重置 开奖
 onTimeDo = (h, m, s, callback) => {
@@ -417,7 +418,6 @@ event[msg, me, dm](user, cont:"^/摘果")  => {
     }else if users[n].tree.fruit == 0 then {
         drrr.print("/me @" + users[n].name + " 很抱歉，您的树还没有结果子，快来浇水吧")
     }  else {
-        fruits = ["🍊", "🍋", "🥭", "🍑", "🍐", "🍎", "🍏", "🥝"]
         nm = users[n].tree.fruit
         f = () => fruits[Math.floor(Math.random() * fruits.length)]
         a = f()
@@ -443,6 +443,21 @@ event[msg, me, dm](user, cont:"^/摘果")  => {
         drrr.print("/me @" + users[n].name + " 您成功摘下" + nm + "个果子，分别是【" + ft + "】")
 
     }
+}
+event [msg, me, dm] (user, cont: "^/献礼") => {
+  n=checku(user)
+  if (n ==(-1)) then {
+  drrr.print("/me @"+user+" 您的tc与已有的用户不匹配")
+  }else {
+      gd = users[n].bag.findIndex(x => fruits.some(y=> y==x.name) && x.amount>9)
+    if gd>=0 then {
+      gift=users[n].bag[gd].name
+      if users[n].bag[gd].amount == 10 then users[n].bag.splice(gd, 1)
+      else users[n].bag[gd].amount-=10
+      users[n].coin+=100
+   drrr.print("/me @"+user+" 成功献礼10个【"+gift+"】，获得100 DRB，目前共有"+users[n].coin+" DRB")
+    }else drrr.print("/me @"+user+" 您的背包中没有集齐10个相同的果子，无法献礼")
+  }
 }
 //喝水提醒
 loop = () => {

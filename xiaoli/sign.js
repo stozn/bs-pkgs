@@ -99,7 +99,7 @@ kai = () => {
 onTimeDo(3, 1, 0, () => { lottery.length > 0 && kai() })
 
 onTimeDo(0, 1, 0, () => {
-    for x of goods x.price=Math.round(x.price*(0.8+Math.random()*0.4))
+    for x of goods x.price = Math.round(x.price * (0.8 + Math.random() * 0.4))
     for  x of users {
         if x.check == true then x.day = 0
         if (x.trc == true && !(x.tree == 0)) then {
@@ -168,7 +168,7 @@ checku = (user) => {
     if n == (-1) && m == (-1) then {
         if user.search("\\s") >= 0 then {
             drrr.print("/me @" + user + " 您的用户名中含有空格，暂不支持，请修改")
-                -1
+                - 1
         }else{
             newu(user, tc)
             n = users.length - 1
@@ -177,7 +177,7 @@ checku = (user) => {
     }else if m == (-1) || (users[m].tc == tc) then  n 
     else {
         drrr.print("/me @" + user + " 您的tc与已有的用户不匹配")
-            -1
+            - 1
     }
 
 }
@@ -469,7 +469,12 @@ event[msg, me, dm](user, cont: "^/喝完了") => {
             drk.push(nm)
             users[n].coin += yb
             users[n].drink++
-            drrr.print("/me @" + users[n].name + " 您已成功领取本次喝水奖励，收获" + yb + " DRB，共已喝水" + users[n].drink + "次")
+            w = "/me @" + users[n].name + " 您已成功领取本次喝水奖励，收获" + yb + " DRB，共已喝水" + users[n].drink + "次"
+            if Math.random() < 0.15 then{
+                add(n, "MG-水", 1)
+                w += ",恭喜获得【MG-水】×1，喝水时也要记得给树浇水哦"
+            }
+            drrr.print(w)
         }
     }
 }
@@ -656,7 +661,7 @@ event[msg, me, dm](user, cont: "^/(展示)?背包") => {
 }
 //商店
 event[msg, me, dm](user, cont: "^/商店") => {
-    good=mess(goods)
+    good = mess(goods)
     if good.length > 7 then good= good.slice(0, 7)
     gds = good.map((x, i) => i + 1 + ". " + x.name + "  " + x.price + " DRB")
     drrr.print("商店\n" + gds.join("\n"))

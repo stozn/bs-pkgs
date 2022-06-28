@@ -1,7 +1,7 @@
 //用户数据
 users=JSON.parse(localStorage["users"])
 input=[]
-//树
+//喝水
 ckd=false
 drd=0
 drk=[]
@@ -134,6 +134,7 @@ timer 15*60*1000{
   m=mydate.getMinutes()
   if m>2 then award=[]
   users=users.filter(x=> (x.coin+x.day+x.bag.length+x.letters.length)>0)
+  users=users.filter(x=> !tc=="无")
 }
 //随机整数
 rand = (a,b) =>{
@@ -532,9 +533,11 @@ event [msg, me, dm] (user, cont: "^/(展示)?个人") => {
   drrr.print("/me @"+user+" 您的tc与已有的用户不匹配")
   }else {
       if cont=="/个人" then {
-      drrr.dm(user,"用户名："+users[n].name+" ,tc："+users[n].tc+" ,UID："+users[n].uid+" ,资产："+users[n].coin+" DRB ,连续签到："+users[n].day+"天")
+      drrr.dm(user,"用户名："+users[n].name+" ,tc："+users[n].tc+" ,UID："+users[n].uid+" ,资产："+users[n].coin+" DRB ,连续签到："
+              +users[n].day+"天，连续早起："+users[n].dayz+"天，喝水："+users[n].drink+"次")
     }else {
-      drrr.print("用户名："+users[n].name+" ,tc："+users[n].tc+" ,UID："+users[n].uid+" ,资产："+users[n].coin+" DRB ,连续签到："+users[n].day+"天")
+      drrr.print("用户名："+users[n].name+" ,tc："+users[n].tc+" ,UID："+users[n].uid+" ,资产："+users[n].coin+" DRB ,连续签到："
+                 +users[n].day+"天，连续早起："+users[n].dayz+"天，喝水："+users[n].drink+"次")
     }
  }
 }
@@ -764,6 +767,33 @@ event [msg, me, dm] (user, cont: "^/下架\\s+\\S", url, tc) => {
     }else {
     drrr.print("/me 还没有这个商品哦")
     }
+  }
+}
+//礼品码
+keys={"107895":[],"116722":[],"132205":[],"136065":[],"182357":[],"185032":[],"186464":[],"198374":[],"220764":[],"223879":[],"228921":[],"233878":[],"239980":[],"240332":[],"248104":[],"258866":[],"260034":[],"264773":[],"275258":[],"280407":[],"293917":[],"329777":[],"342846":[],"354989":[],"360340":[],"372383":[],"383986":[],"390533":[],"411266":[],"414589":[],"425842":[],"426004":[],"431819":[],"448370":[],"449681":[],"470303":[],"486487":[],"506775":[],"510296":[],"534015":[],"561602":[],"562731":[],"588162":[],"617143":[],"637326":[],"641851":[],"642125":[],"655326":[],"657107":[],"680575":[],"698884":[],"707093":[],"715375":[],"734364":[],"735163":[],"744755":[],"750959":[],"762878":[],"771234":[],"774473":[],"779305":[],"784254":[],"788787":[],"796402":[],"798757":[],"823920":[],"825940":[],"853806":[],"856898":[],"861915":[],"877966":[],"881882":[],"882249":[],"895424":[],"898813":[],"913460":[],"940164":[],"943072":[],"944271":[],"950580":[],"951807":[],"953155":[],"966320":[],"970393":[],"997513":[],"053710":[],"095197":[],"055148":[],"037406":[],"065489":[],"082849":[],"056651":[],"055474":[],"009625":[],"077049":[],"053215":[],"066259":[],"094949":[],"053042":[],"056500":[]}
+
+event dm (user, cont:"^/兑换\\s+\\d")  => {
+  key=parseInt(cont.replace("/兑换", "").trim())
+  n=checku(user)
+  if (n == (-1)) then {
+  drrr.print("/me @"+user+" 您的tc与已有的用户不匹配")
+} else if !keys.hasOwnProperty(key) then {
+  drrr.dm(user,"您输入的礼品码不存在")
+} else if keys[key].some(a => a==users[n].uid) then {
+  drrr.dm(user,"您已经使用过该礼品码")
+}else{
+  keys[key].push(users[n].uid)
+  users[n].coin+=50
+  drrr.dm(user,"您已经成功使用该礼品码，获得50 DRB，目前共有"+users[n].coin+" DRB")
+  if keys[key].length==10 then delete keys[key]
+  }
+}
+event [msg, me, dm] (user, cont: "^/礼品码", url, tc) => {
+  if admins.some(a => a==tc) then {
+  k="礼品码：\n"
+  for p in keys k+=p+"," 
+  print(k)
+  drrr.dm(user,k)
   }
 }
 //宠物系统

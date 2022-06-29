@@ -833,7 +833,7 @@ checke = (e) => {
   else if e < s[6] then { [6, s[6] - e] }  //6级 200-499
   else                 { [7, 0] }       //7级 500-∞
 }
-timer 10* 60 * 1000{
+timer 20* 60 * 1000{
     if Math.random() < 0.25 then {
         i = Math.floor(Math.random() * pets.length)
         m = pets[i].name

@@ -139,7 +139,7 @@ timer 15* 60 * 1000{
     m = mydate.getMinutes()
     if m> 2 then award= []
     users = users.filter(x => (x.coin + x.day + x.bag.length + x.letters.length) > 0)
-    users = users.filter(x => !tc == "无")
+    users = users.filter(x => !(tc == "无"))
 }
 //随机整数
 rand = (a, b) => {
@@ -447,20 +447,20 @@ event[msg, me, dm](user, cont:"^/摘果")  => {
 
     }
 }
-event [msg, me, dm] (user, cont: "^/献礼") => {
-  n=checku(user)
-  if (n ==(-1)) then {
-  drrr.print("/me @"+user+" 您的tc与已有的用户不匹配")
-  }else {
-      gd = users[n].bag.findIndex(x => fruits.some(y=> y==x.name) && x.amount>9)
-    if gd>=0 then {
-      gift=users[n].bag[gd].name
-      if users[n].bag[gd].amount == 10 then users[n].bag.splice(gd, 1)
-      else users[n].bag[gd].amount-=10
-      users[n].coin+=100
-   drrr.print("/me @"+user+" 成功献礼10个【"+gift+"】，获得100 DRB，目前共有"+users[n].coin+" DRB")
-    }else drrr.print("/me @"+user+" 您的背包中没有集齐10个相同的果子，无法献礼")
-  }
+event[msg, me, dm](user, cont: "^/献礼") => {
+    n = checku(user)
+    if (n == (-1)) then {
+        drrr.print("/me @" + user + " 您的tc与已有的用户不匹配")
+    }else {
+        gd = users[n].bag.findIndex(x => fruits.some(y => y == x.name) && x.amount > 9)
+        if gd>= 0 then {
+            gift = users[n].bag[gd].name
+            if users[n].bag[gd].amount == 10 then users[n].bag.splice(gd, 1)
+      else users[n].bag[gd].amount -= 10
+            users[n].coin += 100
+            drrr.print("/me @" + user + " 成功献礼10个【" + gift + "】，获得100 DRB，目前共有" + users[n].coin + " DRB")
+        }else drrr.print("/me @" + user + " 您的背包中没有集齐10个相同的果子，无法献礼")
+    }
 }
 //喝水提醒
 loop = () => {

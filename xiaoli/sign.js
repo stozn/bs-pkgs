@@ -248,11 +248,11 @@ sort = (key) => {
     }, "\t总用户:" + usr.length + "人")
     p
 }
-event[msg, me, dm](user, cont: "^/(资产|签到|早起|喝水)榜") => {
+event[msg, me, dm](user, cont: "^/(资产|签到|早起|干杯)榜") => {
     if cont== "/资产榜" then drrr.print("资产榜" + sort("coin"))
 else if cont== "/签到榜" then drrr.print("签到榜" + sort("day"))
 else if cont== "/早起榜" then drrr.print("早起榜" + sort("dayz")) 
-else drrr.print("喝水榜" + sort("drink"))
+else drrr.print("干杯榜" + sort("drink"))
 }
 //签到
 event[msg, me, dm](user, cont: "^/签到$") => {
@@ -497,7 +497,7 @@ event[msg, me, dm](user, cont: "^/领取奖励") => {
     }
 }
 
-//喝水提醒
+//干杯提醒
 loop = () => {
     nt = () => {
         now = new Date()
@@ -505,7 +505,8 @@ loop = () => {
             + ":" + String(now.getMinutes()).padStart(2, "0")
     }
     ckd = true
-    drrr.print("/me 现在是【" + nt() + "】已经过" + drd + "分钟了，快来喝水领奖励吧")
+    drrr.print("DRRR 干杯！")
+    drrr.print("/me 现在是【" + nt() + "】，想要干杯的可以发送指令【/干杯】")
     drd = rand(30, 60)
     later 5* 60 * 1000 ckd= false
     later drd* 60 * 1000 loop()
@@ -520,14 +521,14 @@ event[msg, me, dm](user, cont: "^/干杯") => {
         nm = users[n].name
         i = drk.findIndex(u => u == nm)
         if !ckd then {
-            drrr.print("/me @" + users[n].name + " 棒棒哒，但可惜错过了奖励时间，请在下次喝水提醒时，2分钟内前来领取奖励")
+            drrr.print("/me @" + users[n].name + " 已经举起了水杯，但是大家都已经喝完了，只能自己默默喝下一杯水。")
         }else if i>= 0 then {
-            drrr.print("/me @" + users[n].name + " 您已领取过本次喝水奖励了")
+            drrr.print("/me @" + users[n].name + " 又举起了水杯！但是貌似已经喝不下去了~看来只能等下次机会了")
         }else {
             drk.push(nm)
             users[n].coin += yb
             users[n].drink++
-            w = "/me @" + users[n].name + " 您已成功领取本次喝水奖励，收获" + yb + " DRB，共已喝水" + users[n].drink + "次"
+            w = "/me @" + users[n].name + " 举起水杯与在场的所有人碰杯后直接喝完了满满一杯水！获得了" + yb + " DRB，共已干杯" + users[n].drink + "次"
             if Math.random() < 0.15 then{
                 add(n, "MG-水", 1)
                 w += ",恭喜获得【MG-水】×1，喝水时也要记得给树浇水哦"
@@ -596,10 +597,10 @@ event[msg, me, dm](user, cont: "^/(展示)?个人") => {
     }else {
         if cont== "/个人" then {
             drrr.dm(user, "用户名：" + users[n].name + " ,tc：" + users[n].tc + " ,UID：" + users[n].uid + " ,资产：" + users[n].coin + " DRB ,连续签到："
-                + users[n].day + "天，连续早起：" + users[n].dayz + "天，喝水：" + users[n].drink + "次，不活跃：" + users[n].live + "天")
+                + users[n].day + "天，连续早起：" + users[n].dayz + "天，干杯：" + users[n].drink + "次，不活跃：" + users[n].live + "天")
         }else {
             drrr.print("用户名：" + users[n].name + " ,tc：" + users[n].tc + " ,UID：" + users[n].uid + " ,资产：" + users[n].coin + " DRB ,连续签到："
-                + users[n].day + "天，连续早起：" + users[n].dayz + "天，喝水：" + users[n].drink + "次，不活跃：" + users[n].live + "天")
+                + users[n].day + "天，连续早起：" + users[n].dayz + "天，干杯：" + users[n].drink + "次，不活跃：" + users[n].live + "天")
         }
     }
 }

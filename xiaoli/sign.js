@@ -371,7 +371,7 @@ event[msg, me, dm](user, cont:"^/种树")  => {
     n = checku(user)
     if (n == (-1)) then {
         drrr.print("/me @" + user + " 您的tc与已有的用户不匹配")
-    } else if !users[n].bag.some(x => x.name == "MG-水") then {
+    } else if !users[n].bag.some(x => x.name == "MG-树苗") then {
         drrr.print("/me @" + users[n].name + " 很抱歉，您的背包中没有【MG-树苗】，请前往商店购买")
     } else if !(users[n].tree == 0) then {
         drrr.print("/me @" + users[n].name + " 您已经有一棵树了")

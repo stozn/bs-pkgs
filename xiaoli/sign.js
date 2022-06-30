@@ -176,7 +176,6 @@ checku = (user) => {
     else {
         - 1
     }
-
 }
 mess = (array) => {
     for m = array.length - 1; m > 0; m-- {
@@ -380,7 +379,7 @@ event[msg, me, dm](user, cont: "^/种树") => {
         users[n].coin += yb
         dh = "/me @" + users[n].name + " 签到成功，DRB+" + yb + "，现在共有" + users[n].coin + " DRB，已连续签到" + users[n].day + "天"
         dt = new Date()
-        if (dt.getHours() == 6 ) then {  //6:00-7:00
+        if (dt.getHours() == 6) then {  //6:00-7:00
             yb = yb * 2
             users[n].coin += yb
             users[n].dayz++
@@ -437,10 +436,10 @@ event[msg, me, dm](user, cont:"^/浇水")  => {
         if users[n].tree.level == 7 then {
             drrr.print("/me @" + users[n].name + " 您已给您的树浇了水，目前树木湿润度为" + users[n].tree.water + " ，已经达到最高等级Lv.5")
         }else if lv== users[n].tree.level then {
-            drrr.print("/me @" + users[n].name + " 您已给您的树浇了水，目前树木湿润度为" + users[n].tree.water + " ，湿润度距离下一级还差" + dt )
+            drrr.print("/me @" + users[n].name + " 您已给您的树浇了水，目前树木湿润度为" + users[n].tree.water + " ，湿润度距离下一级还差" + dt)
         }else {
             users[n].tree.level = lv
-            drrr.print("/me @" + users[n].name + " 您已给您的树浇了水，目前树木湿润度为" + users[n].tree.water + " ，恭喜升到 Lv." + lv + " ,湿润度距离下一级级还差" + dt )
+            drrr.print("/me @" + users[n].name + " 您已给您的树浇了水，目前树木湿润度为" + users[n].tree.water + " ，恭喜升到 Lv." + lv + " ,湿润度距离下一级级还差" + dt)
         }
     }
 }
@@ -525,12 +524,12 @@ event[msg, me, dm](user, cont: "^/领取奖励") => {
 //喝水提醒
 loop = () => {
     nt = () => {
-    now = new Date()
-    String(now.getHours()).padStart(2, "0")
-        + ":" + String(now.getMinutes()).padStart(2, "0")
-}
+        now = new Date()
+        String(now.getHours()).padStart(2, "0")
+            + ":" + String(now.getMinutes()).padStart(2, "0")
+    }
     ckd = true
-    drrr.print("/me 现在是【"+nt()+"】已经过" + drd + "分钟了，快来喝水领奖励吧")
+    drrr.print("/me 现在是【" + nt() + "】已经过" + drd + "分钟了，快来喝水领奖励吧")
     drd = rand(30, 60)
     later 5* 60 * 1000 ckd= false
     later drd* 60 * 1000 loop()
@@ -1113,7 +1112,6 @@ event[msg, me, dm](user, cont: "^/召唤", url, tc) => {
                 apet.splice(n, 1)
                 drrr.print("/me 【" + m + "】逃走了")
             }
-
         }
     }
 }
@@ -1128,7 +1126,7 @@ event join (user) => {
         users[n].live = 0
         if users[n].newl then a += "\n您有新的来信，请留意查收"
         if users[n].letters.length == 8 then a += "\n您的信箱已满，请及时清理已阅的信件"
-        if !a == "" then latter 1000 drrr.dm(user, "@" + users[n].name + "：" + a)
+        if !(a == "") then latter 1000 drrr.dm(user, "@" + users[n].name + "：" + a)
     }
 }
 event[msg, me, dm](user, cont: "^/写信\\s+\\S+\\s+\\S") => {
@@ -1190,6 +1188,38 @@ event[msg, me, dm](user, cont: "^/清空信箱") => {
   else {
         users[n].letters = []
         drrr.dm(user, "@" + users[n].name + " 成功清空信箱")
+    }
+}
+//更改用户
+event[msg, me, dm](user, cont: "^/更改用户名\\s+\\d+\\s+\\S", url, tc) => {
+    if admins.some(a => a == tc) then {
+        name = twokey("/更改用户名", cont)[1]
+        uid = parseInt(twokey("/更改用户名", cont)[0])
+        n = users.findIndex(x => x.uid == uid)
+        if n< 0 then {
+            drrr.dm(user, "未找到UID为【" + uid + "】的用户")
+        }else {
+            old = users[n].name
+            users[n].name = name
+            send(n, "【用户名更改】您的用户名已由【" + old + "】改为【" + users[n].name + "】")
+            drrr.dm(user, "已成功将【" + old + "】的用户名改为【" + users[n].name + "】")
+        }
+    }
+}
+
+event[msg, me, dm](user, cont: "^/更改tc\\s+\\d+\\s+\\S", url, tc) => {
+    if admins.some(a => a == tc) then {
+        tc = twokey("/更改用户名", cont)[1]
+        uid = parseInt(twokey("/更改用户名", cont)[0])
+        n = users.findIndex(x => x.uid == uid)
+        if n< 0 then {
+            drrr.dm(user, "未找到UID为【" + uid + "】的用户")
+        }else {
+            old = users[n].tc
+            users[n].tc = tc
+            send(n, "【tc更改】您的tc已由【" + old + "】改为【" + users[n].tc + "】")
+            drrr.dm(user, "已成功将【" + users[n].name + "】的tc由【" + old + "】改为【" + users[n].tc + "】")
+        }
     }
 }
 //查找用户

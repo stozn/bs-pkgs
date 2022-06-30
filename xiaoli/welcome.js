@@ -9,6 +9,9 @@ event[msg, me, dm](user, cont: "^/留言\\s+\\S", url, tc) => {
     msgs.unshift("@" + user + "：" + msg)
     drrr.dm(user, "成功留言：" + msg)
 }
+event[msg, me, dm](user, cont: "^/帮助") => {
+    drrr.dm(user, "小粒帮助页面：\nhttps://docs.qq.com/sheet/DVkVCWFFueUVFcXNB" ,"https://docs.qq.com/sheet/DVkVCWFFueUVFcXNB")
+}
 event[msg, me, dm](user, cont: "^/留言板") => {
      msg = msgs.map((x, i) => i + 1 + ". " + x)
     drrr.print("留言板\n" + msg.join("\n"))

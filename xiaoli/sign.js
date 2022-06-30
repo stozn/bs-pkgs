@@ -511,7 +511,7 @@ loop = () => {
     later drd* 60 * 1000 loop()
 }
 loop()
-event[msg, me, dm](user, cont: "^/喝完了") => {
+event[msg, me, dm](user, cont: "^/干杯") => {
     yb = rand(1, 5)
     n = checku(user)
     if (n == (-1)) then {

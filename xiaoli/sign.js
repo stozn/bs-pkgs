@@ -383,11 +383,11 @@ event[msg, me, dm](user, cont:"^/种树")  => {
 }
 event[msg, me, dm](user, cont: "^/(展示)?树") => {
     n = checku(user)
-    p = " 您还没有树，早起签到10天后（时间为6:00-6:30），将获得树苗"
+    p = " 很抱歉，您还没有树，早起签到5天后（不需要连续早起，时间为6:00-7:00），将获得树苗"
     if (n == (-1)) then drrr.print("/me @" + user + "您的tc与已有的用户不匹配")
   else {
         if !users[n].tree == 0 then
-        p = "您的树:\n等级：." + users[n].tree.level + "级\t湿润度：" + users[n].tree.water + "天\t果子：" + users[n].tree.fruit + "个"
+        p = " 您的树:\n等级：." + users[n].tree.level + "级\t湿润度：" + users[n].tree.water + "天\t果子：" + users[n].tree.fruit + "个"
         if cont== "/树" then {
             drrr.dm(user, "@" + users[n].name + p)
         }else {
@@ -402,7 +402,7 @@ event[msg, me, dm](user, cont:"^/浇水")  => {
     } else if !users[n].bag.some(x => x.name == "MG-水") then {
         drrr.print("/me @" + users[n].name + " 很抱歉，您的背包中没有【MG-水】，请前往商店购买")
     } else if users[n].tree == 0 then {
-        drrr.print("/me @" + users[n].name + " 很抱歉，您还没有树，早起签到10天后（时间为6:00-6:30），将获得树苗")
+        drrr.print("/me @" + users[n].name + " 很抱歉，您还没有树，早起签到5天后（不需要连续早起，时间为6:00-7:00），将获得树苗")
     }else {
         use(n, "MG-水")
         users[n].tree.water++
@@ -424,9 +424,9 @@ event[msg, me, dm](user, cont:"^/摘果")  => {
     if (n == (-1)) then {
         drrr.print("/me @" + user + " 您的tc与已有的用户不匹配")
     } else if users[n].tree == 0 then {
-        drrr.print("/me @" + users[n].name + " 很抱歉，您还没有树，早起签到10天后（时间为6:00-6:30），将获得树苗")
+        drrr.print("/me @" + users[n].name + " 很抱歉，您还没有树，早起签到5天后（不需要连续早起，时间为6:00-7:00），将获得树苗")
     }else if users[n].tree.fruit == 0 then {
-        drrr.print("/me @" + users[n].name + " 很抱歉，您的树还没有结果子，快来浇水吧")
+        drrr.print("/me @" + users[n].name + " 很抱歉，您的树还没有结果子，树木达到3级可结果，快来浇水吧")
     }  else {
         nm = users[n].tree.fruit
         f = () => fruits[Math.floor(Math.random() * fruits.length)]

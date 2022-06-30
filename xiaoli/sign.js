@@ -6,7 +6,7 @@ ckd = false
 drd = 0
 drk = []
 //商店
-goods = [{ name: "MG-红包", price: 5 }, { name: "MG-精灵球", price: 40 }, { name: "MG-宠物干粮", price: 10 }, { name: "MG-一本满足", price: 500 }, { name: "MG-水", price: 10 }, { name: "MG-刮刮乐", price: 10 }, { name: "MG-奖券", price: 10 }, { name: "鲜榨果汁", price: 5 }, { name: "可乐", price: 4 }]
+goods = [{ name: "MG-红包", price: 5 }, { name: "MG-精灵球", price: 50 }, { name: "MG-宠物干粮", price: 5 }, { name: "MG-一本满足", price: 500 }, { name: "MG-水", price: 10 }, { name: "MG-刮刮乐", price: 10 }, { name: "MG-奖券", price: 10 }, { name: "鲜榨果汁", price: 5 }, { name: "可乐", price: 4 }]
 market = JSON.parse(localStorage["market"])
 //彩票数据
 lottery = JSON.parse(localStorage["lottery"])
@@ -27,7 +27,7 @@ gaini = []
 gainu = []
 gains = []
 pkgs = []
-fruits = ["🍊", "🍋", "🥭", "🍑", "🍐", "🍎", "🍏", "🥝"]
+fruits = ["🍒", "🍋", "🍈", "🍑", "🍐", "🍎", "🍍", "🥝"]
 admins = ["OG0OPFxOFw", "Ancy.WWeeo", ".bLVj9fdOM", "unica/qOLU", "YtIMnsXOBE"]   //设置管理员
 //签到重置 开奖
 onTimeDo = (h, m, s, callback) => {
@@ -104,18 +104,12 @@ onTimeDo(3, 1, 0, () => { lottery.length > 0 && kai() })
 onTimeDo(0, 1, 0, () => {
     for x of goods x.price = Math.round(x.price * (0.8 + Math.random() * 0.4))
     for  x of users {
-        if x.check == true then x.day = 0
+        if x.check == true then  x.day = 0
+        if x.live > 0 then x.live++
         if (x.trc == true && !(x.tree == 0)) then {
-            x.tree = 0
-            x.letters.unshift("【树木枯死】您的树因为没有每天浇水而枯死了")
-            x.newl = true
-            if x.letters.length == 9 then{
-                x.letters.reverse()
-                a = x.letters.findIndex(i => i.slice(0, 1) == "【")
-                if a>= 0 then { x.letters.splice(a, 1) }
-   else { x.letters.splice(0, 1) }
-                x.letters.reverse()
-            }
+            x.tree.water -= 4
+            if x.tree.water < 0 then x.tree.water = 0
+            x.tree.level = chcke(x.tree.water)[0]
         }else if (x.tree.level > 2 && !(x.tree == 0)) then x.tree.fruit = x.tree.level
         x.check = true
         x.trc == true
@@ -128,7 +122,7 @@ timer 15* 60 * 1000{
     mydate = new Date();
     h = mydate.getHours();
     m = mydate.getMinutes();
-    users = users.filter(x => (x.coin + x.day + x.bag.length + x.letters.length) > 0)
+
     localStorage["users"] = JSON.stringify(users)
     localStorage["lottery"] = JSON.stringify(lottery)
     localStorage["result"] = JSON.stringify(result)
@@ -138,7 +132,7 @@ timer 15* 60 * 1000{
     mydate = new Date()
     m = mydate.getMinutes()
     if m> 2 then award= []
-    users = users.filter(x => (x.coin + x.day + x.bag.length + x.letters.length) > 0)
+    users = users.filter(x => (x.coin + x.day + x.bag.length + x.letters.length + x.pet.length + x.drink + x.dayz) > 0 && x.live < 80)
     users = users.filter(x => !(tc == "无"))
 }
 //随机整数
@@ -156,7 +150,7 @@ newu = (user, tc) => {
     drrr.dm(user, "如需详细指引，请前往小粒个人网站查看详细帮助\n http://xiaoli.22web.org/help/\n小粒Q群：167575329", "http://xiaoli.22web.org/help/")
     users.sort((a, b) => a.uid - b.uid)
     duid = users[users.length - 1].uid + 1
-    users.push({ uid: duid, name: user, tc: tc, coin: 0, check: true, day: 0, dayz: 0, drink: 0, tree: 0, trc: true, bag: [], pet: [], letters: [], newl: false })
+    users.push({ uid: duid, name: user, tc: tc, live: 0, coin: 0, check: true, day: 0, dayz: 0, drink: 0, tree: 0, trc: true, bag: [], pet: [], letters: [], newl: false })
 }
 //校验用户 返回用户编号，若返回-1，则用户tc不匹配
 checku = (user) => {
@@ -269,6 +263,7 @@ event[msg, me, dm](user, cont: "^/签到$") => {
     if (n == (-1)) then {
         drrr.print("/me @" + user + " 您的tc与已有的用户不匹配")
     } else if users[n].check then {
+        users[n].live = 0
         users[n].day++
         users[n].check = false
         yb = yb + users[n].day
@@ -449,7 +444,11 @@ event[msg, me, dm](user, cont:"^/摘果")  => {
 }
 event[msg, me, dm](user, cont: "^/献礼") => {
     n = checku(user)
-    if (n == (-1)) then {
+    mydate = new Date()
+    N = mydate.getDate()
+    if (N == 1 || N == 5 || N == 15 || N == 10 || N == 20 || N == 25 || N == 30) then {  
+        drrr.print("@" + user + " 灰常抱歉。今天献礼功能不开放哦 \n※【黩翋砬柆神社】开放时间为：\n每月1、5、10、15、20、25、30开放")
+    }else if (n == (-1)) then {
         drrr.print("/me @" + user + " 您的tc与已有的用户不匹配")
     }else {
         gd = users[n].bag.findIndex(x => fruits.some(y => y == x.name) && x.amount > 9)
@@ -457,22 +456,45 @@ event[msg, me, dm](user, cont: "^/献礼") => {
             gift = users[n].bag[gd].name
             if users[n].bag[gd].amount == 10 then users[n].bag.splice(gd, 1)
       else users[n].bag[gd].amount -= 10
-            users[n].coin += 100
-            drrr.print("/me @" + user + " 成功献礼10个【" + gift + "】，获得100 DRB，目前共有" + users[n].coin + " DRB")
+            c = rand(80, 120)
+            users[n].coin += c
+            drrr.print("/me @" + user + " 成功给黩翋砬柆神献礼10个【" + gift + "】，神赐给你" + c + " DRB，目前共有" + users[n].coin + " DRB")
         }else drrr.print("/me @" + user + " 您的背包中没有集齐10个相同的果子，无法献礼")
+    }
+}
+//整点奖励
+event[msg, me, dm](user, cont: "^/领取奖励") => {
+    yb = rand(2, 4)
+    n = checku(user)
+    if (n == (-1)) then {
+        drrr.print("/me @" + user + " 您的tc与已有的用户不匹配")
+    } else {
+        mydate = new Date()
+        m = mydate.getMinutes()
+        nm = users[n].name
+        i = award.findIndex(u => u == nm)
+        if m> 2 then {
+            drrr.print("/me @" + users[n].name + " 还未到领取时间，请在每个整点的2分钟内前来领取奖励")
+        }else if i>= 0 then {
+            drrr.print("/me @" + users[n].name + " 您已领取过本小时奖励了")
+        }else {
+            award.push(nm)
+            users[n].coin += yb
+            drrr.print("/me @" + users[n].name + " 您已成功领取本小时奖励，收获" + yb + " DRB")
+        }
     }
 }
 //喝水提醒
 loop = () => {
     ckd = true
     drrr.print("/me 已经过" + drd + "分钟了，快来喝水领奖励吧")
-    drd = rand(15, 30)
-    later 2* 60 * 1000 ckd= false
+    drd = rand(30, 60)
+    later 5* 60 * 1000 ckd= false
     later drd* 60 * 1000 loop()
 }
 loop()
 event[msg, me, dm](user, cont: "^/喝完了") => {
-    yb = rand(2, 5)
+    yb = rand(1, 5)
     n = checku(user)
     if (n == (-1)) then {
         drrr.print("/me @" + user + " 您的tc与已有的用户不匹配")
@@ -497,7 +519,6 @@ event[msg, me, dm](user, cont: "^/喝完了") => {
     }
 }
 //彩票
-
 event[msg, me, dm](user, cont: "^/直接开奖", url, tc) => {
     if  lottery.length > 0 && admins.some(a => a == tc)  then kai()
 }
@@ -557,10 +578,10 @@ event[msg, me, dm](user, cont: "^/(展示)?个人") => {
     }else {
         if cont== "/个人" then {
             drrr.dm(user, "用户名：" + users[n].name + " ,tc：" + users[n].tc + " ,UID：" + users[n].uid + " ,资产：" + users[n].coin + " DRB ,连续签到："
-                + users[n].day + "天，连续早起：" + users[n].dayz + "天，喝水：" + users[n].drink + "次")
+                + users[n].day + "天，连续早起：" + users[n].dayz + "天，喝水：" + users[n].drink + "次，不活跃：" + users[n].live + "天")
         }else {
             drrr.print("用户名：" + users[n].name + " ,tc：" + users[n].tc + " ,UID：" + users[n].uid + " ,资产：" + users[n].coin + " DRB ,连续签到："
-                + users[n].day + "天，连续早起：" + users[n].dayz + "天，喝水：" + users[n].drink + "次")
+                + users[n].day + "天，连续早起：" + users[n].dayz + "天，喝水：" + users[n].drink + "次，不活跃：" + users[n].live + "天")
         }
     }
 }
@@ -666,14 +687,16 @@ event[msg, me, dm](user, cont: "^/(展示)?背包") => {
     n = checku(user)
     if (n == (-1)) then drrr.print("/me @" + user + " 您的tc与已有的用户不匹配")
   else {
-        p = users[n].bag.reduce((a, x, y) => {
+        p = mess(users[n].bag)
+        if p.length > 7 then p= p.slice(0, 7)
+        o = p.reduce((a, x, y) => {
             a = a + "\n" + (y + 1) + ".【" + x.name + "】 ×" + x.amount
             a
         }, " 您的背包有:")
         if cont== "/背包" then {
-            drrr.dm(user, "@" + users[n].name + p)
+            drrr.dm(user, "@" + users[n].name + o)
         }else {
-            drrr.print("@" + users[n].name + p)
+            drrr.print("@" + users[n].name + o)
         }
     }
 }
@@ -742,6 +765,8 @@ event[msg, me, dm](user, cont: "^/卖\\s+\\d+\\s+\\d") => {
         drrr.print("/me @" + user + " 您的tc与已有的用户不匹配")
     } else if gd > users[n].bag.length || gd == 0 then {
         drrr.dm(user, "@" + users[n].name + " 输入的序号不存在")
+    }else if p > 1000 then {
+        drrr.dm(user, "@" + users[n].name + " 您定的价格" + p + "高于最高价格1000 DRB，请不要恶意抬价，如确实有需要高价售出，请自行使用【转账】【赠送】功能")
     } else {
         good = users[n].bag[gd - 1].name
         use(n, good)
@@ -897,7 +922,7 @@ event[msg, me, dm](user, cont: "^/捕捉") => {
         use(n, "MG-精灵球")
         drrr.print("/me @" + users[n].name + " 正在努力捕捉中...")
         i = Math.floor(Math.random() * apet.length)
-        k = Math.random() < 0.3  //成功概率 0.3
+        k = Math.random() < 0.5  //成功概率 0.5
         if !k || (apet.length - 1) < i then {
             later 5* 1000 drrr.print("/me @" + users[n].name + " 哎呀，失手了")
         }else {
@@ -1054,17 +1079,13 @@ event join (user) => {
     n = checku(user)
     a = ""
     i = drrr.users.findIndex(u => u.name == user)
-    if drrr.users[i].tripcode == false then {
-        a += "\n您还未设置tc，无法使用用户系统\n设置方法请看https://drrr.wiki/Tripcode"
-    }
-    if users[n].newl then {
-        a += "\n您有新的来信，请留意查收"
-    }
-    if users[n].letters.length == 8 then {
-        a += "\n您的信箱已满，请及时清理已阅的信件"
-    }
-    if !a == "" then {
-        latter 1000 drrr.dm(user, "@" + users[n].name + "：" + a)
+    if (n == (-1)) then {
+        drrr.print("/me @" + user + " 您的tc与已有的用户不匹配")
+    } else{
+        users[n].live = 0
+        if users[n].newl then a += "\n您有新的来信，请留意查收"
+        if users[n].letters.length == 8 then a += "\n您的信箱已满，请及时清理已阅的信件"
+        if !a == "" then latter 1000 drrr.dm(user, "@" + users[n].name + "：" + a)
     }
 }
 event[msg, me, dm](user, cont: "^/写信\\s+\\S+\\s+\\S") => {
@@ -1135,7 +1156,7 @@ event[msg, me, dm](user, cont: "^/查找\\s+\\S") => {
     reg = new RegExp(tg)
     for x of users { if reg.test(x.name) then arr.push(x) }
     if arr.length > 0 then{
-        drrr.dm(user, arr.map((x, y) => (y + 1) + ".用户名：" + x.name + " ,tc：" + x.tc + " ,UID：" + x.uid + " ,资产：" + x.coin + " DRB").join("\n"))
+        drrr.dm(user, arr.map((x, y) => (y + 1) + ".用户名：" + x.name + " ,tc：" + x.tc + " ,UID：" + x.uid + " ,资产：" + x.coin + " DRB，不活跃：" + x.live + "天").join("\n"))
     } else {
         drrr.dm(user, "未找到用户【" + tg + "】")
     }
@@ -1146,7 +1167,7 @@ event[msg, me, dm](user, cont: "^/查找tc\\s+\\S") => {
     reg = new RegExp(tg)
     for x of users { if reg.test(x.tc) then arr.push(x) }
     if arr.length > 0 then{
-        drrr.dm(user, arr.map((x, y) => (y + 1) + ".用户名：" + x.name + " ,tc：" + x.tc + " ,UID：" + x.uid + " ,资产：" + x.coin + " DRB").join("\n"))
+        drrr.dm(user, arr.map((x, y) => (y + 1) + ".用户名：" + x.name + " ,tc：" + x.tc + " ,UID：" + x.uid + " ,资产：" + x.coin + " DRB，不活跃：" + x.live + "天").join("\n"))
     } else {
         drrr.dm(user, "未找到用户【" + tg + "】")
     }

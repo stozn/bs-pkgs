@@ -366,31 +366,7 @@ chcke = (e) => {
   else if e < s[4] then { [4, s[4] - e] }  //4级 20-29
   else if e < s[5] then { [5, s[5] - e] }  //5级 30
 }
-event[msg, me, dm](user, cont: "^/种树") => {
-    n = checku(user)
-    if (n == (-1)) then {
-        drrr.print("/me @" + user + " 您的tc与已有的用户不匹配")
-    } else if users[n].check then {
-        users[n].live = 0
-        users[n].day++
-        users[n].check = false
-        yb = yb + users[n].day
-        if yb> 10 then yb= 10
-        users[n].coin += yb
-        dh = "/me @" + users[n].name + " 签到成功，DRB+" + yb + "，现在共有" + users[n].coin + " DRB，已连续签到" + users[n].day + "天"
-        dt = new Date()
-        if (dt.getHours() == 6) then {  //6:00-7:00
-            yb = yb * 2
-            users[n].coin += yb
-            users[n].dayz++
-            dh = "/me @" + users[n].name + " 早起成功，DRB+" + yb + "×2，现在共有" + users[n].coin + " DRB，已连续签到" + users[n].day + "天，已连续早起" + users[n].dayz + "天"
-            if (users[n].dayz == 10 && users[n].tree == 0) then {
-                dh += "，恭喜您获得一棵树苗！"
-            }
-        }
-        drrr.print(dh)
-    } else { drrr.print("/me @" + users[n].name + " 今天已经签过到了，明天记得继续来签到哦") }
-}
+
 event[msg, me, dm](user, cont:"^/种树")  => {
     n = checku(user)
     if (n == (-1)) then {

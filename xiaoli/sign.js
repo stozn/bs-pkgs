@@ -208,7 +208,7 @@ threekey = (cmd, cont) => {
 send = (n, c) => {
     users[n].letters.unshift(c)
     users[n].newl = true
-    if users[n].letters.length == 9 then{
+    if users[n].letters.length == 5 then{
         users[n].letters.reverse()
         a = users[n].letters.findIndex(x => x.slice(0, 1) == "【")
         if a>= 0 then { users[n].letters.splice(a, 1) }
@@ -1102,7 +1102,7 @@ event join (user) => {
     } else{
         users[n].live = 0
         if users[n].newl then a += "\n您有新的来信，请留意查收"
-        if users[n].letters.length == 8 then a += "\n您的信箱已满，请及时清理已阅的信件"
+        if users[n].letters.length == 4 then a += "\n您的信箱已满，请及时清理已阅的信件"
         if !(a == "") then latter 1000 drrr.dm(user, "@" + users[n].name + "：" + a)
     }
 }
@@ -1128,7 +1128,7 @@ event[msg, me, dm](user, cont: "^/信箱") => {
         p = users[n].letters.reduce((a, x, y) => {
             a = a + "\n" + (y + 1) + "." + x.slice(0, 10) + "..."
             a
-        }, "的信箱\t【" + users[n].letters.length + "/8】")
+        }, "的信箱\t【" + users[n].letters.length + "/4】")
         drrr.dm(user, "@" + users[n].name + p)
     }
 }

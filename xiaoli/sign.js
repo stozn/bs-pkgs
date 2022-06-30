@@ -274,7 +274,7 @@ event[msg, me, dm](user, cont: "^/签到$") => {
             users[n].coin += yb
             users[n].dayz++
             dh = "/me @" + users[n].name + " 早起成功，DRB+" + yb + "×2，现在共有" + users[n].coin + " DRB，已连续签到" + users[n].day + "天，已连续早起" + users[n].dayz + "天"
-            if (users[n].dayz == 10 && users[n].tree == 0) then {
+            if (users[n].dayz == 5 && users[n].tree == 0) then {
                 dh += "，恭喜您获得一棵树苗！"
                 users[n].tree = { level: 1, water: 0, fruit: 0 }
             }

@@ -732,7 +732,7 @@ event[msg, me, dm](user, cont: "^/集市") => {
     gds = mt.map((x, i) => i + 101 + ". " + x.name + "  " + x.price + " DRB")
     drrr.print("集市\n" + gds.join("\n"))
 }
-event[me, msg](user, cont:"^/买\\s+\\d+(\\s+\\d)?")  => {
+event[msg, me, dm](user, cont:"^/买\\s+\\d+(\\s+\\d)?")  => {
     reg = new RegExp("^/买\\s+\\d+\\s+\\d")
     a = 1
     g = parseInt(cont.replace("/买", "").trim())

@@ -6,7 +6,7 @@ ckd = false
 drd = 0
 drk = []
 //商店
-goods = [{ name: "MG-红包", price: 5 }, { name: "MG-精灵球", price: 50 }, { name: "MG-宠物干粮", price: 5 }, { name: "MG-一本满足", price: 500 }, { name: "MG-水", price: 10 }, { name: "MG-刮刮乐", price: 10 }, { name: "MG-奖券", price: 10 }, { name: "鲜榨果汁", price: 5 }, { name: "可乐", price: 4 }]
+goods = [{ name: "MG-红包", price: 5 }, { name: "MG-精灵球", price: 50 }, { name: "MG-宠物干粮", price: 5 }, { name: "MG-树苗", price: 200 }, { name: "MG-一本满足", price: 500 }, { name: "MG-水", price: 10 }, { name: "MG-刮刮乐", price: 10 }, { name: "MG-奖券", price: 10 }, { name: "鲜榨果汁", price: 5 }, { name: "可乐", price: 4 }]
 market = JSON.parse(localStorage["market"])
 //彩票数据
 lottery = JSON.parse(localStorage["lottery"])
@@ -174,7 +174,7 @@ checku = (user) => {
         }
     }else if m == (-1) || (users[m].tc == tc) then  n 
     else {
-            - 1
+        - 1
     }
 
 }
@@ -360,13 +360,51 @@ event[msg, me, dm](user, cont: "^/惩罚\\s+\\S+\\s+\\S+\\s+\\d", url, tc) => {
 //种树
 //经验升级设置
 chcke = (e) => {
-    s = [0, 5, 10, 20, 30]  //设置等级分界点
-    if e < s[1] then { [1, s[1] - e] }  //1级 1-4
+    s = [0, 5, 10, 20, 30]  //设置分界点     等级 浇水
+    if e < s[1] then { [1, s[1] - e] }     //1级 1-4
   else if e < s[2] then { [2, s[2] - e] }  //2级 5-9
   else if e < s[3] then { [3, s[3] - e] }  //3级 10-19
   else if e < s[4] then { [4, s[4] - e] }  //4级 20-29
   else if e < s[5] then { [5, s[5] - e] }  //5级 30
-
+}
+event[msg, me, dm](user, cont: "^/种树") => {
+    n = checku(user)
+    if (n == (-1)) then {
+        drrr.print("/me @" + user + " 您的tc与已有的用户不匹配")
+    } else if users[n].check then {
+        users[n].live = 0
+        users[n].day++
+        users[n].check = false
+        yb = yb + users[n].day
+        if yb> 10 then yb= 10
+        users[n].coin += yb
+        dh = "/me @" + users[n].name + " 签到成功，DRB+" + yb + "，现在共有" + users[n].coin + " DRB，已连续签到" + users[n].day + "天"
+        dt = new Date()
+        if (dt.getHours() == 6 ) then {  //6:00-7:00
+            yb = yb * 2
+            users[n].coin += yb
+            users[n].dayz++
+            dh = "/me @" + users[n].name + " 早起成功，DRB+" + yb + "×2，现在共有" + users[n].coin + " DRB，已连续签到" + users[n].day + "天，已连续早起" + users[n].dayz + "天"
+            if (users[n].dayz == 10 && users[n].tree == 0) then {
+                dh += "，恭喜您获得一棵树苗！"
+            }
+        }
+        drrr.print(dh)
+    } else { drrr.print("/me @" + users[n].name + " 今天已经签过到了，明天记得继续来签到哦") }
+}
+event[msg, me, dm](user, cont:"^/种树")  => {
+    n = checku(user)
+    if (n == (-1)) then {
+        drrr.print("/me @" + user + " 您的tc与已有的用户不匹配")
+    } else if !users[n].bag.some(x => x.name == "MG-水") then {
+        drrr.print("/me @" + users[n].name + " 很抱歉，您的背包中没有【MG-树苗】，请前往商店购买")
+    } else if !(users[n].tree == 0) then {
+        drrr.print("/me @" + users[n].name + " 您已经有一棵树了")
+    }else {
+        use(n, "MG-树苗")
+        users[n].tree = { level: 1, water: 0, fruit: 0 }
+        drrr.print("/me @" + users[n].name + " 您已成功种下一棵树，记得每天浇水哦")
+    }
 }
 event[msg, me, dm](user, cont: "^/(展示)?树") => {
     n = checku(user)
@@ -374,8 +412,8 @@ event[msg, me, dm](user, cont: "^/(展示)?树") => {
     if (n == (-1)) then drrr.print("/me @" + user + "您的tc与已有的用户不匹配")
   else {
         if !users[n].tree == 0 then
-        p = "您的树:\n等级：." + users[n].tree.level + "级\t浇水：" + users[n].tree.water + "天\t果子：" + users[n].tree.fruit + "个"
-        if cont== "/宠物" then {
+        p = "您的树:\n等级：." + users[n].tree.level + "级\t湿润度：" + users[n].tree.water + "天\t果子：" + users[n].tree.fruit + "个"
+        if cont== "/树" then {
             drrr.dm(user, "@" + users[n].name + p)
         }else {
             drrr.print("@" + users[n].name + p)
@@ -397,12 +435,12 @@ event[msg, me, dm](user, cont:"^/浇水")  => {
         lv = chcke(users[n].tree.water)[0]
         dt = chcke(users[n].tree.water)[1]
         if users[n].tree.level == 7 then {
-            drrr.print("/me @" + users[n].name + " 您已给您的树浇了水，目前已浇水" + users[n].tree.water + "次 ，已经达到最高等级Lv.5")
+            drrr.print("/me @" + users[n].name + " 您已给您的树浇了水，目前树木湿润度为" + users[n].tree.water + " ，已经达到最高等级Lv.5")
         }else if lv== users[n].tree.level then {
-            drrr.print("/me @" + users[n].name + " 您已给您的树浇了水，目前已浇水" + users[n].tree.water + "次 ，距离下一级还差" + dt + "次")
+            drrr.print("/me @" + users[n].name + " 您已给您的树浇了水，目前树木湿润度为" + users[n].tree.water + " ，湿润度距离下一级还差" + dt )
         }else {
             users[n].tree.level = lv
-            drrr.print("/me @" + users[n].name + " 您已给您的树浇了水，目前已浇水" + users[n].tree.water + "次 ，恭喜升到 Lv." + lv + " ,距离下一级级还差" + dt + "次")
+            drrr.print("/me @" + users[n].name + " 您已给您的树浇了水，目前树木湿润度为" + users[n].tree.water + " ，恭喜升到 Lv." + lv + " ,湿润度距离下一级级还差" + dt )
         }
     }
 }

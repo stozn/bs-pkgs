@@ -521,10 +521,16 @@ event[msg, me, dm](user, cont: "^/领取奖励") => {
         }
     }
 }
+
 //喝水提醒
 loop = () => {
+    nt = () => {
+    now = new Date()
+    String(now.getHours()).padStart(2, "0")
+        + ":" + String(now.getMinutes()).padStart(2, "0")
+}
     ckd = true
-    drrr.print("/me 已经过" + drd + "分钟了，快来喝水领奖励吧")
+    drrr.print("/me 现在是【"+nt()+"】已经过" + drd + "分钟了，快来喝水领奖励吧")
     drd = rand(30, 60)
     later 5* 60 * 1000 ckd= false
     later drd* 60 * 1000 loop()

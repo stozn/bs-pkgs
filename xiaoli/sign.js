@@ -174,7 +174,6 @@ checku = (user) => {
         }
     }else if m == (-1) || (users[m].tc == tc) then  n 
     else {
-        drrr.print("/me @" + user + " 您的tc与已有的用户不匹配")
             - 1
     }
 

@@ -13,6 +13,7 @@ lottery = JSON.parse(localStorage["lottery"])
 result = JSON.parse(localStorage["result"])
 //礼品码
 keys = JSON.parse(localStorage["keys"])
+bonus = 50
 //奖励数据
 award = []
 //宠物数据
@@ -840,7 +841,6 @@ event[msg, me, dm](user, cont: "^/下架\\s+\\S", url, tc) => {
     }
 }
 //礼品码
-
 event dm (user, cont:"^/兑换\\s+\\d")  => {
     key = parseInt(cont.replace("/兑换", "").trim())
     n = checku(user)
@@ -852,8 +852,8 @@ event dm (user, cont:"^/兑换\\s+\\d")  => {
         drrr.dm(user, "您已经使用过该礼品码")
     }else{
         keys[key].push(users[n].uid)
-        users[n].coin += 50
-        drrr.dm(user, "您已经成功使用该礼品码，获得50 DRB，目前共有" + users[n].coin + " DRB")
+        users[n].coin += bonus
+        drrr.dm(user, "您已经成功使用该礼品码，获得" + bonus + " DRB，目前共有" + users[n].coin + " DRB")
         if keys[key].length == 10 then delete keys[key]
     }
 }
@@ -863,6 +863,12 @@ event[msg, me, dm](user, cont: "^/礼品码", url, tc) => {
         for p in keys k+= p + ","
         print(k)
         drrr.dm(user, k)
+    }
+}
+event[msg, me, dm](user, cont: "^/奖金\\s+\\d", url, tc) => {
+    if admins.some(a => a == tc) then {
+        bonus = parseInt(onekey("/奖金", cont))
+        drrr.dm(user, "奖金已设置为" + bonus + " DRB")
     }
 }
 //宠物系统

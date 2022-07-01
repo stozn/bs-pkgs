@@ -1106,10 +1106,17 @@ event join (user) => {
     if (n == (-1)) then {
         drrr.print("/me @" + user + " 您的tc与已有的用户不匹配")
     } else{
+        b = false
         users[n].live = 0
-        if users[n].newl then a += "\n您有新的来信，请留意查收"
-        if users[n].letters.length == 4 then a += "\n您的信箱已满，请及时清理已阅的信件"
-        if !(a == "") then latter 1000 drrr.dm(user, "@" + users[n].name + "：" + a)
+        if users[n].newl then {
+            a += "\n您有新的来信，请留意查收"
+            b = true
+        }
+        if users[n].letters.length == 4 then{
+            a += "\n您的信箱已满，请及时清理已阅的信件"
+            b = true
+        }
+        if (!(a == "") && b) then  drrr.dm(user, "@" + users[n].name + "：" + a)
     }
 }
 event[msg, me, dm](user, cont: "^/写信\\s+\\S+\\s+\\S") => {

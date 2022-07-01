@@ -133,7 +133,7 @@ timer 15* 60 * 1000{
     mydate = new Date()
     m = mydate.getMinutes()
     if m> 2 then award= []
-    users = users.filter(x => (x.coin + x.day + x.bag.length + x.letters.length + x.pet.length + x.drink + x.dayz) > 0 && x.live < 80)
+    users = users.filter(x => (x.coin + x.day + x.bag.length + x.letters.length + x.pet.length + x.drink + x.dayz) > 0 && x.live < 30)
     users = users.filter(x => !(tc == "无"))
 }
 //随机整数

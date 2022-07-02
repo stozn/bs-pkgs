@@ -6,7 +6,7 @@ ckd = false
 drd = 0
 drk = []
 //商店
-goods = [{ name: "MG-红包", price: 5 }, { name: "MG-精灵球", price: 50 }, { name: "MG-宠物干粮", price: 5 }, { name: "MG-树苗", price: 100 }, { name: "MG-一本满足", price: 400 }, { name: "MG-水", price: 10 }, { name: "MG-刮刮乐", price: 10 }, { name: "MG-奖券", price: 10 }, { name: "鲜榨果汁", price: 5 }, { name: "可乐", price: 4 }]
+goods = [{ name: "MG-红包", price: 5 }, { name: "MG-精灵球", price: 50 }, { name: "MG-宠物干粮", price: 5 }, { name: "MG-挑战卡", amount: 100 }, { name: "MG-树苗", price: 100 }, { name: "MG-一本满足", price: 400 }, { name: "MG-水", price: 10 }, { name: "MG-刮刮乐", price: 10 }, { name: "MG-奖券", price: 10 }, { name: "鲜榨果汁", price: 5 }, { name: "可乐", price: 4 }]
 market = JSON.parse(localStorage["market"])
 //彩票数据
 lottery = JSON.parse(localStorage["lottery"])
@@ -14,11 +14,12 @@ result = JSON.parse(localStorage["result"])
 //礼品码
 keys = JSON.parse(localStorage["keys"])
 bonus = 50
+//战报
+ybt = []
 //奖励数据
 award = []
 //宠物数据
 apet = []
-pets = [{ name: "白泽", level: 7, exp: 500 }, { name: "钟山神", level: 4, exp: 50 }, { name: "九尾狐", level: 2, exp: 5 }, { name: "饕餮", level: 1, exp: 0 }, { name: "麒麟", level: 3, exp: 15 }, { name: "白矖", level: 6, exp: 200 }]
 //红包数据
 pkgi = 0
 owner = "无"
@@ -116,6 +117,7 @@ onTimeDo(0, 1, 0, () => {
             x.tree.level = chcke(x.tree.water)[0]
         }else if (x.tree.level > 2 && !(x.tree == 0)) then x.tree.fruit = x.tree.level
         x.check = true
+        x.checkb = true
         x.trc == true
     }
     txt(users, tDay() + "数据")
@@ -154,7 +156,7 @@ newu = (user, tc) => {
     drrr.dm(user, "如需详细指引，请前往小粒个人网站查看详细帮助\n http://xiaoli.22web.org/help/\n小粒Q群：167575329", "http://xiaoli.22web.org/help/")
     users.sort((a, b) => a.uid - b.uid)
     duid = users[users.length - 1].uid + 1
-    users.push({ uid: duid, name: user, tc: tc, live: 0, coin: 0, check: true, day: 0, dayz: 0, drink: 0, tree: 0, trc: true, bag: [], pet: [], letters: [], newl: false })
+    users.push({ uid: duid, name: user, tc: tc, live: 0, coin: 0, check: true, day: 0, dayz: 0, drink: 0, tree: 0, trc: true, bag: [], pet: [], checkb: true, win: 0, letters: [], newl: false })
 }
 //校验用户 返回用户编号，若返回-1，则用户tc不匹配
 checku = (user) => {
@@ -237,6 +239,7 @@ use = (n, good) => {
         users[n].bag[gd].amount--
     }
 }
+latter = (f, t) => setTimeout(f, t * 1000)
 //排行榜
 sort = (key) => {
     usr = users
@@ -245,6 +248,7 @@ sort = (key) => {
     word = "天"
     if key== "coin" then word= " DRB"
     if key== "drink" then word= "次"
+    if key== "win" then word= "次"
     if usr.length > 7 then pm= pm.slice(0, 7)    //截取排名前7的用户
     p = pm.reduce((a, x, y) => {
         a = a + "\n" + (y + 1) + "." + x.name + "\t" + x[key] + word
@@ -252,10 +256,11 @@ sort = (key) => {
     }, "\t总用户:" + usr.length + "人")
     p
 }
-event[msg, me, dm](user, cont: "^/(资产|签到|早起|干杯)榜") => {
+event[msg, me, dm](user, cont: "^/(资产|签到|早起|干杯|胜利)榜") => {
     if cont== "/资产榜" then drrr.print("资产榜" + sort("coin"))
 else if cont== "/签到榜" then drrr.print("签到榜" + sort("day"))
 else if cont== "/早起榜" then drrr.print("早起榜" + sort("dayz")) 
+else if cont== "/胜利榜" then drrr.print("胜利榜" + sort("win"))
 else drrr.print("干杯榜" + sort("drink"))
 }
 //签到
@@ -376,7 +381,7 @@ event[msg, me, dm](user, cont:"^/种树")  => {
     if (n == (-1)) then {
         drrr.print("/me @" + user + " 您的tc与已有的用户不匹配")
     } else if !users[n].bag.some(x => x.name == "MG-树苗") then {
-        drrr.print("/me @" + users[n].name + " 很抱歉，您的背包中没有【MG-树苗】，请前往商店购买")
+        drrr.print("/me @" + users[n].name + " 很抱歉，您的背包中没有树苗，请前往商店购买")
     } else if !(users[n].tree == 0) then {
         drrr.print("/me @" + users[n].name + " 您已经有一棵树了")
     }else {
@@ -387,7 +392,7 @@ event[msg, me, dm](user, cont:"^/种树")  => {
 }
 event[msg, me, dm](user, cont: "^/(展示)?树") => {
     n = checku(user)
-    p = " 很抱歉，您还没有树，早起签到5天后（不需要连续早起，时间为6:00-7:00），将获得树苗"
+    p = " 很抱歉，您还没有树，早起签到5天后（不需要连续早起，时间为6:00-7:00），将获得树苗，也可在商店购买树苗后【/种树】"
     if (n == (-1)) then drrr.print("/me @" + user + "您的tc与已有的用户不匹配")
   else {
         if !users[n].tree == 0 then
@@ -406,7 +411,7 @@ event[msg, me, dm](user, cont:"^/浇水")  => {
     } else if !users[n].bag.some(x => x.name == "MG-水") then {
         drrr.print("/me @" + users[n].name + " 很抱歉，您的背包中没有【MG-水】，请前往商店购买")
     } else if users[n].tree == 0 then {
-        drrr.print("/me @" + users[n].name + " 很抱歉，您还没有树，早起签到5天后（不需要连续早起，时间为6:00-7:00），将获得树苗")
+        drrr.print("/me @" + users[n].name + " 很抱歉，您还没有树，早起签到5天后（不需要连续早起，时间为6:00-7:00），将获得树苗，也可在商店购买树苗后【/种树】")
     }else {
         use(n, "MG-水")
         users[n].tree.water++
@@ -428,7 +433,7 @@ event[msg, me, dm](user, cont:"^/摘果")  => {
     if (n == (-1)) then {
         drrr.print("/me @" + user + " 您的tc与已有的用户不匹配")
     } else if users[n].tree == 0 then {
-        drrr.print("/me @" + users[n].name + " 很抱歉，您还没有树，早起签到5天后（不需要连续早起，时间为6:00-7:00），将获得树苗")
+        drrr.print("/me @" + users[n].name + " 很抱歉，您还没有树，早起签到5天后（不需要连续早起，时间为6:00-7:00），将获得树苗，也可在商店购买树苗后【/种树】")
     }else if users[n].tree.fruit == 0 then {
         drrr.print("/me @" + users[n].name + " 很抱歉，您的树还没有结果子，树木达到3级可结果，快来浇水吧")
     }  else {
@@ -581,7 +586,7 @@ event[msg, me, dm](user, cont: "^/转账\\s+\\S+\\s+\\d") => {
     if (n == (-1)) then {
         drrr.print("/me @" + user + " 您的tc与已有的用户不匹配")
     } else if (m == (-1)) then {
-        drrr.dm(user, "@" + users[n].name + " 您转账的用户【" + tou + "】不存在" + m)
+        drrr.dm(user, "@" + users[n].name + " 您转账的用户【" + tou + "】不存在，请检查输入是否为对方【用户名】（可使用查找功能）")
     } else if users[n].coin < (cn + 1) then {
         drrr.dm(user, "@" + users[n].name + " 很抱歉，您只有" + users[n].coin + "DRB，不足以支付" + cn + "(转账金额)+" + Math.floor(cn * 0.05) + "(5%手续费)=" + (Math.floor(cn * 0.05) + cn) + " DRB")
     } else if cn< 20 then {
@@ -601,10 +606,10 @@ event[msg, me, dm](user, cont: "^/(展示)?个人") => {
     }else {
         if cont== "/个人" then {
             drrr.dm(user, "用户名：" + users[n].name + " ,tc：" + users[n].tc + " ,UID：" + users[n].uid + " ,资产：" + users[n].coin + " DRB ,连续签到："
-                + users[n].day + "天，连续早起：" + users[n].dayz + "天，干杯：" + users[n].drink + "次，不活跃：" + users[n].live + "天")
+                + users[n].day + "天，连续早起：" + users[n].dayz + "天，干杯：" + users[n].drink + "次，胜利：" + users[n].win + "次，不活跃：" + users[n].live + "天")
         }else {
             drrr.print("用户名：" + users[n].name + " ,tc：" + users[n].tc + " ,UID：" + users[n].uid + " ,资产：" + users[n].coin + " DRB ,连续签到："
-                + users[n].day + "天，连续早起：" + users[n].dayz + "天，干杯：" + users[n].drink + "次，不活跃：" + users[n].live + "天")
+                + users[n].day + "天，连续早起：" + users[n].dayz + "天，干杯：" + users[n].drink + "次，胜利：" + users[n].win + "次，不活跃：" + users[n].live + "天")
         }
     }
 }
@@ -807,7 +812,7 @@ event[msg, me, dm](user, cont: "^/赠送\\s+\\S+\\s+\\d") => {
     if (n == (-1)) then {
         drrr.print("/me @" + user + " 您的tc与已有的用户不匹配")
     } else if (m == (-1)) then {
-        drrr.dm(user, "@" + users[n].name + " 您赠送的用户【" + tou + "】不存在，请检查输入是否为对方【用户名】")
+        drrr.dm(user, "@" + users[n].name + " 您赠送的用户【" + tou + "】不存在，请检查输入是否为对方【用户名】（可使用查找功能）")
     } else if gd >= users[n].bag.length then {
         drrr.dm(user, "@" + users[n].name + " 输入的序号不存在")
     } else {
@@ -879,7 +884,7 @@ event[msg, me, dm](user, cont: "^/奖金\\s+\\d", url, tc) => {
 sample = array => array[Math.floor(Math.random() * array.length)]
 checke = (e) => {
     s = [0, 5, 10, 15, 20, 30, 40, 50, 60, 70, 90, 110, 130, 150, 180, 210, 240, 270, 300, 340, 380, 420, 460, 500, 550, 600, 700, 800, 900, 1000]  //设置等级分界点
-    if e < s[1] then { [1, s[1] - e] } 	    //1级  1-4
+    if e < s[1] then { [1, s[1] - e] } 	      //1级  1-4
   else if e < s[2] then { [2, s[2] - e] }     //2级  5-9
   else if e < s[3] then { [3, s[3] - e] }     //3级  10-14
   else if e < s[4] then { [4, s[4] - e] }     //4级  15-19
@@ -899,7 +904,7 @@ checke = (e) => {
   else if e < s[18] then { [18, s[18] - e] }  //18级 270-299
   else if e < s[19] then { [19, s[19] - e] }  //19级 300-339
   else if e < s[20] then { [20, s[20] - e] }  //20级 340-379
-  else if e < s[21] then { [21, s[21] - e] }  //21级  380-419
+  else if e < s[21] then { [21, s[21] - e] }  //21级 380-419
   else if e < s[22] then { [22, s[22] - e] }  //22级 420-459
   else if e < s[23] then { [23, s[23] - e] }  //23级 460-499
   else if e < s[24] then { [24, s[24] - e] }  //24级 500-549
@@ -908,68 +913,53 @@ checke = (e) => {
   else if e < s[27] then { [27, s[27] - e] }  //27级 700-799
   else if e < s[28] then { [28, s[28] - e] }  //28级 800-899
   else if e < s[29] then { [29, s[29] - e] }  //29级 900-999
-  else                 { [30, 0] }   //30级 1000-∞
+  else                   { [30, 0] }          //30级 1000-∞
 
 }
 timer 20* 60 * 1000{
     if Math.random() < 0.20 then {
-        a = rand(10, 20)
+        t = rand(10, 20)
         q = Math.random()
-        shu = sample(["草", "火", "水"])
-        pin = "N"
-        if q< 0.02 then pin= "SR"
-      else if q< 0.20 then pin= "R"
-        m = shu + "-精灵-" + pin
-        apet.push({ name: m, level: 1, exp: 0, life: 100, att: 50, def: 20, speed: 10 })
-        drrr.print("/me 发现一只【" + m + "】，快来捕捉吧")
-        later a* 60 * 1000 {
-            n = apet.findIndex(x => x.name == m)
-            if n>= 0 then {
-                apet.splice(n, 1)
-                drrr.print("/me 【" + m + "】逃走了")
+        p = "精灵-N"
+        l = 100
+        a = 50
+        d = 20
+        s = 10
+
+        if q< 0.02 then {
+            p = "白泽-SR"
+            l = 150
+            a = 75
+            d = 30
+            s = 15
+        } 
+      else if q< 0.20 then{
+            x = rand(1, 4)
+            if x== 1 then {
+                p = "青龙-R"
+                s = 30
+            }
+            if x== 2 then {
+                p = "白虎-R"
+                a = 100
+            }
+            if x== 3 then {
+                p = "朱雀-R"
+                l = 200
+            }
+            if x== 4 then {
+                p = "玄武-R"
+                d = 40
             }
         }
-    }
-}
-event[msg, me, dm](user, cont: "^/观察") => {
-    if apet.length == 0 then {
-        drrr.print("/me 现在没有宠物出没")
-    }else{
-        p = apet.reduce((a, x, y) => {
-            a = a + "\n" + (y + 1) + ".【" + x.name + "】\tLv." + x.level + "\tExp." + x.exp
-            a
-        }, " 现在出没的宠物有:")
-        drrr.print(p)
-    }
-}
-event[msg, me, dm](user, cont: "^/(展示)?宠物$") => {
-    n = checku(user)
-    if (n == (-1)) then drrr.print("/me @" + user + "您的tc与已有的用户不匹配")
-  else {
-        p = users[n].pet.reduce((a, x, y) => {
-            a = a + "\n" + (y + 1) + ".【" + x.name + "】\tLv." + x.level + "\tExp." + x.exp
-            a
-        }, " 您的宠物有:")
-        if cont== "/宠物" then {
-            drrr.dm(user, "@" + users[n].name + p)
-        }else {
-            drrr.print("@" + users[n].name + p)
-        }
-    }
-}
-event[msg, me, dm](user, cont:"^/(展示)?宠物\\s+\\d")  => {
-    n = checku(user)
-    if (n == (-1)) then {
-        drrr.print("/me @" + user + " 您的tc与已有的用户不匹配")
-    }  else {
-        c = twokey("/", cont)
-        i = parseInt(c[1]) - 1
-        p = "的宠物：\n编号：" + c[1] + "\n名字：" + users[n].pet[i].name + "\n等级：Lv." + users[n].pet[i].level + "\n经验：" + users[n].pet[i].exp
-            + " exp\n生命：" + users[n].pet[i].life + "\n攻击：" + users[n].pet[i].att + "\n防御：" + users[n].pet[i].def + "\n速度：" + users[n].pet[i].speed
-        if c[0] == "/宠物" then {
-            drrr.dm(user, "您" + p)
-        }else {
-            drrr.print("@" + users[n].name + " " + p)
+        apet.push({ name: p, level: 1, exp: 0, life: l, att: a, def: d, speed: s })
+        drrr.print("/me 发现一只【" + p + "】，快来捕捉吧")
+        later t* 60 * 1000 {
+            n = apet.findIndex(x => x.name == p)
+            if n>= 0 then {
+                apet.splice(n, 1)
+                drrr.print("/me 【" + p + "】逃走了")
+            }
         }
     }
 }
@@ -981,10 +971,10 @@ event[msg, me, dm](user, cont:"^/出战\\s+\\d")  => {
     }  else if p> (users[n].pet.length - 1) then {
         drrr.print("/me @" + users[n].name + " 输入的序号不存在")
     } else {
-      a=users[n].pet[0]
-      users[n].pet[0]=users[n].pet[p]
-      users[n].pet[p]=a
-      drrr.print("/me @" + users[n].name + " 您已将出战宠物由【" + users[n].pet[p].name + "】改为【" + users[n].pet[0].name + "】")
+        a = users[n].pet[0]
+        users[n].pet[0] = users[n].pet[p]
+        users[n].pet[p] = a
+        drrr.print("/me @" + users[n].name + " 您已将出战宠物由【" + users[n].pet[p].name + "】改为【" + users[n].pet[0].name + "】")
     }
 }
 event[msg, me, dm](user, cont: "^/捕捉") => {
@@ -1025,40 +1015,8 @@ event[msg, me, dm](user, cont:"^/投喂\\s+\\d")  => {
     } else {
         use(n, "MG-宠物干粮")
         name = users[n].pet[p].name
-        users[n].pet[p].exp++   //这行改成 users[n].pet[p].exp+=100
-        lv = checke(users[n].pet[p].exp)[0]
-        dt = checke(users[n].pet[p].exp)[1]
-        if users[n].pet[p].level == 30 then {
-            drrr.print("/me @" + users[n].name + " 您已投喂了【" + name + "】一份宠物干粮，【" + name + "】获得1经验值，目前 Lv." + lv + " ，已经达到最高等级Lv.7")
-        }else if lv== users[n].pet[p].level then {
-            drrr.print("/me @" + users[n].name + " 您已投喂了【" + name + "】一份宠物干粮，【" + name + "】获得1经验值，目前 Lv." + lv + " ,距离下一级还差" + dt + "经验值")
-        }else {
-            users[n].pet[p].level += 1
-            e = users[n].pet[p].name
-            a = rand(1, 7)
-            b = ""
-            w = 1
-            if e.endsWith("SR") then w= 2
-          else if e.endsWith("R") then w= 1.5
-            if a< 3 then{
-                i = Math.round(rand(24, 36) * w)
-                b = "生命+" + i
-                users[n].pet[p].life += i
-            }else if a< 5 then {
-                i = Math.round(rand(16, 24) * w)
-                b = "攻击+" + i
-                users[n].pet[p].att += i
-            }else if a< 7 then {
-                i = Math.round(rand(8, 12) * w)
-                b = "防御+" + i
-                users[n].pet[p].def += i
-            }else {
-                i = Math.round(rand(8, 12) * w)
-                b = "速度+" + i
-                users[n].pet[p].speed += i
-            }
-            drrr.print("/me @" + users[n].name + " 您已投喂了【" + name + "】一份宠物干粮，【" + name + "】获得1经验值，恭喜升到 Lv." + lv + " ,【" + b + "】，距离下一级级还差" + dt + "经验值")
-        }
+        users[n].pet[p].exp++
+        drrr.print("/me @" + users[n].name + " 您已投喂了【" + name + "】一份宠物干粮，【" + name + "】获得1经验值")
     }
 }
 event[msg, me, dm](user, cont:"^/一本满足\\s+\\d")  => {
@@ -1074,43 +1032,191 @@ event[msg, me, dm](user, cont:"^/一本满足\\s+\\d")  => {
         use(n, "MG-一本满足")
         name = users[n].pet[p].name
         users[n].pet[p].exp += 100
-        lv = checke(users[n].pet[p].exp)[0]
-        dt = checke(users[n].pet[p].exp)[1]
-        if users[n].pet[p].level == 7 then {
-            drrr.print("/me @" + users[n].name + " 您投喂了【" + name + "】一本满足，【" + name + "】获得100经验值，目前 Lv." + lv + " ，已经达到最高等级Lv.7")
+        drrr.print("/me @" + users[n].name + " 您投喂了【" + name + "】一本满足，【" + name + "】获得100经验值")
+    }
+}
+event[msg, me, dm](user, cont: "^/观察") => {
+    if apet.length == 0 then {
+        drrr.print("/me 现在没有宠物出没")
+    }else{
+        p = apet.reduce((a, x, y) => {
+            a = a + "\n" + (y + 1) + ".【" + x.name + "】\tLv." + x.level + "\tExp." + x.exp
+            a
+        }, " 现在出没的宠物有:")
+        drrr.print(p)
+    }
+}
+event[msg, me, dm](user, cont: "^/(展示)?宠物$") => {
+    n = checku(user)
+    if (n == (-1)) then drrr.print("/me @" + user + "您的tc与已有的用户不匹配")
+  else {
+        p = users[n].pet.reduce((a, x, y) => {
+            a = a + "\n" + (y + 1) + ".【" + x.name + "】\tLv." + x.level + "\tExp." + x.exp
+            a
+        }, " 您的宠物有:")
+        if cont== "/宠物" then {
+            drrr.dm(user, "@" + users[n].name + p)
         }else {
-            l = 0
-            t = 0
-            d = 0
-            s = 0
-            e = users[n].pet[p].name
-            w = 1
-            if e.endsWith("SR") then w= 2
-          else if e.endsWith("R") then w= 1.5
+            drrr.print("@" + users[n].name + p)
+        }
+    }
+}
+event[msg, me, dm](user, cont:"^/(展示)?宠物\\s+\\d")  => {
+    n = checku(user)
+    c = twokey("/", cont)
+    i = parseInt(c[1]) - 1
+    if (n == (-1)) then {
+        drrr.print("/me @" + user + " 您的tc与已有的用户不匹配")
+    } else if i> (users[n].pet.length - 1) then {
+        drrr.print("/me @" + users[n].name + " 输入的序号不存在")
+    } else {
+        p = "的宠物：\n编号：" + c[1] + "\n名字：" + users[n].pet[i].name + "\n等级：Lv." + users[n].pet[i].level + "\n经验：" + users[n].pet[i].exp
+            + " exp\n生命：" + users[n].pet[i].life + "\n攻击：" + users[n].pet[i].att + "\n防御：" + users[n].pet[i].def + "\n速度：" + users[n].pet[i].speed
+        if c[0] == "/宠物" then {
+            drrr.dm(user, "您" + p)
+        }else {
+            drrr.print("@" + users[n].name + " " + p)
+        }
+    }
+}
+event[msg, me, dm](user, cont: "^/挑战\\s+\\S") => {
+    tou = checka(onekey("/挑战", cont))
+    n = checku(user)
+    m = users.findIndex(x => x.name == tou)
+    if (n == (-1)) then {
+        drrr.print("/me @" + user + " 您的tc与已有的用户不匹配")
+    } else if (m == (-1)) then {
+        drrr.dm(user, "@" + users[n].name + " 您挑战的用户【" + tou + "】不存在，请检查输入是否为对方【用户名】（可使用查找功能）")
+    } else if (users[m].pet == []) then {
+        drrr.dm(user, "@" + users[n].name + " 您挑战的用户【" + tou + "】还没有宠物，无法挑战")
+    } else if (users[n].pet == []) then {
+        drrr.dm(user, "@" + users[n].name + " 您还没有宠物，无法挑战")
+    }else if (users[n].checkb || users[n].bag.some(x => x.name == "MG-挑战卡")) then {
+        if (!users[n].checkb && users[n].bag.some(x => x.name == "MG-挑战卡")) then {
+            use(n, "MG-挑战卡")
+            drrr.print("/me @" + users[n].name + " 您已使用了一张挑战卡")
+        }
+        zdm = []
+        zms = []
+        xn = users[n].name
+        yn = users[m].name
+        xp = "【" + users[n].pet[0].name + "】"
+        yp = "【" + users[m].pet[0].name + "】"
+        xl = users[n].pet[0].life
+        yl = users[m].pet[0].life
+        xa = users[n].pet[0].att
+        ya = users[m].pet[0].att
+        xd = users[n].pet[0].def
+        yd = users[m].pet[0].def
+        f = (users[n].pet[0].speed - users[m].pet[0].speed) > 0
+        drrr.print("/me @" + xn + " 对 @" + yn + " 的挑战开始。@" + xn + " 派出了" + xp + "   @" + yn + " 派出了" + yp)
+        i = 1
+        ad = rand(12, 18)
+        ae = rand(1, 3)
+        while (xl > 0 && yl > 0) {
+            xs = xa - yd + rand(-10, 10)
+            if Math.random() < 0.10 then xs= xa * 2 - yd + rand(-10, 10)
+            ys = ya - xd + rand(-10, 10)
+            if Math.random() < 0.10 then ys= ya * 2 - xd + rand(-10, 10)
 
-            for (o = lv - users[n].pet[p].level; o > 0; o--) {
-                a = rand(1, 7)
-                if a< 3 then{
-                    i = Math.round(rand(24, 36) * w)
-                    l += i
-                    users[n].pet[p].life += i
-                }else if a< 5 then {
-                    i = Math.round(rand(16, 24) * w)
-                    t += i
-                    users[n].pet[p].att += i
-                }else if a< 7 then {
-                    i = Math.round(rand(8, 12) * w)
-                    d += i
-                    users[n].pet[p].def += i
+            if f then{
+                if (yl -= xs)<=0 then{
+                    zdm.push("　【回合" + i + "】\n" + xp + " => " + yp + "\n　" + xl + "　　　　　　" + yl + "(-" + xs + ")")
+                    users[n].win++
+                    users[n].coin += ad
+                    users[n].pet[0].exp += ae
+                    ybt.unshift(xn + xp + "=>" + yn + yp + "\t" + "胜")
+                    if ybt.length == 5 then ybt.splice(4, 1)
+                    zms.push("/me 恭喜@" + xn + " 在第" + i + "回合取得胜利，您获得了" + ad + " DRB，" + xp + "获得" + ae + "经验，胜利次数+1，共胜利" + users[n].win + "次")
+                }else{
+                    zdm.push("　【回合" + i + "】\n" + xp + " => " + yp + "\n　" + xl + "　　　　　　" + yl + "(-" + xs + ")")
+                    xl -= ys
+                    zdm.push("　【回合" + i + "】\n" + xp + " <= " + yp + "\n　" + xl + "(-" + ys + ")" + "　　　　　　" + yl)
+                    if xl<= 0 then{
+                        users[m].win++
+                        zms.push("/me 恭喜@" + yn + " 在第" + i + "回合取得胜利，胜利次数+1，共胜利" + users[m].win + "次")
+                        ybt.unshift(xn + xp + "=>" + yn + yp + "\t" + "败")
+                        if ybt.length == 5 then ybt.splice(4, 1)
+                    }
+                }
+            }else {
+                if (xl -= ys)<=0 then{
+                    users[m].win++
+                    zdm.push("　【回合" + i + "】\n" + xp + " <= " + yp + "\n" + xl + "(-" + ys + ")" + "　　　　　　" + yl)
+                    zms.push("/me 恭喜@" + yn + " 在第" + i + "回合取得胜利，胜利次数+1，共胜利" + users[m].win + "次")
+                    ybt.unshift(xn + xp + "=>" + yn + yp + "\t" + "败")
+                    if ybt.length == 5 then ybt.splice(4, 1)
                 }else {
-                    i = Math.round(rand(8, 12) * w)
-                    s += i
-                    users[n].pet[p].speed += i
+                    zdm.push("　【回合" + i + "】\n" + xp + " <= " + yp + "\n　" + xl + "(-" + ys + ")" + "　　　　　　　" + yl)
+                    yl -= xs
+                    zdm.push("　【回合" + i + "】\n" + xp + " => " + yp + "\n　" + xl + "　　　　　　" + yl + "(-" + xs + ")")
+                    if yl<= 0 then{
+                        users[n].win++
+                        users[n].coin += ad
+                        users[n].pet[0].exp += ae
+                        ybt.unshift(xn + xp + "=>" + yn + yp + "\t" + "胜")
+                        if ybt.length == 5 then ybt.splice(4, 1)
+                        zms.push("/me 恭喜@" + xn + " 在第" + i + "回合取得胜利，您获得了" + ad + " DRB，" + xp + "获得" + ae + "经验，胜利次数+1，共胜利" + users[n].win + "次")
+                    }
                 }
             }
-            users[n].pet[p].level = lv
-            drrr.print("/me @" + users[n].name + " 您投喂了【" + name + "】一本满足，【" + name + "】获得100经验值，恭喜升到 Lv." + lv + " ,【生命+" + l + "】【攻击+" + t + "】【防御+" + d + "】【速度+" + s + "】距离下一级级还差" + dt + "经验值")
+            i++
         }
+        zdm.forEach((x, y, z) => {
+            latter({ latter({ drrr.dm(user, x) }, y*3) }, 3)
+        })
+        sj += zdm.length + 12
+        latter({ drrr.print(zms[0]) }, sj)
+    } else{
+        drrr.print("/me @" + users[n].name + " 很抱歉，您今天已经挑战过一次了，并且您的背包中没有挑战卡，无法再次挑战，请前往商店购买，或明天再来挑战")
+    }
+}
+event[msg, me, dm](user, cont:"^/升级\\s+\\d")  => {
+    p = parseInt(cont.replace("/升级", "").trim()) - 1
+    n = checku(user)
+    if (n == (-1)) then {
+        drrr.print("/me @" + user + " 您的tc与已有的用户不匹配")
+    }  else if p> (users[n].pet.length - 1) then {
+        drrr.print("/me @" + users[n].name + " 输入的序号不存在")
+    }else if users[n].pet[p].level == 30 then {
+        drrr.print("/me @" + users[n].name + " 您的【" + users[n].pet[p].name + "】已经达到最高等级Lv.30，无法再升级")
+    }else if checke(users[n].pet[p].exp)[0] == users[n].pet[p].level then {
+        drrr.print("/me @" + users[n].name + " 您的【" + users[n].name + "】目前没有充足经验升级 ,距离下一级还差" + dt + "经验值")
+    }else{
+        lv = checke(users[n].pet[p].exp)[0]
+        dt = checke(users[n].pet[p].exp)[1]
+        l = 0
+        t = 0
+        d = 0
+        s = 0
+
+        w = 1
+        e = users[n].pet[p].name
+        if e.endsWith("SR") then w= 2
+          else if e.endsWith("R") then w= 1.5
+
+        for (o = lv - users[n].pet[p].level; o > 0; o--) {
+            a = rand(1, 7)
+            if a< 3 then{
+                i = Math.round(rand(24, 36) * w)
+                l += i
+                users[n].pet[p].life += i
+            }else if a< 5 then {
+                i = Math.round(rand(16, 24) * w)
+                t += i
+                users[n].pet[p].att += i
+            }else if a< 7 then {
+                i = Math.round(rand(8, 12) * w)
+                d += i
+                users[n].pet[p].def += i
+            }else {
+                i = Math.round(rand(8, 12) * w)
+                s += i
+                users[n].pet[p].speed += i
+            }
+        }
+        users[n].pet[p].level = lv
+        drrr.print("/me @" + users[n].name + " 您的【" + e + "】升级到 Lv." + lv + " ,【生命+" + l + "】【攻击+" + t + "】【防御+" + d + "】【速度+" + s + "】，距离下一级还差" + dt + "经验值")
     }
 }
 event[msg, me, dm](user, cont:"^/更改宠物名\\s+\\d+\\s+\\S")  => {
@@ -1127,17 +1233,20 @@ event[msg, me, dm](user, cont:"^/更改宠物名\\s+\\d+\\s+\\S")  => {
         drrr.print("/me @" + users[n].name + " 新名字中不能包含“-”字符")
     } else {
         onm = users[n].pet[p].name
-        shu = onm.slice(0, 1)
         pin = "N"
         if onm.endsWith("SR") then pin= "SR"
           else if onm.endsWith("R") then pin= "R"
-        users[n].pet[p].name = shu + "-" + nm + "-" + pin
+        users[n].pet[p].name = nm + "-" + pin
         if onm== m then {
             drrr.print("/me @" + users[n].name + " 您已成功将宠物【" + onm + "】名字更改为【" + users[n].pet[p].name + "】")
         }else {
             drrr.print("/me @" + users[n].name + " 您已成功将宠物【" + onm + "】名字更改为【" + users[n].pet[p].name + "】")
         }
     }
+}
+event[msg, me, dm](user, cont: "^/战报") => {
+    y = ybt.map((x, i) => (i + 1) + ". " + x)
+    drrr.print("最新战报\n" + y.join("\n"))
 }
 event[msg, me, dm](user, cont:"^/放生\\s+\\d")  => {
     p = parseInt(cont.replace("/放生", "").trim()) - 1
@@ -1211,7 +1320,7 @@ event[msg, me, dm](user, cont: "^/写信\\s+\\S+\\s+\\S") => {
     if (n == (-1)) then {
         drrr.print("/me @" + user + " 您的tc与已有的用户不匹配")
     } else if (m == (-1)) then {
-        drrr.dm(user, "@" + users[n].name + " 您写信的用户【" + tou + "】不存在")
+        drrr.dm(user, "@" + users[n].name + " 您写信的用户【" + tou + "】不存在，请检查输入是否为对方【用户名】（可使用查找功能）")
     } else {
         send(m, "@" + users[n].name + "：" + ct)
         drrr.dm(user, "@" + users[n].name + " 您已成功写信给【" + tou + "】，内容为：" + ct)

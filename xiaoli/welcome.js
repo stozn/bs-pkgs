@@ -1,6 +1,13 @@
-admins = ["OG0OPFxOFw", "Ancy.WWeeo", "Robot/23Cc", "unica/qOLU", "YtIMnsXOBE"]   //设置管理员
+admins = ["OG0OPFxOFw", "Ancy.WWeeo", ".bLVj9fdOM", "unica/qOLU", "YtIMnsXOBE"]   //设置管理员
 notices = []
 msgs = []
+emoji=[]
+amax= (array)=> array.findIndex(x=> x==Math.max.apply( Math, array ))
+amin= (array)=> array.findIndex(x=> x==Math.min.apply( Math, array ))
+curl = (url)=>{
+  reg=new RegExp("^http(s)?://(([A-z]|[0-9]|-)+.)?([A-z]|[0-9]|-)+.[A-z]+/([A-z]|[0-9]|[_~:/?#@!$%&'*+-,;=.])+$")
+	return reg.test(url) 
+}
 timer 14* 60 * 1000{
     localStorage["msgs"] = JSON.stringify(msgs)
 }
@@ -59,7 +66,70 @@ else {
         drrr.print("/me 【<(ˉ^ˉ)>")
     }
 }
+//表情包系统
+event[msg, me, dm](user, cont: "^/上传表情\\s+\\S+\\s+\\S") => {
+    nm = twokey("/上传表情", cont)[0]
+    url = twokey("/上传表情", cont)[1]
+    if !curl(url) then {
+        drrr.print("/me @" + user + " 您的URL可能有问题，请检查")
+    } else if emoji.some(x=> x.name==nm) then {
+        drrr.print("/me @" + user + " 您设置的表情名字【"+nm+"】已存在，请修改")
+    }else if nm.length>5 then {
+        drrr.print("/me @" + user + " 您设置的表情名字【"+nm+"】长度大于5个字，请修改")
+    } else {
+       emoji.push({name:nm,url:url})
+      drrr.dm(user," 您已成功上传表情【"+nm+"】：",url)
+    }
+}
 
+event[msg, me, dm](user, cont: "^/表情\\s+\\S") => {
+    tg = onekey("/表情", cont)
+    nm
+    url
+    res=[]
+    reg = new RegExp(tg)
+    emoji.forEach(x=> if reg.test(x.name) then res.push({name: x.name,url:x.url}) )  
+    if res.length > 0 then{
+      if res.length ==1 then{
+        url=res[0].url
+        nm=res[0].name
+      }else{
+        i=amin(res.map(x=> x.name.length-tg.name))
+        url=res[i].url
+        nm=res[i].name
+      }
+        drrr.print(nm+":",url)
+    } else drrr.print("/me @" + user + " 未找到表情【" + tg + "】")
+}
+event[msg, me, dm](user, cont: "^/查找表情\\s+\\S") => {
+    tg = checka(onekey("/查找表情", cont))
+    arr = []
+    reg = new RegExp(tg)
+    for x of emoji { if reg.test(x.name) then arr.push(x) }
+    if arr.length > 0 then{
+        drrr.dm(user, arr.map((x, y) => (y + 1) + ".【" + x.name + "】" ).join("\n"))
+    } else {
+        drrr.print("/me @" + user + " 未找到表情【" + tg + "】")
+    }
+}
+event[msg, me, dm](user, cont: "^/表情$") => {
+    good = mess(emoji)
+    if good.length > 7 then good= good.slice(0, 7)
+    gds = good.map((x, i) => i + 1 + ".【 " + x.name + "】" )
+    drrr.print("表情大全\n" + gds.join("\n"))
+}
+event[msg, me, dm](user, cont: "^/删除表情\\s+\\S", url, tc) => {
+    if admins.some(a => a == tc) then {
+        del = checka(cont.replace("/删除表情", "").trim())
+        n = emoji.findIndex(u => u.name == del)
+        if (n == (-1)) then {
+            drrr.dm(user, "表情【"+del+"】不存在")
+        } else {
+            emoji.splice(n, 1)
+            drrr.dm(user, "成功删除表情【" +del+"】" )
+        }
+    }
+}
 
 event[me, msg](user: "", content:"^/再来一杯")  => {
     ns = ["酸梅汤", "温水", "柠檬水", "葡萄糖水", "鲜榨🍉汁", "鲜榨🍊汁", "鲜榨🍇汁", "鲜榨🍓汁", "鲜榨🥥汁", "鲜榨🥝汁"]

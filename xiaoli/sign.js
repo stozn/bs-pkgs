@@ -517,7 +517,10 @@ loop = () => {
     drrr.print("DRRR 干杯！")
     drrr.print("/me 现在是【" + nt() + "】，想要干杯的可以发送指令【/干杯】")
     drd = rand(30, 60)
-    later 5* 60 * 1000 ckd= false
+    later 5* 60 * 1000 {
+     ckd= false
+     drk=[]
+    }
     later drd* 60 * 1000 loop()
 }
 loop()

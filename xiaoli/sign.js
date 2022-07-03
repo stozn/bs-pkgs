@@ -476,7 +476,7 @@ event[msg, me, dm](user, cont: "^/献礼") => {
         if gd>= 0 then {
             gift = users[n].bag[gd].name
             if users[n].bag[gd].amount == 10 then users[n].bag.splice(gd, 1)
-      else users[n].bag[gd].amount -= 10
+            else users[n].bag[gd].amount -= 10
             c = rand(80, 120)
             users[n].coin += c
             drrr.print("/me @" + user + " 成功给黩翋砬柆神献礼10个【" + gift + "】，神赐给你" + c + " DRB，目前共有" + users[n].coin + " DRB")

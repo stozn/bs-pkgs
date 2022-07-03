@@ -1099,7 +1099,7 @@ event[msg, me, dm](user, cont: "^/挑战\\s+\\S") => {
             use(n, "MG-挑战卡")
             drrr.print("/me @" + users[n].name + " 您已使用了一张挑战卡")
         }
-        users[n].checkb = false
+        users[n].checkb=false
         zdm = []
         zms = []
         xn = users[n].name
@@ -1125,40 +1125,40 @@ event[msg, me, dm](user, cont: "^/挑战\\s+\\S") => {
 
             if f then{
                 if (yl -= xs)<=0 then{
-                    zdm.push("　【回合" + i + "】\n" + xp + " => " + yp + "\n　" + xl + "　　　　　　" + yl + "(-" + xs + ")")
+                    zdm.push("　－回合" + i + "－\n" + xp + "\t" + xl + "\n　　　⇓\n" + yp + "\t" + yl + "(-" + xs + ")")
                     users[n].win++
                     users[n].coin += ad
                     users[n].pet[0].exp += ae
-                    ybt.unshift(xn + xp + "=>" + yn + yp + "\t" + "胜")
+                    ybt.unshift(xn + xp + "➨" + yn + yp + "\t" + "胜")
                     if ybt.length == 5 then ybt.splice(4, 1)
                     zms.push("/me 恭喜@" + xn + " 在第" + i + "回合取得胜利，您获得了" + ad + " DRB，" + xp + "获得" + ae + "经验，胜利次数+1，共胜利" + users[n].win + "次")
                 }else{
-                    zdm.push("　【回合" + i + "】\n" + xp + " => " + yp + "\n　" + xl + "　　　　　　" + yl + "(-" + xs + ")")
+                    zdm.push("　－回合" + i + "－\n" + xp + "\t" + xl + "\n　　　⇓\n" + yp + "\t" + yl + "(-" + xs + ")")
                     xl -= ys
-                    zdm.push("　【回合" + i + "】\n" + xp + " <= " + yp + "\n　" + xl + "(-" + ys + ")" + "　　　　　　" + yl)
+                    zdm.push("　－回合" + i + "－\n" + xp + "\t" + xl + "(-" + ys + ")" + "\n　　　⇑\n" + yp + "\t" + yl)
                     if xl<= 0 then{
                         users[m].win++
                         zms.push("/me 恭喜@" + yn + " 在第" + i + "回合取得胜利，胜利次数+1，共胜利" + users[m].win + "次")
-                        ybt.unshift(xn + xp + "=>" + yn + yp + "\t" + "败")
+                        ybt.unshift(xn + xp + "➨" + yn + yp + "\t" + "败")
                         if ybt.length == 5 then ybt.splice(4, 1)
                     }
                 }
             }else {
                 if (xl -= ys)<=0 then{
                     users[m].win++
-                    zdm.push("　【回合" + i + "】\n" + xp + " <= " + yp + "\n" + xl + "(-" + ys + ")" + "　　　　　　" + yl)
+                    zdm.push("　－回合" + i + "－\n" + xp + "\t" + xl + "(-" + ys + ")" + "\n　　　⇑\n" + yp + "\t" + yl)
                     zms.push("/me 恭喜@" + yn + " 在第" + i + "回合取得胜利，胜利次数+1，共胜利" + users[m].win + "次")
-                    ybt.unshift(xn + xp + "=>" + yn + yp + "\t" + "败")
+                    ybt.unshift(xn + xp + "➨" + yn + yp + "\t" + "败")
                     if ybt.length == 5 then ybt.splice(4, 1)
                 }else {
-                    zdm.push("　【回合" + i + "】\n" + xp + " <= " + yp + "\n　" + xl + "(-" + ys + ")" + "　　　　　　　" + yl)
+                    zdm.push("　－回合" + i + "－\n" + xp + "\t" + xl + "(-" + ys + ")" + "\n　　　⇑\n" + yp + "\t" + yl)
                     yl -= xs
-                    zdm.push("　【回合" + i + "】\n" + xp + " => " + yp + "\n　" + xl + "　　　　　　" + yl + "(-" + xs + ")")
+                    zdm.push("　－回合" + i + "－\n" + xp + "\t" + xl + "\n　　　⇓\n" + yp + "\t" + yl + "(-" + xs + ")")
                     if yl<= 0 then{
                         users[n].win++
                         users[n].coin += ad
                         users[n].pet[0].exp += ae
-                        ybt.unshift(xn + xp + "=>" + yn + yp + "\t" + "胜")
+                        ybt.unshift(xn + xp + "➨" + yn + yp + "\t" + "胜")
                         if ybt.length == 5 then ybt.splice(4, 1)
                         zms.push("/me 恭喜@" + xn + " 在第" + i + "回合取得胜利，您获得了" + ad + " DRB，" + xp + "获得" + ae + "经验，胜利次数+1，共胜利" + users[n].win + "次")
                     }
@@ -1167,9 +1167,9 @@ event[msg, me, dm](user, cont: "^/挑战\\s+\\S") => {
             i++
         }
         zdm.forEach((x, y, z) => {
-            latter({ latter({ drrr.dm(user, x) }, y*3) }, 3)
+            latter({ latter({ drrr.dm(user, x) }, y*4) }, 3)
         })
-        sj += zdm.length + 12
+        sj += zdm.length * 4
         latter({ drrr.print(zms[0]) }, sj)
     } else{
         drrr.print("/me @" + users[n].name + " 很抱歉，您今天已经挑战过一次了，并且您的背包中没有挑战卡，无法再次挑战，请前往商店购买，或明天再来挑战")

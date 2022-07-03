@@ -29,7 +29,7 @@ gaini = []
 gainu = []
 gains = []
 pkgs = []
-fruits = ["🍒", "🍋", "🍈", "🍑", "🍐", "🍎", "🍍", "🥝"]
+fruits = ["🍋", "🍑", "🍐", "🍎"]
 admins = ["OG0OPFxOFw", "Ancy.WWeeo", ".bLVj9fdOM", "unica/qOLU", "YtIMnsXOBE"]   //设置管理员
 //签到重置 开奖
 onTimeDo = (h, m, s, callback) => {
@@ -518,8 +518,8 @@ loop = () => {
     drrr.print("/me 现在是【" + nt() + "】，想要干杯的可以发送指令【/干杯】")
     drd = rand(30, 60)
     later 5* 60 * 1000 {
-     ckd= false
-     drk=[]
+        ckd = false
+        drk = []
     }
     later drd* 60 * 1000 loop()
 }

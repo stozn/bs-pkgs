@@ -8,6 +8,34 @@ curl = (url)=>{
   reg=new RegExp("^http(s)?://(([A-z]|[0-9]|-)+.)?([A-z]|[0-9]|-)+.[A-z]+/([A-z]|[0-9]|[_~:/?#@!$%&'*+-,;=.])+$")
 	return reg.test(url) 
 }
+mess = (array) => {
+    for m = array.length - 1; m > 0; m-- {
+        i = Math.floor(Math.random() * m);
+        t = array[m];
+        array[m] = array[i];
+        array[i] = t;
+    }
+    array
+}
+//关键字拆分
+onekey = (cmd, cont) => {
+    cont.replace(cmd, "").trim();
+}
+twokey = (cmd, cont) => {
+    u = cont.replace(cmd, "").trim().slice(0, cont.replace(cmd, "").trim().search("\\s")).trim()
+    m = cont.replace(cmd, "").trim().slice(cont.replace(cmd, "").trim().search("\\s")).trim()
+    r = [u, m]
+    r
+}
+threekey = (cmd, cont) => {
+    u = twokey(cmd, cont)[0]
+    m = twokey(cmd, cont)[1]
+    n = m.slice(0, m.search("\\s")).trim()
+    l = m.slice(m.search("\\s")).trim()
+    r = [u, n, l]
+    r
+}
+latter = (f, t) => setTimeout(f, t * 1000)
 timer 14* 60 * 1000{
     localStorage["msgs"] = JSON.stringify(msgs)
 }

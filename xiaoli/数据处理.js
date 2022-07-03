@@ -30,30 +30,19 @@ txt = (_data, _name) => {
     document.body.appendChild(aLink)
     aLink.click()
 }
-//----------
-
+//-------------------------------------------------------------------------------------
 u=
-
+	
 users=[]
 g=["MG-红包","MG-精灵球","MG-宠物干粮","MG-一本满足","MG-水","MG-刮刮乐","MG-奖券","鲜榨果汁","可乐"]
 
 id=0
 for(x of u)  {
-  bag=[]
-	
-  for (y of x.bag ){
-    if (!g.some(z=> z==y.name))  {
-      bag.push({name:y.name,amount:1})
-    }
-  }
-      if (( bag.length + x.pet.length) > 0){
-		  id++
-	    users.push({ uid: id, name: x.name, tc: x.tc, coin: 0, check: true, day: 0, dayz: 0, drink: 0, tree: 0, trc: true, bag: bag, pet: x.pet, letters: [], newl: false })
-	  }
 
-  
+if (( x.coin+x.bag.length + x.letters.length+x.drink+x.day) > 0){
+		  id++
+    users.push({ uid: x.uid, name: x.name, tc: x.tc, live: x.live, coin: x.coin, check: x.true, day: x.day, dayz: x.dayz, drink: x.drink, tree: x.tree, trc: x.trc, bag: x.bag, pet: [], checkb: true, win: 0, letters: x.letters, newl: x.newl })
+	  }
 }
 users.sort((a, b) => a.uid - b.uid)
-
 console.log(JSON.stringify(users))
-

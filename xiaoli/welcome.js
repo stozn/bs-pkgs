@@ -1,12 +1,12 @@
 admins = ["OG0OPFxOFw", "Ancy.WWeeo", ".bLVj9fdOM", "unica/qOLU", "YtIMnsXOBE"]   //设置管理员
 notices = []
-msgs = []
-emoji=[]
-amax= (array)=> array.findIndex(x=> x==Math.max.apply( Math, array ))
-amin= (array)=> array.findIndex(x=> x==Math.min.apply( Math, array ))
-curl = (url)=>{
-  reg=new RegExp("^http(s)?://(([A-z]|[0-9]|-)+.)?([A-z]|[0-9]|-)+.[A-z]+/([A-z]|[0-9]|[_~:/?#@!$%&'*+-,;=.])+$")
-	return reg.test(url) 
+msgs = JSON.parse(localStorage["msgs"])
+emoji = JSON.parse(localStorage["emoji"])
+amax = (array) => array.findIndex(x => x == Math.max.apply(Math, array))
+amin = (array) => array.findIndex(x => x == Math.min.apply(Math, array))
+curl = (url) => {
+    reg = new RegExp("^http(s)?://(([A-z]|[0-9]|-)+.)?([A-z]|[0-9]|-)+.[A-z]+/([A-z]|[0-9]|[_~:/?#@!$%&'*+-,;=.])+$")
+    return reg.test(url)
 }
 mess = (array) => {
     for m = array.length - 1; m > 0; m-- {
@@ -38,6 +38,7 @@ threekey = (cmd, cont) => {
 latter = (f, t) => setTimeout(f, t * 1000)
 timer 14* 60 * 1000{
     localStorage["msgs"] = JSON.stringify(msgs)
+    localStorage["emoji"] = JSON.stringify(emoji)
 }
 event[msg, me, dm](user, cont: "^/留言\\s+\\S", url, tc) => {
     msg = cont.replace("/留言", "").trim()
@@ -100,13 +101,13 @@ event[msg, me, dm](user, cont: "^/上传表情\\s+\\S+\\s+\\S") => {
     url = twokey("/上传表情", cont)[1]
     if !curl(url) then {
         drrr.print("/me @" + user + " 您的URL可能有问题，请检查")
-    } else if emoji.some(x=> x.name==nm) then {
-        drrr.print("/me @" + user + " 您设置的表情名字【"+nm+"】已存在，请修改")
-    }else if nm.length>5 then {
-        drrr.print("/me @" + user + " 您设置的表情名字【"+nm+"】长度大于5个字，请修改")
+    } else if emoji.some(x => x.name == nm) then {
+        drrr.print("/me @" + user + " 您设置的表情名字【" + nm + "】已存在，请修改")
+    }else if nm.length > 5 then {
+        drrr.print("/me @" + user + " 您设置的表情名字【" + nm + "】长度大于5个字，请修改")
     } else {
-       emoji.push({name:nm,url:url})
-      drrr.dm(user," 您已成功上传表情【"+nm+"】：",url)
+        emoji.push({ name: nm, url: url })
+        drrr.dm(user, " 您已成功上传表情【" + nm + "】：", url)
     }
 }
 
@@ -114,19 +115,19 @@ event[msg, me, dm](user, cont: "^/表情\\s+\\S") => {
     tg = onekey("/表情", cont)
     nm
     url
-    res=[]
+    res = []
     reg = new RegExp(tg)
-    emoji.forEach(x=> if reg.test(x.name) then res.push({name: x.name,url:x.url}) )  
+    emoji.forEach(x => if reg.test(x.name) then res.push({ name: x.name, url: x.url }) )  
     if res.length > 0 then{
-      if res.length ==1 then{
-        url=res[0].url
-        nm=res[0].name
-      }else{
-        i=amin(res.map(x=> x.name.length-tg.name))
-        url=res[i].url
-        nm=res[i].name
-      }
-        drrr.print(nm+":",url)
+        if res.length == 1 then{
+            url = res[0].url
+            nm = res[0].name
+        }else{
+            i = amin(res.map(x => x.name.length - tg.name))
+            url = res[i].url
+            nm = res[i].name
+        }
+        drrr.print(nm + ":", url)
     } else drrr.print("/me @" + user + " 未找到表情【" + tg + "】")
 }
 event[msg, me, dm](user, cont: "^/查找表情\\s+\\S") => {
@@ -135,7 +136,7 @@ event[msg, me, dm](user, cont: "^/查找表情\\s+\\S") => {
     reg = new RegExp(tg)
     for x of emoji { if reg.test(x.name) then arr.push(x) }
     if arr.length > 0 then{
-        drrr.dm(user, arr.map((x, y) => (y + 1) + ".【" + x.name + "】" ).join("\n"))
+        drrr.dm(user, arr.map((x, y) => (y + 1) + ".【" + x.name + "】").join("\n"))
     } else {
         drrr.print("/me @" + user + " 未找到表情【" + tg + "】")
     }
@@ -143,7 +144,7 @@ event[msg, me, dm](user, cont: "^/查找表情\\s+\\S") => {
 event[msg, me, dm](user, cont: "^/表情$") => {
     good = mess(emoji)
     if good.length > 7 then good= good.slice(0, 7)
-    gds = good.map((x, i) => i + 1 + ".【 " + x.name + "】" )
+    gds = good.map((x, i) => i + 1 + ".【 " + x.name + "】")
     drrr.print("表情大全\n" + gds.join("\n"))
 }
 event[msg, me, dm](user, cont: "^/删除表情\\s+\\S", url, tc) => {
@@ -151,10 +152,10 @@ event[msg, me, dm](user, cont: "^/删除表情\\s+\\S", url, tc) => {
         del = checka(cont.replace("/删除表情", "").trim())
         n = emoji.findIndex(u => u.name == del)
         if (n == (-1)) then {
-            drrr.dm(user, "表情【"+del+"】不存在")
+            drrr.dm(user, "表情【" + del + "】不存在")
         } else {
             emoji.splice(n, 1)
-            drrr.dm(user, "成功删除表情【" +del+"】" )
+            drrr.dm(user, "成功删除表情【" + del + "】")
         }
     }
 }

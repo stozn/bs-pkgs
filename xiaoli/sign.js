@@ -1273,20 +1273,47 @@ event[msg, me, dm](user, cont:"^/放生\\s+\\d")  => {
 
 event[msg, me, dm](user, cont: "^/召唤", url, tc) => {
     if admins.some(a => a == tc) then {
-        a = rand(10, 20)
+        t = rand(10, 20)
         q = Math.random()
-        shu = sample(["草", "火", "水"])
-        pin = "N"
-        if q< 0.02 then pin= "SR"
-      else if q< 0.20 then pin= "R"
-        m = shu + "-精灵-" + pin
-        apet.push({ name: m, level: 1, exp: 0, life: 100, att: 50, def: 20, speed: 10 })
-        drrr.print("/me 发现一只【" + m + "】，快来捕捉吧")
-        later a* 60 * 1000 {
-            n = apet.findIndex(x => x.name == m)
+        p = "精灵-N"
+        l = 100
+        a = 50
+        d = 20
+        s = 10
+
+        if q< 0.33 then {
+            p = "白泽-SR"
+            l = 150
+            a = 75
+            d = 30
+            s = 15
+        } 
+      else if q< 0.88 then{
+            x = rand(1, 4)
+            if x== 1 then {
+                p = "青龙-R"
+                s = 30
+            }
+            if x== 2 then {
+                p = "白虎-R"
+                a = 100
+            }
+            if x== 3 then {
+                p = "朱雀-R"
+                l = 200
+            }
+            if x== 4 then {
+                p = "玄武-R"
+                d = 40
+            }
+        }
+        apet.push({ name: p, level: 1, exp: 0, life: l, att: a, def: d, speed: s })
+        drrr.print("/me 发现一只【" + p + "】，快来捕捉吧")
+        later t* 60 * 1000 {
+            n = apet.findIndex(x => x.name == p)
             if n>= 0 then {
                 apet.splice(n, 1)
-                drrr.print("/me 【" + m + "】逃走了")
+                drrr.print("/me 【" + p + "】逃走了")
             }
         }
     }

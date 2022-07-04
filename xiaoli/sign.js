@@ -522,9 +522,9 @@ loop = () => {
     drd = rand(30, 60)
     later 5* 60 * 1000 {
         ckd = false
-        u=drk.map(x=> "@"+x)
-        if drk.length==0 then drrr.print("/me 5分钟过去了，没有人和小粒干杯，小粒自己默默地喝完了一杯水")
-        else drrr.print("/me 5分钟过去了，小粒和"+u.join("")+"干杯了，共发送"+tcn+" DRB")
+        u = drk.map(x => "@" + x)
+        if drk.length == 0 then drrr.print("/me 5分钟过去了，没有人和小粒干杯，小粒自己默默地喝完了一杯水")
+        else drrr.print("/me 5分钟过去了，小粒和" + u.join("") + "干杯了，共发送" + tcn + " DRB")
     }
     later drd* 60 * 1000 loop()
 }
@@ -545,7 +545,7 @@ event[msg, me, dm](user, cont: "^/干杯") => {
             drk.push(nm)
             users[n].coin += yb
             users[n].drink++
-            tcn+=yb
+            tcn += yb
             w = "/me @" + users[n].name + " 干杯成功，获得了" + yb + " DRB，现在您有" + users[n].coin + "DRB，共已干杯" + users[n].drink + "次"
             if Math.random() < 0.15 then{
                 add(n, "MG-水", 1)

@@ -140,7 +140,7 @@ timer 15* 60 * 1000{
     m = mydate.getMinutes()
     if m> 2 then award= []
     users = users.filter(x => (x.coin + x.day + x.bag.length + x.letters.length + x.pet.length + x.drink + x.dayz) > 0 && x.live < 30)
-    users = users.filter(x => !(tc == "无"))
+    users = users.filter(x => !(x.tc == "无"))
 }
 //随机整数
 rand = (a, b) => {
@@ -1090,6 +1090,12 @@ event[msg, me, dm](user, cont:"^/(展示)?宠物\\s+\\d")  => {
             drrr.print("@" + users[n].name + " " + p)
         }
     }
+}
+event[msg, me, dm](user, cont: "^/挑战者") => {
+    up = mess(users.filter(x => x.pet.length > 0))
+    up = up.map((x, i) => i + 1 + ". " + x.name)
+    if up.length > 7 then up= up.slice(0, 7)
+    drrr.print("挑战者\n" + up.join("\n"))
 }
 event[msg, me, dm](user, cont: "^/挑战\\s+\\S") => {
     tou = checka(onekey("/挑战", cont))

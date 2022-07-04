@@ -1,9 +1,10 @@
 //用户数据
 users = JSON.parse(localStorage["users"])
 input = []
-//喝水
+//干杯
 ckd = false
 drd = 0
+tcn = 0
 drk = []
 //商店
 goods = [{ name: "MG-红包", price: 5 }, { name: "MG-精灵球", price: 50 }, { name: "MG-宠物干粮", price: 5 }, { name: "MG-挑战卡", price: 30 }, { name: "MG-树苗", price: 100 }, { name: "MG-一本满足", price: 400 }, { name: "MG-水", price: 10 }, { name: "MG-刮刮乐", price: 10 }, { name: "MG-奖券", price: 10 }, { name: "鲜榨果汁", price: 5 }, { name: "可乐", price: 4 }]
@@ -514,12 +515,16 @@ loop = () => {
             + ":" + String(now.getMinutes()).padStart(2, "0")
     }
     ckd = true
+    drk = []
+    tcn = 0
     drrr.print("DRRR 干杯！")
-    drrr.print("/me 现在是【" + nt() + "】，想要干杯的可以发送指令【/干杯】")
+    drrr.print("/me 现在是【" + nt() + "】，想要一起干杯的可以发送指令【/干杯】")
     drd = rand(30, 60)
     later 5* 60 * 1000 {
         ckd = false
-        drk = []
+        u=drk.map(x=> "@"+x)
+        if drk.length==0 then drrr.print("/me 5分钟过去了，没有人和小粒干杯，小粒自己默默地喝完了一杯水")
+        else drrr.print("/me 5分钟过去了，小粒和"+u.join("")+"干杯了，共发送"+tcn+" DRB")
     }
     later drd* 60 * 1000 loop()
 }
@@ -533,14 +538,15 @@ event[msg, me, dm](user, cont: "^/干杯") => {
         nm = users[n].name
         i = drk.findIndex(u => u == nm)
         if !ckd then {
-            drrr.print("/me @" + users[n].name + " 已经举起了水杯，但是大家都已经喝完了，只能自己默默喝下一杯水。")
+            drrr.print("/me @" + users[n].name + " 小粒已经喝完水啦，下次希望可以跟你一起干杯哦~")
         }else if i>= 0 then {
             drrr.print("/me @" + users[n].name + " 又举起了水杯！但是貌似已经喝不下去了~看来只能等下次机会了")
         }else {
             drk.push(nm)
             users[n].coin += yb
             users[n].drink++
-            w = "/me @" + users[n].name + " 举起水杯与在场的所有人碰杯后直接喝完了满满一杯水！获得了" + yb + " DRB，共已干杯" + users[n].drink + "次"
+            tcn+=yb
+            w = "/me @" + users[n].name + " 干杯成功，获得了" + yb + " DRB，现在您有" + users[n].coin + "DRB，共已干杯" + users[n].drink + "次"
             if Math.random() < 0.15 then{
                 add(n, "MG-水", 1)
                 w += ",恭喜获得【MG-水】×1，喝水时也要记得给树浇水哦"

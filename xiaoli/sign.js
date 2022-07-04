@@ -1084,7 +1084,7 @@ event[msg, me, dm](user, cont:"^/(展示)?宠物\\s+\\d")  => {
     } else {
         p = "的宠物：\n编号：" + c[1] + "\n名字：" + users[n].pet[i].name + "\n等级：Lv." + users[n].pet[i].level + "\n经验：" + users[n].pet[i].exp
             + " exp\n生命：" + users[n].pet[i].life + "\n攻击：" + users[n].pet[i].att + "\n防御：" + users[n].pet[i].def + "\n速度：" + users[n].pet[i].speed
-        if c[0] == "/宠物" then {
+        if c[0] == "宠物" then {
             drrr.dm(user, "您" + p)
         }else {
             drrr.print("@" + users[n].name + " " + p)

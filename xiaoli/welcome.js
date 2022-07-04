@@ -131,7 +131,7 @@ event[msg, me, dm](user, cont: "^/表情\\s+\\S") => {
     } else drrr.print("/me @" + user + " 未找到表情【" + tg + "】")
 }
 event[msg, me, dm](user, cont: "^/查找表情\\s+\\S") => {
-    tg = checka(onekey("/查找表情", cont))
+    tg = onekey("/查找表情", cont)
     arr = []
     reg = new RegExp(tg)
     for x of emoji { if reg.test(x.name) then arr.push(x) }
@@ -149,7 +149,7 @@ event[msg, me, dm](user, cont: "^/表情$") => {
 }
 event[msg, me, dm](user, cont: "^/删除表情\\s+\\S", url, tc) => {
     if admins.some(a => a == tc) then {
-        del = checka(cont.replace("/删除表情", "").trim())
+        del = cont.replace("/删除表情", "").trim()
         n = emoji.findIndex(u => u.name == del)
         if (n == (-1)) then {
             drrr.dm(user, "表情【" + del + "】不存在")
@@ -218,8 +218,8 @@ event join (user) => {
         , "【/商店】【/集市】【/背包】都是会随机抽取7个物品显示，找不到所需物品可以多试几次"
         , "连续30天未进入房间的用户，将会被删除"
         , "礼品码将会在Q群不定期发放，回复【/兑换 礼品码】领取50 DRB，同一礼品码最多供10人领取"
-        // ,""
-        // ,""
+        ,"【/表情】查看所有表情名【/表情 表情名】让lulu发送表情【/查找表情 表情名】查找表情名"
+        ,"【/上传表情 表情名 URL】上传表情，请尽量上传200*200及以下大小的表情，以防刷屏"
         // ,""
         // ,""
         // ,""

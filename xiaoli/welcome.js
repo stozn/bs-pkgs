@@ -1,5 +1,5 @@
 admins = ["OG0OPFxOFw", "Ancy.WWeeo", ".bLVj9fdOM", "unica/qOLU", "YtIMnsXOBE"]   //设置管理员
-notices = []
+notices = JSON.parse(localStorage["notices"])
 msgs = JSON.parse(localStorage["msgs"])
 emoji = JSON.parse(localStorage["emoji"])
 amax = (array) => array.findIndex(x => x == Math.max.apply(Math, array))
@@ -37,6 +37,7 @@ threekey = (cmd, cont) => {
 }
 latter = (f, t) => setTimeout(f, t * 1000)
 timer 14* 60 * 1000{
+    localStorage["notices"] = JSON.stringify(notices)
     localStorage["msgs"] = JSON.stringify(msgs)
     localStorage["emoji"] = JSON.stringify(emoji)
 }

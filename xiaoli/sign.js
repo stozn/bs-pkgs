@@ -1093,7 +1093,7 @@ event[msg, me, dm](user, cont:"^/(展示)?宠物\\s+\\d")  => {
 }
 event[msg, me, dm](user, cont: "^/挑战者") => {
     up = mess(users.filter(x => x.pet.length > 0))
-    up = up.map((x, i) => i + 1 + ". " + x.name)
+    up = up.map((x, i) => i + 1 + ". @" + x.name)
     if up.length > 7 then up= up.slice(0, 7)
     drrr.print("挑战者\n" + up.join("\n"))
 }

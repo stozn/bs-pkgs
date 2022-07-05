@@ -155,7 +155,7 @@ checka = (name) => {
 }
 //创建新用户
 newu = (user, tc) => {
-    drrr.dm(user, "如需详细指引，请前往小粒个人网站查看详细帮助\n http://xiaoli.22web.org/help/\n小粒Q群：167575329", "http://xiaoli.22web.org/help/")
+    drrr.dm(user, "如需详细指引，请查看小粒帮助文档\n https://docs.qq.com/sheet/DVkVCWFFueUVFcXNB \n小粒Q群：167575329", "https://docs.qq.com/sheet/DVkVCWFFueUVFcXNB")
     users.sort((a, b) => a.uid - b.uid)
     duid = users[users.length - 1].uid + 1
     users.push({ uid: duid, name: user, tc: tc, live: 0, coin: 0, check: true, day: 0, dayz: 0, drink: 0, tree: 0, trc: true, bag: [], pet: [], checkb: true, win: 0, letters: [], newl: false })

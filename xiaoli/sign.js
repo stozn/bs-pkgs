@@ -1396,8 +1396,8 @@ event[msg, me, dm](user, cont: "^/更改用户名\\s+\\d+\\s+\\S", url, tc) => {
 
 event[msg, me, dm](user, cont: "^/更改tc\\s+\\d+\\s+\\S", url, tc) => {
     if admins.some(a => a == tc) then {
-        tc = twokey("/更改用户名", cont)[1]
-        uid = parseInt(twokey("/更改用户名", cont)[0])
+        tc = twokey("/更改tc", cont)[1]
+        uid = parseInt(twokey("/更改tc", cont)[0])
         n = users.findIndex(x => x.uid == uid)
         if n< 0 then {
             drrr.dm(user, "未找到UID为【" + uid + "】的用户")

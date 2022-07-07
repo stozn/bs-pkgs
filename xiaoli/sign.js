@@ -375,7 +375,7 @@ chcke = (e) => {
   else if e < s[2] then { [2, s[2] - e] }  //2级 5-9
   else if e < s[3] then { [3, s[3] - e] }  //3级 10-19
   else if e < s[4] then { [4, s[4] - e] }  //4级 20-29
-  else if e < s[5] then { [5, s[5] - e] }  //5级 30
+  else                  { [5, 0] }         //5级 30-∞
 }
 
 event[msg, me, dm](user, cont:"^/种树")  => {

@@ -1201,7 +1201,7 @@ event[msg, me, dm](user, cont:"^/升级\\s+\\d")  => {
     }else if users[n].pet[p].level == 30 then {
         drrr.print("/me @" + users[n].name + " 您的【" + users[n].pet[p].name + "】已经达到最高等级Lv.30，无法再升级")
     }else if checke(users[n].pet[p].exp)[0] == users[n].pet[p].level then {
-        drrr.print("/me @" + users[n].name + " 您的【" + users[n].name + "】目前没有充足经验升级 ,距离下一级还差" + dt + "经验值")
+        drrr.print("/me @" + users[n].name + " 您的【"  + users[n].pet[p].name + "】目前没有充足经验升级 ,距离下一级还差" + dt + "经验值")
     }else{
         lv = checke(users[n].pet[p].exp)[0]
         dt = checke(users[n].pet[p].exp)[1]

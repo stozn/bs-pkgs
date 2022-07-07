@@ -1576,8 +1576,8 @@ event[msg, me, dm](user, content:"^/抽奖")=> {
         //中奖
         if a == b && b == c
 then {
-            users[n].coin += 100
-            drrr.print("@" + users[n].name + "抽到的是【" + a + b + c + "】🎉🎉🎉🎊🎊🎰恭喜中奖： + 100 DRB")
+            users[n].coin += 130
+            drrr.print("@" + users[n].name + "抽到的是【" + a + b + c + "】🎉🎉🎉🎊🎊🎰恭喜中奖： + 130 DRB")
         }
   else
         //不中
@@ -1599,8 +1599,8 @@ event[msg, me, dm](user, content:"^/刮刮乐")=> {
         //中奖 10
         if g == 100
 then {
-            users[n].coin += 100
-            drrr.print("@" + users[n].name + " |是 " + g + " 🎉🎊恭喜中奖： + 100 DRB")
+            users[n].coin += 120
+            drrr.print("@" + users[n].name + " |是 " + g + " 🎉🎊恭喜中奖： + 120 DRB")
         }
     else
         //中奖 90

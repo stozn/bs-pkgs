@@ -437,7 +437,7 @@ event[msg, me, dm](user, cont:"^/摘果")  => {
     } else if users[n].tree == 0 then {
         drrr.print("/me @" + users[n].name + " 很抱歉，您还没有树，早起签到5天后（不需要连续早起，时间为6:00-7:00），将获得树苗，也可在商店购买树苗后【/种树】")
     }else if users[n].tree.fruit == 0 then {
-        drrr.print("/me @" + users[n].name + " 很抱歉，您的树还没有结果子，树木达到3级可结果，快来浇水吧")
+        drrr.print("/me @" + users[n].name + " 当前您的树上没果子，，无法摘果。")
     }  else {
         nm = users[n].tree.fruit
         f = () => fruits[Math.floor(Math.random() * fruits.length)]
@@ -461,7 +461,7 @@ event[msg, me, dm](user, cont:"^/摘果")  => {
             ft = a + b + c + d + e
         }
         users[n].tree.fruit = 0
-        drrr.print("/me @" + users[n].name + " 您成功摘下" + nm + "个果子，分别是【" + ft + "】")
+        drrr.print("/me @" + users[n].name + " 您成功摘下" + nm + "个果子，分别是【" + ft + "】请浇水保持等级，明天再来摘果")
 
     }
 }

@@ -1,6 +1,7 @@
 //用户数据
 users = JSON.parse(localStorage["users"])
 input = []
+seq = 1
 //干杯
 ckd = false
 drd = 0
@@ -104,7 +105,7 @@ kai = () => {
 }
 onTimeDo(3, 1, 0, () => { lottery.length > 0 && kai() })
 
-onTimeDo(0, 1, 0, () => {
+onTimeDo(6, 1, 0, () => {
     for x of goods {
         if Math.random() < 0.5 then  x.price = Math.round(x.price * (0.8 + Math.random() * 0.2))
           else x.price = Math.round(x.price / (0.8 + Math.random() * 0.2))
@@ -122,6 +123,7 @@ onTimeDo(0, 1, 0, () => {
         x.checkb = true
         x.trc == true
     }
+    seq = 1
     txt(users, tDay() + "数据")
 })
 

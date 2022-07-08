@@ -277,19 +277,22 @@ event[msg, me, dm](user, cont: "^/签到$") => {
         users[n].check = false
         yb = yb + users[n].day
         if yb> 10 then yb= 10
+        if seq == 1 then yb+= 30
+        if seq == 2 then yb+= 20
+        if seq == 3 then yb+= 10
         users[n].coin += yb
-        dh = "/me @" + users[n].name + " 签到成功，DRB+" + yb + "，现在共有" + users[n].coin + " DRB，已连续签到" + users[n].day + "天"
+        dh = "/me @" + users[n].name + " 签到成功，DRB+" + yb + "，现在共有" + users[n].coin + " DRB，今天您是第" + seq + "个签到的，已连续签到" + users[n].day + "天"
         dt = new Date()
-        if (dt.getHours() == 6 && dt.getMinutes() <= 30) then {  //6:00-6:30
-            yb = yb * 2
+        if (dt.getHours() == 6) then {  //6:00-7:00
             users[n].coin += yb
             users[n].dayz++
-            dh = "/me @" + users[n].name + " 早起成功，DRB+" + yb + "×2，现在共有" + users[n].coin + " DRB，已连续签到" + users[n].day + "天，已连续早起" + users[n].dayz + "天"
+            dh = "/me @" + users[n].name + " 早起成功，DRB+" + yb + "×2，现在共有" + users[n].coin + " DRB，今天您是第" + seq + "个签到的，已连续签到" + users[n].day + "天，共已早起" + users[n].dayz + "天"
             if (users[n].dayz == 5 && users[n].tree == 0) then {
                 dh += "，恭喜您获得一棵树苗！"
                 users[n].tree = { level: 1, water: 0, fruit: 0 }
             }
         }
+        seq++
         drrr.print(dh)
     } else { drrr.print("/me @" + users[n].name + " 今天已经签过到了，明天记得继续来签到哦") }
 }
@@ -1201,7 +1204,7 @@ event[msg, me, dm](user, cont:"^/升级\\s+\\d")  => {
     }else if users[n].pet[p].level == 30 then {
         drrr.print("/me @" + users[n].name + " 您的【" + users[n].pet[p].name + "】已经达到最高等级Lv.30，无法再升级")
     }else if checke(users[n].pet[p].exp)[0] == users[n].pet[p].level then {
-        drrr.print("/me @" + users[n].name + " 您的【"  + users[n].pet[p].name + "】目前没有充足经验升级 ,距离下一级还差" + dt + "经验值")
+        drrr.print("/me @" + users[n].name + " 您的【" + users[n].pet[p].name + "】目前没有充足经验升级 ,距离下一级还差" + dt + "经验值")
     }else{
         lv = checke(users[n].pet[p].exp)[0]
         dt = checke(users[n].pet[p].exp)[1]

@@ -303,6 +303,19 @@ event[msg, me, dm](user, cont: "^/黑名单", url, tc) => {
     drrr.dm(user,"黑名单\n" +  bl.join("\n")) 
     }
 }
+event[msg, me, dm](user, cont: "^/解封\\s+\\S", url, tc) => {
+    if admins.some(a => a == tc) then {
+        u = checka(cont.replace("/解封", "").trim())
+      if (u.slice(0, 1) == "@") then {u = u.slice(1) }
+        n = blacklist.findIndex(x => x.name == u)
+        if (n == (-1)) then {
+            drrr.dm(user, "未找到该用户")
+        } else {
+            blacklist.splice(n, 1)
+            drrr.dm(user, "成功解封用户@" + del)
+        }
+    }
+}
 event[msg, me, dm](user, cont:"^/踢\\s+\\S", url, tc) => {
     if admins.some(a => a == tc) then {
         u = cont.replace("/踢", "").trim()

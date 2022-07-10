@@ -115,7 +115,7 @@ sign =luck[Math.floor(Math.random() * 100)+1]
 
 //抽签日
 if (N==1 || N==5 || N==15 || N==10 || N==20 || N==25 || N==30)  then {  
-drrr.print("@"+user+" "+sign) 
+drrr.dm(user,sign) 
 }
 else
 drrr.print("@"+user+" 灰常抱歉。今天抽签功能不开放哦 \n※【黩翋砬柆神社】开放时间为：\n每月1、5、10、15、20、25、30开放") 

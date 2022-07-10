@@ -41,6 +41,7 @@ timer 14* 60 * 1000{
     localStorage["notices"] = JSON.stringify(notices)
     localStorage["msgs"] = JSON.stringify(msgs)
     localStorage["emoji"] = JSON.stringify(emoji)
+    localStorage["blacklist"] = JSON.stringify(blacklist)
 }
 event[msg, me, dm](user, cont: "^/留言\\s+\\S", url, tc) => {
     msg = cont.replace("/留言", "").trim()

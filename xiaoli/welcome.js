@@ -2,6 +2,7 @@ admins = ["OG0OPFxOFw", "Ancy.WWeeo", ".bLVj9fdOM", "unica/qOLU", "YtIMnsXOBE"] 
 notices = JSON.parse(localStorage["notices"])
 msgs = JSON.parse(localStorage["msgs"])
 emoji = JSON.parse(localStorage["emoji"])
+blacklist=JSON.parse(localStorage["blacklist"])
 amax = (array) => array.findIndex(x => x == Math.max.apply(Math, array))
 amin = (array) => array.findIndex(x => x == Math.min.apply(Math, array))
 curl = (url) => {
@@ -167,6 +168,12 @@ event[me, msg](user: "", content:"^/再来一杯")  => {
     drrr.print("/me @" + user + "|递【" + n + "~】请慢用")
 }
 event join (user) => {
+  if blacklist.some(x=> {
+    reg = new RegExp(x)
+    reg.test(user)
+  }) then {
+    drrr.ban(user)
+  }else{
     ns = ["|进来了就是美少女", "|今天也请多多喝水", "|你也来喝水啦w"]
     ds = ["酸梅汤", "温水", "柠檬水", "葡萄糖水", "鲜榨🍉汁", "鲜榨🍊汁", "鲜榨🍇汁", "鲜榨🍓汁", "鲜榨🥥汁", "鲜榨🥝汁"]
     ts = [
@@ -223,7 +230,7 @@ event join (user) => {
         ,"【/表情】查看所有表情名【/表情 表情名】让lulu发送表情【/查找表情 表情名】查找表情名"
         ,"【/上传表情 表情名 URL】上传表情，请尽量上传200*200及以下大小的表情，以防刷屏"
         ,"每天签到获得的额外奖励：  第一名 30 DRB  第二名 20 DRB 第三名 10 DRB"
-        // ,""
+        ,"【/注文 饮料】注文你想喝的饮料，稍等片刻即可享用"
         // ,""
         // ,""
         // ,""
@@ -257,6 +264,7 @@ event join (user) => {
     if notices.length > 0 then {
         drrr.dm(user, "通知:" + notices[l])
     }
+  }
 }
 event[msg, me, dm](user, cont: "^/删除通知\\s+\\d", url, tc) => {
     if admins.some(a => a == tc) then {
@@ -276,6 +284,23 @@ timer 10* 60 * 1000 {
 event[msg, me, dm](user, cont:"^/房主", url, tc) => {
     if admins.some(a => a == tc) then {
         drrr.chown(user)
+    }
+}
+event[msg, me, dm](user, cont: "^/拉黑\\s+\\S", url, tc) => {
+    if admins.some(a => a == tc) then {
+        u = cont.replace("/拉黑", "").trim()
+      if (u.slice(0, 1) == "@") then {u = u.slice(1) }
+        blacklist.push(u)
+        drrr.ban(u)
+        drrr.dm(user, "成功将@"+u+"拉黑" )
+    }
+}
+    
+event[msg, me, dm](user, cont: "^/黑名单", url, tc) => {
+    if admins.some(a => a == tc) then {
+    bl = mess(blacklist)
+    if bl.length > 7 then bl= bl.slice(0, 7)
+    drrr.dm(user,"黑名单\n" +  bl.join("\n")) 
     }
 }
 event[msg, me, dm](user, cont:"^/踢\\s+\\S", url, tc) => {

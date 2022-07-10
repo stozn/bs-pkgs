@@ -160,7 +160,7 @@ newu = (user, tc) => {
     drrr.dm(user, "如需详细指引，请查看小粒帮助文档\n https://docs.qq.com/sheet/DVkVCWFFueUVFcXNB \n小粒Q群：167575329", "https://docs.qq.com/sheet/DVkVCWFFueUVFcXNB")
     users.sort((a, b) => a.uid - b.uid)
     duid = users[users.length - 1].uid + 1
-    users.push({ uid: duid, name: user, tc: tc, live: 0, coin: 0, check: true, day: 0, dayz: 0, drink: 0, tree: 0, trc: true, bag: [], pet: [], checkb: true, win: 0, letters: [], newl: false })
+    users.push({ uid: duid, name: user, tc: tc, live: 1, coin: 0, check: true, day: 0, dayz: 0, drink: 0, tree: 0, trc: true, bag: [], pet: [], checkb: true, win: 0, letters: [], newl: false })
 }
 //校验用户 返回用户编号，若返回-1，则用户tc不匹配
 checku = (user) => {
@@ -1282,10 +1282,12 @@ event[msg, me, dm](user, cont:"^/放生\\s+\\d")  => {
         a = Math.random() * 20 + 5 //暂留时间5-25
         pet = users[n].pet[p]
         users[n].pet.splice(p, 1)
+        yb=rand(80,120)
+        users[n].coin += yb
         apet.push(pet)
-        drrr.print("/me @" + users[n].name + " 您已成功放生【" + pet.name + "】，它将在一段时间后离开")
+        drrr.print("/me @" + users[n].name + " 您已成功放生【" + pet.name + "】，获得了" + yb + " DRB，现在您有" + users[n].coin + "DRB，它将在一段时间后离开")
         later a* 60 * 1000 {
-            i = apet.findIndex(x => x.name == pet.name && x.exp == pet.exp)
+            i = apet.findIndex(x => x.name == pet.name && x.exp == pet.exp && x.life == pet.life)
             if i>= 0 then {
                 apet.splice(i, 1)
                 drrr.print("/me 【" + pet.name + "】逃走了")
@@ -1293,7 +1295,6 @@ event[msg, me, dm](user, cont:"^/放生\\s+\\d")  => {
         }
     }
 }
-
 event[msg, me, dm](user, cont: "^/召唤", url, tc) => {
     if admins.some(a => a == tc) then {
         cpet(0.44, 0.88)

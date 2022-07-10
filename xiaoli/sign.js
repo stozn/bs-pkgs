@@ -1382,6 +1382,18 @@ event[msg, me, dm](user, cont: "^/清空信箱") => {
         drrr.dm(user, "@" + users[n].name + " 成功清空信箱")
     }
 }
+event[msg, me, dm](user, cont: "^/活跃", url, tc) => {
+    if admins.some(a => a == tc) then {
+       usr = users
+    usr.sort((a, b) => b["live"] - a["live"])
+    if usr.length > 7 then usr= usr.slice(0, 7)    
+    p = usr.reduce((a, x, y) => {
+        a = a + "\n" + (y + 1) + "." + x.name + "\t" + x[key] + "天"
+        a
+    }, "不活跃用户：") 
+        drrr.dm(user,p)
+    }
+}
 //更改用户
 event[msg, me, dm](user, cont: "^/更改用户名\\s+\\d+\\s+\\S", url, tc) => {
     if admins.some(a => a == tc) then {

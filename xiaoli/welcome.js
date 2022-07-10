@@ -306,7 +306,7 @@ event[msg, me, dm](user, cont: "^/黑名单", url, tc) => {
 }
 event[msg, me, dm](user, cont: "^/解封\\s+\\S", url, tc) => {
     if admins.some(a => a == tc) then {
-        u = checka(cont.replace("/解封", "").trim())
+        u = cont.replace("/解封", "").trim()
       if (u.slice(0, 1) == "@") then {u = u.slice(1) }
         n = blacklist.findIndex(x => x.name == u)
         if (n == (-1)) then {

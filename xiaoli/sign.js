@@ -486,7 +486,7 @@ event[msg, me, dm](user, cont: "^/献礼") => {
             users[n].coin += c
             drrr.print("/me @" + user + " 成功给黩翋砬柆神献礼10个【" + gift + "】，神赐给你" + c + " DRB，目前共有" + users[n].coin + " DRB")
         }else drrr.print("/me @" + user + " 您的背包中没有集齐10个相同的果子，无法献礼")
-    }else if drrr.print("@" + user + " 灰常抱歉。今天献礼功能不开放哦 \n※【黩翋砬柆神社】开放时间为：\n每月1、5、10、15、20、25、30开放")
+    }else drrr.print("@" + user + " 灰常抱歉。今天献礼功能不开放哦 \n※【黩翋砬柆神社】开放时间为：\n每月1、5、10、15、20、25、30开放")
     }
 }
 //整点奖励

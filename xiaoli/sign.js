@@ -474,11 +474,9 @@ event[msg, me, dm](user, cont: "^/献礼") => {
     n = checku(user)
     mydate = new Date()
     N = mydate.getDate()
-    if (N == 1 || N == 5 || N == 15 || N == 10 || N == 20 || N == 25 || N == 30) then {  
-        drrr.print("@" + user + " 灰常抱歉。今天献礼功能不开放哦 \n※【黩翋砬柆神社】开放时间为：\n每月1、5、10、15、20、25、30开放")
-    }else if (n == (-1)) then {
+    if (n == (-1)) then {
         drrr.print("/me @" + user + " 您的tc与已有的用户不匹配")
-    }else {
+    }else if (N == 1 || N == 5 || N == 15 || N == 10 || N == 20 || N == 25 || N == 30) then {  
         gd = users[n].bag.findIndex(x => fruits.some(y => y == x.name) && x.amount > 9)
         if gd>= 0 then {
             gift = users[n].bag[gd].name
@@ -488,6 +486,7 @@ event[msg, me, dm](user, cont: "^/献礼") => {
             users[n].coin += c
             drrr.print("/me @" + user + " 成功给黩翋砬柆神献礼10个【" + gift + "】，神赐给你" + c + " DRB，目前共有" + users[n].coin + " DRB")
         }else drrr.print("/me @" + user + " 您的背包中没有集齐10个相同的果子，无法献礼")
+    }else if drrr.print("@" + user + " 灰常抱歉。今天献礼功能不开放哦 \n※【黩翋砬柆神社】开放时间为：\n每月1、5、10、15、20、25、30开放")
     }
 }
 //整点奖励

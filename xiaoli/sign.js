@@ -113,7 +113,7 @@ onTimeDo(6, 1, 0, () => {
     for  x of users {
         if x.check == true then  x.day = 0
         if x.live > 0 then x.live++
-        else x.live = 1
+        else if !(x.live == -1) then x.live = 1
         if (x.trc == true && !(x.tree == 0)) then {
             x.tree.water -= 4
             if x.tree.water < 0 then x.tree.water = 0

@@ -896,37 +896,37 @@ event[msg, me, dm](user, cont: "^/奖金\\s+\\d", url, tc) => {
 //经验升级设置
 sample = array => array[Math.floor(Math.random() * array.length)]
 checke = (e) => {
-    s = [0, 5, 10, 15, 20, 30, 40, 50, 60, 70, 90, 110, 130, 150, 180, 210, 240, 270, 300, 340, 380, 420, 460, 500, 550, 600, 700, 800, 900, 1000]  //设置等级分界点
-    if e < s[1] then { [1, s[2] - e] } 	      //1级  1-4
-  else if e < s[2] then { [2, s[3] - e] }     //2级  5-9
-  else if e < s[3] then { [3, s[4] - e] }     //3级  10-14
-  else if e < s[4] then { [4, s[5] - e] }     //4级  15-19
-  else if e < s[5] then { [5, s[6] - e] }     //5级  20-29
-  else if e < s[6] then { [6, s[7] - e] }     //6级  30-39
-  else if e < s[7] then { [7, s[8] - e] }     //7级  40-49
-  else if e < s[8] then { [8, s[9] - e] }     //8级  50-59
-  else if e < s[9] then { [9, s[10] - e] }     //9级  60-69
-  else if e < s[10] then { [10, s[11] - e] }  //10级 70-89
-  else if e < s[11] then { [11, s[12] - e] }  //11级 90-109
-  else if e < s[12] then { [12, s[13] - e] }  //12级 110-129
-  else if e < s[13] then { [13, s[14] - e] }  //13级 130-149
-  else if e < s[14] then { [14, s[15] - e] }  //14级 150-179
-  else if e < s[15] then { [15, s[16] - e] }  //15级 180-209
-  else if e < s[16] then { [16, s[17] - e] }  //16级 210-239
-  else if e < s[17] then { [17, s[18] - e] }  //17级 240-269
-  else if e < s[18] then { [18, s[19] - e] }  //18级 270-299
-  else if e < s[19] then { [19, s[20] - e] }  //19级 300-339
-  else if e < s[20] then { [20, s[21] - e] }  //20级 340-379
-  else if e < s[21] then { [21, s[22] - e] }  //21级 380-419
-  else if e < s[22] then { [22, s[23] - e] }  //22级 420-459
-  else if e < s[23] then { [23, s[24] - e] }  //23级 460-499
-  else if e < s[24] then { [24, s[25] - e] }  //24级 500-549
-  else if e < s[25] then { [25, s[26] - e] }  //25级 550-599
-  else if e < s[26] then { [26, s[27] - e] }  //26级 600-699  
-  else if e < s[27] then { [27, s[28] - e] }  //27级 700-799
-  else if e < s[28] then { [28, s[29] - e] }  //28级 800-899
-  else if e < s[29] then { [29, s[30] - e] }  //29级 900-999
-  else                   { [30, 0] }          //30级 1000-∞
+    s = [0,3,6,9,12,15,18,21,24,27,30,35,40,45,50,55,60,65,70,75,80,85,90,95,100,110,120,130,140,150]  //设置等级分界点
+    if e < s[1] then { [1, s[2] - e] } 	      //1级  3
+  else if e < s[2] then { [2, s[3] - e] }     //2级  6
+  else if e < s[3] then { [3, s[4] - e] }     //3级  19
+  else if e < s[4] then { [4, s[5] - e] }     //4级  12
+  else if e < s[5] then { [5, s[6] - e] }     //5级  15
+  else if e < s[6] then { [6, s[7] - e] }     //6级  18
+  else if e < s[7] then { [7, s[8] - e] }     //7级  21
+  else if e < s[8] then { [8, s[9] - e] }     //8级  24
+  else if e < s[9] then { [9, s[10] - e] }     //9级  27
+  else if e < s[10] then { [10, s[11] - e] }  //10级 30
+  else if e < s[11] then { [11, s[12] - e] }  //11级 35
+  else if e < s[12] then { [12, s[13] - e] }  //12级 40
+  else if e < s[13] then { [13, s[14] - e] }  //13级 45
+  else if e < s[14] then { [14, s[15] - e] }  //14级 50
+  else if e < s[15] then { [15, s[16] - e] }  //15级 55
+  else if e < s[16] then { [16, s[17] - e] }  //16级 60
+  else if e < s[17] then { [17, s[18] - e] }  //17级 65
+  else if e < s[18] then { [18, s[19] - e] }  //18级 70
+  else if e < s[19] then { [19, s[20] - e] }  //19级 75
+  else if e < s[20] then { [20, s[21] - e] }  //20级 80
+  else if e < s[21] then { [21, s[22] - e] }  //21级 85
+  else if e < s[22] then { [22, s[23] - e] }  //22级 90
+  else if e < s[23] then { [23, s[24] - e] }  //23级 95
+  else if e < s[24] then { [24, s[25] - e] }  //24级 100
+  else if e < s[25] then { [25, s[26] - e] }  //25级 220
+  else if e < s[26] then { [26, s[27] - e] }  //26级 120
+  else if e < s[27] then { [27, s[28] - e] }  //27级 130
+  else if e < s[28] then { [28, s[29] - e] }  //28级 140
+  else if e < s[29] then { [29, s[30] - e] }  //29级 150
+  else                   { [30, 0] }          //30级 ∞
 
 }
 cpet = (a1, a2) => {

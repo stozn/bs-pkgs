@@ -78,13 +78,6 @@ for (o = rand(15,15); o > 0; o--) {
 
 
 //模拟战斗
-
-
-
-function rand(a, b) {
-  return  Math.floor(Math.random() * Math.floor(1 + b - a)) + a
-}
-
 //公式在这改
 f1=(l,a,d,v)=> l+6*a+3*d+2*v
 f2=(l,a,d,v)=> 0.2*l+1.5*a+d+0.2*v

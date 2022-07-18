@@ -98,7 +98,6 @@ g3=0
 g4=0
 
 jg=(w)=>{
-	console.log(i)
 	if (w){
 	if (f1(xlife,xa,xd)>f1(ylife,ya,yd)){g1++} 
 	if (f2(xlife,xa,xd)>f2(ylife,ya,yd)){g2++} 

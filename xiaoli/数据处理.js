@@ -46,3 +46,122 @@ if (( x.coin+x.bag.length + x.letters.length+x.drink+x.day) > 0){
 }
 users.sort((a, b) => a.uid - b.uid)
 console.log(JSON.stringify(users))
+
+
+//宠物系统
+
+//生成宠物
+
+ pets  = []
+
+function rand(a, b) {
+  return  Math.floor(Math.random() * Math.floor(1 + b - a)) + a
+}
+
+for(t=0;t<100;t++){
+x={  life: 100, att: 50, def: 20, speed: 10 }
+	pets.push(x)
+for (o = rand(0,29); o > 0; o--) {
+            a = rand(1, 7)
+            if  (a< 3){
+                x.life += rand(24, 36)
+            }else if  (a< 5) {
+                x.att += rand(16, 24) 
+            }else if  (a< 7) {
+                x.def += rand(8, 12) 
+            }else {
+                x.speed += rand(8, 12)
+            }
+        }
+}
+
+console.log(pets)
+
+//模拟战斗
+
+pets=[] 
+
+
+function rand(a, b) {
+  return  Math.floor(Math.random() * Math.floor(1 + b - a)) + a
+}
+
+//公式在这改
+f1=(l,a,d)=> 0.12*l+0.85*a+d
+f2=(l,a,d)=> 0.5*l+a+d
+f3=(l,a,d)=> 0.5*l+0.9*a+d
+f4=(l,a,d)=> a+l+d
+
+g1=0
+g2=0
+g3=0
+g4=0
+
+jg=(w)=>{
+	console.log(i)
+	if (w){
+	if (f1(xlife,xa,xd)>f1(ylife,ya,yd)){g1++} 
+	if (f2(xlife,xa,xd)>f2(ylife,ya,yd)){g2++} 
+	if (f3(xlife,xa,xd)>f3(ylife,ya,yd)){g3++} 
+	if (f4(xlife,xa,xd)>f4(ylife,ya,yd)){g4++}
+	}else{
+	if (f1(xlife,xa,xd)<f1(ylife,ya,yd)){g1++} 
+	if (f2(xlife,xa,xd)<f2(ylife,ya,yd)){g2++} 
+	if (f3(xlife,xa,xd)<f3(ylife,ya,yd)){g3++} 
+	if (f4(xlife,xa,xd)<f4(ylife,ya,yd)){g4++}
+	}
+	
+}
+
+bat=(x,y)=>{
+		xl = x.life                                   
+	    xlife=x.life 
+        yl = y.life                                 
+	    ylife=y.life 
+        xa = x.att                                   
+        ya = y.att                                   
+        xd = x.def                                   
+        yd = y.def                                    
+        f = (x.speed - y.speed) > 0     
+        i = 1
+        while (xl > 0 && yl > 0) {
+            xs = xa - yd + rand(-10, 10)
+            if (Math.random() < 0.10 ) xs= xa * 2 - yd + rand(-10, 10)
+            ys = ya - xd + rand(-10, 10)
+            if  (Math.random() < 0.10) ys= ya * 2 - xd + rand(-10, 10)
+
+            if (f){
+                if ((yl -= xs)<=0) {
+                    jg(true)
+                }else{
+                    xl -= ys
+                    if (xl<= 0){
+                        jg(false)
+                    }
+                }
+            }else {
+                if ((xl -= ys)<=0) {
+                    jg(false)
+                }else {
+                    yl -= xs
+                    if (yl<= 0 ){
+                        jg(true)
+                    }
+                }
+            }
+            i++
+        }
+	}
+
+for (t=0;t<100;t++){     //100是运行次数，也就是公式满分
+c=rand(0,99)
+	v=rand(0,99)
+	bat(pets[c],pets[v])
+}
+	
+
+
+console.log("1.  "+g1);
+console.log("2.  "+g2);
+console.log("3.  "+g3);
+console.log("4.  "+g4);

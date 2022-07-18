@@ -52,6 +52,7 @@ console.log(JSON.stringify(users))
 
 //生成宠物
 
+
  pets  = []
 
 function rand(a, b) {
@@ -61,7 +62,7 @@ function rand(a, b) {
 for(t=0;t<100;t++){
 x={  life: 100, att: 50, def: 20, speed: 10 }
 	pets.push(x)
-for (o = rand(0,29); o > 0; o--) {
+for (o = rand(15,15); o > 0; o--) {
             a = rand(1, 7)
             if  (a< 3){
                 x.life += rand(24, 36)
@@ -75,11 +76,9 @@ for (o = rand(0,29); o > 0; o--) {
         }
 }
 
-console.log(pets)
 
 //模拟战斗
 
-pets=[] 
 
 
 function rand(a, b) {
@@ -87,10 +86,10 @@ function rand(a, b) {
 }
 
 //公式在这改
-f1=(l,a,d)=> 0.12*l+0.85*a+d
-f2=(l,a,d)=> 0.5*l+a+d
-f3=(l,a,d)=> 0.5*l+0.9*a+d
-f4=(l,a,d)=> a+l+d
+f1=(l,a,d,v)=> l+6*a+3*d+2*v
+f2=(l,a,d,v)=> 0.2*l+1.5*a+d+0.2*v
+f3=(l,a,d,v)=> 0.15*l+1.5*a+d+0.2*v
+f4=(l,a,d,v)=> 0.2*l+1.6*a+d+0.2*v
 
 g1=0
 g2=0
@@ -99,15 +98,15 @@ g4=0
 
 jg=(w)=>{
 	if (w){
-	if (f1(xlife,xa,xd)>f1(ylife,ya,yd)){g1++} 
-	if (f2(xlife,xa,xd)>f2(ylife,ya,yd)){g2++} 
-	if (f3(xlife,xa,xd)>f3(ylife,ya,yd)){g3++} 
-	if (f4(xlife,xa,xd)>f4(ylife,ya,yd)){g4++}
+	if (f1(xlife,xa,xd,xv)>f1(ylife,ya,yd,yv)){g1++} 
+	if (f2(xlife,xa,xd,xv)>f2(ylife,ya,yd,yv)){g2++} 
+	if (f3(xlife,xa,xd,xv)>f3(ylife,ya,yd,yv)){g3++} 
+	if (f4(xlife,xa,xd,xv)>f4(ylife,ya,yd,yv)){g4++}
 	}else{
-	if (f1(xlife,xa,xd)<f1(ylife,ya,yd)){g1++} 
-	if (f2(xlife,xa,xd)<f2(ylife,ya,yd)){g2++} 
-	if (f3(xlife,xa,xd)<f3(ylife,ya,yd)){g3++} 
-	if (f4(xlife,xa,xd)<f4(ylife,ya,yd)){g4++}
+	if (f1(xlife,xa,xd,xv)<f1(ylife,ya,yd,yv)){g1++} 
+	if (f2(xlife,xa,xd,xv)<f2(ylife,ya,yd,yv)){g2++} 
+	if (f3(xlife,xa,xd,xv)<f3(ylife,ya,yd,yv)){g3++} 
+	if (f4(xlife,xa,xd,xv)<f4(ylife,ya,yd,yv)){g4++}
 	}
 	
 }
@@ -120,7 +119,9 @@ bat=(x,y)=>{
         xa = x.att                                   
         ya = y.att                                   
         xd = x.def                                   
-        yd = y.def                                    
+        yd = y.def
+	    xv=x.speed
+	    yv=y.speed
         f = (x.speed - y.speed) > 0     
         i = 1
         while (xl > 0 && yl > 0) {
@@ -154,8 +155,8 @@ bat=(x,y)=>{
 
 for (t=0;t<100;t++){     //100是运行次数，也就是公式满分
 c=rand(0,99)
-	v=rand(0,99)
-	bat(pets[c],pets[v])
+	u=rand(0,99)
+	bat(pets[c],pets[u])
 }
 	
 

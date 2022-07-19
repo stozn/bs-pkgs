@@ -77,25 +77,42 @@ for (o = rand(15,15); o > 0; o--) {
 }
 
 
+
 //模拟战斗
 //公式在这改
-f1=(l,a,d,v)=> l+6*a+3*d+2*v
-f2=(l,a,d,v)=> 0.2*l+1.5*a+d+0.2*v
-f3=(l,a,d,v)=> 0.15*l+1.5*a+d+0.2*v
-f4=(l,a,d,v)=> 0.2*l+1.6*a+d+0.2*v
 
+f1=(l,a,d,v)=> l+5*a+5*d+1*v
+
+//只显示公式1的战力预判情况
+f2=(l,a,d,v)=> 0   //0.2*l+1.5*a+d+0.2*v
+f3=(l,a,d,v)=> 0   //0.15*l+1.5*a+d+0.2*v
+f4=(l,a,d,v)=> 0   //0.2*l+1.6*a+d+0.2*v
+
+pets=pets.map((x)=> {
+return { life: x.life, att: x.att, def: x.def, speed:x.speed ,ce: f1(x.life,x.att,x.def,x.speed) }
+})
 g1=0
 g2=0
 g3=0
 g4=0
 
+no=0
+
 jg=(w)=>{
+	c1=f1(xlife,xa,xd,xv)
+	c2=f1(ylife,ya,yd,yv)
 	if (w){
+	if (c1<c2) {
+	console.log(++no+".  "+c1+"=>"+c2+"  ["+(c2-c1)+"]"+"  胜");
+	}
 	if (f1(xlife,xa,xd,xv)>f1(ylife,ya,yd,yv)){g1++} 
 	if (f2(xlife,xa,xd,xv)>f2(ylife,ya,yd,yv)){g2++} 
 	if (f3(xlife,xa,xd,xv)>f3(ylife,ya,yd,yv)){g3++} 
 	if (f4(xlife,xa,xd,xv)>f4(ylife,ya,yd,yv)){g4++}
 	}else{
+	if (c1>c2) {
+	console.log(++no+".  "+c1+"=>"+c2+"  ["+(c1-c2)+"]"+"  败");
+	}	
 	if (f1(xlife,xa,xd,xv)<f1(ylife,ya,yd,yv)){g1++} 
 	if (f2(xlife,xa,xd,xv)<f2(ylife,ya,yd,yv)){g2++} 
 	if (f3(xlife,xa,xd,xv)<f3(ylife,ya,yd,yv)){g3++} 
@@ -147,12 +164,12 @@ bat=(x,y)=>{
 	}
 
 for (t=0;t<100;t++){     //100是运行次数，也就是公式满分
-c=rand(0,99)
+	c=rand(0,99)
 	u=rand(0,99)
 	bat(pets[c],pets[u])
+	
 }
 	
-
 
 console.log("1.  "+g1);
 console.log("2.  "+g2);

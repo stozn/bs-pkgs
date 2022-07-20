@@ -896,7 +896,7 @@ event[msg, me, dm](user, cont: "^/奖金\\s+\\d", url, tc) => {
 //经验升级设置
 sample = array => array[Math.floor(Math.random() * array.length)]
 checke = (e) => {
-    s = [0,3,6,9,12,15,18,21,24,27,30,35,40,45,50,55,60,65,70,75,80,85,90,95,100,110,120,130,140,150]  //设置等级分界点
+    s = [0,3,6,9,12,15,18,21,24,27,30,35,40,45,50,55,60,65,70,75,80,85,90,95,100,110,120,130,140,150,160,170,180,190,200,210,220,230,240,250,275,300,325,350,275,400,425,450,475,500]  //设置等级分界点
     if e < s[1] then { [1, s[2] - e] } 	      //1级  3
   else if e < s[2] then { [2, s[3] - e] }     //2级  6
   else if e < s[3] then { [3, s[4] - e] }     //3级  19
@@ -905,7 +905,7 @@ checke = (e) => {
   else if e < s[6] then { [6, s[7] - e] }     //6级  18
   else if e < s[7] then { [7, s[8] - e] }     //7级  21
   else if e < s[8] then { [8, s[9] - e] }     //8级  24
-  else if e < s[9] then { [9, s[10] - e] }     //9级  27
+  else if e < s[9] then { [9, s[10] - e] }    //9级  27
   else if e < s[10] then { [10, s[11] - e] }  //10级 30
   else if e < s[11] then { [11, s[12] - e] }  //11级 35
   else if e < s[12] then { [12, s[13] - e] }  //12级 40
@@ -926,11 +926,31 @@ checke = (e) => {
   else if e < s[27] then { [27, s[28] - e] }  //27级 130
   else if e < s[28] then { [28, s[29] - e] }  //28级 140
   else if e < s[29] then { [29, s[30] - e] }  //29级 150
-  else                   { [30, 0] }          //30级 ∞
+  else if e < s[30] then { [30, s[31] - e] }  //30级 160
+  else if e < s[31] then { [31, s[32] - e] }  //31级 170
+  else if e < s[32] then { [32, s[33] - e] }  //32级 180
+  else if e < s[33] then { [33, s[34] - e] }  //33级 190
+  else if e < s[34] then { [34, s[35] - e] }  //34级 200
+  else if e < s[35] then { [35, s[36] - e] }  //35级 210
+  else if e < s[36] then { [36, s[37] - e] }  //36级 220
+  else if e < s[37] then { [37, s[38] - e] }  //37级 230
+  else if e < s[38] then { [38, s[39] - e] }  //38级 240
+  else if e < s[39] then { [39, s[40] - e] }  //39级 250
+  else if e < s[40] then { [40, s[41] - e] }  //40级 275
+  else if e < s[41] then { [41, s[42] - e] }  //41级 300
+  else if e < s[42] then { [42, s[43] - e] }  //42级 325
+  else if e < s[43] then { [43, s[44] - e] }  //43级 350
+  else if e < s[44] then { [44, s[45] - e] }  //44级 375
+  else if e < s[45] then { [45, s[46] - e] }  //45级 400
+  else if e < s[46] then { [46, s[47] - e] }  //46级 425
+  else if e < s[47] then { [47, s[48] - e] }  //47级 450
+  else if e < s[48] then { [48, s[49] - e] }  //48级 475
+  else if e < s[49] then { [49, s[50] - e] }  //49级 500
+  else                   { [50, 0] }          //50级 ∞
 
 }
 cpet = (a1, a2) => {
-    t = rand(10, 20)
+    t = rand(20, 30)
     q = Math.random()
     p = "精灵-N"
     l = 100
@@ -939,11 +959,35 @@ cpet = (a1, a2) => {
     s = 10
 
     if q< a1 then {
-        p = "白泽-SR"
-        l = 150
-        a = 75
-        d = 30
-        s = 15
+        x = rand(1, 4)
+        if x== 1 then {
+            p = "白泽-SR"
+            l = 150
+            a = 75
+            d = 30
+            s = 15
+     }
+        if x== 2 then {
+            p = "鲲鹏-SR"
+            l = 200
+            a = 65
+            d = 10
+            s = 20
+     }
+        if x== 3 then {
+            p = "九婴-SR"
+            l = 100
+            a = 100
+            d = 25
+            s = 10
+     }
+        if x== 4 then {
+            p = "祸斗-SR"
+            l = 150
+            a = 100
+            d = 0
+            s = 20
+     }
     } 
       else if q< a2 then{
         x = rand(1, 4)

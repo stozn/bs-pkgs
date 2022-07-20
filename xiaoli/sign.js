@@ -1245,9 +1245,11 @@ event[msg, me, dm](user, cont:"^/升级\\s+\\d")  => {
         drrr.print("/me @" + user + " 您的tc与已有的用户不匹配")
     }  else if p> (users[n].pet.length - 1) then {
         drrr.print("/me @" + users[n].name + " 输入的序号不存在")
-    }else if users[n].pet[p].level == 30 then {
-        drrr.print("/me @" + users[n].name + " 您的【" + users[n].pet[p].name + "】已经达到最高等级Lv.30，无法再升级")
+    }else if users[n].pet[p].level == 50 then {
+        drrr.print("/me @" + users[n].name + " 您的【" + users[n].pet[p].name + "】已经达到最高等级Lv.50，无法再升级")
     }else if checke(users[n].pet[p].exp)[0] == users[n].pet[p].level then {
+        lv = checke(users[n].pet[p].exp)[0]
+        dt = checke(users[n].pet[p].exp)[1]
         drrr.print("/me @" + users[n].name + " 您的【" + users[n].pet[p].name + "】目前没有充足经验升级 ,距离下一级还差" + dt + "经验值")
     }else{
         lv = checke(users[n].pet[p].exp)[0]

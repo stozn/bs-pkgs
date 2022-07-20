@@ -1584,6 +1584,7 @@ event[msg, me, dm](user, cont: "^/导入", url, tc) => {
                     b.push(x)
                 }else if users.some(m => m.uid = x.uid) then {
                     n = users.findIndex(i => i.uid == x.uid)
+                    drrr.dm(user, "已删除" +users[n].name)
                     users.splice(n, 1)
                     users.push(x)
                     c.push(x)

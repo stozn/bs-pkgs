@@ -270,9 +270,10 @@ else{
         up = users.filter(x => x.pet.length > 0)
         up.sort((a, b) => b.pet[0].sc - a.pet.sc)
         up = up.map((x, y) => (y + 1) + ".@" + x.name + "\t" + x.pet[0].name + "\t" + x.pet[0].sc)
-        drrr.print("战力榜\n" + up.join("\n")
+        drrr.print("战力榜\n" + up.join("\n"))
     }
 }
+
 //签到
 event[msg, me, dm](user, cont: "^/签到$") => {
     yb = 4
@@ -1192,7 +1193,7 @@ event[msg, me, dm](user, cont: "^/挑战\\s+\\S") => {
         ae = rand(1, 3)
         while (xl > 0 && yl > 0) {
             xs = xa - yd + rand(-10, 10)
-            if Math.random() < 0.10 then xs= xa * 2 - yd + rand(-10, 10)
+            if Math.random() < 0.05 then xs= xa * 2 - yd + rand(-10, 10)
             ys = ya - xd + rand(-10, 10)
             if Math.random() < 0.10 then ys= ya * 2 - xd + rand(-10, 10)
 

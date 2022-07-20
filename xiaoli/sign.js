@@ -1582,7 +1582,7 @@ event[msg, me, dm](user, cont: "^/导入", url, tc) => {
             for x of input{
                 if users.some(m => (m.name == x.name || m.tc == x.tc) && m.uid != x.uid) then{
                     b.push(x)
-                }else if users.some(m => m.uid = x.uid) then {
+                }else if users.some(m => m.uid == x.uid) then {
                     n = users.findIndex(i => i.uid == x.uid) -1
                     drrr.dm(user, "已删除" +users[n].name)
                     users.splice(n, 1)

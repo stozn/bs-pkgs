@@ -33,15 +33,20 @@ txt = (_data, _name) => {
 //-------------------------------------------------------------------------------------
 u =
 
-    users = []
+users = []
 g = ["MG-红包", "MG-精灵球", "MG-宠物干粮", "MG-一本满足", "MG-水", "MG-刮刮乐", "MG-奖券", "鲜榨果汁", "可乐"]
+
+zdl = (l, a, d, v) => l + 5 * a + 4 * d + 1 * v
 
 id = 0
 for (x of u) {
 
     if ((x.coin + x.bag.length + x.letters.length + x.drink + x.day) > 0) {
         id++
-        users.push({ uid: x.uid, name: x.name, tc: x.tc, live: x.live, coin: x.coin, check: x.true, day: x.day, dayz: x.dayz, drink: x.drink, tree: x.tree, trc: x.trc, bag: x.bag, pet: [], checkb: true, win: 0, letters: x.letters, newl: x.newl })
+        x.pet = x.pet.map(p => {
+            return { name: p.name, level: p.level, exp: p.exp, life: p.life, att: p.att, def: p.def, speed: p.speed, sc: zdl(p.life, p.att, p.def, p.speed) }
+        })
+        users.push({ uid: x.uid, name: x.name, tc: x.tc, live: x.live, coin: x.coin, check: x.true, day: x.day, dayz: x.dayz, drink: x.drink, tree: x.tree, trc: x.trc, bag: x.bag, pet: x.pet, checkb: x.checkb, win: x.win, letters: x.letters, newl: x.newl })
     }
 }
 users.sort((a, b) => a.uid - b.uid)

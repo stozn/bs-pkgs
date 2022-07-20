@@ -1140,7 +1140,7 @@ event[msg, me, dm](user, cont:"^/(展示)?宠物\\s+\\d")  => {
     } else if i> (users[n].pet.length - 1) then {
         drrr.print("/me @" + users[n].name + " 输入的序号不存在")
     } else {
-        p = "的宠物：\n编号：" + c[1] + "\n名字：" + users[n].pet[i].name + "\n等级：Lv." + users[n].pet[i].level + "\n经验：" + users[n].pet[i].exp + " exp\n战力：" + users[n].pet[i].sc
+        p = "的宠物：\n编号：" + c[1] + "\n名字：" + users[n].pet[i].name + "\n等级：Lv." + users[n].pet[i].level + "\n经验：" + users[n].pet[i].exp + "\n战力：" + users[n].pet[i].sc
             + "\n生命：" + users[n].pet[i].life + "\n攻击：" + users[n].pet[i].att + "\n防御：" + users[n].pet[i].def + "\n速度：" + users[n].pet[i].speed
         if c[0] == "宠物" then {
             drrr.dm(user, "您" + p)
@@ -1584,7 +1584,8 @@ event[msg, me, dm](user, cont: "^/导入", url, tc) => {
                     b.push(x)
                 }else if users.some(m => m.uid = x.uid) then {
                     n = users.findIndex(i => i.uid == x.uid)
-                    users[n] = x
+                    users.splice(n, 1)
+                    users.push(x)
                     c.push(x)
                 }else{
                     a.push(x)

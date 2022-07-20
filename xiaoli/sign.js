@@ -270,6 +270,7 @@ else{
         up = users.filter(x => x.pet.length > 0)
         up.sort((a, b) => b.pet[0].sc - a.pet[0].sc)
         up = up.map((x, y) => (y + 1) + ".@" + x.name + "\t" + x.pet[0].name + "\t" + x.pet[0].sc)
+        if up.length >7 then up.slice(0,7)
         drrr.print("战力榜\n" + up.join("\n"))
     }
 }
@@ -1139,8 +1140,8 @@ event[msg, me, dm](user, cont:"^/(展示)?宠物\\s+\\d")  => {
     } else if i> (users[n].pet.length - 1) then {
         drrr.print("/me @" + users[n].name + " 输入的序号不存在")
     } else {
-        p = "的宠物：\n编号：" + c[1] + "\n名字：" + users[n].pet[i].name + "\n等级：Lv." + users[n].pet[i].level + "\n经验：" + users[n].pet[i].exp + "\n战力：" + users[n].pet[i].sc
-            + " exp\n生命：" + users[n].pet[i].life + "\n攻击：" + users[n].pet[i].att + "\n防御：" + users[n].pet[i].def + "\n速度：" + users[n].pet[i].speed
+        p = "的宠物：\n编号：" + c[1] + "\n名字：" + users[n].pet[i].name + "\n等级：Lv." + users[n].pet[i].level + "\n经验：" + users[n].pet[i].exp + " exp\n战力：" + users[n].pet[i].sc
+            + "\n生命：" + users[n].pet[i].life + "\n攻击：" + users[n].pet[i].att + "\n防御：" + users[n].pet[i].def + "\n速度：" + users[n].pet[i].speed
         if c[0] == "宠物" then {
             drrr.dm(user, "您" + p)
         }else {

@@ -268,7 +268,7 @@ else if cont== "/胜利榜" then drrr.print("胜利榜" + sort("win"))
 else if cont== "/干杯榜" then drrr.print("干杯榜" + sort("drink"))
 else{
         up = users.filter(x => x.pet.length > 0)
-        up.sort((a, b) => b.pet[0].sc - a.pet.sc)
+        up.sort((a, b) => b.pet[0].sc - a.pet[0].sc)
         up = up.map((x, y) => (y + 1) + ".@" + x.name + "\t" + x.pet[0].name + "\t" + x.pet[0].sc)
         drrr.print("战力榜\n" + up.join("\n"))
     }

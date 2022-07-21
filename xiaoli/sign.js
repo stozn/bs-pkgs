@@ -114,11 +114,11 @@ onTimeDo(6, 1, 0, () => {
         if x.check == true then  x.day = 0
         if x.live > 0 then x.live++
         else if !(x.live == -1) then x.live = 1
-        if (x.trc == true && !(x.tree == 0)) then {
+        if (x.trc == true) then {
             x.tree.water -= 4
             if x.tree.water < 0 then x.tree.water = 0
             x.tree.level = chcke(x.tree.water)[0]
-        }else if (x.tree.level > 2 && !(x.tree == 0)) then x.tree.fruit = x.tree.level
+        }else if (x.tree.level > 2) then x.tree.fruit = x.tree.level
         x.check = true
         x.checkb = true
         x.trc == true

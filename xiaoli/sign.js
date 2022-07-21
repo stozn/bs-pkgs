@@ -270,7 +270,7 @@ else{
         up = users.filter(x => x.pet.length > 0)
         up.sort((a, b) => b.pet[0].sc - a.pet[0].sc)
         up = up.map((x, y) => (y + 1) + ".@" + x.name + "\t" + x.pet[0].name + "\t" + x.pet[0].sc)
-        if up.length >6 then up.slice(0,6)
+        if up.length >6 then up=up.slice(0,6)
         drrr.print("战力榜\n" + up.join("\n"))
     }
 }

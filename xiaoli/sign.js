@@ -1444,7 +1444,7 @@ event[msg, me, dm](user, cont: "^/活跃", url, tc) => {
         usr.sort((a, b) => b["live"] - a["live"])
         if usr.length > 7 then usr= usr.slice(0, 7)
         p = usr.reduce((a, x, y) => {
-            a = a + "\n" + (y + 1) + "." + x.name + "\t" + x[key] + "天"
+            a = a + "\n" + (y + 1) + "." + x.name + "\t" + x.live + "天"
             a
         }, "不活跃用户：")
         drrr.dm(user, p)

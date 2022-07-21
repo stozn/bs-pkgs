@@ -411,7 +411,7 @@ event[msg, me, dm](user, cont: "^/(展示)?树") => {
     if (n == (-1)) then drrr.print("/me @" + user + "您的tc与已有的用户不匹配")
   else {
         if !users[n].tree == 0 then
-        p = " 您的树:\n等级：." + users[n].tree.level + "级\t湿润度：" + users[n].tree.water + "\t果子：" + users[n].tree.fruit + "个"
+        p = " 您的树:\n等级：" + users[n].tree.level + "级\t湿润度：" + users[n].tree.water + "\t果子：" + users[n].tree.fruit + "个"
         if cont== "/树" then {
             drrr.dm(user, "@" + users[n].name + p)
         }else {

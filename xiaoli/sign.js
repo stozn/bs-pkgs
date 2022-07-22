@@ -1121,7 +1121,7 @@ event[msg, me, dm](user, cont: "^/(展示)?宠物$") => {
     if (n == (-1)) then drrr.print("/me @" + user + "您的tc与已有的用户不匹配")
   else {
         p = users[n].pet.reduce((a, x, y) => {
-            a = a + "\n" + (y + 1) + ".【" + x.name + "】\tLv." + x.level + "\t战力：" + users[n].pet[i].sc
+            a = a + "\n" + (y + 1) + ".【" + x.name + "】\tLv." + x.level + "\t战力：" + x.sc
             a
         }, " 您的宠物有:")
         if cont== "/宠物" then {

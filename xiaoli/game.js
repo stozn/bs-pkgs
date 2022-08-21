@@ -66,14 +66,14 @@ state prepare {
         }
     else drrr.print("/me需满足 3 人, 目前 " + String(players.length) + "人")
     }
-    announce("/me 【截码战】游戏开始, [+1] 加入, [-1] 退出, [/p] 玩家, [/go] 开始 [/h] 帮助")
+    announce("/me 【截码战】游戏开始, [+1] 加入, [-1] 退出, [/p] 玩家, [/go] 开始 [/帮助] 帮助")
 }
 
 state prelude {
     roles.sort(() => Math.random() - 0.5)
     r = players.map((name, idx) => roleName[roles[idx]] + "：" + "@" + name).join("\n")
     drrr.print("角色：\n" + r)
-    later 4000 announce("/me 请队长和队友查看本次游戏密码表，想再次查看请发送【/密码表】")
+    later 4000 announce("/me 请队长和队友查看本次游戏密码表，想再次查看请发送【/密码】")
     a = roles.findIndex(x => x == 0)
     b = roles.findIndex(x => x == 1)
     words = mess(words)
@@ -144,7 +144,7 @@ state result {
     drrr.print("结果：\n队长：" + key + "\n队友：" + ak + "  " + ar + "\n间谍：" + bk + "  " + br)
     if (as == 2 || bs == 2 || ts == 8) then {
         later 2000 drrr.print("最终分数为：\n队友：-" + as + "分\n间谍：" + bs + "分")
-        later 4000 drrr.print("游戏结束,本次游戏共进行" + ts + "轮/n"+"密码表：" + word)
+        later 4000 drrr.print("游戏结束,本次游戏共进行" + ts + "轮\n"+"密码表：" + word)
     }else {
         later 10* 1000 going hide
     }

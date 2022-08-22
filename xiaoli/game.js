@@ -26,7 +26,7 @@ mess = (array) => {
     }
     array
 }
-
+timer 3* 60 * 1000 drrr.print("/me/s") 
 state prepare {
     players = []
     key = ""
@@ -103,7 +103,8 @@ state guess {
     b = roles.findIndex(x => x == 2)
     ak = 0
     bk = 0
-    drrr.dm(players[a], "密码表:\n" + word)
+    drrr.dm(players[a],"线索:"+xs+ "\n" + word)
+    drrr.dm(players[b], his.map((x, i) => (i + 1) + ":" + x.join(" ")).join("\n"))
     event[msg, me, dm](user, cont: "^/s$") => drrr.print("/me队员及间谍解密阶段")
     event dm (user:players[a], cont:"^[1-4]{3}$") => {
         ak = cont
@@ -152,10 +153,13 @@ state result {
         }
     if (as == 2 ) then {
         later 2000 drrr.print("队友猜错两次，游戏结束,间谍获胜，本次游戏共进行" + ts + "轮\n" + "密码表：\n" + word)
+        later 4000 drrr.print(his.map((x, i) => (i + 1) + ":" + x.join(" ")).join("\n"))
     }else if (bs == 1) then {
-        later 4000 drrr.print("间谍猜对一次，游戏结束,间谍获胜，本次游戏共进行" + ts + "轮\n" + "密码表：\n" + word)
+        later 2000 drrr.print("间谍猜对一次，游戏结束,间谍获胜，本次游戏共进行" + ts + "轮\n" + "密码表：\n" + word)
+        later 4000 drrr.print(his.map((x, i) => (i + 1) + ":" + x.join(" ")).join("\n"))
     }else if ((as==0 && ts == 5) || (as==1 && ts == 6)) then {
-        later 4000 drrr.print("队友成功接收5次密电，游戏结束,解密队获胜，本次游戏共进行" + ts + "轮\n" + "密码表：\n" + word)
+        later 2000 drrr.print("队友成功接收5次密电，游戏结束,解密队获胜，本次游戏共进行" + ts + "轮\n" + "密码表：\n" + word)
+        later 4000 drrr.print(his.map((x, i) => (i + 1) + ":" + x.join(" ")).join("\n"))
     }else {
         q = roles.findIndex(x => x == 0)
         p = roles.findIndex(x => x == 1)
@@ -163,7 +167,6 @@ state result {
         roles[p] = 0
         ts++
         later 5* 1000 drrr.print("/me 队长队友互换身份，@" + players[roles.findIndex(x => x == 0)] + "成为队长")
-        later 7* 1000 drrr.dm(players[roles.findIndex(x => x == 2)], his.map((x, i) => (i + 1) + ":" + x.join(" ")).join("\n"))
         later 10* 1000 going hide
     }
 }
@@ -172,9 +175,9 @@ event[msg, me, dm](user, cont: "^/密码$") => {
     if players.includes(user) && !(user == players[roles.findIndex(x => x == 2)]) then  drrr.dm(user, "密码表：\n" + word)
     else   drrr.print("/me @" + user + " 您不是队长或队员")
 }
-event[msg, me, dm](user, cont: "^/r$") =>  drrr.print( "角色：\n队长:@" +players[roles.findIndex(x => x == 0)]+"\n队友:@"+players[roles.findIndex(x => x == 1)]+"\n间谍:@"+players[roles.findIndex(x => x == 2)])
+event[msg, me, dm](user, cont: "^/r$") =>  drrr.dm(user, "角色：\n队长:@" +players[roles.findIndex(x => x == 0)]+"\n队友:@"+players[roles.findIndex(x => x == 1)]+"\n间谍:@"+players[roles.findIndex(x => x == 2)])
 event[msg, me, dm](user, cont: "^/分数$") => drrr.print("当前分数为：\n队友：-" + as + "分\n间谍：" + bs + "分")
-event[msg, me, dm](user, cont: "^/记录$") => drrr.print(his.map((x, i) => (i + 1) + ":" + x.join(" ")).join("\n"))
+event[msg, me, dm](user, cont: "^/记录$") => drrr.dm(user,his.map((x, i) => (i + 1) + ":" + x.join(" ")).join("\n"))
 event[msg, me, dm](user, cont: "^/命令$") => {
     drrr.print("/命令 本列表\n/密码 查看密码表\n/记录 线索记录\n/p 当前玩家\n/s 当前阶段\n/r 当前角色\n/分数 当前分数\n/game 开始报名（如有游戏则重开）")
 }

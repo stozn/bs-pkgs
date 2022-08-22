@@ -7,6 +7,7 @@ bk = "000"
 as = 0
 bs = 0
 ts = 0
+st = 0
 his = [[], [], [], []]
 players = []
 roles = [0, 1, 2]
@@ -39,6 +40,7 @@ state prepare {
     as = 0
     bs = 0
     ts = 0
+    st = 0
     his = [[], [], [], []]
     event[msg, me](user, cont: "^\\+1$") => {
         if players.includes(user) then
@@ -86,12 +88,10 @@ state prelude {
 
 state hide {
     keys = mess(keys)
-    announce("/me请队长查看三位数字口令，并在公屏发送【/线索 线索1 线索2 线索3】")
+    announce("/me【第"+ts+"轮】请队长查看三位数字口令，并在公屏发送【/线索 线索1 线索2 线索3】")
     i = roles.findIndex(x => x == 0)
-    t = roles.findIndex(x => x == 2)
     key = str(keys[0]) + str(keys[1]) + str(keys[2])
     drrr.dm(players[i], "本次口令为：" + key)
-    drrr.dm(players[t], his.map((x, i) => (i + 1) + ":" + x.join(" ")).join("\n"))
     event[msg, me](user:players[i], cont: "^/线索\\s+\\S+\\s+\\S+\\s+\\S$") => {
         m = cont.replace("/线索", "").trim() 
         a = [pre(m),pre(lst(m)),lst(lst(m))]
@@ -105,7 +105,7 @@ state hide {
 }
 
 state guess {
-    announce("/me请队员和间谍开始解密，私信我三位数字口令（由1-4中的数字组成），队员可以发送【/skip】跳过这一环节（若队员未提交将会扣一分）")
+    announce("/me请队员和间谍开始解密，私信我三位数字口令（由1-4中的数字组成），队员可以发送【/skip】跳过这一环节（只有两次机会，且只能在第1-4轮使用）")
     a = roles.findIndex(x => x == 1)
     b = roles.findIndex(x => x == 2)
     ak = 0
@@ -121,10 +121,14 @@ state guess {
         if !(ak == 0 || bk == 0) then going result
     }
     event[msg, me](user:players[a], cont:"^/skip") => {
+        if ts>4 then drrr.print("/me对不起，本轮不能跳过，只能在前4轮使用")
+        else if st==2 then drrr.print("/me对不起，已经用完了两次跳过的机会")
+        else {
         drrr.print("/me跳过此环节，直接查看结果")
+        st++
         going result
+        }  
     }
-
 }
 
 state result {
@@ -144,22 +148,25 @@ state result {
     }
     ts++
     drrr.print("结果：\n队长：" + key + "\n队友：" + ak + "  " + ar + "\n间谍：" + bk + "  " + br)
-    if (as == 2 || bs == 2 || ts == 8) then {
-        later 2000 drrr.print("最终分数为：\n队友：-" + as + "分\n间谍：" + bs + "分")
-        later 4000 drrr.print("游戏结束,本次游戏共进行" + ts + "轮\n" + "密码表：" + word)
+    if (as == 2 ) then {
+        later 2000 drrr.print("队友猜错两次，游戏结束,间谍获胜，本次游戏共进行" + ts + "轮\n" + "密码表：" + word)
+    }else if (bs == 1) then {
+        later 4000 drrr.print("间谍猜对一次，游戏结束,间谍获胜，本次游戏共进行" + ts + "轮\n" + "密码表：" + word)
+    }else if ((as==0 && ts == 5) || (as==1 && ts == 6)) then {
+        later 4000 drrr.print("队友成功接收5次密电，游戏结束,解密队获胜，本次游戏共进行" + ts + "轮\n" + "密码表：" + word)
     }else {
         q = roles.findIndex(x => x == 0)
         p = roles.findIndex(x => x == 1)
         roles[q] = 1
         roles[p] = 0
         later 5* 1000 drrr.print("/me 队长队友互换身份，@" + players[roles.findIndex(x => x == 0)] + "成为队长")
+        later 7* 1000 drrr.dm(players[roles.findIndex(x => x == 2)], his.map((x, i) => (i + 1) + ":" + x.join(" ")).join("\n"))
         later 10* 1000 going hide
     }
 }
 
 event[msg, me, dm](user, cont: "^/密码$") => {
-    if players.includes(user) && !(user == players[roles.findIndex(x => x == 2)]) then
-    drrr.dm(user, "密码表：" + word)
+    if players.includes(user) && !(user == players[roles.findIndex(x => x == 2)]) then  drrr.dm(user, "密码表：" + word)
     else   drrr.print("/me @" + user + " 您不是队长或队员")
 }
 event[msg, me, dm](user, cont: "^/分数$") => drrr.print("当前分数为：\n队友：-" + as + "分\n间谍：" + bs + "分")

@@ -92,16 +92,16 @@ state hide {
     key = str(keys[0]) + str(keys[1]) + str(keys[2])
     drrr.dm(players[i], "本次口令为：" + key)
     drrr.dm(players[t], his.map((x, i) => (i + 1) + ":" + x.join(" ")).join("\n"))
-    event[msg, me](user:players[i], co(his.map((x, i) => (i + 1) + ":" + x.join(" ")).join("\n")nt: "^/线索\\s+\\S+\\s+\\S+\\s+\\S") => {
+    event[msg, me](user:players[i], cont: "^/线索\\s+\\S+\\s+\\S+\\s+\\S$") => {
         m = cont.replace("/线索", "").trim() 
-        a =[pre(m), pre(lst(m)), lst(lst(m))]
-        for (j = 0;j<4;j++){
-        for (k = 0; k < 4; k++) {
-            if key[j] == (k + 1) then his[k].push(a[j])
+        a = [pre(m),pre(lst(m)),lst(lst(m))]
+        for (j=0;j<4;j++){
+          for (k=0;k<4;k++){
+            if key[j]==(k+1) then his[k].push(a[j])
+          }
         }
+        going guess
     }
-    going guess
-}
 }
 
 state guess {

@@ -6,18 +6,14 @@ ak = "000"
 bk = "000"
 as = 0
 bs = 0
-ts = 0
+ts = 1
 st = 0
 his = [[], [], [], []]
+xs="无 无 无"
 players = []
 roles = [0, 1, 2]
 roleName = ["队长", "队员", "间谍"]
 
-announcement = "/me尚未开始游戏"
-announce = (msg) => {
-    announcement = msg
-    drrr.print(msg)
-}
 str = (s) => String(s)
 pre = (s) => s.slice(0, s.search("\\s")).trim()
 lst = (s) => s.slice(s.search("\\s")).trim()
@@ -39,9 +35,11 @@ state prepare {
     bk = "000"
     as = 0
     bs = 0
-    ts = 0
+    ts = 1
     st = 0
+    xs="无 无 无"
     his = [[], [], [], []]
+    event[msg, me, dm](user, cont: "^/s$") => drrr.print("/me准备阶段")
     event[msg, me](user, cont: "^\\+1$") => {
         if players.includes(user) then
         drrr.print("/me" + user + " 已经加入了")
@@ -68,18 +66,17 @@ state prepare {
         }
     else drrr.print("/me需满足 3 人, 目前 " + String(players.length) + "人")
     }
-    announce("/me 【截码战】游戏开始, [+1] 加入, [-1] 退出, [/p] 玩家, [/go] 开始 [/帮助] 帮助")
+    drrr.print("/me 【截码战】游戏开始, [+1] 加入, [-1] 退出, [/p] 玩家, [/go] 开始 [/命令] 命令列表")
 }
 
 state prelude {
     roles.sort(() => Math.random() - 0.5)
-    r = players.map((name, idx) => roleName[roles[idx]] + "：" + "@" + name).join("\n")
-    drrr.print("角色：\n" + r)
-    later 4000 announce("/me 请队长和队友查看本次游戏密码表，想再次查看请发送【/密码】")
+    drrr.print( "角色：\n队长:@" +players[roles.findIndex(x => x == 0)]+"\n队友:@"+players[roles.findIndex(x => x == 1)]+"\n间谍:@"+players[roles.findIndex(x => x == 2)])
+    later 4000 drrr.print("/me 请队长和队友查看本次游戏密码表，想再次查看请发送【/密码】")
     a = roles.findIndex(x => x == 0)
     b = roles.findIndex(x => x == 1)
     words = mess(words)
-    word = words.slice(0, 4).join(" ")
+    word = words.slice(0, 4).map((x,i)=> (i+1)+"."+x).join(" ")
     later 6000 drrr.dm(players[a], "密码表：\n" + word)
     later 6000 drrr.dm(players[b], "密码表：\n" + word)
     later  14* 1000 going hide
@@ -88,36 +85,36 @@ state prelude {
 
 state hide {
     keys = mess(keys)
-    announce("/me【第"+ts+"轮】请队长查看三位数字口令，并在公屏发送【/线索 线索1 线索2 线索3】")
+    drrr.print("/me【第"+ts+"轮】请队长@"+ players[roles.findIndex(x => x == 0)] +" 查看三位数字口令，并在公屏发送【/线索 线索1 线索2 线索3】，再次查看口令请回复【/口令】")
     i = roles.findIndex(x => x == 0)
     key = str(keys[0]) + str(keys[1]) + str(keys[2])
-    drrr.dm(players[i], "本次口令为：" + key)
-    event[msg, me](user:players[i], cont: "^/线索\\s+\\S+\\s+\\S+\\s+\\S$") => {
-        m = cont.replace("/线索", "").trim() 
-        a = [pre(m),pre(lst(m)),lst(lst(m))]
-        for (j=0;j<4;j++){
-          for (k=0;k<4;k++){
-            if key[j]==(k+1) then his[k].push(a[j])
-          }
-        }
+    drrr.dm(players[i], "本次口令为：" + key+"\n" + word)
+    event[msg, me, dm](user, cont: "^/s$") => drrr.print("/me队长@"+ players[roles.findIndex(x => x == 0)] +" 请给出线索")
+    event[msg, me](user:players[i], cont: "^/口令") => drrr.dm(players[i], "本次口令为：" + key+"\n" + word)
+    event[msg, me](user:players[i], cont: "^/线索\\s+\\S+\\s+\\S+\\s+\\S+\\s*$") => {
+        xs = cont.replace("/线索", "").trim() 
         going guess
     }
 }
 
 state guess {
-    announce("/me请队员和间谍开始解密，私信我三位数字口令（由1-4中的数字组成），队员可以发送【/skip】跳过这一环节（只有两次机会，且只能在第1-4轮使用）")
+    drrr.print("/me请队员和间谍开始解密，私信我三位数字口令（由1-4中的数字组成，不能有空格），队员可以发送【/skip】跳过这一环节（只有两次机会，且只能在第1-4轮使用）")
     a = roles.findIndex(x => x == 1)
     b = roles.findIndex(x => x == 2)
     ak = 0
     bk = 0
+    drrr.dm(players[a], "密码表:\n" + word)
+    event[msg, me, dm](user, cont: "^/s$") => drrr.print("/me队员及间谍解密阶段")
     event dm (user:players[a], cont:"^[1-4]{3}$") => {
         ak = cont
         drrr.dm(user, "你提交的口令是：" + ak)
+        drrr.print("/me队员已提交口令")
         if !(ak == 0 || bk == 0) then going result
     }
     event dm (user:players[b], cont:"^[1-4]{3}$") => {
         bk = cont
         drrr.dm(user, "你提交的口令是：" + bk)
+        drrr.print("/me间谍已提交口令")
         if !(ak == 0 || bk == 0) then going result
     }
     event[msg, me](user:players[a], cont:"^/skip") => {
@@ -146,19 +143,25 @@ state result {
         bs++
         br += " +1分"
     }
-    ts++
     drrr.print("结果：\n队长：" + key + "\n队友：" + ak + "  " + ar + "\n间谍：" + bk + "  " + br)
+    a = [pre(xs),pre(lst(xs)),lst(lst(xs))]
+        for (j=0;j<4;j++){
+          for (k=0;k<4;k++){
+            if key[j]==(k+1) then his[k].push(a[j])
+          }
+        }
     if (as == 2 ) then {
-        later 2000 drrr.print("队友猜错两次，游戏结束,间谍获胜，本次游戏共进行" + ts + "轮\n" + "密码表：" + word)
+        later 2000 drrr.print("队友猜错两次，游戏结束,间谍获胜，本次游戏共进行" + ts + "轮\n" + "密码表：\n" + word)
     }else if (bs == 1) then {
-        later 4000 drrr.print("间谍猜对一次，游戏结束,间谍获胜，本次游戏共进行" + ts + "轮\n" + "密码表：" + word)
+        later 4000 drrr.print("间谍猜对一次，游戏结束,间谍获胜，本次游戏共进行" + ts + "轮\n" + "密码表：\n" + word)
     }else if ((as==0 && ts == 5) || (as==1 && ts == 6)) then {
-        later 4000 drrr.print("队友成功接收5次密电，游戏结束,解密队获胜，本次游戏共进行" + ts + "轮\n" + "密码表：" + word)
+        later 4000 drrr.print("队友成功接收5次密电，游戏结束,解密队获胜，本次游戏共进行" + ts + "轮\n" + "密码表：\n" + word)
     }else {
         q = roles.findIndex(x => x == 0)
         p = roles.findIndex(x => x == 1)
         roles[q] = 1
         roles[p] = 0
+        ts++
         later 5* 1000 drrr.print("/me 队长队友互换身份，@" + players[roles.findIndex(x => x == 0)] + "成为队长")
         later 7* 1000 drrr.dm(players[roles.findIndex(x => x == 2)], his.map((x, i) => (i + 1) + ":" + x.join(" ")).join("\n"))
         later 10* 1000 going hide
@@ -166,13 +169,14 @@ state result {
 }
 
 event[msg, me, dm](user, cont: "^/密码$") => {
-    if players.includes(user) && !(user == players[roles.findIndex(x => x == 2)]) then  drrr.dm(user, "密码表：" + word)
+    if players.includes(user) && !(user == players[roles.findIndex(x => x == 2)]) then  drrr.dm(user, "密码表：\n" + word)
     else   drrr.print("/me @" + user + " 您不是队长或队员")
 }
+event[msg, me, dm](user, cont: "^/r$") =>  drrr.print( "角色：\n队长:@" +players[roles.findIndex(x => x == 0)]+"\n队友:@"+players[roles.findIndex(x => x == 1)]+"\n间谍:@"+players[roles.findIndex(x => x == 2)])
 event[msg, me, dm](user, cont: "^/分数$") => drrr.print("当前分数为：\n队友：-" + as + "分\n间谍：" + bs + "分")
 event[msg, me, dm](user, cont: "^/记录$") => drrr.print(his.map((x, i) => (i + 1) + ":" + x.join(" ")).join("\n"))
-event[msg, me, dm](user, cont: "^/帮助$") => {
-    drrr.print("/帮助 帮助\n/密码 查看密码表\n/记录 线索记录\n/p 当前玩家\n/分数 当前分数\n/game 开始报名（如有游戏则重开）")
+event[msg, me, dm](user, cont: "^/命令$") => {
+    drrr.print("/命令 本列表\n/密码 查看密码表\n/记录 线索记录\n/p 当前玩家\n/s 当前阶段\n/r 当前角色\n/分数 当前分数\n/game 开始报名（如有游戏则重开）")
 }
 event[msg, me](user, cont: "^/game$") => going prepare
 going prepare

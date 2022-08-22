@@ -9,7 +9,7 @@ bs = 0
 ts = 1
 st = 0
 his = [[], [], [], []]
-xs="无 无 无"
+xs="无"
 players = []
 roles = [0, 1, 2]
 roleName = ["队长", "队员", "间谍"]
@@ -37,7 +37,7 @@ state prepare {
     bs = 0
     ts = 1
     st = 0
-    xs="无 无 无"
+    xs="无"
     his = [[], [], [], []]
     event[msg, me, dm](user, cont: "^/s$") => drrr.print("/me准备阶段")
     event[msg, me](user, cont: "^\\+1$") => {

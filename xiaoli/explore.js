@@ -20,7 +20,7 @@ explorers = []
 resters = []
 ts = 1
 day = 1
-wt = 20
+wt = 15
 
 
 pz = () => {
@@ -96,11 +96,11 @@ state prepare {
 
 state prelude {
     if player.length > 0 then  {
-        day=1
+        day = 1
         card = ccards.concat(tcard, ucard)
         card.push(rcard.shift())
         card = mess(card)
-        drrr.print("/me【冒险第" + ts + "轮】  出发！")
+        drrr.print("/me【冒险第" + ts + "次】  出发！")
         explorers = player.map(x => x)
         resters = []
         tcd = []
@@ -118,12 +118,12 @@ state explore {
             tcard.splice(tcard.findIndex(x => x.name == cd.name), 1)
             explorers.forEach(x => x.bag = 0)
             chk = true
-            drrr.print("/me冒险第" + ts + "轮第"+day+"天【遭遇 " + cd.name + "】\t又遇到了这个陷阱！！冒险者们仓皇而逃！不惜丢下了身上所有金币，该卡牌已移除牌组。"
-                + "想要返回营地的冒险者请发送【/返回】，" + wt + "秒后将继续冒险")
+            drrr.print("/me冒险第" + ts + "次第" + day + "天【遭遇 " + cd.name + "】\t又遇到了这个陷阱！！冒险者们仓皇而逃！不惜丢下了身上所有金币，该卡牌已移除牌组。")
+            card.forEach(x => if x.kind == "relic" then ucard.push(x))
             ucard = ucard.concat(public.relic)
         }else{
             tcd.push(cd)
-            drrr.print("/me冒险第" + ts + "轮第"+day+"天【遭遇 " + cd.name + "】\t幸好本轮第一次遭遇该陷阱，无人伤亡。"
+            drrr.print("/me冒险第" + ts + "次第" + day + "天【遭遇 " + cd.name + "】\t幸好本次第一次遭遇该陷阱，无人伤亡。"
                 + "想要返回营地的冒险者请发送【/返回】，" + wt + "秒后将继续冒险")
         }
     }else{
@@ -132,11 +132,11 @@ state explore {
             b = cd.amt - a * explorers.length
             explorers.forEach(x => x.bag += a)
             public.coin += b
-            drrr.print("/me冒险第" + ts + "轮第"+day+"天【找到金币 " + cd.amt + "】\t每人分得到" + a + "金币，余下的" + b + "金币将存入公共区保管。"
+            drrr.print("/me冒险第" + ts + "次第" + day + "天【找到金币 " + cd.amt + "】\t每人分得到" + a + "金币，余下的" + b + "金币将存入公共区保管。"
                 + "想要返回营地的冒险者请发送【/返回】，" + wt + "秒后将继续冒险")
         }else{
             public.relic.push(cd)
-            drrr.print("/me冒险第" + ts + "轮第"+day+"天【找到神器 " + cd.name + "】\t已存入公共区保管。"
+            drrr.print("/me冒险第" + ts + "次第" + day + "天【找到神器 " + cd.name + "】\t已存入公共区保管。"
                 + "想要返回营地的冒险者请发送【/返回】，" + wt + "秒后将继续冒险")
         }
     }
@@ -175,10 +175,12 @@ state choose{
             public.relic.forEach(x => c += x.coin)
             resters[0].coin += c
             drrr.print("/me" + "@" + resters[0].name + " 带走了神器" + public.relic.map(x => "【" + x.name + "】").join("") + "获得" + c + "金币")
+            public.relic = []
         }
         resters = []
     }
     if explorers.length == 0 then{
+        card.forEach(x => if x.kind == "relic" then ucard.push(x))
         later 2* 1000 drrr.print("/me冒险者们都已回到营地")
         if ts== 5 then {
             going result
@@ -191,7 +193,7 @@ state choose{
         event[msg, me](user, cont: "^/冒险$") => {
             if  explorers.some(x => x.name == user) then {
                 day++
-going explore
+                going explore
             } 
     else   drrr.print("/me @" + user + " 您不是冒险者")
         }

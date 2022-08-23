@@ -124,7 +124,7 @@ state explore {
         }else{
             tcd.push(cd)
             drrr.print("/me冒险第" + ts + "次第" + day + "天【遭遇 " + cd.name + "】\t幸好本次第一次遭遇该陷阱，无人伤亡。"
-                + "想要返回营地的冒险者请发送【/返回】，" + wt + "秒后将继续冒险")
+                + "想要返回营地的冒险者请私信我【/返回】，" + wt + "秒后将继续冒险")
         }
     }else{
         if cd.kind == "coin" then {
@@ -133,15 +133,15 @@ state explore {
             explorers.forEach(x => x.bag += a)
             public.coin += b
             drrr.print("/me冒险第" + ts + "次第" + day + "天【找到金币 " + cd.amt + "】\t每人分得到" + a + "金币，余下的" + b + "金币将存入公共区保管。"
-                + "想要返回营地的冒险者请发送【/返回】，" + wt + "秒后将继续冒险")
+                + "想要返回营地的冒险者请私信我【/返回】，" + wt + "秒后将继续冒险")
         }else{
             public.relic.push(cd)
             drrr.print("/me冒险第" + ts + "次第" + day + "天【找到神器 " + cd.name + "】\t已存入公共区保管。"
-                + "想要返回营地的冒险者请发送【/返回】，" + wt + "秒后将继续冒险")
+                + "想要返回营地的冒险者请私信我【/返回】，" + wt + "秒后将继续冒险")
         }
     }
     pz()
-    event[msg, me, dm](user, cont: "^/返回$") => {
+    event dm (user, cont: "^/返回$") => {
         n = explorers.findIndex(x => x.name == user)
         if n>= 0 then {
             resters = resters.concat(explorers.splice(n, 1))
@@ -189,7 +189,7 @@ state choose{
             later 5* 1000 going prelude
         }
     }else{
-        later 2* 1000 drrr.print("/me发送【/冒险】让我们一起继续冒险！")
+        later 2* 1000 drrr.print("/me私信我【/冒险】让我们一起继续冒险！")
         event[msg, me](user, cont: "^/冒险$") => {
             if  explorers.some(x => x.name == user) then {
                 day++

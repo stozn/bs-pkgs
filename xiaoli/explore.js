@@ -106,7 +106,7 @@ state prelude {
         tcd = []
         public = { coin: 0, relic: [] }
         later  4* 1000 going explore
-    }
+    }else going prepare
 }
 
 

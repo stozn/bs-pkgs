@@ -19,6 +19,7 @@ player = []
 explorers = []
 resters = []
 ts = 1
+day = 1
 wt = 20
 
 
@@ -54,6 +55,7 @@ state prepare {
     explorers = []
     resters = []
     ts = 1
+    day = 1
     event[msg, me](user, cont: "^/休息\\s+\\d+$") => {
         n = parseInt(cont.replace("/休息", "").trim())
         if n< 5 || n > 60 then drrr.print("/me 休息时间只能在5-60秒内")
@@ -94,6 +96,7 @@ state prepare {
 
 state prelude {
     if player.length > 0 then  {
+        day=1
         card = ccards.concat(tcard, ucard)
         card.push(rcard.shift())
         card = mess(card)
@@ -115,12 +118,12 @@ state explore {
             tcard.splice(tcard.findIndex(x => x.name == cd.name), 1)
             explorers.forEach(x => x.bag = 0)
             chk = true
-            drrr.print("/me冒险第" + ts + "轮【遭遇 " + cd.name + "】\t又遇到了这个陷阱！！冒险者们仓皇而逃！不惜丢下了身上所有金币，该卡牌已移除牌组。"
+            drrr.print("/me冒险第" + ts + "轮第"+day+"天【遭遇 " + cd.name + "】\t又遇到了这个陷阱！！冒险者们仓皇而逃！不惜丢下了身上所有金币，该卡牌已移除牌组。"
                 + "想要返回营地的冒险者请发送【/返回】，" + wt + "秒后将继续冒险")
             ucard = ucard.concat(public.relic)
         }else{
             tcd.push(cd)
-            drrr.print("/me冒险第" + ts + "轮【遭遇 " + cd.name + "】\t幸好本轮第一次遭遇该陷阱，无人伤亡。"
+            drrr.print("/me冒险第" + ts + "轮第"+day+"天【遭遇 " + cd.name + "】\t幸好本轮第一次遭遇该陷阱，无人伤亡。"
                 + "想要返回营地的冒险者请发送【/返回】，" + wt + "秒后将继续冒险")
         }
     }else{
@@ -129,11 +132,11 @@ state explore {
             b = cd.amt - a * explorers.length
             explorers.forEach(x => x.bag += a)
             public.coin += b
-            drrr.print("/me冒险第" + ts + "轮【找到金币 " + cd.amt + "】\t每人分得到" + a + "金币，余下的" + b + "金币将存入公共区保管。"
+            drrr.print("/me冒险第" + ts + "轮第"+day+"天【找到金币 " + cd.amt + "】\t每人分得到" + a + "金币，余下的" + b + "金币将存入公共区保管。"
                 + "想要返回营地的冒险者请发送【/返回】，" + wt + "秒后将继续冒险")
         }else{
             public.relic.push(cd)
-            drrr.print("/me冒险第" + ts + "轮【找到神器 " + cd.name + "】\t已存入公共区保管。"
+            drrr.print("/me冒险第" + ts + "轮第"+day+"天【找到神器 " + cd.name + "】\t已存入公共区保管。"
                 + "想要返回营地的冒险者请发送【/返回】，" + wt + "秒后将继续冒险")
         }
     }
@@ -186,7 +189,10 @@ state choose{
     }else{
         later 2* 1000 drrr.print("/me发送【/冒险】让我们一起继续冒险！")
         event[msg, me](user, cont: "^/冒险$") => {
-            if  explorers.some(x => x.name == user) then  going explore
+            if  explorers.some(x => x.name == user) then {
+                day++
+going explore
+            } 
     else   drrr.print("/me @" + user + " 您不是冒险者")
         }
     }

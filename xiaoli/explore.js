@@ -76,7 +76,7 @@ resters=[]
             players.forEach(x=> player.push({name:x,bag:0,coin:0}))
             going prelude
     }
-    drrr.print("/me 【冒险】游戏开始, [+1] 加入, [-1] 退出, [/p] 玩家, [/go] 开始 [/指令] 指令列表")
+    drrr.print("/me 【冒险】游戏开始, [+1] 加入, [-1] 退出, [/p] 玩家, [/go] 开始 ,[/休息 秒数] 设置休息时长,[/指令] 指令列表")
 }
 
 state prelude {
@@ -186,7 +186,7 @@ event[msg, me, dm](user, cont: "^/财富$") => {
 event[msg, me, dm](user, cont: "^/冒险者$") => drrr.print("正在冒险中的有：\n" +explorers.map((x,i)=> (i+1)+".@"+x.name).join("\n"))
 event[msg, me, dm](user, cont: "^/公共区$") => drrr.print("公共区\n金币：" +public.coin+"\n神器：【"+public.relic.map(x => x.name).join("】【")+"】")
 event[msg, me, dm](user, cont: "^/帮助$") => {
-    drrr.print("/指令 本列表\n/冒险者 查看当前冒险者/休息 秒数 设置休息时长\n/公共区 查看公共区域\n/p 当前玩家\n/财富 查看个人财富\n/game 开始报名（如有游戏则重开）")
+    drrr.print("/指令 本列表\n/冒险者 查看当前冒险者\n/公共区 查看公共区域\n/p 当前玩家\n/财富 查看个人财富\n/game 开始报名（如有游戏则重开）")
 }
 event[msg, me](user, cont: "^/game$") => going prepare
 going prepare

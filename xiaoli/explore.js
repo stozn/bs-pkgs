@@ -56,14 +56,7 @@ state prepare {
     resters = []
     ts = 1
     day = 1
-    event[msg, me](user, cont: "^/休息\\s+\\d+$") => {
-        n = parseInt(cont.replace("/休息", "").trim())
-        if n< 5 || n > 60 then drrr.print("/me 休息时间只能在5-60秒内")
-    else {
-            wt = n
-            drrr.print("/me 等待时间已设置为" + wt + "秒")
-        }
-    }
+
     event[msg, me](user, cont: "^\\+1$") => {
         if players.includes(user) then
         drrr.print("/me" + user + " 已经加入了")
@@ -213,8 +206,16 @@ event[msg, me, dm](user, cont: "^/财富$") => {
 event[msg, me, dm](user, cont: "^/冒险者$") => drrr.print("正在冒险中的有：\n" + explorers.map((x, i) => (i + 1) + ".@" + x.name).join("\n"))
 event[msg, me, dm](user, cont: "^/公共区$") => drrr.print("/me公共区\n金币：" + public.coin + "\t神器：【" + public.relic.map(x => x.name).join("】【") + "】")
 event[msg, me, dm](user, cont: "^/牌组$") => pz()
+event[msg, me](user, cont: "^/休息\\s+\\d+$") => {
+    n = parseInt(cont.replace("/休息", "").trim())
+    if n< 5 || n > 60 then drrr.print("/me 休息时间只能在5-60秒内")
+    else {
+        wt = n
+        drrr.print("/me 等待时间已设置为" + wt + "秒")
+    }
+}
 event[msg, me, dm](user, cont: "^/指令$") => {
-    drrr.print("/指令 本列表\n/冒险者 查看当前冒险者\n/公共区 查看公共区域\n/牌组 查看牌组信息\n/财富 查看个人财富\n/game 开始报名（如有游戏则重开）")
+    drrr.print("/指令 本列表\n/冒险者 查看当前冒险者\n/公共区 查看公共区域\n/牌组 查看牌组信息\n/财富 查看个人财富\n/休息 秒数 设置休息时长\n/game 开始报名（如有游戏则重开）")
 }
 event[msg, me](user, cont: "^/game$") => going prepare
 going prepare

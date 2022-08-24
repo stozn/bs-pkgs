@@ -13,7 +13,7 @@ tcard = []
 rcard = []
 ucard = []
 tcd = []
-public = { coin: 0, relic: [] }
+pub = { coin: 0, relic: [] }
 players = []
 player = []
 explorers = []
@@ -32,7 +32,7 @@ pz = () => {
     else if x.kind == "relic" then b++
     else c++
     })
-    drrr.print("/me陷阱卡已出现" + tcd.length + "张，金币卡有" + a + "张，陷阱卡有" + c + "张，神器卡有" + b + "张\t公共区金币：" + public.coin + "\t神器：【" + public.relic.map(x => x.name).join("】【") + "】")
+    drrr.print("/me陷阱卡已出现" + tcd.length + "张，金币卡有" + a + "张，陷阱卡有" + c + "张，神器卡有" + b + "张\t公共区金币：" + pub.coin + "\t神器：【" + pub.relic.map(x => x.name).join("】【") + "】")
 }
 mess = (array) => {
     for m = array.length - 1; m > 0; m-- {
@@ -49,7 +49,7 @@ state prepare {
     rcard = mess(rcards)
     ucard = []
     tcd = []
-    public = { coin: 0, relic: [] }
+    pub = { coin: 0, relic: [] }
     players = []
     player = []
     explorers = []
@@ -98,7 +98,7 @@ state prelude {
         resters = []
         tcd = []
         ucard = []
-        public = { coin: 0, relic: [] }
+        pub = { coin: 0, relic: [] }
         later  2* 1000 going explore
     }else going prepare
 }
@@ -115,7 +115,7 @@ state explore {
                 chk = true
                 drrr.print("/me冒险第" + ts + "次第" + day + "天【遭遇 " + cd.name + "】\t又遇到了这个陷阱！！冒险者们仓皇而逃！不惜丢下了身上所有金币，该卡牌已移除牌组。")
                 card.forEach(x => if x.kind == "relic" then ucard.push(x))
-                ucard = ucard.concat(public.relic)
+                ucard = ucard.concat(pub.relic)
             }else{
                 tcd.push(cd)
                 drrr.print("/me冒险第" + ts + "次第" + day + "天【遭遇 " + cd.name + "】\t幸好本次第一次遭遇该陷阱，无人伤亡。"
@@ -126,11 +126,11 @@ state explore {
                 a = Math.floor(cd.amt / explorers.length)
                 b = cd.amt - a * explorers.length
                 explorers.forEach(x => x.bag += a)
-                public.coin += b
+                pub.coin += b
                 drrr.print("/me冒险第" + ts + "次第" + day + "天【找到金币 " + cd.amt + "】\t每人分得到" + a + "金币，余下的" + b + "金币将存入公共区保管。"
                     + "想要返回营地的冒险者请私信我【/返回】，" + wt + "秒后将继续冒险")
             }else{
-                public.relic.push(cd)
+                pub.relic.push(cd)
                 drrr.print("/me冒险第" + ts + "次第" + day + "天【找到神器 " + cd.name + "】\t已存入公共区保管。"
                     + "想要返回营地的冒险者请私信我【/返回】，" + wt + "秒后将继续冒险")
             }
@@ -159,20 +159,20 @@ state explore {
 state choose{
     if player.length > 0 then  {
         if resters.length > 0 then {
-            a = Math.floor(public.coin / resters.length)
-            public.coin = public.coin - a * resters.length
+            a = Math.floor(pub.coin / resters.length)
+            pub.coin = pub.coin - a * resters.length
             resters.forEach(x => {
                 x.coin += a
                 x.coin += x.bag
                 x.bag = 0
             })
-            drrr.print("/me" + resters.map(x => "@" + x.name).join(" ") + "返回了营地,获得公共区域的" + a + "金币，并带走了自己的金币,公共区剩余" + public.coin + "金币")
-            if resters.length == 1 && public.relic.length > 0　then {
+            drrr.print("/me" + resters.map(x => "@" + x.name).join(" ") + "返回了营地,获得公共区域的" + a + "金币，并带走了自己的金币,公共区剩余" + pub.coin + "金币")
+            if resters.length == 1 && pub.relic.length > 0　then {
                 c = 0
-                public.relic.forEach(x => c += x.coin)
+                pub.relic.forEach(x => c += x.coin)
                 resters[0].coin += c
-                drrr.print("/me" + "@" + resters[0].name + " 带走了神器" + public.relic.map(x => "【" + x.name + "】").join("") + "获得" + c + "金币")
-                public.relic = []
+                drrr.print("/me" + "@" + resters[0].name + " 带走了神器" + pub.relic.map(x => "【" + x.name + "】").join("") + "获得" + c + "金币")
+                pub.relic = []
             }
             resters = []
         }
@@ -206,7 +206,7 @@ event[msg, me, dm](user, cont: "^/财富$") => {
     else   drrr.print("/me @" + user + " 您不是玩家")
 }
 event[msg, me, dm](user, cont: "^/冒险者$") => drrr.print("正在冒险中的有：\n" + explorers.map((x, i) => (i + 1) + ".@" + x.name).join("\n"))
-event[msg, me, dm](user, cont: "^/公共区$") => drrr.print("/me公共区\n金币：" + public.coin + "\t神器：【" + public.relic.map(x => x.name).join("】【") + "】")
+event[msg, me, dm](user, cont: "^/公共区$") => drrr.print("/me公共区\n金币：" + pub.coin + "\t神器：【" + pub.relic.map(x => x.name).join("】【") + "】")
 event[msg, me, dm](user, cont: "^/牌组$") => pz()
 event[msg, me](user, cont: "^/休息\\s+\\d+$") => {
     n = parseInt(cont.replace("/休息", "").trim())

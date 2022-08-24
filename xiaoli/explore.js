@@ -211,7 +211,7 @@ event[msg, me](user, cont: "^/休息\\s+\\d+$") => {
     if n< 5 || n > 60 then drrr.print("/me 休息时间只能在5-60秒内")
     else {
         wt = n
-        drrr.print("/me 等待时间已设置为" + wt + "秒")
+        drrr.print("/me 休息时间已设置为" + wt + "秒")
     }
 }
 event[msg, me, dm](user, cont: "^/指令$") => {

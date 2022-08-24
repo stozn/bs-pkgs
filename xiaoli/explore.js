@@ -180,7 +180,7 @@ state choose{
             card.forEach(x => if x.kind == "relic" then ucard.push(x))
             later 2* 1000 drrr.print("/me冒险者们都已回到营地")
             if ts== 5 then {
-                going result
+                later 3* 1000 going result
             }else {
                 ts++
                 later 5* 1000 going prelude

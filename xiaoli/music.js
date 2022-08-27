@@ -1,4 +1,4 @@
-API = "https://drrr-xiaoli-163.vercel.app"
+API = "https://ncm.icodeq.com"
 mid=[]
 songs=[]
 admins=["OG0OPFxOFw","Ancy.WWeeo",".bLVj9fdOM","unica/qOLU","YtIMnsXOBE"]   //设置管理员

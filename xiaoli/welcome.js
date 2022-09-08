@@ -1,4 +1,4 @@
-admins = ["OG0OPFxOFw", "Ancy.WWeeo", ".bLVj9fdOM", "unica/qOLU", "YtIMnsXOBE"]   //设置管理员
+admins = ["OG0OPFxOFw", "Ancy.WWeeo", ".bLVj9fdOM", "unica/qOLU", "YtIMnsXOBE","vJEPoEPHsA"]   //设置管理员
 notices = JSON.parse(localStorage["notices"])
 msgs = JSON.parse(localStorage["msgs"])
 emoji = JSON.parse(localStorage["emoji"])

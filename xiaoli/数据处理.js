@@ -56,7 +56,6 @@ console.log(JSON.stringify(users))
 //宠物系统
 
 //生成宠物
-
 pets = []
 
 function rand(a, b) {
@@ -83,23 +82,31 @@ for (t = 0; t < 100; t++) {
 
 //模拟战斗
 //公式在这改
-f1 = (l, a, d, v) => l + 5 * a + 4 * d + 1 * v
-f2 = (l, a, d, v) => 0.2 * l + 1.5 * a + d + 0.2 * v
-f3 = (l, a, d, v) => 0.15 * l + 1.5 * a + d + 0.2 * v
-f4 = (l, a, d, v) => 0.2 * l + 1.6 * a + d + 0.2 * v
+ll=1
+aa=5
+dd=4
+x=0.05
+f1 = (l, a, d, v) => l*(ll+x)+a*aa+d*dd+v
+f2 = (l, a, d, v) => l*(ll-x)+a*aa+d*dd+v
+f3 = (l, a, d, v) => l*ll+a*(aa+x)+d*dd+v
+f4 = (l, a, d, v) => l*ll+a*(aa-x)+d*dd+v
+f5 = (l, a, d, v) => l*ll+a*aa+d*(dd+x)+v
+f6 = (l, a, d, v) => l*ll+a*aa+d*(dd-x)+v
 
-pets = pets.map((x) => {
-    return { life: x.life, att: x.att, def: x.def, speed: x.speed, ce: f1(x.life, x.att, x.def, x.speed) }
-})
+
 g1 = 0
 g2 = 0
 g3 = 0
 g4 = 0
+g5 = 0
+g6 = 0
 
 d1 = 0
 d2 = 0
 d3 = 0
 d4 = 0
+d5 = 0
+d6 = 0
 
 jg = (w) => {
     if (w) {
@@ -107,11 +114,15 @@ jg = (w) => {
         if (f2(xlife, xa, xd, xv) > f2(ylife, ya, yd, yv)) { g2++ } else { d2 += (f2(ylife, ya, yd, yv) - f2(xlife, xa, xd, xv)) / f2(100, 50, 20, 10) }
         if (f3(xlife, xa, xd, xv) > f3(ylife, ya, yd, yv)) { g3++ } else { d3 += (f3(ylife, ya, yd, yv) - f3(xlife, xa, xd, xv)) / f3(100, 50, 20, 10) }
         if (f4(xlife, xa, xd, xv) > f4(ylife, ya, yd, yv)) { g4++ } else { d4 += (f4(ylife, ya, yd, yv) - f4(xlife, xa, xd, xv)) / f4(100, 50, 20, 10) }
+        if (f5(xlife, xa, xd, xv) > f5(ylife, ya, yd, yv)) { g5++ } else { d5 += (f5(ylife, ya, yd, yv) - f5(xlife, xa, xd, xv)) / f5(100, 50, 20, 10) }
+        if (f6(xlife, xa, xd, xv) > f6(ylife, ya, yd, yv)) { g6++ } else { d6 += (f6(ylife, ya, yd, yv) - f6(xlife, xa, xd, xv)) / f6(100, 50, 20, 10) }
     } else {
         if (f1(xlife, xa, xd, xv) < f1(ylife, ya, yd, yv)) { g1++ } else { d1 += (f1(xlife, xa, xd, xv) - f1(ylife, ya, yd, yv)) / f1(100, 50, 20, 10) }
         if (f2(xlife, xa, xd, xv) < f2(ylife, ya, yd, yv)) { g2++ } else { d2 += (f2(xlife, xa, xd, xv) - f2(ylife, ya, yd, yv)) / f2(100, 50, 20, 10) }
         if (f3(xlife, xa, xd, xv) < f3(ylife, ya, yd, yv)) { g3++ } else { d3 += (f3(xlife, xa, xd, xv) - f3(ylife, ya, yd, yv)) / f3(100, 50, 20, 10) }
         if (f4(xlife, xa, xd, xv) < f4(ylife, ya, yd, yv)) { g4++ } else { d4 += (f4(xlife, xa, xd, xv) - f4(ylife, ya, yd, yv)) / f4(100, 50, 20, 10) }
+        if (f5(xlife, xa, xd, xv) < f5(ylife, ya, yd, yv)) { g5++ } else { d5 += (f5(xlife, xa, xd, xv) - f5(ylife, ya, yd, yv)) / f5(100, 50, 20, 10) }
+        if (f6(xlife, xa, xd, xv) < f6(ylife, ya, yd, yv)) { g6++ } else { d6 += (f6(xlife, xa, xd, xv) - f6(ylife, ya, yd, yv)) / f6(100, 50, 20, 10) }
     }
 
 }
@@ -158,17 +169,44 @@ bat = (x, y) => {
     }
 }
 
-
-ts = 100      //100是运行次数，也就是公式满分
-
-for (t = 0; t < ts; t++) {
+tx = 20
+ts = 200      //100是运行次数，也就是公式满分
+for(i=0;i<tx;i++){
+    g1 = 0
+    g2 = 0
+    g3 = 0
+    g4 = 0
+    g5 = 0
+    g6 = 0
+    d1 = 0
+    d2 = 0
+    d3 = 0
+    d4 = 0
+    d5 = 0
+    d6 = 0
+    
+    for (t = 0; t < ts; t++){
     c = rand(0, 99)
     u = rand(0, 99)
     bat(pets[c], pets[u])
+    }
+    
+    s1=g1/ts-d1/(ts-g1)
+    s2=g2/ts-d2/(ts-g2)
+    s3=g3/ts-d3/(ts-g3)
+    s4=g4/ts-d4/(ts-g4)
+    s5=g5/ts-d5/(ts-g5)
+    s6=g6/ts-d6/(ts-g6)
+   
 
+    
+    q=[s1,s2,s3,s4,s5,s6].findIndex(x=> x==Math.max(s1,s2,s3,s4,s5,s6))+1
+    q==1 && ll++
+    q==2 && ll--
+    q==3 && aa++
+    q==4 && aa--
+    q==5 && dd++
+    q==6 && dd--
 }
 
-console.log("1.正确率  " + g1 + "  平均差值  " + Math.floor(d1 / (ts - g1) * 1000));
-console.log("2.正确率  " + g2 + "  平均差值  " + Math.floor(d2 / (ts - g2) * 1000));
-console.log("3.正确率  " + g3 + "  平均差值  " + Math.floor(d3 / (ts - g3) * 1000));
-console.log("4.正确率  " + g4 + "  平均差值  " + Math.floor(d4 / (ts - g4) * 1000));
+console.log("结果:\n"+ll+"\t"+aa+"\t"+dd)

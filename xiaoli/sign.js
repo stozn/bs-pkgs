@@ -2,6 +2,7 @@
 users = JSON.parse(localStorage["users"])
 input = []
 seq = 1
+API="https://v1.hitokoto.cn/?encode=json?c=a&c=b&c=d&c=i&c=k"
 //干杯
 ckd = false
 drd = 0
@@ -304,6 +305,11 @@ event[msg, me, dm](user, cont: "^/签到$") => {
         }
         seq++
         drrr.print(dh)
+        $.get(API, d => {
+            hitokoto= d.hitokoto
+            from=d.from
+            drrr.print("一言:"+hitokoto+"  ——"+from)
+        })
     } else { drrr.print("/me @" + users[n].name + " 今天已经签过到了，明天记得继续来签到哦") }
 }
 //全服奖励

@@ -1152,7 +1152,7 @@ event[msg, me, dm](user, cont: "^/挑战\\s+\\S") => {
     if (n == (-1)) then {
         drrr.print("/me @" + user + " 您的tc与已有的用户不匹配")
     } else if afg then {
-        drrr.dm(user, "@" + users[n].name + " 一场挑战正在进行中，请等待其结束")
+        drrr.print("/me @" + users[n].name + " 一场挑战正在进行中，请等待其结束")
     } else if (m == (-1)) then {
         drrr.dm(user, "@" + users[n].name + " 您挑战的用户【" + tou + "】不存在，请检查输入是否为对方【用户名】（可使用查找功能）")
     } else if (users[m].pet.length == 0) then {

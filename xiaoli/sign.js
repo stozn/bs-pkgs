@@ -2,14 +2,14 @@
 users = JSON.parse(localStorage["users"])
 input = []
 seq = 1
-API="https://v1.hitokoto.cn/?encode=json?c=a&c=b&c=d&c=i&c=k"
+API = "https://v1.hitokoto.cn/?encode=json?c=a&c=b&c=d&c=i&c=k"
 //干杯
 ckd = false
 drd = 0
 tcn = 0
 drk = []
 //商店
-goods = [{ name: "MG-红包", price: 5 }, { name: "MG-精灵球", price: 50 }, { name: "MG-宠物干粮", price: 5 }, { name: "MG-挑战卡", price: 30 }, { name: "MG-树苗", price: 100 }, { name: "MG-一本满足", price: 400 }, { name: "MG-水", price: 10 }, { name: "MG-刮刮乐", price: 10 }, { name: "MG-奖券", price: 10 }, { name: "鲜榨果汁", price: 5 }, { name: "可乐", price: 4 }]
+goods = [{ name: "MG-红包", price: 5 }, { name: "MG-精灵球", price: 50 }, { name: "MG-召唤球", price: 5 }, { name: "MG-宠物干粮", price: 5 }, { name: "MG-挑战卡", price: 30 }, { name: "MG-树苗", price: 100 }, { name: "MG-一本满足", price: 400 }, { name: "MG-水", price: 10 }, { name: "MG-刮刮乐", price: 10 }, { name: "MG-奖券", price: 10 }, { name: "鲜榨果汁", price: 5 }, { name: "可乐", price: 4 }]
 market = JSON.parse(localStorage["market"])
 //彩票数据
 lottery = JSON.parse(localStorage["lottery"])
@@ -22,7 +22,104 @@ ybt = []
 //奖励数据
 award = []
 //宠物数据
+pets = [{ name: "墨海马", type: "水", weakness: "草", status: 1, stage: 2, exp: 60, bao: 30, life: 70, att: 15, pname: "海刺龙", plife: 90, patt: 35 },
+{ name: "阿罗拉穿山鼠", type: "水", weakness: "钢", status: 1, stage: 2, exp: 60, bao: 20, life: 60, att: 30, pname: "阿罗拉穿山王", plife: 110, patt: 50 },
+{ name: "呆呆兽", type: "水", weakness: "草", status: 1, stage: 2, exp: 60, bao: 50, life: 70, att: 10, pname: "呆呆王", plife: 120, patt: 60 },
+{ name: "鲤鱼王", type: "水", weakness: "电", status: 1, stage: 2, exp: 60, bao: 10, life: 30, att: 10, pname: "暴鲤龙", plife: 150, patt: 160 },
+{ name: "急冻鸟GX", type: "水", weakness: "钢", status: 1, stage: 1, exp: 100, bao: 5, life: 170, att: 130 },
+{ name: "盖欧卡", type: "水", weakness: "草", status: 1, stage: 1, exp: 50, bao: 5, life: 130, att: 120 },
+{ name: "呱呱泡蛙", type: "水", weakness: "草", status: 1, stage: 3, exp: 100, bao: 20, life: 50, att: 20, pname: "呱头蛙", plife: 80, patt: 20, ppname: "甲贺忍蛙GX", pplife: 230, ppatt: 110 },
+
+{ name: "咩利羊", type: "电", weakness: "斗", status: 1, stage: 3, exp: 100, bao: 20, life: 50, att: 20, pname: "茸茸羊", plife: 80, patt: 40, ppname: "电龙", pplife: 150, ppatt: 100 },
+{ name: "闪电鸟", type: "电", weakness: "电", status: 1, stage: 1, exp: 60, bao: 15, life: 110, att: 70 },
+{ name: "雷公", type: "电", weakness: "电", status: 1, stage: 1, exp: 60, bao: 35, life: 120, att: 30 },
+{ name: "霹雳电球", type: "电", weakness: "斗", status: 1, stage: 2, exp: 100, bao: 50, life: 50, att: 20, pname: "顽皮雷弹", plife: 190, patt: 80 },
+{ name: "阿罗拉小拳石", type: "电", weakness: "斗", status: 1, stage: 3, exp: 100, bao: 20, life: 60, att: 20, pname: "阿罗拉隆隆石", plife: 100, patt: 100, ppname: "阿罗拉隆隆岩", pplife: 160, ppatt: 150 },
+{ name: "强颚鸡母虫", type: "电", weakness: "斗", status: 1, stage: 3, exp: 100, bao: 5, life: 70, att: 20, pname: "虫电宝", plife: 90, patt: 50, ppname: "锹农炮虫GX", pplife: 240, ppatt: 180 },
+{ name: "帕奇利兹", type: "电", weakness: "斗", status: 1, stage: 1, exp: 60, bao: 35, life: 70, att: 25 },
+{ name: "电飞鼠", type: "电", weakness: "电", status: 1, stage: 1, exp: 60, bao: 35, life: 60, att: 30 },
+{ name: "皮卡丘", type: "电", weakness: "斗", status: 1, stage: 2, exp: 100, bao: 30, life: 60, att: 20, pname: "雷丘", plife: 80, patt: 130 },
+
+{ name: "阿罗拉臭泥", type: "超", weakness: "超", status: 1, stage: 2, exp: 80, bao: 10, life: 80, att: 30, pname: "阿罗拉臭臭泥", plife: 120, patt: 45 },
+{ name: "骑拉蒂纳", type: "超", weakness: "恶", status: 1, stage: 1, exp: 50, bao: 0, life: 130, att: 60 },
+{ name: "迷拟丘", type: "超", weakness: "无", status: 1, stage: 1, exp: 70, bao: 40, life: 70, att: 20 },
+{ name: "卡噗·蝶蝶", type: "超", weakness: "超", status: 1, stage: 1, exp: 70, bao: 50, life: 110, att: 20 },
+{ name: "超梦GX", type: "超", weakness: "超", status: 1, stage: 1, exp: 40, bao: 10, life: 100, att: 200 },
+{ name: "好坏星", type: "超", weakness: "超", status: 1, stage: 2, exp: 60, bao: 20, life: 60, att: 10, pname: "超坏星GX", plife: 210, patt: 150 },
+
+{ name: "小小象", type: "斗", weakness: "草", status: 1, stage: 2, exp: 100, bao: 40, life: 70, att: 10, pname: "顿甲", plife: 130, patt: 70 },
+{ name: "岩狗狗", type: "斗", weakness: "草", status: 1, stage: 2, exp: 100, bao: 10, life: 50, att: 30, pname: "鬃岩狼人GX", plife: 200, patt: 120 },
+{ name: "投掷猴", type: "斗", weakness: "超", status: 1, stage: 1, exp: 80, bao: 0, life: 110, att: 40 },
+{ name: "圆陆鲨", type: "斗", weakness: "草", status: 1, stage: 3, exp: 100, bao: 30, life: 50, att: 10, pname: "尖牙陆鲨", plife: 80, patt: 40, ppname: "烈咬陆鲨", pplife: 150, ppatt: 100 },
+{ name: "利欧路", type: "斗", weakness: "草", status: 1, stage: 3, exp: 100, bao: 20, life: 70, att: 10, pname: "路卡利欧", plife: 110, patt: 70, ppname: "路卡利欧GX", pplife: 210, ppatt: 130 },
+{ name: "爆肌蚊", type: "斗", weakness: "超", status: 1, stage: 1, exp: 80, bao: 10, life: 130, att: 30 },
+{ name: "爆肌蚊GX", type: "斗", weakness: "超", status: 1, stage: 1, exp: 60, bao: 0, life: 190, att: 160 },
+{ name: "固拉多", type: "斗", weakness: "草", status: 1, stage: 1, exp: 50, bao: 10, life: 130, att: 130 },
+{ name: "卡拉卡拉", type: "斗", weakness: "草", status: 1, stage: 1, exp: 70, bao: 20, life: 60, att: 40 },
+
+{ name: "阿罗拉臭泥", type: "恶", weakness: "斗", status: 1, stage: 3, exp: 100, bao: 10, life: 70, att: 20, pname: "阿罗拉臭臭泥", plife: 120, patt: 80, ppname: "阿罗拉臭臭泥GX", pplife: 220, ppatt: 120 },
+{ name: "阿罗拉喵喵", type: "恶", weakness: "斗", status: 1, stage: 2, exp: 70, bao: 50, life: 60, att: 10, pname: "阿罗拉猫老大", plife: 90, patt: 30 },
+{ name: "阿罗拉小拉达", type: "恶", weakness: "斗", status: 1, stage: 3, exp: 100, bao: 20, life: 40, att: 20, pname: "阿罗拉拉达", plife: 120, patt: 60, ppname: "阿罗拉拉达GX", pplife: 200, ppatt: 150 },
+{ name: "扭拉", type: "恶", weakness: "斗", status: 1, stage: 2, exp: 70, bao: 20, life: 70, att: 30, pname: "玛扭拉", plife: 90, patt: 25 },
+{ name: "阿伯梭鲁", type: "恶", weakness: "斗", status: 1, stage: 1, exp: 80, bao: 10, life: 100, att: 30 },
+{ name: "胡帕", type: "恶", weakness: "斗", status: 1, stage: 1, exp: 80, bao: 0, life: 120, att: 80 },
+{ name: "达克莱伊", type: "恶", weakness: "斗", status: 1, stage: 1, exp: 80, bao: 0, life: 160, att: 120 },
+{ name: "索罗亚", type: "恶", weakness: "斗", status: 1, stage: 2, exp: 70, bao: 50, life: 70, att: 30, pname: "索罗亚克GX", plife: 210, patt: 100 },
+
+{ name: "火斑喵", type: "火", weakness: "水", status: 1, stage: 3, exp: 60, bao: 10, life: 70, att: 20, pname: "炎热喵", plife: 90, patt: 30, ppname: "炽焰咆哮虎GX", pplife: 250, ppatt: 200 },
+{ name: "小火龙", type: "火", weakness: "水", status: 1, stage: 3, exp: 100, bao: 10, life: 70, att: 20, pname: "火恐龙", plife: 80, patt: 80, ppname: "喷火龙GX", pplife: 250, ppatt: 300 },
+{ name: "火稚鸡", type: "火", weakness: "水", status: 1, stage: 3, exp: 100, bao: 10, life: 50, att: 30, pname: "力壮鸡", plife: 80, patt: 80, ppname: "烈焰鸡GX", pplife: 240, ppatt: 210 },
+{ name: "火球鼠", type: "火", weakness: "水", status: 1, stage: 3, exp: 100, bao: 30, life: 60, att: 10, pname: "火岩鼠", plife: 90, patt: 30, ppname: "火爆兽", pplife: 160, ppatt: 120 },
+{ name: "小火焰猴", type: "火", weakness: "水", status: 1, stage: 3, exp: 100, bao: 50, life: 60, att: 10, pname: "猛火猴", plife: 80, patt: 20, ppname: "烈焰猴", pplife: 130, ppatt: 50 },
+{ name: "火狐狸", type: "火", weakness: "水", status: 1, stage: 3, exp: 100, bao: 20, life: 60, att: 30, pname: "长尾火狐", plife: 90, patt: 40, ppname: "妖火红狐", pplife: 150, ppatt: 150 },
+{ name: "阿罗拉嘎啦嘎啦", type: "火", weakness: "水", status: 1, stage: 1, exp: 80, bao: 30, life: 120, att: 20 },
+{ name: "火焰鸟", type: "火", weakness: "水", status: 1, stage: 1, exp: 80, bao: 20, life: 120, att: 45 },
+{ name: "比克提尼", type: "火", weakness: "水", status: 1, stage: 1, exp: 80, bao: 20, life: 70, att: 50 },
+{ name: "莱希拉姆GX", type: "火", weakness: "水", status: 1, stage: 1, exp: 50, bao: 20, life: 180, att: 110 },
+{ name: "熔岩虫", type: "火", weakness: "水", status: 1, stage: 2, exp: 60, bao: 30, life: 70, att: 20, pname: "熔岩蜗牛", plife: 90, patt: 50 },
+
+{ name: "科斯莫古", type: "钢", weakness: "火", status: 1, stage: 3, exp: 100, bao: 50, life: 60, att: 10, pname: "科斯莫姆", plife: 90, patt: 20, ppname: "索尔迦雷欧GX", pplife: 250, ppatt: 120 },
+{ name: "阿罗拉地鼠", type: "钢", weakness: "火", status: 1, stage: 2, exp: 60, bao: 50, life: 50, att: 10, pname: "阿罗拉三地鼠", plife: 60, patt: 30 },
+{ name: "小磁怪", type: "钢", weakness: "火", status: 1, stage: 3, exp: 60, bao: 50, life: 60, att: 10, pname: "三合一磁怪", plife: 90, patt: 80, ppname: "自爆磁怪", pplife: 150, ppatt: 130 },
+{ name: "盔甲鸟", type: "钢", weakness: "电", status: 1, stage: 1, exp: 80, bao: 20, life: 110, att: 60 },
+{ name: "铁哑铃", type: "钢", weakness: "火", status: 1, stage: 3, exp: 60, bao: 40, life: 60, att: 20, pname: "金属怪", plife: 90, patt: 80, ppname: "巨金怪", pplife: 170, ppatt: 90 },
+{ name: "基拉祈", type: "钢", weakness: "火", status: 1, stage: 1, exp: 80, bao: 40, life: 70, att: 30 },
+{ name: "帝牙卢卡GX", type: "钢", weakness: "火", status: 1, stage: 1, exp: 80, bao: 10, life: 180, att: 150 },
+
+{ name: "吉利蛋", type: "基", weakness: "斗", status: 1, stage: 2, exp: 100, bao: 40, life: 110, att: 40, pname: "幸福蛋", plife: 160, patt: 80 },
+{ name: "多边兽", type: "基", weakness: "斗", status: 1, stage: 3, exp: 60, bao: 50, life: 60, att: 10, pname: "多边兽2型", plife: 80, patt: 40, ppname: "多边兽乙型", pplife: 130, ppatt: 80 },
+{ name: "凤王", type: "基", weakness: "电", status: 1, stage: 1, exp: 80, bao: 30, life: 130, att: 30 },
+{ name: "小箭雀", type: "基", weakness: "电", status: 1, stage: 3, exp: 60, bao: 50, life: 50, att: 20, pname: "火箭雀", plife: 70, patt: 40, ppname: "烈箭雀", pplife: 130, ppatt: 90 },
+{ name: "洛奇亚GX", type: "基", weakness: "电", status: 1, stage: 1, exp: 80, bao: 0, life: 190, att: 170 },
+{ name: "卡比兽GX", type: "基", weakness: "斗", status: 1, stage: 1, exp: 100, bao: 0, life: 190, att: 210 },
+
+{ name: "飞天螳螂", type: "草", weakness: "火", status: 1, stage: 2, exp: 80, bao: 40, life: 70, att: 20, pname: "巨钳螳螂GX", plife: 210, patt: 100 },
+{ name: "走路草", type: "草", weakness: "火", status: 1, stage: 3, exp: 60, bao: 50, life: 50, att: 10, pname: "臭臭花", plife: 80, patt: 30, ppname: "烈箭雀", pplife: 140, ppatt: 60 },
+{ name: "蛋蛋", type: "草", weakness: "火", status: 1, stage: 2, exp: 100, bao: 50, life: 40, att: 10, pname: "耶蛋树", plife: 160, patt: 40 },
+{ name: "毽子草", type: "草", weakness: "电", status: 1, stage: 3, exp: 60, bao: 80, life: 30, att: 10, pname: "毽子花", plife: 60, patt: 30, ppname: "毽子棉", pplife: 70, ppatt: 20 },
+{ name: "木守宫", type: "草", weakness: "火", status: 1, stage: 3, exp: 60, bao: 30, life: 50, att: 20, pname: "森林蜥蜴", plife: 80, patt: 40, ppname: "蜥蜴王", pplife: 140, ppatt: 40 },
+{ name: "三蜜蜂", type: "草", weakness: "火", status: 1, stage: 2, exp: 60, bao: 20, life: 40, att: 10, pname: "蜂女王", plife: 120, patt: 120 },
+{ name: "樱花宝", type: "草", weakness: "火", status: 1, stage: 2, exp: 60, bao: 50, life: 50, att: 30, pname: "樱花儿", plife: 80, patt: 30 },
+{ name: "菊叶草", type: "草", weakness: "火", status: 1, stage: 3, exp: 100, bao: 20, life: 70, att: 10, pname: "月桂叶", plife: 100, patt: 50, ppname: "大竺葵", pplife: 150, ppatt: 80 },
+
+{ name: "宝贝龙", type: "龙", weakness: "妖", status: 1, stage: 3, exp: 60, bao: 20, life: 70, att: 40, pname: "甲壳龙", plife: 80, patt: 30, ppname: "暴飞龙", pplife: 150, ppatt: 100 },
+{ name: "宝贝龙", type: "龙", weakness: "妖", status: 1, stage: 3, exp: 60, bao: 0, life: 70, att: 40, pname: "甲壳龙", plife: 80, patt: 30, ppname: "暴飞龙GX", pplife: 250, ppatt: 200 },
+{ name: "粘粘宝", type: "龙", weakness: "妖", status: 1, stage: 3, exp: 60, bao: 40, life: 40, att: 10, pname: "粘美儿", plife: 70, patt: 20, ppname: "粘美龙", pplife: 160, ppatt: 130 },
+{ name: "迷你龙", type: "龙", weakness: "妖", status: 1, stage: 3, exp: 60, bao: 10, life: 60, att: 10, pname: "哈克龙", plife: 90, patt: 60, ppname: "快龙GX", pplife: 250, ppatt: 200 },
+{ name: "裂空座GX", type: "龙", weakness: "妖", status: 1, stage: 1, exp: 80, bao: 40, life: 180, att: 90 },
+{ name: "音波龙GX", type: "龙", weakness: "妖", status: 1, stage: 1, exp: 80, bao: 0, life: 200, att: 120 },
+
+{ name: "拉鲁拉丝", type: "妖", weakness: "钢", status: 1, stage: 3, exp: 60, bao: 40, life: 60, att: 10, pname: "奇鲁利安", plife: 80, patt: 30, ppname: "沙奈朵", pplife: 130, ppatt: 70 },
+{ name: "拉鲁拉丝", type: "妖", weakness: "钢", status: 1, stage: 3, exp: 60, bao: 30, life: 60, att: 10, pname: "奇鲁利安", plife: 80, patt: 30, ppname: "沙奈朵GX", pplife: 230, ppatt: 90 },
+{ name: "木棉球", type: "妖", weakness: "钢", status: 1, stage: 2, exp: 60, bao: 40, life: 50, att: 10, pname: "风妖精", plife: 80, patt: 30 },
+{ name: "玛力露", type: "妖", weakness: "钢", status: 1, stage: 2, exp: 60, bao: 40, life: 70, att: 30, pname: "玛力露丽", plife: 100, patt: 60 },
+{ name: "哲尔尼亚斯GX", type: "妖", weakness: "钢", status: 1, stage: 1, exp: 60, bao: 10, life: 180, att: 120 },
+{ name: "迷拟丘GX", type: "妖", weakness: "无", status: 1, stage: 1, exp: 60, bao: 80, life: 170, att: 40 },
+{ name: "咚咚鼠", type: "妖", weakness: "无", status: 1, stage: 1, exp: 100, bao: 100, life: 70, att: 10 }
+]
 apet = []
+ybt = []
+afg = 0
 //红包数据
 pkgi = 0
 owner = "无"
@@ -33,7 +130,7 @@ gainu = []
 gains = []
 pkgs = []
 fruits = ["🍋", "🍑", "🍐", "🍎"]
-admins = ["OG0OPFxOFw", "Ancy.WWeeo", ".bLVj9fdOM", "unica/qOLU", "YtIMnsXOBE","vJEPoEPHsA"]   //设置管理员
+admins = ["OG0OPFxOFw", "Ancy.WWeeo", ".bLVj9fdOM", "unica/qOLU", "YtIMnsXOBE", "vJEPoEPHsA"]   //设置管理员
 //签到重置 开奖
 onTimeDo = (h, m, s, callback) => {
     interval = (h >= 0 && (24 * 3600)) || (m >= 0 && 3600) || (s >= 0 && 60)
@@ -271,7 +368,7 @@ else{
         up = users.filter(x => x.pet.length > 0)
         up.sort((a, b) => b.pet[0].sc - a.pet[0].sc)
         up = up.map((x, y) => (y + 1) + ".@" + x.name + "\t" + x.pet[0].name + "\t" + x.pet[0].sc)
-        if up.length >6 then up=up.slice(0,6)
+        if up.length > 6 then up= up.slice(0, 6)
         drrr.print("战力榜\n" + up.join("\n"))
     }
 }
@@ -306,9 +403,9 @@ event[msg, me, dm](user, cont: "^/签到$") => {
         seq++
         drrr.print(dh)
         $.get(API, d => {
-            hitokoto= d.hitokoto
-            from=d.from
-            drrr.print("一言:"+hitokoto+"  ——"+from)
+            hitokoto = d.hitokoto
+            from = d.from
+            drrr.print("一言:" + hitokoto + "  ——" + from)
         })
     } else { drrr.print("/me @" + users[n].name + " 今天已经签过到了，明天记得继续来签到哦") }
 }
@@ -906,137 +1003,22 @@ event[msg, me, dm](user, cont: "^/奖金\\s+\\d", url, tc) => {
         drrr.dm(user, "奖金已设置为" + bonus + " DRB")
     }
 }
+
 //宠物系统
-//战斗力计算公式
-zdl = (l, a, d, v) => l + 5 * a + 4 * d + 1 * v
-//经验升级设置
 sample = array => array[Math.floor(Math.random() * array.length)]
-checke = (e) => {
-    s = [0, 3, 6, 9, 12, 15, 18, 21, 24, 27, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90, 95, 100, 110, 120, 130, 140, 150, 160, 170, 180, 190, 200, 210, 220, 230, 240, 250, 275, 300, 325, 350, 275, 400, 425, 450, 475, 500]  //设置等级分界点
-    if e < s[1] then { [1, s[2] - e] } 	      //1级  3
-  else if e < s[2] then { [2, s[3] - e] }     //2级  6
-  else if e < s[3] then { [3, s[4] - e] }     //3级  19
-  else if e < s[4] then { [4, s[5] - e] }     //4级  12
-  else if e < s[5] then { [5, s[6] - e] }     //5级  15
-  else if e < s[6] then { [6, s[7] - e] }     //6级  18
-  else if e < s[7] then { [7, s[8] - e] }     //7级  21
-  else if e < s[8] then { [8, s[9] - e] }     //8级  24
-  else if e < s[9] then { [9, s[10] - e] }    //9级  27
-  else if e < s[10] then { [10, s[11] - e] }  //10级 30
-  else if e < s[11] then { [11, s[12] - e] }  //11级 35
-  else if e < s[12] then { [12, s[13] - e] }  //12级 40
-  else if e < s[13] then { [13, s[14] - e] }  //13级 45
-  else if e < s[14] then { [14, s[15] - e] }  //14级 50
-  else if e < s[15] then { [15, s[16] - e] }  //15级 55
-  else if e < s[16] then { [16, s[17] - e] }  //16级 60
-  else if e < s[17] then { [17, s[18] - e] }  //17级 65
-  else if e < s[18] then { [18, s[19] - e] }  //18级 70
-  else if e < s[19] then { [19, s[20] - e] }  //19级 75
-  else if e < s[20] then { [20, s[21] - e] }  //20级 80
-  else if e < s[21] then { [21, s[22] - e] }  //21级 85
-  else if e < s[22] then { [22, s[23] - e] }  //22级 90
-  else if e < s[23] then { [23, s[24] - e] }  //23级 95
-  else if e < s[24] then { [24, s[25] - e] }  //24级 100
-  else if e < s[25] then { [25, s[26] - e] }  //25级 220
-  else if e < s[26] then { [26, s[27] - e] }  //26级 120
-  else if e < s[27] then { [27, s[28] - e] }  //27级 130
-  else if e < s[28] then { [28, s[29] - e] }  //28级 140
-  else if e < s[29] then { [29, s[30] - e] }  //29级 150
-  else if e < s[30] then { [30, s[31] - e] }  //30级 160
-  else if e < s[31] then { [31, s[32] - e] }  //31级 170
-  else if e < s[32] then { [32, s[33] - e] }  //32级 180
-  else if e < s[33] then { [33, s[34] - e] }  //33级 190
-  else if e < s[34] then { [34, s[35] - e] }  //34级 200
-  else if e < s[35] then { [35, s[36] - e] }  //35级 210
-  else if e < s[36] then { [36, s[37] - e] }  //36级 220
-  else if e < s[37] then { [37, s[38] - e] }  //37级 230
-  else if e < s[38] then { [38, s[39] - e] }  //38级 240
-  else if e < s[39] then { [39, s[40] - e] }  //39级 250
-  else if e < s[40] then { [40, s[41] - e] }  //40级 275
-  else if e < s[41] then { [41, s[42] - e] }  //41级 300
-  else if e < s[42] then { [42, s[43] - e] }  //42级 325
-  else if e < s[43] then { [43, s[44] - e] }  //43级 350
-  else if e < s[44] then { [44, s[45] - e] }  //44级 375
-  else if e < s[45] then { [45, s[46] - e] }  //45级 400
-  else if e < s[46] then { [46, s[47] - e] }  //46级 425
-  else if e < s[47] then { [47, s[48] - e] }  //47级 450
-  else if e < s[48] then { [48, s[49] - e] }  //48级 475
-  else if e < s[49] then { [49, s[50] - e] }  //49级 500
-  else                   { [50, 0] }          //50级 ∞
-
-}
-cpet = (a1, a2) => {
-    t = rand(20, 30)
-    q = Math.random()
-    p = "精灵-N"
-    l = 100
-    a = 50
-    d = 20
-    s = 10
-
-    if q< a1 then {
-        x = rand(1, 4)
-        if x== 1 then {
-            p = "白泽-SR"
-            l = 150
-            a = 75
-            d = 30
-            s = 15
-        }
-        if x== 2 then {
-            p = "鲲鹏-SR"
-            l = 200
-            a = 65
-            d = 10
-            s = 20
-        }
-        if x== 3 then {
-            p = "九婴-SR"
-            l = 100
-            a = 100
-            d = 25
-            s = 10
-        }
-        if x== 4 then {
-            p = "祸斗-SR"
-            l = 150
-            a = 100
-            d = 0
-            s = 20
-        }
-    } 
-      else if q< a2 then{
-        x = rand(1, 4)
-        if x== 1 then {
-            p = "青龙-R"
-            s = 30
-        }
-        if x== 2 then {
-            p = "白虎-R"
-            a = 100
-        }
-        if x== 3 then {
-            p = "朱雀-R"
-            l = 200
-        }
-        if x== 4 then {
-            p = "玄武-R"
-            d = 40
-        }
-    }
-    apet.push({ name: p, level: 1, exp: 0, life: l, att: a, def: d, speed: s, sc: zdl(l, a, d, s) })
-    drrr.print("/me 发现一只【" + p + "】，快来捕捉吧")
+cpet = () => {
+    apet.push(JSON.parse(JSON.stringify(sample(pets))))
+    drrr.print("/me 发现一只宝可梦，快来捕捉吧")
     later t* 60 * 1000 {
         n = apet.findIndex(x => x.name == p)
         if n>= 0 then {
             apet.splice(n, 1)
-            drrr.print("/me 【" + p + "】逃走了")
         }
     }
 }
 timer 20* 60 * 1000{
-    if Math.random() < 0.20 then {
-        cpet(0.02, 0.20)
+    if (Math.random() < 0.2) then {
+        cpet()
     }
 }
 event[msg, me, dm](user, cont:"^/出战\\s+\\d")  => {
@@ -1059,23 +1041,27 @@ event[msg, me, dm](user, cont: "^/捕捉") => {
         drrr.print("/me @" + user + " 您的tc与已有的用户不匹配")
     } else if apet.length == 0 then {
         drrr.print("/me @" + users[n].name + " 现在还没有宠物出没哦")
-    } else if users[n].pet.length == 5 then {
-        drrr.print("/me @" + users[n].name + " 很抱歉，您已拥有5只宠物，已达容量上限，可放生宠物继续捕捉")
+    } else if users[n].pet.length == 6 then {
+        drrr.print("/me @" + users[n].name + " 很抱歉，您已拥有6只宠物，已达容量上限，可放生宠物继续捕捉")
     } else if !users[n].bag.some(x => x.name == "MG-精灵球") then {
         drrr.print("/me @" + users[n].name + " 很抱歉，您的背包中没有精灵球，请前往商店购买")
     } else {
         use(n, "MG-精灵球")
         drrr.print("/me @" + users[n].name + " 正在努力捕捉中...")
         i = Math.floor(Math.random() * apet.length)
-        k = Math.random() < 0.5  //成功概率 0.5
+        k = Math.random() < 1  //成功概率1
         if !k || (apet.length - 1) < i then {
             later 5* 1000 drrr.print("/me @" + users[n].name + " 哎呀，失手了")
         }else {
             m = apet[i].name
-            users[n].pet.push(apet[i])
+            if users[n].pet.some(a => a.name == m) then{
+                add(n, "MG-召唤球", 1)
+                later 5* 1000 drrr.print("/me @" + users[n].name + " 又捕获一只【" + m + "】，将它放生了，获得一个召唤球")
+            }else{
+                users[n].pet.push(apet[i])
+                later 5* 1000 drrr.print("/me @" + users[n].name + " 成功捕获一只【" + m + "】")
+            }
             apet.splice(i, 1)
-            later 5* 1000 drrr.print("/me @" + users[n].name + " 成功捕获一只【" + m + "】")
-
         }
     }
 }
@@ -1092,7 +1078,7 @@ event[msg, me, dm](user, cont:"^/投喂\\s+\\d")  => {
         use(n, "MG-宠物干粮")
         name = users[n].pet[p].name
         users[n].pet[p].exp++
-        drrr.print("/me @" + users[n].name + " 您已投喂了【" + name + "】一份宠物干粮，【" + name + "】获得1经验值")
+        drrr.print("/me @" + users[n].name + " 您已投喂了【" + name + "】一份宠物干粮，【" + name + "】增加1亲密度")
     }
 }
 event[msg, me, dm](user, cont:"^/一本满足\\s+\\d")  => {
@@ -1108,18 +1094,14 @@ event[msg, me, dm](user, cont:"^/一本满足\\s+\\d")  => {
         use(n, "MG-一本满足")
         name = users[n].pet[p].name
         users[n].pet[p].exp += 100
-        drrr.print("/me @" + users[n].name + " 您投喂了【" + name + "】一本满足，【" + name + "】获得100经验值")
+        drrr.print("/me @" + users[n].name + " 您投喂了【" + name + "】一本满足，【" + name + "】增加100亲密度")
     }
 }
 event[msg, me, dm](user, cont: "^/观察") => {
     if apet.length == 0 then {
-        drrr.print("/me 现在没有宠物出没")
+        drrr.print("/me 现在没有宝可梦出没")
     }else{
-        p = apet.reduce((a, x, y) => {
-            a = a + "\n" + (y + 1) + ".【" + x.name + "】\tLv." + x.level + "\t战力：" + x.sc
-            a
-        }, " 现在出没的宠物有:")
-        drrr.print(p)
+        drrr.print("/me 现在有" + apet.length + "只宝可梦出没")
     }
 }
 event[msg, me, dm](user, cont: "^/(展示)?宠物$") => {
@@ -1127,7 +1109,7 @@ event[msg, me, dm](user, cont: "^/(展示)?宠物$") => {
     if (n == (-1)) then drrr.print("/me @" + user + "您的tc与已有的用户不匹配")
   else {
         p = users[n].pet.reduce((a, x, y) => {
-            a = a + "\n" + (y + 1) + ".【" + x.name + "】\tLv." + x.level + "\t战力：" + x.sc
+            a = a + "\n" + (y + 1) + ".【" + x.name + "】\t属性：" + x.type + "\t亲密度：" + x.exp
             a
         }, " 您的宠物有:")
         if cont== "/宠物" then {
@@ -1146,8 +1128,10 @@ event[msg, me, dm](user, cont:"^/(展示)?宠物\\s+\\d")  => {
     } else if i> (users[n].pet.length - 1) then {
         drrr.print("/me @" + users[n].name + " 输入的序号不存在")
     } else {
-        p = "的宠物：\n编号：" + c[1] + "\n名字：" + users[n].pet[i].name + "\n等级：Lv." + users[n].pet[i].level + "\n经验：" + users[n].pet[i].exp + "\n战力：" + users[n].pet[i].sc
-            + "\n生命：" + users[n].pet[i].life + "\n攻击：" + users[n].pet[i].att + "\n防御：" + users[n].pet[i].def + "\n速度：" + users[n].pet[i].speed
+        p = "的宠物：\nNO." + c[1] + " " + users[n].pet[i].name + "\n属性：" + users[n].pet[i].type + "\n弱点：" + users[n].pet[i].weakness
+            + "\n亲密度：" + users[n].pet[i].exp + "\n暴击率：" + users[n].pet[i].bao + "\n【1】" + users[n].pet[i].name + " 生命：" + users[n].pet[i].life + "\t攻击：" + users[n].pet[i].att
+        if (users[n].pet[i].stage > 1) then p += "\n【2】" + users[n].pet[i].pname + " 生命：" + users[n].pet[i].plife + " 攻击：" + users[n].pet[i].patt
+        if (users[n].pet[i].stage > 2) then p += "\n【3】" + users[n].pet[i].ppname + " 生命：" + users[n].pet[i].pplife + " 攻击：" + users[n].pet[i].ppatt
         if c[0] == "宠物" then {
             drrr.dm(user, "您" + p)
         }else {
@@ -1167,6 +1151,8 @@ event[msg, me, dm](user, cont: "^/挑战\\s+\\S") => {
     m = users.findIndex(x => x.name == tou)
     if (n == (-1)) then {
         drrr.print("/me @" + user + " 您的tc与已有的用户不匹配")
+    } else if afg then {
+        drrr.dm(user, "@" + users[n].name + " 一场挑战正在进行中，请等待其结束")
     } else if (m == (-1)) then {
         drrr.dm(user, "@" + users[n].name + " 您挑战的用户【" + tou + "】不存在，请检查输入是否为对方【用户名】（可使用查找功能）")
     } else if (users[m].pet.length == 0) then {
@@ -1174,162 +1160,294 @@ event[msg, me, dm](user, cont: "^/挑战\\s+\\S") => {
     } else if (users[n].pet.length == 0) then {
         drrr.dm(user, "@" + users[n].name + " 您还没有宠物，无法挑战")
     }else if (users[n].checkb || users[n].bag.some(x => x.name == "MG-挑战卡")) then {
-        if (!users[n].checkb && users[n].bag.some(x => x.name == "MG-挑战卡")) then {
+        if (!users[n].checkb) then {
             use(n, "MG-挑战卡")
             drrr.print("/me @" + users[n].name + " 您已使用了一张挑战卡")
         }
+        afg = 1
         users[n].checkb = false
-        zdm = []
-        zms = []
-        xn = users[n].name                                            //攻方
-        yn = users[m].name                                            //守方
-        xp = "【" + users[n].pet[0].name + "】"                       //攻方宠物名
-        yp = "【" + users[m].pet[0].name + "】"                       //守方宠物名
-        xc = users[n].pet[0].sc                                      //攻方战斗力
-        yc = users[m].pet[0].sc                                     //守方战斗力
-        xl = users[n].pet[0].life                                   //攻方生命值
-        yl = users[m].pet[0].life                                   //守方生命值
-        xa = users[n].pet[0].att                                    //攻方攻击力
-        ya = users[m].pet[0].att                                    //守方攻击力
-        xd = users[n].pet[0].def                                    //攻方防御
-        yd = users[m].pet[0].def                                    //守方防御
-        f = (users[n].pet[0].speed - users[m].pet[0].speed) > 0     //对比双方速度
-        drrr.print("/me @" + xn + " 对 @" + yn + " 的挑战开始。@" + xn + " 派出了【" + xp + "】（" + xc + "）   @" + yn + " 派出了【" + yp + "】（" + yc + "）")
-        i = 1
         ad = rand(12, 18)
         ae = rand(1, 3)
-        while (xl > 0 && yl > 0) {
-            xs = xa - yd + rand(-10, 10)
-            if Math.random() < 0.05 then xs= xa * 2 - yd + rand(-10, 10)
-            ys = ya - xd + rand(-10, 10)
-            if Math.random() < 0.10 then ys= ya * 2 - xd + rand(-10, 10)
-
-            if f then{
-                if (yl -= xs)<=0 then{
-                    zdm.push("　－回合" + i + "－\n" + xp + "\t" + xl + "\n　　　⇓\n" + yp + "\t" + yl + "(-" + xs + ")")
-                    users[n].win++
-                    users[n].coin += ad
-                    users[n].pet[0].exp += ae
-                    ybt.unshift(xn + xp + "➨" + yn + yp + "\t" + "胜")
-                    if ybt.length == 5 then ybt.splice(4, 1)
-                    zms.push("/me 恭喜@" + xn + " 在第" + i + "回合取得胜利，您获得了" + ad + " DRB，" + xp + "获得" + ae + "经验，胜利次数+1，共胜利" + users[n].win + "次")
-                }else{
-                    zdm.push("　－回合" + i + "－\n" + xp + "\t" + xl + "\n　　　⇓\n" + yp + "\t" + yl + "(-" + xs + ")")
-                    xl -= ys
-                    zdm.push("　－回合" + i + "－\n" + xp + "\t" + xl + "(-" + ys + ")" + "\n　　　⇑\n" + yp + "\t" + yl)
-                    if xl<= 0 then{
-                        users[m].win++
-                        zms.push("/me 恭喜@" + yn + " 在第" + i + "回合取得胜利，胜利次数+1，共胜利" + users[m].win + "次")
-                        ybt.unshift(xn + xp + "➨" + yn + yp + "\t" + "败")
-                        if ybt.length == 5 then ybt.splice(4, 1)
-                    }
-                }
-            }else {
-                if (xl -= ys)<=0 then{
-                    users[m].win++
-                    zdm.push("　－回合" + i + "－\n" + xp + "\t" + xl + "(-" + ys + ")" + "\n　　　⇑\n" + yp + "\t" + yl)
-                    zms.push("/me 恭喜@" + yn + " 在第" + i + "回合取得胜利，胜利次数+1，共胜利" + users[m].win + "次")
-                    ybt.unshift(xn + xp + "➨" + yn + yp + "\t" + "败")
-                    if ybt.length == 5 then ybt.splice(4, 1)
-                }else {
-                    zdm.push("　－回合" + i + "－\n" + xp + "\t" + xl + "(-" + ys + ")" + "\n　　　⇑\n" + yp + "\t" + yl)
-                    yl -= xs
-                    zdm.push("　－回合" + i + "－\n" + xp + "\t" + xl + "\n　　　⇓\n" + yp + "\t" + yl + "(-" + xs + ")")
-                    if yl<= 0 then{
-                        users[n].win++
-                        users[n].coin += ad
-                        users[n].pet[0].exp += ae
-                        ybt.unshift(xn + xp + "➨" + yn + yp + "\t" + "胜")
-                        if ybt.length == 5 then ybt.splice(4, 1)
-                        zms.push("/me 恭喜@" + xn + " 在第" + i + "回合取得胜利，您获得了" + ad + " DRB，" + xp + "获得" + ae + "经验，胜利次数+1，共胜利" + users[n].win + "次")
-                    }
-                }
+        zdm = []
+        f = rand(1, 2)     //先手随机
+        xsc = 0
+        ysc = 0
+        xps = users[n].pet.length
+        yps = users[m].pet.length
+        xd = []
+        yd = []
+        xf = 1
+        yf = 1
+        if xps> 1 then xd = Array.from({ length: xps - 1 }, (v, k) => k + 1)
+        if yps> 1 then yd = Array.from({ length: yps - 1 }, (v, k) => k + 1)
+        x = 0
+        y = 0
+        xn = users[n].name                             //攻方
+        yn = users[m].name                             //守方
+        drrr.print("/me @" + xn + " 对 @" + yn + " 的挑战开始。")
+        j = 1
+        xl = users[n].pet[x].life                      //攻方生命值
+        yl = users[m].pet[y].life                      //守方生命值
+        while (xf && yf && xsc < 4 && ysc < 4) {
+            flag = 1
+            xt = users[n].pet[x].type                     //属性
+            yt = users[m].pet[y].type
+            xw = users[n].pet[x].weakness                    //属性
+            yw = users[m].pet[y].weakness
+            xp = users[n].pet[x].name         //攻方宠物名
+            yp = users[m].pet[y].name         //守方宠物名
+            xa = users[n].pet[x].att                       //攻方攻击力
+            ya = users[m].pet[y].att                       //守方攻击力
+            xe = users[n].pet[x].exp                       //亲密度
+            ye = users[m].pet[y].exp
+            if users[n].pet[x].status == 2 then{
+                xp = users[n].pet[x].pname
+                xa = users[n].pet[x].patt
+            }else if users[n].pet[x].status == 3 then{
+                xp = users[n].pet[x].ppname
+                xa = users[n].pet[x].ppatt
             }
-            i++
+
+            if users[m].pet[y].status == 2 then{
+                yp = users[m].pet[y].pname
+                ya = users[m].pet[y].patt
+            }else if users[m].pet[y].status == 3 then{
+                yp = users[m].pet[y].ppname
+                ya = users[m].pet[y].ppatt
+            }
+            xb = users[n].pet[x].bao
+            yb = users[m].pet[y].bao
+            zdm.push("第" + j + "轮\n@" + xn + "\t派出了【" + xp + "】（" + xt + "）\n@" + yn + "\t派出了【" + yp + "】（" + yt + "）")
+            i = 1
+            v = 0
+            ans = ""
+
+            while (v < 2) {
+                e = m
+                nm = yn
+                q = rand(0, yd.length - 1)
+                p = y
+                if v== 0 then {
+                    e = n
+                    nm = xn
+                    q = rand(0, xd.length - 1)
+                    p = x
+                }
+
+                if j> 1 then{
+                    if q== 0 then{
+                        if users[e].pet[p].stage == users[e].pet[p].status then{
+                            name = users[e].pet[p].name
+                            if users[e].pet[p].stage == 2 then name = users[e].pet[p].pname
+                            if users[e].pet[p].stage == 3 then name = users[e].pet[p].ppname
+                            ans += "@" + nm + " 的【" + name + "】无法进化\n"
+                        }else{
+                            if e == n then{
+                                xp = users[e].pet[x].pname
+                                xl = users[e].pet[x].plife + xl - users[e].pet[x].life
+                                xa = users[e].pet[x].patt
+                                if users[e].pet[x].status == 2 then {
+                                    xp = users[e].pet[x].ppname
+                                    xl = users[e].pet[x].pplife + xl - users[e].pet[x].plife
+                                    xa = users[e].pet[x].ppatt
+                                    ans += "@" + nm + " 的【" + users[e].pet[x].pname + "】进化成" + xp + "\n"
+                                }else{
+                                    ans += "@" + nm + " 的【" + users[e].pet[x].name + "】进化成" + xp + "\n"
+                                }
+                                users[e].pet[x].status++
+                            }else{
+                                yp = users[e].pet[y].pname
+                                yl = users[e].pet[y].plife + yl - users[e].pet[y].life
+                                ya = users[e].pet[y].patt
+                                if users[e].pet[y].status == 2 then {
+                                    yp = users[e].pet[y].ppname
+                                    yl = users[e].pet[y].pplife + yl - users[e].pet[y].plife
+                                    ya = users[e].pet[y].ppatt
+                                    ans += "@" + nm + " 的【" + users[e].pet[y].pname + "】进化成" + yp + "\n"
+                                }else{
+                                    ans += "@" + nm + " 的【" + users[e].pet[y].name + "】进化成" + yp + "\n"
+                                }
+                                users[e].pet[y].status++
+                            }
+                        }
+                    }else{
+                        if e == n then q= xd[q--]
+                  else q = yd[q - 1]
+                        if users[e].pet[q].stage == users[e].pet[q].status then{
+                            name = users[e].pet[q].name
+                            if users[e].pet[q].stage == 2 then name = users[e].pet[q].pname
+                            if users[e].pet[q].stage == 3 then name = users[e].pet[q].ppname
+                            ans += "@" + nm + " 的【" + name + "】无法进化\n"
+                        }else{
+                            users[e].pet[q].status++
+                            if users[e].pet[q].status == 3 then {
+                                ans += "@" + nm + " 的【" + users[e].pet[q].pname + "】进化成" + users[e].pet[q].ppname + "\n"
+                            }else{
+                                ans += "@" + nm + " 的【" + users[e].pet[q].name + "】进化成" + users[e].pet[q].pname + "\n"
+                            }
+                        }
+                    }
+                }
+                v++
+            }
+            if j> 1 then zdm.push(ans)
+            while (flag) {
+                xs = xa
+                ys = ya
+                xr = " ⇓"
+                yr = " ⇑"
+                if (rand(0, 99) < xb) then {
+                    xs *= 2
+                    xr += "⇓"
+                }
+                if (rand(0, 99) < yb) then {
+                    ys *= 2
+                    yr += "⇑"
+                }
+                if (yw == xt) then {
+                    xs *= 2
+                    xr += "⇓"
+                }
+                if (xw == yt) then {
+                    ys *= 2
+                    yr += "⇑"
+                }
+
+                if f== 1 then{
+                    if xe< 100 && rand(1, 100) > 80 then{
+                        zdm.push("第" + j + "轮 回合" + i + "\n" + xp + "\t" + xl + "\n　　===\n" + yp + "\t" + yl)
+                    }else{
+                        yl -= xs
+                        zdm.push("第" + j + "轮 回合" + i + "\n" + xp + "\t" + xl + "\n　　" + xr + "\n" + yp + "\t" + yl + "(-" + xs + ")")
+                    }
+                    if yl<= 0 then{
+                        flag = 0
+                        sc = 1
+                        if yp.endsWith("GX") then sc = 2
+                        xsc += sc
+                        zdm.push("【" + yp + "】倒下了\n@" + xn + " 获得" + sc + "分\n目前比分" + xsc + " : " + ysc)
+                        if yd.length == 0 then yf= 0
+                        mess(yd)
+                        y = yd.pop()
+                        yl = users[m].pet[y].life
+                        if users[m].pet[y].status == 2 then{
+                            yl = users[m].pet[y].plife
+                        }else if users[m].pet[y].status == 3 then{
+                            yl = users[m].pet[y].pplife
+                        }
+                        f = 2
+                    }else{
+                        if ye< 100 && rand(1, 100) > 80 then{
+                            zdm.push("　－回合" + i + "－\n" + xp + "\t" + xl + "\n　　===\n" + yp + "\t" + yl)
+                        }else{
+                            xl -= ys
+                            zdm.push("　－回合" + i + "－\n " + xp + "\t" + xl + "(-" + ys + ")" + "\n　　" + yr + "\n" + yp + "\t" + yl)
+                        }
+                        if xl<= 0 then{
+                            flag = 0
+                            sc = 1
+                            if xp.endsWith("GX") then sc = 2
+                            ysc += sc
+                            zdm.push("【" + xp + "】倒下了\n@" + yn + " 获得" + sc + "分\n目前比分" + xsc + " : " + ysc)
+                            if xd.length == 0 then xf= 0
+                            mess(xd)
+                            x = xd.pop()
+                            xl = users[n].pet[x].life
+                            if users[n].pet[x].status == 2 then{
+                                xl = users[n].pet[x].plife
+                            }else if users[n].pet[x].status == 3 then{
+                                xl = users[n].pet[x].pplife
+                            }
+                            f = 1
+                        }
+                    }
+                }else {
+                    if ye< 100 && rand(1, 100) > 80 then{
+                        zdm.push("第" + j + "轮 回合" + i + "\n" + xp + "\t" + xl + "\n　　===\n" + yp + "\t" + yl)
+                    }else{
+                        xl -= ys
+                        zdm.push("第" + j + "轮 回合" + i + "\n" + xp + "\t" + xl + "(-" + ys + ")" + "\n　　" + yr + "\n" + yp + "\t" + yl)
+                    }
+                    if xl<= 0 then{
+                        flag = 0
+                        sc = 1
+                        if xp.endsWith("GX") then sc = 2
+                        ysc += sc
+                        zdm.push("【" + xp + "】倒下了\n@" + yn + " 获得" + sc + "分\n目前比分" + xsc + " : " + ysc)
+                        if xd.length == 0 then xf= 0
+                        mess(xd)
+                        x = xd.pop()
+                        xl = users[n].pet[x].life
+                        if users[n].pet[x].status == 2 then{
+                            xl = users[n].pet[x].plife
+                        }else if users[n].pet[x].status == 3 then{
+                            xl = users[n].pet[x].pplife
+                        }
+                        f = 1
+                    }else {
+                        if xe< 100 && rand(1, 100) > 80 then{
+                            zdm.push("　－回合" + i + "－\n" + xp + "\t" + xl + "\n　　===\n" + yp + "\t" + yl)
+                        }else{
+                            yl -= xs
+                            zdm.push("　－回合" + i + "－\n" + xp + "\t" + xl + "\n　　" + xr + "\n" + yp + "\t" + yl + "(-" + xs + ")")
+                        }
+                        if yl<= 0 then{
+                            flag = 0
+                            sc = 1
+                            if yp.endsWith("GX") then sc = 2
+                            xsc += sc
+                            zdm.push("【" + yp + "】 倒下了\n@" + xn + " 获得" + sc + "分\n目前比分" + xsc + " : " + ysc)
+                            if yd.length == 0 then yf= 0
+                            mess(yd)
+                            y = yd.pop()
+                            yl = users[m].pet[y].life
+                            if users[m].pet[y].status == 2 then{
+                                yl = users[m].pet[y].plife
+                            }else if users[m].pet[y].status == 3 then{
+                                yl = users[m].pet[y].pplife
+                            }
+                            f = 2
+                        }
+                    }
+
+                }
+                i++
+            }
+            j++
         }
-        zdm.forEach((x, y, z) => {
-            latter({ latter({ drrr.dm(user, x) }, y*4) }, 3)
-        })
-        sj += zdm.length * 4
-        latter({ drrr.print(zms[0]) }, sj)
+        t = 0
+        while (t < zdm.length) {
+            msg = zdm[t]
+            later(t + 1) * 4000 drrr.dm(user, msg)
+            t++
+        }
+        later 4* t * 1000 + 5000{
+            if (xf == 0 || ysc > 3) then{
+                users[m].win++
+                drrr.print("/me 恭喜@" + yn + " 取得胜利，胜利次数+1，共胜利" + users[m].win + "次")
+                ybt.unshift(xn + "➨" + yn + "\t" + "败")
+                if ybt.length == 5 then ybt.splice(4, 1)
+            }else{
+                users[n].win++
+                users[n].coin += ad
+                users[n].pet.forEach(x => x.exp += ae)
+                ybt.unshift(xn + "➨" + yn + "\t" + "胜")
+                if ybt.length == 5 then ybt.splice(4, 1)
+                drrr.print("/me 恭喜@" + xn + " 取得胜利，您获得了" + ad + " DRB，所有宠物增加" + ae + "亲密度，胜利次数+1，共胜利" + users[n].win + "次")
+            }
+            users[n].pet.forEach(x => x.status = 1)
+            users[m].pet.forEach(x => x.status = 1)
+            afg = 0
+        }
+
     } else{
         drrr.print("/me @" + users[n].name + " 很抱歉，您今天已经挑战过一次了，并且您的背包中没有挑战卡，无法再次挑战，请前往商店购买，或明天再来挑战")
     }
 }
-event[msg, me, dm](user, cont:"^/升级\\s+\\d")  => {
-    p = parseInt(cont.replace("/升级", "").trim()) - 1
-    n = checku(user)
-    if (n == (-1)) then {
-        drrr.print("/me @" + user + " 您的tc与已有的用户不匹配")
-    }  else if p> (users[n].pet.length - 1) then {
-        drrr.print("/me @" + users[n].name + " 输入的序号不存在")
-    }else if users[n].pet[p].level == 50 then {
-        drrr.print("/me @" + users[n].name + " 您的【" + users[n].pet[p].name + "】已经达到最高等级Lv.50，无法再升级")
-    }else if checke(users[n].pet[p].exp)[0] == users[n].pet[p].level then {
-        drrr.print("/me @" + users[n].name + " 您的【" + users[n].pet[p].name + "】目前没有充足经验升级 ,距离下一级还差" + dt + "经验值")
-    }else{
-        lv = checke(users[n].pet[p].exp)[0]
-        dt = checke(users[n].pet[p].exp)[1]
-        l = 0
-        t = 0
-        d = 0
-        s = 0
 
-        w = 1
-        e = users[n].pet[p].name
-        if e.endsWith("SR") then w= 2
-          else if e.endsWith("R") then w= 1.5
 
-        for (o = lv - users[n].pet[p].level; o > 0; o--) {
-            a = rand(1, 7)
-            if a< 3 then{
-                i = Math.round(rand(24, 36) * w)
-                l += i
-                users[n].pet[p].life += i
-            }else if a< 5 then {
-                i = Math.round(rand(16, 24) * w)
-                t += i
-                users[n].pet[p].att += i
-            }else if a< 7 then {
-                i = Math.round(rand(8, 12) * w)
-                d += i
-                users[n].pet[p].def += i
-            }else {
-                i = Math.round(rand(8, 12) * w)
-                s += i
-                users[n].pet[p].speed += i
-            }
-        }
-        users[n].pet[p].level = lv
-        drrr.print("/me @" + users[n].name + " 您的【" + e + "】升级到 Lv." + lv + " 战斗力增加到【" + users[n].pet[p].sc + "】,【生命+" + l + "】【攻击+" + t + "】【防御+" + d + "】【速度+" + s + "】，距离下一级还差" + dt + "经验值")
-    }
-}
-event[msg, me, dm](user, cont:"^/更改宠物名\\s+\\d+\\s+\\S")  => {
-    p = parseInt(twokey("/更改宠物名", cont)[0]) - 1
-    nm = twokey("/更改宠物名", cont)[1]
-    n = checku(user)
-    if (n == (-1)) then {
-        drrr.print("/me @" + user + " 您的tc与已有的用户不匹配")
-    } else if p> (users[n].pet.length - 1) then {
-        drrr.print("/me @" + users[n].name + " 输入的序号不存在")
-    } else if users[n].pet[p].level < 3 then {
-        drrr.print("/me @" + users[n].name + " 您的宠物【" + users[n].pet[p].name + "】未达到Lv.3或以上，暂无法更名")
-    } else if nm.search("-") >= 0 then {
-        drrr.print("/me @" + users[n].name + " 新名字中不能包含“-”字符")
-    } else {
-        onm = users[n].pet[p].name
-        pin = "N"
-        if onm.endsWith("SR") then pin= "SR"
-          else if onm.endsWith("R") then pin= "R"
-        users[n].pet[p].name = nm + "-" + pin
-        if onm== m then {
-            drrr.print("/me @" + users[n].name + " 您已成功将宠物【" + onm + "】名字更改为【" + users[n].pet[p].name + "】")
-        }else {
-            drrr.print("/me @" + users[n].name + " 您已成功将宠物【" + onm + "】名字更改为【" + users[n].pet[p].name + "】")
-        }
-    }
-}
 event[msg, me, dm](user, cont: "^/战报") => {
+    print(users)
     y = ybt.map((x, i) => (i + 1) + ". " + x)
     drrr.print("最新战报\n" + y.join("\n"))
 }
@@ -1341,25 +1459,25 @@ event[msg, me, dm](user, cont:"^/放生\\s+\\d")  => {
     } else if p> (users[n].pet.length - 1) || users[n].pet.length == 0 then {
         drrr.print("/me @" + users[n].name + " 输入的序号不存在")
     } else {
-        a = Math.random() * 20 + 5 //暂留时间5-25
         pet = users[n].pet[p]
         users[n].pet.splice(p, 1)
         yb = rand(80, 120)
         users[n].coin += yb
-        apet.push(pet)
-        drrr.print("/me @" + users[n].name + " 您已成功放生【" + pet.name + "】，获得了" + yb + " DRB，现在您有" + users[n].coin + "DRB，它将在一段时间后离开")
-        later a* 60 * 1000 {
-            i = apet.findIndex(x => x.name == pet.name && x.exp == pet.exp && x.life == pet.life)
-            if i>= 0 then {
-                apet.splice(i, 1)
-                drrr.print("/me 【" + pet.name + "】逃走了")
-            }
-        }
+        drrr.print("/me @" + users[n].name + " 您已成功放生【" + pet.name + "】，获得了" + yb + " DRB，现在您有" + users[n].coin + "DRB")
     }
 }
 event[msg, me, dm](user, cont: "^/召唤", url, tc) => {
+    n = checku(user)
     if admins.some(a => a == tc) then {
-        cpet(0.44, 0.88)
+        cpet()
+    }else if (n == (-1)) then {
+        drrr.print("/me @" + user + " 您的tc与已有的用户不匹配")
+    } else if !users[n].bag.some(x => x.name == "MG-召唤球") then {
+        drrr.print("/me @" + users[n].name + " 很抱歉，您的背包中没有召唤球，请前往商店购买")
+    } else {
+        use(n, "MG-召唤球")
+        drrr.print("/me @" + users[n].name + " 使用了一个召唤球，请留意宝可梦的出现")
+        later 2000 cpet()
     }
 }
 //信箱
@@ -1590,8 +1708,8 @@ event[msg, me, dm](user, cont: "^/导入", url, tc) => {
                     b.push(x)
                 }else if users.some(m => m.uid == x.uid) then {
                     n = users.findIndex(i => i.uid == x.uid)
-                    drrr.dm(user, "已删除" +users[n].name)
-                    users.splice(n, 1,x)
+                    drrr.dm(user, "已删除" + users[n].name)
+                    users.splice(n, 1, x)
                     c.push(x)
                 }else{
                     a.push(x)

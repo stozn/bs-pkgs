@@ -1447,7 +1447,6 @@ event[msg, me, dm](user, cont: "^/挑战\\s+\\S") => {
 
 
 event[msg, me, dm](user, cont: "^/战报") => {
-    print(users)
     y = ybt.map((x, i) => (i + 1) + ". " + x)
     drrr.print("最新战报\n" + y.join("\n"))
 }

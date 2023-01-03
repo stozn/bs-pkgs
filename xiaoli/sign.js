@@ -1281,9 +1281,9 @@ event[msg, me, dm](user, cont: "^/挑战\\s+\\S") => {
                         }else{
                             users[e].pet[q].status++
                             if users[e].pet[q].status == 3 then {
-                                ans += "@" + nm + " 的【" + users[e].pet[q].pname + "】进化成" + users[e].pet[q].ppname + "\n"
+                                ans += "@" + nm + " 的【" + users[e].pet[q].pname + "】进化成【" + users[e].pet[q].ppname + "】\n"
                             }else{
-                                ans += "@" + nm + " 的【" + users[e].pet[q].name + "】进化成" + users[e].pet[q].pname + "\n"
+                                ans += "@" + nm + " 的【" + users[e].pet[q].name + "】进化成【" + users[e].pet[q].pname + "】\n"
                             }
                         }
                     }
@@ -1432,7 +1432,7 @@ event[msg, me, dm](user, cont: "^/挑战\\s+\\S") => {
                 users[n].coin += ad
                 users[n].pet.forEach(x => x.exp += ae)
                 ybt.unshift(xn + "➨" + yn + "\t" + "胜")
-                if ybt.length == 5 then ybt.splice(4, 1)
+                if ybt.length == 7 then ybt.splice(6, 1)
                 drrr.print("/me 恭喜@" + xn + " 取得胜利，您获得了" + ad + " DRB，所有宠物增加" + ae + "亲密度，胜利次数+1，共胜利" + users[n].win + "次")
             }
             users[n].pet.forEach(x => x.status = 1)

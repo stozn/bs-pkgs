@@ -113,7 +113,7 @@ pets = [{ name: "盖欧卡", type: "水", weakness: "草", status: 1, stage: 1, 
 
 { name: "哲尔尼亚斯GX", type: "妖", weakness: "钢", status: 1, stage: 1, exp: 60, bao: 10, life: 180, att: 150 },
 { name: "迷拟丘GX", type: "妖", weakness: "无", status: 1, stage: 1, exp: 80, bao: 5, life: 170, att: 150 },
-{ name: "咚咚鼠", type: "妖", weakness: "无", status: 1, stage: 1, exp: 100, bao: 90, life: 30, att: 70 }
+{ name: "咚咚鼠", type: "妖", weakness: "无", status: 1, stage: 1, exp: 100, bao: 90, life: 30, att: 70 },
 { name: "拉鲁拉丝", type: "妖", weakness: "钢", status: 1, stage: 3, exp: 60, bao: 40, life: 60, att: 90, pname: "奇鲁利安", plife: 80, patt: 120, ppname: "沙奈朵", pplife: 220, ppatt: 220 },
 { name: "拉鲁拉丝", type: "妖", weakness: "钢", status: 1, stage: 3, exp: 60, bao: 40, life: 60, att: 90, pname: "奇鲁利安", plife: 70, patt: 130, ppname: "沙奈朵GX", pplife: 240, ppatt: 280 },
 { name: "木棉球", type: "妖", weakness: "钢", status: 1, stage: 2, exp: 100, bao: 20, life: 100, att: 30, pname: "风妖精", plife: 100, patt: 130 },

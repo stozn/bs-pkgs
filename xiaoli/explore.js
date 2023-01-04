@@ -167,7 +167,7 @@ state choose{
                 x.bag = 0
             })
             drrr.print("/me" + resters.map(x => "@" + x.name).join(" ") + "返回了营地,获得公共区域的" + a + "金币，并带走了自己的金币,公共区剩余" + pub.coin + "金币")
-            if resters.length == 1 && pub.relic.length > 0　then {
+            if resters.length == 1 && pub.relic.length > 0 then {
                 c = 0
                 pub.relic.forEach(x => c += x.coin)
                 resters[0].coin += c

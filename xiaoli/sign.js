@@ -1278,14 +1278,6 @@ event[msg, me, dm](user, cont: "^/挑战\\s+\\S") => {
                 yp = users[m].pet[y].ppname
                 ya = users[m].pet[y].ppatt
             }
-            if xt == false then{
-                xl /= 10 
-                xa /=10
-            } 
-            if yt == false then{
-                 yl /= 10
-                 ya /= 10
-            }
             xb = users[n].pet[x].bao
             yb = users[m].pet[y].bao
             zdm.push("第" + j + "轮\n@" + xn + "\t派出了【" + xp + "】（" + xt + "）\n@" + yn + "\t派出了【" + yp + "】（" + yt + "）")
@@ -1362,6 +1354,14 @@ event[msg, me, dm](user, cont: "^/挑战\\s+\\S") => {
                 v++
             }
             if j> 1 then zdm.push(ans)
+            if xt == false then{
+                xl /= 10 
+                xa /=10
+            } 
+            if yt == false then{
+                 yl /= 10
+                 ya /= 10
+            }
             while (flag) {
                 xs = xa
                 ys = ya

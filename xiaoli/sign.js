@@ -1262,7 +1262,7 @@ event[msg, me, dm](user, cont: "^/挑战\\s+\\S") => {
             ya = users[m].pet[y].att                       //守方攻击力
             xe = users[n].pet[x].exp                       //亲密度
             ye = users[m].pet[y].exp
-            
+
             if users[n].pet[x].status == 2 then{
                 xp = users[n].pet[x].pname
                 xa = users[n].pet[x].patt
@@ -1285,82 +1285,81 @@ event[msg, me, dm](user, cont: "^/挑战\\s+\\S") => {
             v = 0
             ans = ""
 
-            while (v < 2) {
+            while (v < 4) {
                 e = m
                 nm = yn
                 q = rand(0, yd.length - 1)
                 p = y
-                if v== 0 then {
+                if v < 2 then {
                     e = n
                     nm = xn
                     q = rand(0, xd.length - 1)
                     p = x
                 }
 
-                if j> 1 then{
-                    if q== 0 then{
-                        if users[e].pet[p].stage == users[e].pet[p].status then{
-                            name = users[e].pet[p].name
-                            if users[e].pet[p].stage == 2 then name = users[e].pet[p].pname
-                            if users[e].pet[p].stage == 3 then name = users[e].pet[p].ppname
-                            ans += "@" + nm + " 的【" + name + "】无法进化\n"
-                        }else{
-                            if e == n then{
-                                xp = users[e].pet[x].pname
-                                xl = users[e].pet[x].plife + xl - users[e].pet[x].life
-                                xa = users[e].pet[x].patt
-                                if users[e].pet[x].status == 2 then {
-                                    xp = users[e].pet[x].ppname
-                                    xl = users[e].pet[x].pplife + xl - users[e].pet[x].plife
-                                    xa = users[e].pet[x].ppatt
-                                    ans += "@" + nm + " 的【" + users[e].pet[x].pname + "】进化成" + xp + "\n"
-                                }else{
-                                    ans += "@" + nm + " 的【" + users[e].pet[x].name + "】进化成" + xp + "\n"
-                                }
-                                users[e].pet[x].status++
-                            }else{
-                                yp = users[e].pet[y].pname
-                                yl = users[e].pet[y].plife + yl - users[e].pet[y].life
-                                ya = users[e].pet[y].patt
-                                if users[e].pet[y].status == 2 then {
-                                    yp = users[e].pet[y].ppname
-                                    yl = users[e].pet[y].pplife + yl - users[e].pet[y].plife
-                                    ya = users[e].pet[y].ppatt
-                                    ans += "@" + nm + " 的【" + users[e].pet[y].pname + "】进化成" + yp + "\n"
-                                }else{
-                                    ans += "@" + nm + " 的【" + users[e].pet[y].name + "】进化成" + yp + "\n"
-                                }
-                                users[e].pet[y].status++
-                            }
-                        }
+                if q== 0 then{
+                    if users[e].pet[p].stage == users[e].pet[p].status then{
+                        name = users[e].pet[p].name
+                        if users[e].pet[p].stage == 2 then name = users[e].pet[p].pname
+                        if users[e].pet[p].stage == 3 then name = users[e].pet[p].ppname
+                        ans += "@" + nm + " 的【" + name + "】无法进化\n"
                     }else{
-                        if e == n then q= xd[q--]
-                  else q = yd[q - 1]
-                        if users[e].pet[q].stage == users[e].pet[q].status then{
-                            name = users[e].pet[q].name
-                            if users[e].pet[q].stage == 2 then name = users[e].pet[q].pname
-                            if users[e].pet[q].stage == 3 then name = users[e].pet[q].ppname
-                            ans += "@" + nm + " 的【" + name + "】无法进化\n"
-                        }else{
-                            users[e].pet[q].status++
-                            if users[e].pet[q].status == 3 then {
-                                ans += "@" + nm + " 的【" + users[e].pet[q].pname + "】进化成【" + users[e].pet[q].ppname + "】\n"
+                        if e == n then{
+                            xp = users[e].pet[x].pname
+                            xl = users[e].pet[x].plife + xl - users[e].pet[x].life
+                            xa = users[e].pet[x].patt
+                            if users[e].pet[x].status == 2 then {
+                                xp = users[e].pet[x].ppname
+                                xl = users[e].pet[x].pplife + xl - users[e].pet[x].plife
+                                xa = users[e].pet[x].ppatt
+                                ans += "@" + nm + " 的【" + users[e].pet[x].pname + "】进化成" + xp + "\n"
                             }else{
-                                ans += "@" + nm + " 的【" + users[e].pet[q].name + "】进化成【" + users[e].pet[q].pname + "】\n"
+                                ans += "@" + nm + " 的【" + users[e].pet[x].name + "】进化成" + xp + "\n"
                             }
+                            users[e].pet[x].status++
+                        }else{
+                            yp = users[e].pet[y].pname
+                            yl = users[e].pet[y].plife + yl - users[e].pet[y].life
+                            ya = users[e].pet[y].patt
+                            if users[e].pet[y].status == 2 then {
+                                yp = users[e].pet[y].ppname
+                                yl = users[e].pet[y].pplife + yl - users[e].pet[y].plife
+                                ya = users[e].pet[y].ppatt
+                                ans += "@" + nm + " 的【" + users[e].pet[y].pname + "】进化成" + yp + "\n"
+                            }else{
+                                ans += "@" + nm + " 的【" + users[e].pet[y].name + "】进化成" + yp + "\n"
+                            }
+                            users[e].pet[y].status++
+                        }
+                    }
+                }else{
+                    if e == n then q= xd[q--]
+                  else q = yd[q - 1]
+                    if users[e].pet[q].stage == users[e].pet[q].status then{
+                        name = users[e].pet[q].name
+                        if users[e].pet[q].stage == 2 then name = users[e].pet[q].pname
+                        if users[e].pet[q].stage == 3 then name = users[e].pet[q].ppname
+                        ans += "@" + nm + " 的【" + name + "】无法进化\n"
+                    }else{
+                        users[e].pet[q].status++
+                        if users[e].pet[q].status == 3 then {
+                            ans += "@" + nm + " 的【" + users[e].pet[q].pname + "】进化成【" + users[e].pet[q].ppname + "】\n"
+                        }else{
+                            ans += "@" + nm + " 的【" + users[e].pet[q].name + "】进化成【" + users[e].pet[q].pname + "】\n"
                         }
                     }
                 }
+
                 v++
             }
-            if j> 1 then zdm.push(ans)
+            zdm.push(ans)
             if xt == false then{
-                xl /= 10 
-                xa /=10
-            } 
+                xl /= 10
+                xa /= 10
+            }
             if yt == false then{
-                 yl /= 10
-                 ya /= 10
+                yl /= 10
+                ya /= 10
             }
             while (flag) {
                 xs = xa

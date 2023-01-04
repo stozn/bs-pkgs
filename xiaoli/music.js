@@ -1,7 +1,6 @@
 API = "https://ncm.icodeq.com"
 mid=[]
 songs=[]
-admins=["OG0OPFxOFw","Ancy.WWeeo",".bLVj9fdOM","unica/qOLU","YtIMnsXOBE"]   //设置管理员
 
 twokey=(cmd,cont)=>{
   u=cont.replace(cmd, "").trim().slice(0,cont.replace(cmd, "").trim().search("\\s")).trim()

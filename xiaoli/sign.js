@@ -360,19 +360,12 @@ sort = (key) => {
     }, "\t总用户:" + usr.length + "人")
     p
 }
-event[msg, me, dm](user, cont: "^/(资产|签到|早起|干杯|胜利|战力)榜") => {
+event[msg, me, dm](user, cont: "^/(资产|签到|早起|干杯|胜利)榜") => {
     if cont== "/资产榜" then drrr.print("资产榜" + sort("coin"))
 else if cont== "/签到榜" then drrr.print("签到榜" + sort("day"))
 else if cont== "/早起榜" then drrr.print("早起榜" + sort("dayz")) 
 else if cont== "/胜利榜" then drrr.print("胜利榜" + sort("win"))
 else if cont== "/干杯榜" then drrr.print("干杯榜" + sort("drink"))
-else{
-        up = users.filter(x => x.pet.length > 0)
-        up.sort((a, b) => b.pet[0].sc - a.pet[0].sc)
-        up = up.map((x, y) => (y + 1) + ".@" + x.name + "\t" + x.pet[0].name + "\t" + x.pet[0].sc)
-        if up.length > 6 then up= up.slice(0, 6)
-        drrr.print("战力榜\n" + up.join("\n"))
-    }
 }
 
 //签到

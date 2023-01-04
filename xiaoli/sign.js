@@ -993,7 +993,7 @@ event[msg, me, dm](user, cont: "^/礼品码", tc) => {
     if admins.some(a => a == tc) then {
         k = "礼品码：\n"
         for p in keys k+= p + ","
-        print(k)
+        pprint(k)
         drrr.dm(user, k)
     }
 }
@@ -1649,7 +1649,7 @@ event[msg, me, dm](user, cont: "^/删除\\s+\\d", tc) => {
             drrr.dm(user, "●该用户UID不存在")
         } else {
             name = users[n].name
-            print(users[n])
+            pprint(users[n])
             users.splice(n, 1)
             drrr.dm(user, "●成功删除用户" + name)
         }
@@ -1662,7 +1662,7 @@ event[msg, me, dm](user, cont: "^/导出$", tc) => {
         localStorage["lottery"] = JSON.stringify(lottery)
         localStorage["result"] = JSON.stringify(result)
         localStorage["market"] = JSON.stringify(market)
-        print(users)
+        pprint(users)
         drrr.print("ok")
     }
 }
@@ -1673,7 +1673,7 @@ event[msg, me, dm](user, cont: "^/导出\\s+\\S", tc) => {
         if n< 0 then{
             drrr.dm(user, "未找到用户【" + tg + "】")
         } else {
-            print([users[n]])
+            pprint([users[n]])
             drrr.dm(user, "已导出用户：" + users[n].name)
         }
     }
@@ -1685,7 +1685,7 @@ event[msg, me, dm](user, cont: "^/导出\\s+\\d", tc) => {
         if n< 0 then{
             drrr.dm(user, "未找到UID【" + tg + "】")
         } else {
-            print([users[n]])
+            pprint([users[n]])
             drrr.dm(user, "已导出用户：" + users[n].name)
         }
     }
@@ -1715,8 +1715,8 @@ event[msg, me, dm](user, cont: "^/导入", tc) => {
 
             input = []
             if b.length > 0 then {
-                print("未成功导入：")
-                print(b)
+                pprint("未成功导入：")
+                pprint(b)
             }
             drrr.dm(user, "已导入" + a.length + "名新用户，更改了" + c.length + "名旧用户，有" + b.length + "名用户冲突")
         }

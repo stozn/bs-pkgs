@@ -83,7 +83,7 @@ event[msg, me, dm](user, cont: "^/通知$") => {
 }
 event[msg, me, dm](user, cont: "^/导出",  tc) => {
     if admins.some(a => a == tc) then {
-        print(msgs)
+        pprint(msgs)
     }
 }
 

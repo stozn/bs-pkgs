@@ -1305,9 +1305,9 @@ event[msg, me, dm](user, cont: "^/挑战\\s+\\S") => {
                                 xp = users[e].pet[x].ppname
                                 xl = users[e].pet[x].pplife + xl - users[e].pet[x].plife
                                 xa = users[e].pet[x].ppatt
-                                ans += "@" + nm + " 的【" + users[e].pet[x].pname + "】进化成" + xp + "\n"
+                                ans += "@" + nm + " 的【" + users[e].pet[x].pname + "】进化成【" + xp + "】\n"
                             }else{
-                                ans += "@" + nm + " 的【" + users[e].pet[x].name + "】进化成" + xp + "\n"
+                                ans += "@" + nm + " 的【" + users[e].pet[x].name + "】进化成【" + xp + "】\n"
                             }
                             users[e].pet[x].status++
                         }else{
@@ -1318,9 +1318,9 @@ event[msg, me, dm](user, cont: "^/挑战\\s+\\S") => {
                                 yp = users[e].pet[y].ppname
                                 yl = users[e].pet[y].pplife + yl - users[e].pet[y].plife
                                 ya = users[e].pet[y].ppatt
-                                ans += "@" + nm + " 的【" + users[e].pet[y].pname + "】进化成" + yp + "\n"
+                                ans += "@" + nm + " 的【" + users[e].pet[y].pname + "】进化成【" + yp + "】\n"
                             }else{
-                                ans += "@" + nm + " 的【" + users[e].pet[y].name + "】进化成" + yp + "\n"
+                                ans += "@" + nm + " 的【" + users[e].pet[y].name + "】进化成【" + yp + "】\n"
                             }
                             users[e].pet[y].status++
                         }

@@ -22,100 +22,100 @@ ybt = []
 //奖励数据
 award = []
 //宠物数据
-pets = [{ name: "墨海马", type: "水", weakness: "草", status: 1, stage: 2, exp: 60, bao: 30, life: 70, att: 15, pname: "海刺龙", plife: 90, patt: 35 },
-{ name: "阿罗拉穿山鼠", type: "水", weakness: "钢", status: 1, stage: 2, exp: 60, bao: 20, life: 60, att: 30, pname: "阿罗拉穿山王", plife: 110, patt: 50 },
-{ name: "呆呆兽", type: "水", weakness: "草", status: 1, stage: 2, exp: 60, bao: 50, life: 70, att: 10, pname: "呆呆王", plife: 120, patt: 60 },
-{ name: "鲤鱼王", type: "水", weakness: "电", status: 1, stage: 2, exp: 60, bao: 10, life: 30, att: 10, pname: "暴鲤龙", plife: 150, patt: 160 },
-{ name: "急冻鸟GX", type: "水", weakness: "钢", status: 1, stage: 1, exp: 100, bao: 5, life: 170, att: 130 },
-{ name: "盖欧卡", type: "水", weakness: "草", status: 1, stage: 1, exp: 50, bao: 5, life: 130, att: 120 },
-{ name: "呱呱泡蛙", type: "水", weakness: "草", status: 1, stage: 3, exp: 100, bao: 20, life: 50, att: 20, pname: "呱头蛙", plife: 80, patt: 20, ppname: "甲贺忍蛙GX", pplife: 230, ppatt: 110 },
+pets = [{ name: "盖欧卡", type: "水", weakness: "草", status: 1, stage: 1, exp: 20, bao: 20, life: 140, att: 120 },
+{ name: "急冻鸟GX", type: "水", weakness: "钢", status: 1, stage: 1, exp: 50, bao: 50, life: 170, att: 130 },
+{ name: "墨海马", type: "水", weakness: "草", status: 1, stage: 2, exp: 80, bao: 20, life: 100, att: 50, pname: "海刺龙", plife: 150, patt: 100 },
+{ name: "阿罗拉穿山鼠", type: "水", weakness: "钢", status: 1, stage: 2, exp: 100, bao: 50, life: 60, att: 40, pname: "阿罗拉穿山王", plife: 110, patt: 90 },
+{ name: "呆呆兽", type: "水", weakness: "草", status: 1, stage: 2, exp: 90, bao: 50, life: 70, att: 40, pname: "呆呆王", plife: 120, patt: 90 },
+{ name: "鲤鱼王", type: "水", weakness: "电", status: 1, stage: 2, exp: 0, bao: 30, life: 200, att: 20, pname: "暴鲤龙", plife: 200, patt: 120 },
+{ name: "呱呱泡蛙", type: "水", weakness: "草", status: 1, stage: 3, exp: 100, bao: 20, life: 100, att: 30, pname: "呱头蛙", plife: 120, patt: 60, ppname: "甲贺忍蛙GX", pplife: 300, ppatt: 210 },
 
-{ name: "咩利羊", type: "电", weakness: "斗", status: 1, stage: 3, exp: 100, bao: 20, life: 50, att: 20, pname: "茸茸羊", plife: 80, patt: 40, ppname: "电龙", pplife: 150, ppatt: 100 },
-{ name: "闪电鸟", type: "电", weakness: "电", status: 1, stage: 1, exp: 60, bao: 15, life: 110, att: 70 },
-{ name: "雷公", type: "电", weakness: "电", status: 1, stage: 1, exp: 60, bao: 35, life: 120, att: 30 },
-{ name: "霹雳电球", type: "电", weakness: "斗", status: 1, stage: 2, exp: 100, bao: 50, life: 50, att: 20, pname: "顽皮雷弹", plife: 190, patt: 80 },
-{ name: "阿罗拉小拳石", type: "电", weakness: "斗", status: 1, stage: 3, exp: 100, bao: 20, life: 60, att: 20, pname: "阿罗拉隆隆石", plife: 100, patt: 100, ppname: "阿罗拉隆隆岩", pplife: 160, ppatt: 150 },
-{ name: "强颚鸡母虫", type: "电", weakness: "斗", status: 1, stage: 3, exp: 100, bao: 5, life: 70, att: 20, pname: "虫电宝", plife: 90, patt: 50, ppname: "锹农炮虫GX", pplife: 240, ppatt: 180 },
-{ name: "帕奇利兹", type: "电", weakness: "斗", status: 1, stage: 1, exp: 60, bao: 35, life: 70, att: 25 },
-{ name: "电飞鼠", type: "电", weakness: "电", status: 1, stage: 1, exp: 60, bao: 35, life: 60, att: 30 },
-{ name: "皮卡丘", type: "电", weakness: "斗", status: 1, stage: 2, exp: 100, bao: 30, life: 60, att: 20, pname: "雷丘", plife: 80, patt: 130 },
+{ name: "闪电鸟", type: "电", weakness: "电", status: 1, stage: 1, exp: 50, bao: 60, life: 110, att: 80 },
+{ name: "雷公", type: "电", weakness: "电", status: 1, stage: 1, exp: 20, bao: 50, life: 150, att: 80 },
+{ name: "帕奇利兹", type: "电", weakness: "斗", status: 1, stage: 1, exp: 100, bao: 40, life: 110, att: 40 },
+{ name: "电飞鼠", type: "电", weakness: "电", status: 1, stage: 1, exp: 40, bao: 90, life: 100, att: 70 },
+{ name: "皮卡丘", type: "电", weakness: "斗", status: 1, stage: 2, exp: 100, bao: 30, life: 100, att: 50, pname: "雷丘", plife: 100, patt: 150 },
+{ name: "咩利羊", type: "电", weakness: "斗", status: 1, stage: 3, exp: 80, bao: 20, life: 100, att: 50, pname: "茸茸羊", plife: 150, patt: 50, ppname: "电龙", pplife: 200, ppatt: 200 },
+{ name: "霹雳电球", type: "电", weakness: "斗", status: 1, stage: 2, exp: 100, bao: 90, life: 10, att: 50, pname: "顽皮雷弹", plife: 10, patt: 150 },
+{ name: "阿罗拉小拳石", type: "电", weakness: "斗", status: 1, stage: 3, exp: 100, bao: 70, life: 60, att: 20, pname: "阿罗拉隆隆石", plife: 100, patt: 30, ppname: "阿罗拉隆隆岩", pplife: 160, ppatt: 170 },
+{ name: "强颚鸡母虫", type: "电", weakness: "斗", status: 1, stage: 3, exp: 100, bao: 10, life: 100, att: 40, pname: "虫电宝", plife: 100, patt: 90, ppname: "锹农炮虫GX", pplife: 200, ppatt: 190 },
 
-{ name: "阿罗拉臭泥", type: "超", weakness: "超", status: 1, stage: 2, exp: 80, bao: 10, life: 80, att: 30, pname: "阿罗拉臭臭泥", plife: 120, patt: 45 },
-{ name: "骑拉蒂纳", type: "超", weakness: "恶", status: 1, stage: 1, exp: 50, bao: 0, life: 130, att: 60 },
-{ name: "迷拟丘", type: "超", weakness: "无", status: 1, stage: 1, exp: 70, bao: 40, life: 70, att: 20 },
-{ name: "卡噗·蝶蝶", type: "超", weakness: "超", status: 1, stage: 1, exp: 70, bao: 50, life: 110, att: 20 },
-{ name: "超梦GX", type: "超", weakness: "超", status: 1, stage: 1, exp: 40, bao: 10, life: 100, att: 200 },
-{ name: "好坏星", type: "超", weakness: "超", status: 1, stage: 2, exp: 60, bao: 20, life: 60, att: 10, pname: "超坏星GX", plife: 210, patt: 150 },
+{ name: "阿罗拉臭泥", type: "超", weakness: "超", status: 1, stage: 2, exp: 80, bao: 20, life: 100, att: 50, pname: "阿罗拉臭臭泥", plife: 120, patt: 130 },
+{ name: "骑拉蒂纳", type: "超", weakness: "恶", status: 1, stage: 1, exp: 30, bao: 30, life: 130, att: 130 },
+{ name: "迷拟丘", type: "超", weakness: "无", status: 1, stage: 1, exp: 70, bao: 40, life: 100, att: 90 },
+{ name: "卡噗·蝶蝶", type: "超", weakness: "超", status: 1, stage: 1, exp: 70, bao: 50, life: 110, att: 70 },
+{ name: "超梦GX", type: "超", weakness: "超", status: 1, stage: 1, exp: 40, bao: 30, life: 140, att: 200 },
+{ name: "好坏星", type: "超", weakness: "超", status: 1, stage: 2, exp: 60, bao: 90, life: 40, att: 60, pname: "超坏星GX", plife: 160, patt: 140 },
 
-{ name: "小小象", type: "斗", weakness: "草", status: 1, stage: 2, exp: 100, bao: 40, life: 70, att: 10, pname: "顿甲", plife: 130, patt: 70 },
-{ name: "岩狗狗", type: "斗", weakness: "草", status: 1, stage: 2, exp: 100, bao: 10, life: 50, att: 30, pname: "鬃岩狼人GX", plife: 200, patt: 120 },
-{ name: "投掷猴", type: "斗", weakness: "超", status: 1, stage: 1, exp: 80, bao: 0, life: 110, att: 40 },
-{ name: "圆陆鲨", type: "斗", weakness: "草", status: 1, stage: 3, exp: 100, bao: 30, life: 50, att: 10, pname: "尖牙陆鲨", plife: 80, patt: 40, ppname: "烈咬陆鲨", pplife: 150, ppatt: 100 },
-{ name: "利欧路", type: "斗", weakness: "草", status: 1, stage: 3, exp: 100, bao: 20, life: 70, att: 10, pname: "路卡利欧", plife: 110, patt: 70, ppname: "路卡利欧GX", pplife: 210, ppatt: 130 },
-{ name: "爆肌蚊", type: "斗", weakness: "超", status: 1, stage: 1, exp: 80, bao: 20, life: 220, att: 60 },
-{ name: "爆肌蚊GX", type: "斗", weakness: "超", status: 1, stage: 1, exp: 60, bao: 10, life: 220, att: 160 },
-{ name: "固拉多", type: "斗", weakness: "草", status: 1, stage: 1, exp: 50, bao: 10, life: 130, att: 130 },
-{ name: "卡拉卡拉", type: "斗", weakness: "草", status: 1, stage: 1, exp: 70, bao: 20, life: 60, att: 40 },
+{ name: "小小象", type: "斗", weakness: "草", status: 1, stage: 2, exp: 100, bao: 40, life: 70, att: 40, pname: "顿甲", plife: 130, patt: 90 },
+{ name: "岩狗狗", type: "斗", weakness: "草", status: 1, stage: 2, exp: 90, bao: 10, life: 100, att: 50, pname: "鬃岩狼人GX", plife: 200, patt: 150 },
+{ name: "投掷猴", type: "斗", weakness: "超", status: 1, stage: 1, exp: 80, bao: 0, life: 110, att: 110 },
+{ name: "圆陆鲨", type: "斗", weakness: "草", status: 1, stage: 3, exp: 100, bao: 30, life: 50, att: 70, pname: "尖牙陆鲨", plife: 80, patt: 90, ppname: "烈咬陆鲨", pplife: 150, ppatt: 220 },
+{ name: "利欧路", type: "斗", weakness: "草", status: 1, stage: 3, exp: 0, bao: 80, life: 100, att: 70, pname: "路卡利欧", plife: 110, patt: 110, ppname: "路卡利欧GX", pplife: 210, ppatt: 210 },
+{ name: "爆肌蚊", type: "斗", weakness: "超", status: 1, stage: 1, exp: 80, bao: 20, life: 120, att: 80 },
+{ name: "爆肌蚊GX", type: "斗", weakness: "超", status: 1, stage: 1, exp: 60, bao: 10, life: 170, att: 150 },
+{ name: "固拉多", type: "斗", weakness: "草", status: 1, stage: 1, exp: 20, bao: 30, life: 130, att: 130 },
+{ name: "卡拉卡拉", type: "斗", weakness: "草", status: 1, stage: 1, exp: 70, bao: 30, life: 90, att: 60 },
 
-{ name: "阿罗拉臭泥", type: "恶", weakness: "斗", status: 1, stage: 3, exp: 100, bao: 10, life: 70, att: 20, pname: "阿罗拉臭臭泥", plife: 120, patt: 80, ppname: "阿罗拉臭臭泥GX", pplife: 220, ppatt: 120 },
-{ name: "阿罗拉喵喵", type: "恶", weakness: "斗", status: 1, stage: 2, exp: 70, bao: 50, life: 60, att: 10, pname: "阿罗拉猫老大", plife: 90, patt: 30 },
-{ name: "阿罗拉小拉达", type: "恶", weakness: "斗", status: 1, stage: 3, exp: 100, bao: 20, life: 40, att: 20, pname: "阿罗拉拉达", plife: 120, patt: 60, ppname: "阿罗拉拉达GX", pplife: 200, ppatt: 150 },
-{ name: "扭拉", type: "恶", weakness: "斗", status: 1, stage: 2, exp: 70, bao: 20, life: 70, att: 30, pname: "玛扭拉", plife: 90, patt: 25 },
-{ name: "阿伯梭鲁", type: "恶", weakness: "斗", status: 1, stage: 1, exp: 80, bao: 10, life: 100, att: 30 },
-{ name: "胡帕", type: "恶", weakness: "斗", status: 1, stage: 1, exp: 80, bao: 0, life: 120, att: 80 },
-{ name: "达克莱伊", type: "恶", weakness: "斗", status: 1, stage: 1, exp: 80, bao: 0, life: 160, att: 120 },
-{ name: "索罗亚", type: "恶", weakness: "斗", status: 1, stage: 2, exp: 70, bao: 50, life: 70, att: 30, pname: "索罗亚克GX", plife: 210, patt: 100 },
+{ name: "达克莱伊", type: "恶", weakness: "斗", status: 1, stage: 1, exp: 20, bao: 20, life: 160, att: 120 },
+{ name: "阿罗拉臭泥", type: "恶", weakness: "斗", status: 1, stage: 3, exp: 100, bao: 60, life: 70, att: 20, pname: "阿罗拉臭臭泥", plife: 70, patt: 70, ppname: "阿罗拉臭臭泥GX", pplife: 220, ppatt: 220 },
+{ name: "阿罗拉喵喵", type: "恶", weakness: "斗", status: 1, stage: 2, exp: 70, bao: 50, life: 60, att: 70, pname: "阿罗拉猫老大", plife: 90, patt: 140 },
+{ name: "阿罗拉小拉达", type: "恶", weakness: "斗", status: 1, stage: 3, exp: 100, bao: 20, life: 110, att: 20, pname: "阿罗拉拉达", plife: 120, patt: 60, ppname: "阿罗拉拉达GX", pplife: 250, ppatt: 230 },
+{ name: "扭拉", type: "恶", weakness: "斗", status: 1, stage: 2, exp: 70, bao: 30, life: 120, att: 30, pname: "玛扭拉", plife: 120, patt: 130 },
+{ name: "阿伯梭鲁", type: "恶", weakness: "斗", status: 1, stage: 1, exp: 80, bao: 20, life: 100, att: 100 },
+{ name: "胡帕", type: "恶", weakness: "斗", status: 2, stage: 1, exp: 60, bao: 20, life: 120, att: 50, pname: "胡帕GX", plife: 210, patt: 160 },
+{ name: "索罗亚", type: "恶", weakness: "斗", status: 1, stage: 2, exp: 70, bao: 50, life: 70, att: 60, pname: "索罗亚克GX", plife: 210, patt: 130 },
 
-{ name: "火斑喵", type: "火", weakness: "水", status: 1, stage: 3, exp: 60, bao: 10, life: 70, att: 20, pname: "炎热喵", plife: 90, patt: 30, ppname: "炽焰咆哮虎GX", pplife: 250, ppatt: 200 },
-{ name: "小火龙", type: "火", weakness: "水", status: 1, stage: 3, exp: 100, bao: 10, life: 70, att: 20, pname: "火恐龙", plife: 80, patt: 80, ppname: "喷火龙GX", pplife: 250, ppatt: 300 },
-{ name: "火稚鸡", type: "火", weakness: "水", status: 1, stage: 3, exp: 100, bao: 10, life: 50, att: 30, pname: "力壮鸡", plife: 80, patt: 80, ppname: "烈焰鸡GX", pplife: 240, ppatt: 210 },
-{ name: "火球鼠", type: "火", weakness: "水", status: 1, stage: 3, exp: 100, bao: 30, life: 60, att: 10, pname: "火岩鼠", plife: 90, patt: 30, ppname: "火爆兽", pplife: 160, ppatt: 120 },
-{ name: "小火焰猴", type: "火", weakness: "水", status: 1, stage: 3, exp: 100, bao: 50, life: 60, att: 10, pname: "猛火猴", plife: 80, patt: 20, ppname: "烈焰猴", pplife: 130, ppatt: 50 },
-{ name: "火狐狸", type: "火", weakness: "水", status: 1, stage: 3, exp: 100, bao: 20, life: 60, att: 30, pname: "长尾火狐", plife: 90, patt: 40, ppname: "妖火红狐", pplife: 150, ppatt: 150 },
-{ name: "阿罗拉嘎啦嘎啦", type: "火", weakness: "水", status: 1, stage: 1, exp: 80, bao: 30, life: 120, att: 20 },
-{ name: "火焰鸟", type: "火", weakness: "水", status: 1, stage: 1, exp: 80, bao: 20, life: 120, att: 45 },
-{ name: "比克提尼", type: "火", weakness: "水", status: 1, stage: 1, exp: 80, bao: 20, life: 70, att: 50 },
-{ name: "莱希拉姆GX", type: "火", weakness: "水", status: 1, stage: 1, exp: 50, bao: 20, life: 180, att: 110 },
-{ name: "熔岩虫", type: "火", weakness: "水", status: 1, stage: 2, exp: 60, bao: 30, life: 70, att: 20, pname: "熔岩蜗牛", plife: 90, patt: 50 },
+{ name: "火焰鸟", type: "火", weakness: "水", status: 1, stage: 1, exp: 30, bao: 20, life: 120, att: 130 },
+{ name: "火斑喵", type: "火", weakness: "水", status: 1, stage: 3, exp: 60, bao: 10, life: 130, att: 50, pname: "炎热喵", plife: 150, patt: 80, ppname: "炽焰咆哮虎GX", pplife: 250, ppatt: 280 },
+{ name: "小火龙", type: "火", weakness: "水", status: 1, stage: 3, exp: 50, bao: 50, life: 70, att: 40, pname: "火恐龙", plife: 80, patt: 80, ppname: "喷火龙GX", pplife: 250, ppatt: 300 },
+{ name: "火稚鸡", type: "火", weakness: "水", status: 1, stage: 3, exp: 100, bao: 50, life: 50, att: 50, pname: "力壮鸡", plife: 80, patt: 70, ppname: "烈焰鸡GX", pplife: 200, ppatt: 250 },
+{ name: "火球鼠", type: "火", weakness: "水", status: 1, stage: 3, exp: 100, bao: 30, life: 110, att: 10, pname: "火岩鼠", plife: 110, patt: 60, ppname: "火爆兽", pplife: 160, ppatt: 210 },
+{ name: "小火焰猴", type: "火", weakness: "水", status: 1, stage: 3, exp: 100, bao: 80, life: 50, att: 20, pname: "猛火猴", plife: 80, patt: 40, ppname: "烈焰猴", pplife: 130, ppatt: 190 },
+{ name: "火狐狸", type: "火", weakness: "水", status: 1, stage: 3, exp: 100, bao: 20, life: 60, att: 70, pname: "长尾火狐", plife: 110, patt: 70, ppname: "妖火红狐", pplife: 150, ppatt: 230 },
+{ name: "阿罗拉嘎啦嘎啦", type: "火", weakness: "水", status: 1, stage: 1, exp: 50, bao: 30, life: 120, att: 100 },
+{ name: "比克提尼", type: "火", weakness: "水", status: 1, stage: 1, exp: 100, bao: 30, life: 130, att: 60 },
+{ name: "莱希拉姆GX", type: "火", weakness: "水", status: 1, stage: 1, exp: 50, bao: 20, life: 180, att: 150 },
+{ name: "熔岩虫", type: "火", weakness: "水", status: 1, stage: 2, exp: 60, bao: 30, life: 90, att: 70, pname: "熔岩蜗牛", plife: 100, patt: 160 },
 
-{ name: "科斯莫古", type: "钢", weakness: "火", status: 1, stage: 3, exp: 100, bao: 50, life: 60, att: 10, pname: "科斯莫姆", plife: 90, patt: 20, ppname: "索尔迦雷欧GX", pplife: 250, ppatt: 120 },
-{ name: "阿罗拉地鼠", type: "钢", weakness: "火", status: 1, stage: 2, exp: 60, bao: 50, life: 50, att: 10, pname: "阿罗拉三地鼠", plife: 60, patt: 30 },
-{ name: "小磁怪", type: "钢", weakness: "火", status: 1, stage: 3, exp: 60, bao: 50, life: 60, att: 10, pname: "三合一磁怪", plife: 90, patt: 80, ppname: "自爆磁怪", pplife: 150, ppatt: 130 },
-{ name: "盔甲鸟", type: "钢", weakness: "电", status: 1, stage: 1, exp: 80, bao: 20, life: 110, att: 60 },
-{ name: "铁哑铃", type: "钢", weakness: "火", status: 1, stage: 3, exp: 60, bao: 40, life: 60, att: 20, pname: "金属怪", plife: 90, patt: 80, ppname: "巨金怪", pplife: 170, ppatt: 90 },
-{ name: "基拉祈", type: "钢", weakness: "火", status: 1, stage: 1, exp: 80, bao: 40, life: 70, att: 30 },
-{ name: "帝牙卢卡GX", type: "钢", weakness: "火", status: 1, stage: 1, exp: 80, bao: 10, life: 180, att: 150 },
+{ name: "帝牙卢卡GX", type: "钢", weakness: "火", status: 1, stage: 1, exp: 70, bao: 30, life: 180, att: 150 },
+{ name: "科斯莫古", type: "钢", weakness: "火", status: 1, stage: 3, exp: 100, bao: 50, life: 60, att: 40, pname: "科斯莫姆", plife: 90, patt: 60, ppname: "索尔迦雷欧GX", pplife: 200, ppatt: 270 },
+{ name: "阿罗拉地鼠", type: "钢", weakness: "火", status: 1, stage: 2, exp: 60, bao: 50, life: 50, att: 90, pname: "阿罗拉三地鼠", plife: 100, patt: 140 },
+{ name: "小磁怪", type: "钢", weakness: "火", status: 1, stage: 3, exp: 60, bao: 50, life: 80, att: 60, pname: "三合一磁怪", plife: 90, patt: 100, ppname: "自爆磁怪", pplife: 150, ppatt: 240 },
+{ name: "盔甲鸟", type: "钢", weakness: "电", status: 1, stage: 1, exp: 80, bao: 20, life: 110, att: 90 },
+{ name: "铁哑铃", type: "钢", weakness: "火", status: 1, stage: 3, exp: 60, bao: 40, life: 60, att: 90, pname: "金属怪", plife: 90, patt: 110, ppname: "巨金怪", pplife: 300, ppatt: 110 },
+{ name: "基拉祈", type: "钢", weakness: "火", status: 1, stage: 1, exp: 77, bao: 77, life: 177, att: 77 },
 
-{ name: "吉利蛋", type: "基", weakness: "斗", status: 1, stage: 2, exp: 100, bao: 40, life: 110, att: 40, pname: "幸福蛋", plife: 160, patt: 80 },
-{ name: "多边兽", type: "基", weakness: "斗", status: 1, stage: 3, exp: 60, bao: 50, life: 60, att: 10, pname: "多边兽2型", plife: 80, patt: 40, ppname: "多边兽乙型", pplife: 130, ppatt: 80 },
-{ name: "凤王", type: "基", weakness: "电", status: 1, stage: 1, exp: 80, bao: 30, life: 130, att: 30 },
-{ name: "小箭雀", type: "基", weakness: "电", status: 1, stage: 3, exp: 60, bao: 50, life: 50, att: 20, pname: "火箭雀", plife: 70, patt: 40, ppname: "烈箭雀", pplife: 130, ppatt: 90 },
-{ name: "洛奇亚GX", type: "基", weakness: "电", status: 1, stage: 1, exp: 80, bao: 0, life: 190, att: 170 },
-{ name: "卡比兽GX", type: "基", weakness: "斗", status: 1, stage: 1, exp: 100, bao: 0, life: 190, att: 210 },
+{ name: "洛奇亚GX", type: "基", weakness: "电", status: 1, stage: 1, exp: 80, bao: 20, life: 180, att: 170 },
+{ name: "凤王", type: "基", weakness: "电", status: 1, stage: 1, exp: 100, bao: 30, life: 130, att: 90 },
+{ name: "卡比兽GX", type: "基", weakness: "斗", status: 1, stage: 1, exp: 0, bao: 0, life: 190, att: 210 },
+{ name: "吉利蛋", type: "基", weakness: "斗", status: 1, stage: 2, exp: 100, bao: 40, life: 110, att: 40, pname: "幸福蛋", plife: 200, patt: 150 },
+{ name: "多边兽", type: "基", weakness: "斗", status: 1, stage: 3, exp: 60, bao: 50, life: 80, att: 60, pname: "多边兽2型", plife: 80, patt: 110, ppname: "多边兽乙型", pplife: 130, ppatt: 270 },
+{ name: "小箭雀", type: "基", weakness: "电", status: 1, stage: 3, exp: 90, bao: 50, life: 50, att: 60, pname: "火箭雀", plife: 70, patt: 90, ppname: "烈箭雀", pplife: 170, ppatt: 190 },
 
-{ name: "飞天螳螂", type: "草", weakness: "火", status: 1, stage: 2, exp: 80, bao: 40, life: 70, att: 20, pname: "巨钳螳螂GX", plife: 210, patt: 100 },
-{ name: "走路草", type: "草", weakness: "火", status: 1, stage: 3, exp: 60, bao: 50, life: 50, att: 10, pname: "臭臭花", plife: 80, patt: 30, ppname: "烈箭雀", pplife: 140, ppatt: 60 },
-{ name: "蛋蛋", type: "草", weakness: "火", status: 1, stage: 2, exp: 100, bao: 50, life: 40, att: 10, pname: "耶蛋树", plife: 160, patt: 40 },
-{ name: "毽子草", type: "草", weakness: "电", status: 1, stage: 3, exp: 60, bao: 80, life: 30, att: 10, pname: "毽子花", plife: 60, patt: 30, ppname: "毽子棉", pplife: 70, ppatt: 20 },
-{ name: "木守宫", type: "草", weakness: "火", status: 1, stage: 3, exp: 60, bao: 30, life: 50, att: 20, pname: "森林蜥蜴", plife: 80, patt: 40, ppname: "蜥蜴王", pplife: 140, ppatt: 40 },
-{ name: "三蜜蜂", type: "草", weakness: "火", status: 1, stage: 2, exp: 60, bao: 20, life: 40, att: 10, pname: "蜂女王", plife: 120, patt: 120 },
-{ name: "樱花宝", type: "草", weakness: "火", status: 1, stage: 2, exp: 60, bao: 50, life: 50, att: 30, pname: "樱花儿", plife: 80, patt: 30 },
-{ name: "菊叶草", type: "草", weakness: "火", status: 1, stage: 3, exp: 100, bao: 20, life: 70, att: 10, pname: "月桂叶", plife: 100, patt: 50, ppname: "大竺葵", pplife: 150, ppatt: 80 },
+{ name: "飞天螳螂", type: "草", weakness: "火", status: 1, stage: 2, exp: 80, bao: 0, life: 70, att: 80, pname: "巨钳螳螂GX", plife: 180, patt: 220 },
+{ name: "走路草", type: "草", weakness: "火", status: 1, stage: 3, exp: 100, bao: 70, life: 50, att: 30, pname: "臭臭花", plife: 80, patt: 50, ppname: "霸王花", pplife: 150, ppatt: 190 },
+{ name: "蛋蛋", type: "草", weakness: "火", status: 1, stage: 2, exp: 100, bao: 50, life: 40, att: 10, pname: "耶蛋树", plife: 170, patt: 40 },
+{ name: "毽子草", type: "草", weakness: "电", status: 1, stage: 3, exp: 100, bao: 80, life: 30, att: 40, pname: "毽子花", plife: 60, patt: 60, ppname: "毽子棉", pplife: 190, ppatt: 140 },
+{ name: "木守宫", type: "草", weakness: "火", status: 1, stage: 3, exp: 40, bao: 30, life: 50, att: 130, pname: "森林蜥蜴", plife: 80, patt: 150, ppname: "蜥蜴王", pplife: 150, ppatt: 290 },
+{ name: "三蜜蜂", type: "草", weakness: "火", status: 1, stage: 2, exp: 60, bao: 20, life: 80, att: 90, pname: "蜂女王", plife: 130, patt: 150 },
+{ name: "樱花宝", type: "草", weakness: "火", status: 1, stage: 2, exp: 100, bao: 50, life: 100, att: 50, pname: "樱花儿", plife: 110, patt: 150 },
+{ name: "菊叶草", type: "草", weakness: "火", status: 1, stage: 3, exp: 100, bao: 20, life: 70, att: 60, pname: "月桂叶", plife: 100, patt: 80, ppname: "大竺葵", pplife: 160, ppatt: 230 },
 
-{ name: "宝贝龙", type: "龙", weakness: "妖", status: 1, stage: 3, exp: 60, bao: 20, life: 70, att: 40, pname: "甲壳龙", plife: 80, patt: 30, ppname: "暴飞龙", pplife: 150, ppatt: 100 },
-{ name: "宝贝龙", type: "龙", weakness: "妖", status: 1, stage: 3, exp: 60, bao: 0, life: 70, att: 40, pname: "甲壳龙", plife: 80, patt: 30, ppname: "暴飞龙GX", pplife: 250, ppatt: 200 },
-{ name: "粘粘宝", type: "龙", weakness: "妖", status: 1, stage: 3, exp: 60, bao: 40, life: 40, att: 10, pname: "粘美儿", plife: 70, patt: 20, ppname: "粘美龙", pplife: 160, ppatt: 130 },
-{ name: "迷你龙", type: "龙", weakness: "妖", status: 1, stage: 3, exp: 60, bao: 10, life: 60, att: 10, pname: "哈克龙", plife: 90, patt: 60, ppname: "快龙GX", pplife: 250, ppatt: 200 },
-{ name: "裂空座GX", type: "龙", weakness: "妖", status: 1, stage: 1, exp: 80, bao: 40, life: 180, att: 90 },
-{ name: "音波龙GX", type: "龙", weakness: "妖", status: 1, stage: 1, exp: 80, bao: 0, life: 200, att: 120 },
+{ name: "裂空座GX", type: "龙", weakness: "妖", status: 1, stage: 1, exp: 80, bao: 40, life: 180, att: 130 },
+{ name: "音波龙GX", type: "龙", weakness: "妖", status: 1, stage: 1, exp: 90, bao: 0, life: 220, att: 100 },
+{ name: "宝贝龙", type: "龙", weakness: "妖", status: 1, stage: 3, exp: 60, bao: 20, life: 100, att: 70, pname: "甲壳龙", plife: 180, patt: 50, ppname: "暴飞龙", pplife: 180, ppatt: 250 },
+{ name: "宝贝龙", type: "龙", weakness: "妖", status: 1, stage: 3, exp: 40, bao: 10, life: 160, att: 40, pname: "甲壳龙", plife: 180, patt: 70, ppname: "暴飞龙GX", pplife: 250, ppatt: 300 },
+{ name: "粘粘宝", type: "龙", weakness: "妖", status: 1, stage: 3, exp: 80, bao: 30, life: 40, att: 100, pname: "粘美儿", plife: 70, patt: 120, ppname: "粘美龙", pplife: 160, ppatt: 230 },
+{ name: "迷你龙", type: "龙", weakness: "妖", status: 1, stage: 3, exp: 60, bao: 10, life: 60, att: 120, pname: "哈克龙", plife: 120, patt: 110, ppname: "快龙GX", pplife: 200, ppatt: 330 },
 
-{ name: "拉鲁拉丝", type: "妖", weakness: "钢", status: 1, stage: 3, exp: 60, bao: 40, life: 60, att: 10, pname: "奇鲁利安", plife: 80, patt: 30, ppname: "沙奈朵", pplife: 130, ppatt: 70 },
-{ name: "拉鲁拉丝", type: "妖", weakness: "钢", status: 1, stage: 3, exp: 60, bao: 30, life: 60, att: 10, pname: "奇鲁利安", plife: 80, patt: 30, ppname: "沙奈朵GX", pplife: 230, ppatt: 90 },
-{ name: "木棉球", type: "妖", weakness: "钢", status: 1, stage: 2, exp: 60, bao: 40, life: 50, att: 10, pname: "风妖精", plife: 80, patt: 30 },
-{ name: "玛力露", type: "妖", weakness: "钢", status: 1, stage: 2, exp: 60, bao: 40, life: 70, att: 30, pname: "玛力露丽", plife: 100, patt: 60 },
-{ name: "哲尔尼亚斯GX", type: "妖", weakness: "钢", status: 1, stage: 1, exp: 60, bao: 10, life: 180, att: 120 },
-{ name: "迷拟丘GX", type: "妖", weakness: "无", status: 1, stage: 1, exp: 60, bao: 80, life: 170, att: 40 },
-{ name: "咚咚鼠", type: "妖", weakness: "无", status: 1, stage: 1, exp: 100, bao: 100, life: 70, att: 10 }
+{ name: "哲尔尼亚斯GX", type: "妖", weakness: "钢", status: 1, stage: 1, exp: 60, bao: 10, life: 180, att: 150 },
+{ name: "迷拟丘GX", type: "妖", weakness: "无", status: 1, stage: 1, exp: 80, bao: 5, life: 170, att: 150 },
+{ name: "咚咚鼠", type: "妖", weakness: "无", status: 1, stage: 1, exp: 100, bao: 90, life: 30, att: 70 }
+{ name: "拉鲁拉丝", type: "妖", weakness: "钢", status: 1, stage: 3, exp: 60, bao: 40, life: 60, att: 90, pname: "奇鲁利安", plife: 80, patt: 120, ppname: "沙奈朵", pplife: 220, ppatt: 220 },
+{ name: "拉鲁拉丝", type: "妖", weakness: "钢", status: 1, stage: 3, exp: 60, bao: 40, life: 60, att: 90, pname: "奇鲁利安", plife: 70, patt: 130, ppname: "沙奈朵GX", pplife: 240, ppatt: 280 },
+{ name: "木棉球", type: "妖", weakness: "钢", status: 1, stage: 2, exp: 100, bao: 20, life: 100, att: 30, pname: "风妖精", plife: 100, patt: 130 },
+{ name: "玛力露", type: "妖", weakness: "钢", status: 1, stage: 2, exp: 0, bao: 40, life: 70, att: 140, pname: "玛力露丽", plife: 170, patt: 140 },
 ]
 apet = []
 ybt = []
@@ -130,7 +130,8 @@ gainu = []
 gains = []
 pkgs = []
 fruits = ["🍋", "🍑", "🍐", "🍎"]
-admins = ["OG0OPFxOFw", "Ancy.WWeeo", ".bLVj9fdOM", "unica/qOLU", "YtIMnsXOBE", "vJEPoEPHsA"]   //设置管理员
+//设置管理员
+admins = ["OG0OPFxOFw", "Ancy.WWeeo", ".bLVj9fdOM", "unica/qOLU", "YtIMnsXOBE", "vJEPoEPHsA"]
 //签到重置 开奖
 onTimeDo = (h, m, s, callback) => {
     interval = (h >= 0 && (24 * 3600)) || (m >= 0 && 3600) || (s >= 0 && 60)
@@ -410,7 +411,7 @@ event[msg, me, dm](user, cont: "^/签到$") => {
     } else { drrr.print("/me @" + users[n].name + " 今天已经签过到了，明天记得继续来签到哦") }
 }
 //全服奖励
-event[msg, me, dm](user, cont: "^/全服奖励\\s+\\S+\\s+\\d", tc) => {
+event[msg, me, dm](user, cont: "^/全服奖励\\s+\\S+\\s+\\d", url, tc) => {
     if admins.some(a => a == tc) then {
         nm = twokey("/全服奖励", cont)[0]
         cn = parseInt(twokey("/全服奖励", cont)[1])
@@ -422,7 +423,7 @@ event[msg, me, dm](user, cont: "^/全服奖励\\s+\\S+\\s+\\d", tc) => {
     }
 }
 //个人奖励
-event[msg, me, dm](user, cont: "^/奖励\\s+\\d+\\s+\\S+\\s+\\d", tc) => {
+event[msg, me, dm](user, cont: "^/奖励\\s+\\d+\\s+\\S+\\s+\\d", url, tc) => {
     if admins.some(a => a == tc) then {
         uid = parseInt(threekey("/奖励", cont)[0])
         nm = threekey("/奖励", cont)[1]
@@ -437,7 +438,7 @@ event[msg, me, dm](user, cont: "^/奖励\\s+\\d+\\s+\\S+\\s+\\d", tc) => {
         }
     }
 }
-event[msg, me, dm](user, cont: "^/奖励\\s+\\S+\\s+\\S+\\s+\\d", tc) => {
+event[msg, me, dm](user, cont: "^/奖励\\s+\\S+\\s+\\S+\\s+\\d", url, tc) => {
     if admins.some(a => a == tc) then {
         name = checka(threekey("/奖励", cont)[0])
         nm = threekey("/奖励", cont)[1]
@@ -453,7 +454,7 @@ event[msg, me, dm](user, cont: "^/奖励\\s+\\S+\\s+\\S+\\s+\\d", tc) => {
     }
 }
 //个人惩罚
-event[msg, me, dm](user, cont: "^/惩罚\\s+\\d+\\s+\\S+\\s+\\d", tc) => {
+event[msg, me, dm](user, cont: "^/惩罚\\s+\\d+\\s+\\S+\\s+\\d", url, tc) => {
     if admins.some(a => a == tc) then {
         uid = parseInt(threekey("/惩罚", cont)[0])
         nm = threekey("/惩罚", cont)[1]
@@ -468,7 +469,7 @@ event[msg, me, dm](user, cont: "^/惩罚\\s+\\d+\\s+\\S+\\s+\\d", tc) => {
         }
     }
 }
-event[msg, me, dm](user, cont: "^/惩罚\\s+\\S+\\s+\\S+\\s+\\d", tc) => {
+event[msg, me, dm](user, cont: "^/惩罚\\s+\\S+\\s+\\S+\\s+\\d", url, tc) => {
     if admins.some(a => a == tc) then {
         name = checka(threekey("/惩罚", cont)[0])
         nm = threekey("/惩罚", cont)[1]
@@ -671,7 +672,7 @@ event[msg, me, dm](user, cont: "^/干杯") => {
     }
 }
 //彩票
-event[msg, me, dm](user, cont: "^/直接开奖", tc) => {
+event[msg, me, dm](user, cont: "^/直接开奖", url, tc) => {
     if  lottery.length > 0 && admins.some(a => a == tc)  then kai()
 }
 event[msg, me, dm](user, cont: "^/彩票") => {
@@ -947,7 +948,7 @@ event[msg, me, dm](user, cont: "^/赠送\\s+\\S+\\s+\\d") => {
         drrr.dm(user, "@" + users[n].name + " 您已成功将【" + good + "】赠送给" + tou)
     }
 }
-event[msg, me, dm](user, cont: "^/上架\\s+\\S+\\s+\\d", tc) => {
+event[msg, me, dm](user, cont: "^/上架\\s+\\S+\\s+\\d", url, tc) => {
     if admins.some(a => a == tc) then {
         good = twokey("/上架", cont)[0]
         p = parseInt(twokey("/上架", cont)[1])
@@ -960,7 +961,7 @@ event[msg, me, dm](user, cont: "^/上架\\s+\\S+\\s+\\d", tc) => {
         }
     }
 }
-event[msg, me, dm](user, cont: "^/下架\\s+\\S", tc) => {
+event[msg, me, dm](user, cont: "^/下架\\s+\\S", url, tc) => {
     if admins.some(a => a == tc) then {
         good = cont.replace("/下架", "").trim()
         i = goods.findIndex(g => g.name == good)
@@ -989,15 +990,15 @@ event dm (user, cont:"^/兑换\\s+\\d")  => {
         if keys[key].length == 10 then delete keys[key]
     }
 }
-event[msg, me, dm](user, cont: "^/礼品码", tc) => {
+event[msg, me, dm](user, cont: "^/礼品码", url, tc) => {
     if admins.some(a => a == tc) then {
         k = "礼品码：\n"
         for p in keys k+= p + ","
-        pprint(k)
+        print(k)
         drrr.dm(user, k)
     }
 }
-event[msg, me, dm](user, cont: "^/奖金\\s+\\d", tc) => {
+event[msg, me, dm](user, cont: "^/奖金\\s+\\d", url, tc) => {
     if admins.some(a => a == tc) then {
         bonus = parseInt(onekey("/奖金", cont))
         drrr.dm(user, "奖金已设置为" + bonus + " DRB")
@@ -1465,7 +1466,7 @@ event[msg, me, dm](user, cont:"^/放生\\s+\\d")  => {
         drrr.print("/me @" + users[n].name + " 您已成功放生【" + pet.name + "】，获得了" + yb + " DRB，现在您有" + users[n].coin + "DRB")
     }
 }
-event[msg, me, dm](user, cont: "^/召唤", tc) => {
+event[msg, me, dm](user, cont: "^/召唤", url, tc) => {
     n = checku(user)
     if admins.some(a => a == tc) then {
         cpet()
@@ -1561,7 +1562,7 @@ event[msg, me, dm](user, cont: "^/清空信箱") => {
         drrr.dm(user, "@" + users[n].name + " 成功清空信箱")
     }
 }
-event[msg, me, dm](user, cont: "^/活跃", tc) => {
+event[msg, me, dm](user, cont: "^/活跃", url, tc) => {
     if admins.some(a => a == tc) then {
         usr = users
         usr.sort((a, b) => b["live"] - a["live"])
@@ -1574,7 +1575,7 @@ event[msg, me, dm](user, cont: "^/活跃", tc) => {
     }
 }
 //更改用户
-event[msg, me, dm](user, cont: "^/更改用户名\\s+\\d+\\s+\\S", tc) => {
+event[msg, me, dm](user, cont: "^/更改用户名\\s+\\d+\\s+\\S", url, tc) => {
     if admins.some(a => a == tc) then {
         name = twokey("/更改用户名", cont)[1]
         uid = parseInt(twokey("/更改用户名", cont)[0])
@@ -1590,7 +1591,7 @@ event[msg, me, dm](user, cont: "^/更改用户名\\s+\\d+\\s+\\S", tc) => {
     }
 }
 
-event[msg, me, dm](user, cont: "^/更改tc\\s+\\d+\\s+\\S", tc) => {
+event[msg, me, dm](user, cont: "^/更改tc\\s+\\d+\\s+\\S", url, tc) => {
     if admins.some(a => a == tc) then {
         tc = twokey("/更改tc", cont)[1]
         uid = parseInt(twokey("/更改tc", cont)[0])
@@ -1629,7 +1630,7 @@ event[msg, me, dm](user, cont: "^/查找tc\\s+\\S") => {
     }
 }
 //删除
-event[msg, me, dm](user, cont: "^/删除\\s+\\S", tc) => {
+event[msg, me, dm](user, cont: "^/删除\\s+\\S", url, tc) => {
     if admins.some(a => a == tc) then {
         del = checka(cont.replace("/删除", "").trim())
         n = users.findIndex(u => u.name == del)
@@ -1641,7 +1642,7 @@ event[msg, me, dm](user, cont: "^/删除\\s+\\S", tc) => {
         }
     }
 }
-event[msg, me, dm](user, cont: "^/删除\\s+\\d", tc) => {
+event[msg, me, dm](user, cont: "^/删除\\s+\\d", url, tc) => {
     if admins.some(a => a == tc) then {
         del = parseInt(onekey("/删除", cont))
         n = users.findIndex(u => u.uid == del)
@@ -1649,49 +1650,52 @@ event[msg, me, dm](user, cont: "^/删除\\s+\\d", tc) => {
             drrr.dm(user, "●该用户UID不存在")
         } else {
             name = users[n].name
-            pprint(users[n])
+            print(users[n])
             users.splice(n, 1)
             drrr.dm(user, "●成功删除用户" + name)
         }
     }
 }
 //导出
-event[msg, me, dm](user, cont: "^/导出$", tc) => {
+event[msg, me, dm](user, cont: "^/导出$", url, tc) => {
     if admins.some(a => a == tc) then {
         localStorage["users"] = JSON.stringify(users)
         localStorage["lottery"] = JSON.stringify(lottery)
         localStorage["result"] = JSON.stringify(result)
         localStorage["market"] = JSON.stringify(market)
-        pprint(users)
+        print(users)
+        print(goods)
+        print(pets)
+        print(lottery)
         drrr.print("ok")
     }
 }
-event[msg, me, dm](user, cont: "^/导出\\s+\\S", tc) => {
+event[msg, me, dm](user, cont: "^/导出\\s+\\S", url, tc) => {
     tg = checka(onekey("/导出", cont))
     n = users.findIndex(x => x.name == tg)
     if admins.some(a => a == tc) then {
         if n< 0 then{
             drrr.dm(user, "未找到用户【" + tg + "】")
         } else {
-            pprint([users[n]])
+            print([users[n]])
             drrr.dm(user, "已导出用户：" + users[n].name)
         }
     }
 }
-event[msg, me, dm](user, cont: "^/导出\\s+\\d", tc) => {
+event[msg, me, dm](user, cont: "^/导出\\s+\\d", url, tc) => {
     tg = parseInt(onekey("/导出", cont))
     n = users.findIndex(x => x.uid == tg)
     if admins.some(a => a == tc) then {
         if n< 0 then{
             drrr.dm(user, "未找到UID【" + tg + "】")
         } else {
-            pprint([users[n]])
+            print([users[n]])
             drrr.dm(user, "已导出用户：" + users[n].name)
         }
     }
 }
 //导入
-event[msg, me, dm](user, cont: "^/导入", tc) => {
+event[msg, me, dm](user, cont: "^/导入", url, tc) => {
     if admins.some(a => a == tc) then {
         if input.length == 0 then{
             drrr.dm(user, "无导入数据")
@@ -1715,15 +1719,12 @@ event[msg, me, dm](user, cont: "^/导入", tc) => {
 
             input = []
             if b.length > 0 then {
-                pprint("未成功导入：")
-                pprint(b)
+                print("未成功导入：")
+                print(b)
             }
             drrr.dm(user, "已导入" + a.length + "名新用户，更改了" + c.length + "名旧用户，有" + b.length + "名用户冲突")
         }
     }
-}
-event[msg, me, dm](user, cont:"^/房主",  tc) => {
-    if admins.some(a => a == tc) then  drrr.chown(user)
 }
 //注文
 event[msg, me, dm](user, cont:"^/注文\\s+\\S")  => {

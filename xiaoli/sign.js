@@ -24,7 +24,8 @@ ybt = []
 //奖励数据
 award = []
 //宠物数据
-pets = [{ name: "盖欧卡", type: "水", weakness: "草", status: 1, stage: 1, exp: 20, bao: 20, life: 140, att: 120 },
+pets = [{ name: "白泽CN", type: "基", weakness: "无", status: 1, stage: 1, exp: 66, bao: 66, life: 666, att: 100 },
+{ name: "盖欧卡", type: "水", weakness: "草", status: 1, stage: 1, exp: 20, bao: 20, life: 140, att: 120 },
 { name: "急冻鸟GX", type: "水", weakness: "钢", status: 1, stage: 1, exp: 50, bao: 50, life: 170, att: 130 },
 { name: "墨海马", type: "水", weakness: "草", status: 1, stage: 2, exp: 80, bao: 20, life: 100, att: 50, pname: "海刺龙", plife: 150, patt: 100 },
 { name: "阿罗拉穿山鼠", type: "水", weakness: "钢", status: 1, stage: 2, exp: 100, bao: 50, life: 60, att: 40, pname: "阿罗拉穿山王", plife: 110, patt: 90 },
@@ -1002,10 +1003,11 @@ event[msg, me, dm](user, cont: "^/奖金\\s+\\d", url, tc) => {
 //宠物系统
 sample = array => array[Math.floor(Math.random() * array.length)]
 cpet = () => {
-    apet.push(JSON.parse(JSON.stringify(sample(pets))))
-    drrr.print("/me 发现一只宝可梦，快来捕捉吧")
-    later t* 60 * 1000 {
-        n = apet.findIndex(x => x.name == p)
+    pet = JSON.parse(JSON.stringify(sample(pets)))
+    apet.push(pet)
+    drrr.print("/me 发现一只【"+pet.type+"】属性宝可梦，快来捕捉吧")
+    later 15* 60 * 1000 {
+        n = apet.findIndex(x => x.name == ppet.name)
         if n>= 0 then {
             apet.splice(n, 1)
         }
@@ -1154,9 +1156,13 @@ event[msg, me, dm](user, cont:"^/一本满足\\s+\\d")  => {
 }
 event[msg, me, dm](user, cont: "^/观察") => {
     if apet.length == 0 then {
-        drrr.print("/me 现在没有宝可梦出没")
+        drrr.print("/me 现在没有宠物出没")
     }else{
-        drrr.print("/me 现在有" + apet.length + "只宝可梦出没")
+        p = apet.reduce((a, x, y) => {
+            a = a + "\n" + (y + 1) + ".【" + x.type + "】属性宝可梦" 
+            a
+        }, " 现在出没的宠物有:")
+        drrr.print(p)
     }
 }
 event[msg, me, dm](user, cont: "^/(展示)?宠物$") => {
@@ -1387,6 +1393,7 @@ event[msg, me, dm](user, cont: "^/挑战\\s+\\S") => {
                         flag = 0
                         sc = 1
                         if yp.endsWith("GX") then sc = 2
+                        else if yp.endsWith("CN") then sc = 3
                         xsc += sc
                         zdm.push("【" + yp + "】倒下了\n@" + xn + " 获得" + sc + "分\n目前比分" + xsc + " : " + ysc)
                         if yd.length == 0 then yf= 0
@@ -1410,6 +1417,7 @@ event[msg, me, dm](user, cont: "^/挑战\\s+\\S") => {
                             flag = 0
                             sc = 1
                             if xp.endsWith("GX") then sc = 2
+                            else if xp.endsWith("CN") then sc = 3
                             ysc += sc
                             zdm.push("【" + xp + "】倒下了\n@" + yn + " 获得" + sc + "分\n目前比分" + xsc + " : " + ysc)
                             if xd.length == 0 then xf= 0
@@ -1435,6 +1443,7 @@ event[msg, me, dm](user, cont: "^/挑战\\s+\\S") => {
                         flag = 0
                         sc = 1
                         if xp.endsWith("GX") then sc = 2
+                        else if xp.endsWith("CN") then sc = 3
                         ysc += sc
                         zdm.push("【" + xp + "】倒下了\n@" + yn + " 获得" + sc + "分\n目前比分" + xsc + " : " + ysc)
                         if xd.length == 0 then xf= 0
@@ -1458,6 +1467,7 @@ event[msg, me, dm](user, cont: "^/挑战\\s+\\S") => {
                             flag = 0
                             sc = 1
                             if yp.endsWith("GX") then sc = 2
+                            else if yp.endsWith("CN") then sc = 3
                             xsc += sc
                             zdm.push("【" + yp + "】 倒下了\n@" + xn + " 获得" + sc + "分\n目前比分" + xsc + " : " + ysc)
                             if yd.length == 0 then yf= 0

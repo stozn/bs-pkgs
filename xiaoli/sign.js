@@ -1014,7 +1014,15 @@ cpet = () => {
     }
 }
 timer 20* 60 * 1000{
-    if (Math.random() < 0.2) then {
+    t = Math.random()
+    if t < 0.1 then {
+        cpet()
+        cpet()
+        cpet()
+    }else if t < 0.3 then {
+        cpet()
+        cpet()
+    }else if t < 0.6 then {
         cpet()
     }
 }

@@ -1533,7 +1533,7 @@ event[msg, me, dm](user, cont:"^/放生\\s+\\d")  => {
         yb = 30
         add(n, "MG-召唤球", 1)
         users[n].coin += yb
-        drrr.print("/me @" + users[n].name + " 您已成功放生【" + pet.name + "】，获得了" + yb + " DRB，，获得一个召唤球，现在您有" + users[n].coin + "DRB")
+        drrr.print("/me @" + users[n].name + " 您已成功放生【" + pet.name + "】，获得了" + yb + " DRB，获得一个召唤球，现在您有" + users[n].coin + "DRB")
     }
 }
 event[msg, me, dm](user, cont: "^/召唤", url, tc) => {

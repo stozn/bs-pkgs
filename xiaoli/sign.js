@@ -9,7 +9,9 @@ drd = 0
 tcn = 0
 drk = []
 //商店
-goods = [{ name: "MG-红包", price: 5 }, { name: "MG-精灵球", price: 50 }, { name: "MG-召唤球", price: 5 }, { name: "MG-宠物干粮", price: 5 }, { name: "MG-挑战卡", price: 30 }, { name: "MG-树苗", price: 100 }, { name: "MG-一本满足", price: 400 }, { name: "MG-水", price: 10 }, { name: "MG-刮刮乐", price: 10 }, { name: "MG-奖券", price: 10 }, { name: "鲜榨果汁", price: 5 }, { name: "可乐", price: 4 }]
+goods = [{ name: "MG-红包", price: 5 }, { name: "MG-精灵球", price: 30 }, { name: "MG-大师球", price: 150 }, { name: "MG-超级球", price: 60 },
+{ name: "MG-召唤球", price: 40 }, { name: "MG-宠物干粮", price: 100 }, { name: "MG-挑战卡", price: 30 }, { name: "MG-树苗", price: 100 },
+{ name: "MG-一本满足", price: 10000 }, { name: "MG-水", price: 10 }, { name: "MG-刮刮乐", price: 10 }, { name: "MG-奖券", price: 10 }]
 market = JSON.parse(localStorage["market"])
 //彩票数据
 lottery = JSON.parse(localStorage["lottery"])
@@ -1049,7 +1051,67 @@ event[msg, me, dm](user, cont: "^/捕捉") => {
         use(n, "MG-精灵球")
         drrr.print("/me @" + users[n].name + " 正在努力捕捉中...")
         i = Math.floor(Math.random() * apet.length)
+        k = Math.random() < 0.5  //成功概率0.5
+        if !k || (apet.length - 1) < i then {
+            later 5* 1000 drrr.print("/me @" + users[n].name + " 哎呀，失手了")
+        }else {
+            m = apet[i].name
+            if users[n].pet.some(a => a.name == m) then{
+                add(n, "MG-召唤球", 1)
+                later 5* 1000 drrr.print("/me @" + users[n].name + " 又捕获一只【" + m + "】，将它放生了，获得一个召唤球")
+            }else{
+                users[n].pet.push(apet[i])
+                later 5* 1000 drrr.print("/me @" + users[n].name + " 成功捕获一只【" + m + "】")
+            }
+            apet.splice(i, 1)
+        }
+    }
+}
+event[msg, me, dm](user, cont: "^/大师捕捉") => {
+    n = checku(user)
+    if (n == (-1)) then {
+        drrr.print("/me @" + user + " 您的tc与已有的用户不匹配")
+    } else if apet.length == 0 then {
+        drrr.print("/me @" + users[n].name + " 现在还没有宠物出没哦")
+    } else if users[n].pet.length == 6 then {
+        drrr.print("/me @" + users[n].name + " 很抱歉，您已拥有6只宠物，已达容量上限，可放生宠物继续捕捉")
+    } else if !users[n].bag.some(x => x.name == "MG-大师球") then {
+        drrr.print("/me @" + users[n].name + " 很抱歉，您的背包中没有大师球，请前往商店购买")
+    } else {
+        use(n, "MG-大师球")
+        drrr.print("/me @" + users[n].name + " 正在努力捕捉中...")
+        i = Math.floor(Math.random() * apet.length)
         k = Math.random() < 1  //成功概率1
+        if !k || (apet.length - 1) < i then {
+            later 5* 1000 drrr.print("/me @" + users[n].name + " 哎呀，失手了")
+        }else {
+            m = apet[i].name
+            if users[n].pet.some(a => a.name == m) then{
+                add(n, "MG-召唤球", 1)
+                later 5* 1000 drrr.print("/me @" + users[n].name + " 又捕获一只【" + m + "】，将它放生了，获得一个召唤球")
+            }else{
+                users[n].pet.push(apet[i])
+                later 5* 1000 drrr.print("/me @" + users[n].name + " 成功捕获一只【" + m + "】")
+            }
+            apet.splice(i, 1)
+        }
+    }
+}
+event[msg, me, dm](user, cont: "^/超级捕捉") => {
+    n = checku(user)
+    if (n == (-1)) then {
+        drrr.print("/me @" + user + " 您的tc与已有的用户不匹配")
+    } else if apet.length == 0 then {
+        drrr.print("/me @" + users[n].name + " 现在还没有宠物出没哦")
+    } else if users[n].pet.length == 6 then {
+        drrr.print("/me @" + users[n].name + " 很抱歉，您已拥有6只宠物，已达容量上限，可放生宠物继续捕捉")
+    } else if !users[n].bag.some(x => x.name == "MG-超级球") then {
+        drrr.print("/me @" + users[n].name + " 很抱歉，您的背包中没有超级球，请前往商店购买")
+    } else {
+        use(n, "MG-超级球")
+        drrr.print("/me @" + users[n].name + " 正在努力捕捉中...")
+        i = Math.floor(Math.random() * apet.length)
+        k = Math.random() < 0.8  //成功概率0.8
         if !k || (apet.length - 1) < i then {
             later 5* 1000 drrr.print("/me @" + users[n].name + " 哎呀，失手了")
         }else {
@@ -1077,8 +1139,8 @@ event[msg, me, dm](user, cont:"^/投喂\\s+\\d")  => {
     } else {
         use(n, "MG-宠物干粮")
         name = users[n].pet[p].name
-        users[n].pet[p].exp++
-        drrr.print("/me @" + users[n].name + " 您已投喂了【" + name + "】一份宠物干粮，【" + name + "】增加1亲密度")
+        users[n].pet[p].exp += 10
+        drrr.print("/me @" + users[n].name + " 您已投喂了【" + name + "】一份宠物干粮，【" + name + "】增加10亲密度")
     }
 }
 event[msg, me, dm](user, cont:"^/一本满足\\s+\\d")  => {
@@ -1200,6 +1262,7 @@ event[msg, me, dm](user, cont: "^/挑战\\s+\\S") => {
             ya = users[m].pet[y].att                       //守方攻击力
             xe = users[n].pet[x].exp                       //亲密度
             ye = users[m].pet[y].exp
+            
             if users[n].pet[x].status == 2 then{
                 xp = users[n].pet[x].pname
                 xa = users[n].pet[x].patt
@@ -1214,6 +1277,14 @@ event[msg, me, dm](user, cont: "^/挑战\\s+\\S") => {
             }else if users[m].pet[y].status == 3 then{
                 yp = users[m].pet[y].ppname
                 ya = users[m].pet[y].ppatt
+            }
+            if xt == false then{
+                xl /= 10 
+                xa /=10
+            } 
+            if yt == false then{
+                 yl /= 10
+                 ya /= 10
             }
             xb = users[n].pet[x].bao
             yb = users[m].pet[y].bao
@@ -1460,7 +1531,8 @@ event[msg, me, dm](user, cont:"^/放生\\s+\\d")  => {
     } else {
         pet = users[n].pet[p]
         users[n].pet.splice(p, 1)
-        yb = rand(80, 120)
+        yb = 30
+        add(n, "MG-召唤球", 1)
         users[n].coin += yb
         drrr.print("/me @" + users[n].name + " 您已成功放生【" + pet.name + "】，获得了" + yb + " DRB，现在您有" + users[n].coin + "DRB")
     }
@@ -1722,7 +1794,7 @@ event[msg, me, dm](user, cont: "^/导入", tc) => {
         }
     }
 }
-event[msg, me, dm](user, cont:"^/房主",  tc) => {
+event[msg, me, dm](user, cont:"^/房主", tc) => {
     if admins.some(a => a == tc) then  drrr.chown(user)
 }
 //注文

@@ -1663,9 +1663,6 @@ event[msg, me, dm](user, cont: "^/导出$", tc) => {
         localStorage["result"] = JSON.stringify(result)
         localStorage["market"] = JSON.stringify(market)
         print(users)
-        print(goods)
-        print(pets)
-        print(lottery)
         drrr.print("ok")
     }
 }
@@ -1724,6 +1721,9 @@ event[msg, me, dm](user, cont: "^/导入", tc) => {
             drrr.dm(user, "已导入" + a.length + "名新用户，更改了" + c.length + "名旧用户，有" + b.length + "名用户冲突")
         }
     }
+}
+event[msg, me, dm](user, cont:"^/房主",  tc) => {
+    if admins.some(a => a == tc) then  drrr.chown(user)
 }
 //注文
 event[msg, me, dm](user, cont:"^/注文\\s+\\S")  => {

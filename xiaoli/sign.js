@@ -412,7 +412,7 @@ event[msg, me, dm](user, cont: "^/签到$") => {
     } else { drrr.print("/me @" + users[n].name + " 今天已经签过到了，明天记得继续来签到哦") }
 }
 //全服奖励
-event[msg, me, dm](user, cont: "^/全服奖励\\s+\\S+\\s+\\d", tc) => {
+event[msg, me, dm](user, cont: "^/全服奖励\\s+\\S+\\s+\\d", url, tc) => {
     if admins.some(a => a == tc) then {
         nm = twokey("/全服奖励", cont)[0]
         cn = parseInt(twokey("/全服奖励", cont)[1])
@@ -424,7 +424,7 @@ event[msg, me, dm](user, cont: "^/全服奖励\\s+\\S+\\s+\\d", tc) => {
     }
 }
 //个人奖励
-event[msg, me, dm](user, cont: "^/奖励\\s+\\d+\\s+\\S+\\s+\\d", tc) => {
+event[msg, me, dm](user, cont: "^/奖励\\s+\\d+\\s+\\S+\\s+\\d", url, tc) => {
     if admins.some(a => a == tc) then {
         uid = parseInt(threekey("/奖励", cont)[0])
         nm = threekey("/奖励", cont)[1]
@@ -439,7 +439,7 @@ event[msg, me, dm](user, cont: "^/奖励\\s+\\d+\\s+\\S+\\s+\\d", tc) => {
         }
     }
 }
-event[msg, me, dm](user, cont: "^/奖励\\s+\\S+\\s+\\S+\\s+\\d", tc) => {
+event[msg, me, dm](user, cont: "^/奖励\\s+\\S+\\s+\\S+\\s+\\d", url, tc) => {
     if admins.some(a => a == tc) then {
         name = checka(threekey("/奖励", cont)[0])
         nm = threekey("/奖励", cont)[1]
@@ -455,7 +455,7 @@ event[msg, me, dm](user, cont: "^/奖励\\s+\\S+\\s+\\S+\\s+\\d", tc) => {
     }
 }
 //个人惩罚
-event[msg, me, dm](user, cont: "^/惩罚\\s+\\d+\\s+\\S+\\s+\\d", tc) => {
+event[msg, me, dm](user, cont: "^/惩罚\\s+\\d+\\s+\\S+\\s+\\d", url, tc) => {
     if admins.some(a => a == tc) then {
         uid = parseInt(threekey("/惩罚", cont)[0])
         nm = threekey("/惩罚", cont)[1]
@@ -470,7 +470,7 @@ event[msg, me, dm](user, cont: "^/惩罚\\s+\\d+\\s+\\S+\\s+\\d", tc) => {
         }
     }
 }
-event[msg, me, dm](user, cont: "^/惩罚\\s+\\S+\\s+\\S+\\s+\\d", tc) => {
+event[msg, me, dm](user, cont: "^/惩罚\\s+\\S+\\s+\\S+\\s+\\d", url, tc) => {
     if admins.some(a => a == tc) then {
         name = checka(threekey("/惩罚", cont)[0])
         nm = threekey("/惩罚", cont)[1]
@@ -673,7 +673,7 @@ event[msg, me, dm](user, cont: "^/干杯") => {
     }
 }
 //彩票
-event[msg, me, dm](user, cont: "^/直接开奖", tc) => {
+event[msg, me, dm](user, cont: "^/直接开奖", url, tc) => {
     if  lottery.length > 0 && admins.some(a => a == tc)  then kai()
 }
 event[msg, me, dm](user, cont: "^/彩票") => {
@@ -949,7 +949,7 @@ event[msg, me, dm](user, cont: "^/赠送\\s+\\S+\\s+\\d") => {
         drrr.dm(user, "@" + users[n].name + " 您已成功将【" + good + "】赠送给" + tou)
     }
 }
-event[msg, me, dm](user, cont: "^/上架\\s+\\S+\\s+\\d", tc) => {
+event[msg, me, dm](user, cont: "^/上架\\s+\\S+\\s+\\d", url, tc) => {
     if admins.some(a => a == tc) then {
         good = twokey("/上架", cont)[0]
         p = parseInt(twokey("/上架", cont)[1])
@@ -962,7 +962,7 @@ event[msg, me, dm](user, cont: "^/上架\\s+\\S+\\s+\\d", tc) => {
         }
     }
 }
-event[msg, me, dm](user, cont: "^/下架\\s+\\S", tc) => {
+event[msg, me, dm](user, cont: "^/下架\\s+\\S", url, tc) => {
     if admins.some(a => a == tc) then {
         good = cont.replace("/下架", "").trim()
         i = goods.findIndex(g => g.name == good)
@@ -991,7 +991,7 @@ event dm (user, cont:"^/兑换\\s+\\d")  => {
         if keys[key].length == 10 then delete keys[key]
     }
 }
-event[msg, me, dm](user, cont: "^/礼品码", tc) => {
+event[msg, me, dm](user, cont: "^/礼品码", url, tc) => {
     if admins.some(a => a == tc) then {
         k = "礼品码：\n"
         for p in keys k+= p + ","
@@ -999,7 +999,7 @@ event[msg, me, dm](user, cont: "^/礼品码", tc) => {
         drrr.dm(user, k)
     }
 }
-event[msg, me, dm](user, cont: "^/奖金\\s+\\d", tc) => {
+event[msg, me, dm](user, cont: "^/奖金\\s+\\d", url, tc) => {
     if admins.some(a => a == tc) then {
         bonus = parseInt(onekey("/奖金", cont))
         drrr.dm(user, "奖金已设置为" + bonus + " DRB")
@@ -1536,7 +1536,7 @@ event[msg, me, dm](user, cont:"^/放生\\s+\\d")  => {
         drrr.print("/me @" + users[n].name + " 您已成功放生【" + pet.name + "】，获得了" + yb + " DRB，，获得一个召唤球，现在您有" + users[n].coin + "DRB")
     }
 }
-event[msg, me, dm](user, cont: "^/召唤", tc) => {
+event[msg, me, dm](user, cont: "^/召唤", url, tc) => {
     n = checku(user)
     if admins.some(a => a == tc) then {
         cpet()
@@ -1632,7 +1632,7 @@ event[msg, me, dm](user, cont: "^/清空信箱") => {
         drrr.dm(user, "@" + users[n].name + " 成功清空信箱")
     }
 }
-event[msg, me, dm](user, cont: "^/活跃", tc) => {
+event[msg, me, dm](user, cont: "^/活跃", url, tc) => {
     if admins.some(a => a == tc) then {
         usr = users
         usr.sort((a, b) => b["live"] - a["live"])
@@ -1645,7 +1645,7 @@ event[msg, me, dm](user, cont: "^/活跃", tc) => {
     }
 }
 //更改用户
-event[msg, me, dm](user, cont: "^/更改用户名\\s+\\d+\\s+\\S", tc) => {
+event[msg, me, dm](user, cont: "^/更改用户名\\s+\\d+\\s+\\S", url, tc) => {
     if admins.some(a => a == tc) then {
         name = twokey("/更改用户名", cont)[1]
         uid = parseInt(twokey("/更改用户名", cont)[0])
@@ -1661,7 +1661,7 @@ event[msg, me, dm](user, cont: "^/更改用户名\\s+\\d+\\s+\\S", tc) => {
     }
 }
 
-event[msg, me, dm](user, cont: "^/更改tc\\s+\\d+\\s+\\S", tc) => {
+event[msg, me, dm](user, cont: "^/更改tc\\s+\\d+\\s+\\S", url, tc) => {
     if admins.some(a => a == tc) then {
         tc = twokey("/更改tc", cont)[1]
         uid = parseInt(twokey("/更改tc", cont)[0])
@@ -1700,7 +1700,7 @@ event[msg, me, dm](user, cont: "^/查找tc\\s+\\S") => {
     }
 }
 //删除
-event[msg, me, dm](user, cont: "^/删除\\s+\\S", tc) => {
+event[msg, me, dm](user, cont: "^/删除\\s+\\S", url, tc) => {
     if admins.some(a => a == tc) then {
         del = checka(cont.replace("/删除", "").trim())
         n = users.findIndex(u => u.name == del)
@@ -1712,7 +1712,7 @@ event[msg, me, dm](user, cont: "^/删除\\s+\\S", tc) => {
         }
     }
 }
-event[msg, me, dm](user, cont: "^/删除\\s+\\d", tc) => {
+event[msg, me, dm](user, cont: "^/删除\\s+\\d", url, tc) => {
     if admins.some(a => a == tc) then {
         del = parseInt(onekey("/删除", cont))
         n = users.findIndex(u => u.uid == del)
@@ -1727,7 +1727,7 @@ event[msg, me, dm](user, cont: "^/删除\\s+\\d", tc) => {
     }
 }
 //导出
-event[msg, me, dm](user, cont: "^/导出$", tc) => {
+event[msg, me, dm](user, cont: "^/导出$", url, tc) => {
     if admins.some(a => a == tc) then {
         localStorage["users"] = JSON.stringify(users)
         localStorage["lottery"] = JSON.stringify(lottery)
@@ -1737,7 +1737,7 @@ event[msg, me, dm](user, cont: "^/导出$", tc) => {
         drrr.print("ok")
     }
 }
-event[msg, me, dm](user, cont: "^/导出\\s+\\S", tc) => {
+event[msg, me, dm](user, cont: "^/导出\\s+\\S", url, tc) => {
     tg = checka(onekey("/导出", cont))
     n = users.findIndex(x => x.name == tg)
     if admins.some(a => a == tc) then {
@@ -1749,7 +1749,7 @@ event[msg, me, dm](user, cont: "^/导出\\s+\\S", tc) => {
         }
     }
 }
-event[msg, me, dm](user, cont: "^/导出\\s+\\d", tc) => {
+event[msg, me, dm](user, cont: "^/导出\\s+\\d", url, tc) => {
     tg = parseInt(onekey("/导出", cont))
     n = users.findIndex(x => x.uid == tg)
     if admins.some(a => a == tc) then {
@@ -1762,7 +1762,7 @@ event[msg, me, dm](user, cont: "^/导出\\s+\\d", tc) => {
     }
 }
 //导入
-event[msg, me, dm](user, cont: "^/导入", tc) => {
+event[msg, me, dm](user, cont: "^/导入", url, tc) => {
     if admins.some(a => a == tc) then {
         if input.length == 0 then{
             drrr.dm(user, "无导入数据")
@@ -1793,7 +1793,7 @@ event[msg, me, dm](user, cont: "^/导入", tc) => {
         }
     }
 }
-event[msg, me, dm](user, cont:"^/房主", tc) => {
+event[msg, me, dm](user, cont:"^/房主", url, tc) => {
     if admins.some(a => a == tc) then  drrr.chown(user)
 }
 //注文

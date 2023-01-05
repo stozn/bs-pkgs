@@ -1038,7 +1038,8 @@ event[msg, me, dm](user, cont:"^/出战\\s+\\d")  => {
         drrr.print("/me @" + users[n].name + " 您已将出战宠物由【" + users[n].pet[p].name + "】改为【" + users[n].pet[0].name + "】")
     }
 }
-event[msg, me, dm](user, cont: "^/捕捉") => {
+event[msg, me, dm](user, cont: "^/捕捉\\s+\\d") => {
+  	i = parseInt(onekey("/捕捉", cont)) - 1
     n = checku(user)
     if (n == (-1)) then {
         drrr.print("/me @" + user + " 您的tc与已有的用户不匹配")
@@ -1048,10 +1049,11 @@ event[msg, me, dm](user, cont: "^/捕捉") => {
         drrr.print("/me @" + users[n].name + " 很抱歉，您已拥有6只宠物，已达容量上限，可放生宠物继续捕捉")
     } else if !users[n].bag.some(x => x.name == "MG-精灵球") then {
         drrr.print("/me @" + users[n].name + " 很抱歉，您的背包中没有精灵球，请前往商店购买")
+    }  else if i> (apet.length - 1) then {
+        drrr.print("/me @" + users[n].name + " 输入的序号不存在")
     } else {
         use(n, "MG-精灵球")
         drrr.print("/me @" + users[n].name + " 正在努力捕捉中...")
-        i = Math.floor(Math.random() * apet.length)
         k = Math.random() < 0.5  //成功概率0.5
         if !k || (apet.length - 1) < i then {
             later 5* 1000 drrr.print("/me @" + users[n].name + " 哎呀，失手了")
@@ -1068,7 +1070,8 @@ event[msg, me, dm](user, cont: "^/捕捉") => {
         }
     }
 }
-event[msg, me, dm](user, cont: "^/大师捕捉") => {
+event[msg, me, dm](user, cont: "^/大师捕捉\\s+\\d") => {
+  	i = parseInt(onekey("/大师捕捉", cont)) - 1
     n = checku(user)
     if (n == (-1)) then {
         drrr.print("/me @" + user + " 您的tc与已有的用户不匹配")
@@ -1078,10 +1081,11 @@ event[msg, me, dm](user, cont: "^/大师捕捉") => {
         drrr.print("/me @" + users[n].name + " 很抱歉，您已拥有6只宠物，已达容量上限，可放生宠物继续捕捉")
     } else if !users[n].bag.some(x => x.name == "MG-大师球") then {
         drrr.print("/me @" + users[n].name + " 很抱歉，您的背包中没有大师球，请前往商店购买")
+    }  else if i> (apet.length - 1) then {
+        drrr.print("/me @" + users[n].name + " 输入的序号不存在")
     } else {
         use(n, "MG-大师球")
         drrr.print("/me @" + users[n].name + " 正在努力捕捉中...")
-        i = Math.floor(Math.random() * apet.length)
         k = Math.random() < 1  //成功概率1
         if !k || (apet.length - 1) < i then {
             later 5* 1000 drrr.print("/me @" + users[n].name + " 哎呀，失手了")
@@ -1098,7 +1102,8 @@ event[msg, me, dm](user, cont: "^/大师捕捉") => {
         }
     }
 }
-event[msg, me, dm](user, cont: "^/超级捕捉") => {
+event[msg, me, dm](user, cont: "^/超级捕捉\\s+\\d") => {
+  	i = parseInt(onekey("/超级捕捉", cont)) - 1
     n = checku(user)
     if (n == (-1)) then {
         drrr.print("/me @" + user + " 您的tc与已有的用户不匹配")
@@ -1108,10 +1113,11 @@ event[msg, me, dm](user, cont: "^/超级捕捉") => {
         drrr.print("/me @" + users[n].name + " 很抱歉，您已拥有6只宠物，已达容量上限，可放生宠物继续捕捉")
     } else if !users[n].bag.some(x => x.name == "MG-超级球") then {
         drrr.print("/me @" + users[n].name + " 很抱歉，您的背包中没有超级球，请前往商店购买")
+    }  else if i> (apet.length - 1) then {
+        drrr.print("/me @" + users[n].name + " 输入的序号不存在")
     } else {
         use(n, "MG-超级球")
         drrr.print("/me @" + users[n].name + " 正在努力捕捉中...")
-        i = Math.floor(Math.random() * apet.length)
         k = Math.random() < 0.8  //成功概率0.8
         if !k || (apet.length - 1) < i then {
             later 5* 1000 drrr.print("/me @" + users[n].name + " 哎呀，失手了")

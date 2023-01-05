@@ -25,6 +25,8 @@ ybt = []
 award = []
 //宠物数据
 pets = [{ name: "白泽CN", type: "基", weakness: "无", status: 1, stage: 1, exp: 66, bao: 66, life: 666, att: 100 },
+
+{ name: "呆呆兽&可达鸭TT", type: "水", weakness: "草", status: 1, stage: 1, exp: 20, bao: 70, life: 250, att: 210 },
 { name: "盖欧卡", type: "水", weakness: "草", status: 1, stage: 1, exp: 20, bao: 20, life: 140, att: 120 },
 { name: "急冻鸟GX", type: "水", weakness: "钢", status: 1, stage: 1, exp: 50, bao: 50, life: 170, att: 130 },
 { name: "墨海马", type: "水", weakness: "草", status: 1, stage: 2, exp: 80, bao: 20, life: 100, att: 50, pname: "海刺龙", plife: 150, patt: 100 },
@@ -44,7 +46,8 @@ pets = [{ name: "白泽CN", type: "基", weakness: "无", status: 1, stage: 1, e
 { name: "强颚鸡母虫", type: "电", weakness: "斗", status: 1, stage: 3, exp: 100, bao: 10, life: 100, att: 40, pname: "虫电宝", plife: 100, patt: 90, ppname: "锹农炮虫GX", pplife: 200, ppatt: 190 },
 
 { name: "阿罗拉臭泥", type: "超", weakness: "超", status: 1, stage: 2, exp: 80, bao: 20, life: 100, att: 50, pname: "阿罗拉臭臭泥", plife: 120, patt: 130 },
-{ name: "骑拉蒂纳", type: "超", weakness: "恶", status: 1, stage: 1, exp: 30, bao: 30, life: 130, att: 130 },
+{ name: "骑拉蒂纳", type: "超", weakness: "超", status: 1, stage: 1, exp: 50, bao: 80, life: 180, att: 240 },
+{ name: "耿鬼&秘拟丘TT", type: "超", weakness: "恶", status: 1, stage: 1, exp: 30, bao: 30, life: 130, att: 130 },
 { name: "迷拟丘", type: "超", weakness: "无", status: 1, stage: 1, exp: 70, bao: 40, life: 100, att: 90 },
 { name: "卡噗·蝶蝶", type: "超", weakness: "超", status: 1, stage: 1, exp: 70, bao: 50, life: 110, att: 70 },
 { name: "超梦GX", type: "超", weakness: "超", status: 1, stage: 1, exp: 40, bao: 30, life: 140, att: 200 },
@@ -89,6 +92,7 @@ pets = [{ name: "白泽CN", type: "基", weakness: "无", status: 1, stage: 1, e
 { name: "铁哑铃", type: "钢", weakness: "火", status: 1, stage: 3, exp: 60, bao: 40, life: 60, att: 90, pname: "金属怪", plife: 90, patt: 110, ppname: "巨金怪", pplife: 300, ppatt: 110 },
 { name: "基拉祈", type: "钢", weakness: "火", status: 1, stage: 1, exp: 77, bao: 77, life: 177, att: 77 },
 
+{ name: "伊布&卡比兽TT", type: "基", weakness: "斗", status: 1, stage: 1, exp: 50, bao: 20, life: 270, att: 210 },
 { name: "洛奇亚GX", type: "基", weakness: "电", status: 1, stage: 1, exp: 80, bao: 20, life: 180, att: 170 },
 { name: "凤王", type: "基", weakness: "电", status: 1, stage: 1, exp: 100, bao: 30, life: 130, att: 90 },
 { name: "卡比兽GX", type: "基", weakness: "斗", status: 1, stage: 1, exp: 0, bao: 0, life: 190, att: 210 },
@@ -1005,7 +1009,7 @@ sample = array => array[Math.floor(Math.random() * array.length)]
 cpet = () => {
     pet = JSON.parse(JSON.stringify(sample(pets)))
     apet.push(pet)
-    drrr.print("/me 发现一只【"+pet.type+"】属性宝可梦，快来捕捉吧")
+    drrr.print("/me 发现一只【" + pet.type + "】属性宝可梦，快来捕捉吧")
     later 15* 60 * 1000 {
         n = apet.findIndex(x => x.name == pet.name)
         if n>= 0 then apet.splice(n, 1)
@@ -1039,7 +1043,7 @@ event[msg, me, dm](user, cont:"^/出战\\s+\\d")  => {
     }
 }
 event[msg, me, dm](user, cont: "^/捕捉\\s+\\d") => {
-  	i = parseInt(onekey("/捕捉", cont)) - 1
+    i = parseInt(onekey("/捕捉", cont)) - 1
     n = checku(user)
     if (n == (-1)) then {
         drrr.print("/me @" + user + " 您的tc与已有的用户不匹配")
@@ -1071,7 +1075,7 @@ event[msg, me, dm](user, cont: "^/捕捉\\s+\\d") => {
     }
 }
 event[msg, me, dm](user, cont: "^/大师捕捉\\s+\\d") => {
-  	i = parseInt(onekey("/大师捕捉", cont)) - 1
+    i = parseInt(onekey("/大师捕捉", cont)) - 1
     n = checku(user)
     if (n == (-1)) then {
         drrr.print("/me @" + user + " 您的tc与已有的用户不匹配")
@@ -1103,7 +1107,7 @@ event[msg, me, dm](user, cont: "^/大师捕捉\\s+\\d") => {
     }
 }
 event[msg, me, dm](user, cont: "^/超级捕捉\\s+\\d") => {
-  	i = parseInt(onekey("/超级捕捉", cont)) - 1
+    i = parseInt(onekey("/超级捕捉", cont)) - 1
     n = checku(user)
     if (n == (-1)) then {
         drrr.print("/me @" + user + " 您的tc与已有的用户不匹配")
@@ -1171,7 +1175,7 @@ event[msg, me, dm](user, cont: "^/观察") => {
         drrr.print("/me 现在没有宠物出没")
     }else{
         p = apet.reduce((a, x, y) => {
-            a = a + "\n" + (y + 1) + ".【" + x.type + "】属性宝可梦" 
+            a = a + "\n" + (y + 1) + ".【" + x.type + "】属性宝可梦"
             a
         }, " 现在出没的宠物有:")
         drrr.print(p)
@@ -1407,12 +1411,12 @@ event[msg, me, dm](user, cont: "^/挑战\\s+\\S") => {
                         if yp.endsWith("GX") then sc = 2
                         else if yp.endsWith("CN") || yp.endsWith("TT") then sc = 3
                         xsc += sc
-                      	tt = ""
-                      	if xp.endsWith("TT") then {
-                          xl += 100
-                          tt = "\n【"+xp+"】恢复100点生命"
+                        tt = ""
+                        if xp.endsWith("TT") then {
+                            xl += 100
+                            tt = "\n【" + xp + "】恢复100点生命"
                         }
-                        zdm.push("【" + yp + "】倒下了"+tt+"\n@" + xn + " 获得" + sc + "分\n目前比分" + xsc + " : " + ysc)
+                        zdm.push("【" + yp + "】倒下了" + tt + "\n@" + xn + " 获得" + sc + "分\n目前比分" + xsc + " : " + ysc)
                         if yd.length == 0 then yf= 0
                         mess(yd)
                         y = yd.pop()
@@ -1436,12 +1440,12 @@ event[msg, me, dm](user, cont: "^/挑战\\s+\\S") => {
                             if xp.endsWith("GX") then sc = 2
                             else if xp.endsWith("CN") || xp.endsWith("TT") then sc = 3
                             ysc += sc
-                          	tt = ""
+                            tt = ""
                             if yp.endsWith("TT") then {
-                              yl += 100
-                              tt = "\n【"+yp+"】恢复100点生命"
+                                yl += 100
+                                tt = "\n【" + yp + "】恢复100点生命"
                             }
-                            zdm.push("【" + xp + "】倒下了"+tt+"\n@" + yn + " 获得" + sc + "分\n目前比分" + xsc + " : " + ysc)
+                            zdm.push("【" + xp + "】倒下了" + tt + "\n@" + yn + " 获得" + sc + "分\n目前比分" + xsc + " : " + ysc)
                             if xd.length == 0 then xf= 0
                             mess(xd)
                             x = xd.pop()
@@ -1467,12 +1471,12 @@ event[msg, me, dm](user, cont: "^/挑战\\s+\\S") => {
                         if xp.endsWith("GX") then sc = 2
                         else if xp.endsWith("CN") || xp.endsWith("TT") then sc = 3
                         ysc += sc
-                      	tt = ""
-                      	if yp.endsWith("TT") then {
-                          yl += 100
-                          tt = "\n【"+yp+"】恢复100点生命"
+                        tt = ""
+                        if yp.endsWith("TT") then {
+                            yl += 100
+                            tt = "\n【" + yp + "】恢复100点生命"
                         }
-                        zdm.push("【" + xp + "】倒下了"+tt+"\n@" + yn + " 获得" + sc + "分\n目前比分" + xsc + " : " + ysc)
+                        zdm.push("【" + xp + "】倒下了" + tt + "\n@" + yn + " 获得" + sc + "分\n目前比分" + xsc + " : " + ysc)
                         if xd.length == 0 then xf= 0
                         mess(xd)
                         x = xd.pop()
@@ -1496,12 +1500,12 @@ event[msg, me, dm](user, cont: "^/挑战\\s+\\S") => {
                             if yp.endsWith("GX") then sc = 2
                             else if yp.endsWith("CN") || yp.endsWith("TT") then sc = 3
                             xsc += sc
-                          	tt = ""
+                            tt = ""
                             if xp.endsWith("TT") then {
-                              xl += 100
-                              tt = "\n【"+xp+"】恢复100点生命"
+                                xl += 100
+                                tt = "\n【" + xp + "】恢复100点生命"
                             }
-                            zdm.push("【" + yp + "】 倒下了"+tt+"\n@" + xn + " 获得" + sc + "分\n目前比分" + xsc + " : " + ysc)
+                            zdm.push("【" + yp + "】 倒下了" + tt + "\n@" + xn + " 获得" + sc + "分\n目前比分" + xsc + " : " + ysc)
                             if yd.length == 0 then yf= 0
                             mess(yd)
                             y = yd.pop()

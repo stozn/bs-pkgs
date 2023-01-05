@@ -1007,10 +1007,8 @@ cpet = () => {
     apet.push(pet)
     drrr.print("/me 发现一只【"+pet.type+"】属性宝可梦，快来捕捉吧")
     later 15* 60 * 1000 {
-        n = apet.findIndex(x => x.name == ppet.name)
-        if n>= 0 then {
-            apet.splice(n, 1)
-        }
+        n = apet.findIndex(x => x.name == pet.name)
+        if n>= 0 then apet.splice(n, 1)
     }
 }
 timer 20* 60 * 1000{

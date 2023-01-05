@@ -601,7 +601,7 @@ event[msg, me, dm](user, cont: "^/献礼") => {
 }
 //整点奖励
 event[msg, me, dm](user, cont: "^/领取奖励") => {
-    yb = rand(2, 4)
+    yb = rand(8,12)
     n = checku(user)
     if (n == (-1)) then {
         drrr.print("/me @" + user + " 您的tc与已有的用户不匹配")

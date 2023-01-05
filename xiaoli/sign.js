@@ -1399,9 +1399,14 @@ event[msg, me, dm](user, cont: "^/挑战\\s+\\S") => {
                         flag = 0
                         sc = 1
                         if yp.endsWith("GX") then sc = 2
-                        else if yp.endsWith("CN") then sc = 3
+                        else if yp.endsWith("CN") || yp.endsWith("TT") then sc = 3
                         xsc += sc
-                        zdm.push("【" + yp + "】倒下了\n@" + xn + " 获得" + sc + "分\n目前比分" + xsc + " : " + ysc)
+                      	tt = ""
+                      	if xp.endsWith("TT") then {
+                          xl += 100
+                          tt = "\n【"+xp+"】恢复100点生命"
+                        }
+                        zdm.push("【" + yp + "】倒下了"+tt+"\n@" + xn + " 获得" + sc + "分\n目前比分" + xsc + " : " + ysc)
                         if yd.length == 0 then yf= 0
                         mess(yd)
                         y = yd.pop()
@@ -1423,9 +1428,14 @@ event[msg, me, dm](user, cont: "^/挑战\\s+\\S") => {
                             flag = 0
                             sc = 1
                             if xp.endsWith("GX") then sc = 2
-                            else if xp.endsWith("CN") then sc = 3
+                            else if xp.endsWith("CN") || xp.endsWith("TT") then sc = 3
                             ysc += sc
-                            zdm.push("【" + xp + "】倒下了\n@" + yn + " 获得" + sc + "分\n目前比分" + xsc + " : " + ysc)
+                          	tt = ""
+                            if yp.endsWith("TT") then {
+                              yl += 100
+                              tt = "\n【"+yp+"】恢复100点生命"
+                            }
+                            zdm.push("【" + xp + "】倒下了"+tt+"\n@" + yn + " 获得" + sc + "分\n目前比分" + xsc + " : " + ysc)
                             if xd.length == 0 then xf= 0
                             mess(xd)
                             x = xd.pop()
@@ -1449,9 +1459,14 @@ event[msg, me, dm](user, cont: "^/挑战\\s+\\S") => {
                         flag = 0
                         sc = 1
                         if xp.endsWith("GX") then sc = 2
-                        else if xp.endsWith("CN") then sc = 3
+                        else if xp.endsWith("CN") || xp.endsWith("TT") then sc = 3
                         ysc += sc
-                        zdm.push("【" + xp + "】倒下了\n@" + yn + " 获得" + sc + "分\n目前比分" + xsc + " : " + ysc)
+                      	tt = ""
+                      	if yp.endsWith("TT") then {
+                          yl += 100
+                          tt = "\n【"+yp+"】恢复100点生命"
+                        }
+                        zdm.push("【" + xp + "】倒下了"+tt+"\n@" + yn + " 获得" + sc + "分\n目前比分" + xsc + " : " + ysc)
                         if xd.length == 0 then xf= 0
                         mess(xd)
                         x = xd.pop()
@@ -1473,9 +1488,14 @@ event[msg, me, dm](user, cont: "^/挑战\\s+\\S") => {
                             flag = 0
                             sc = 1
                             if yp.endsWith("GX") then sc = 2
-                            else if yp.endsWith("CN") then sc = 3
+                            else if yp.endsWith("CN") || yp.endsWith("TT") then sc = 3
                             xsc += sc
-                            zdm.push("【" + yp + "】 倒下了\n@" + xn + " 获得" + sc + "分\n目前比分" + xsc + " : " + ysc)
+                          	tt = ""
+                            if xp.endsWith("TT") then {
+                              xl += 100
+                              tt = "\n【"+xp+"】恢复100点生命"
+                            }
+                            zdm.push("【" + yp + "】 倒下了"+tt+"\n@" + xn + " 获得" + sc + "分\n目前比分" + xsc + " : " + ysc)
                             if yd.length == 0 then yf= 0
                             mess(yd)
                             y = yd.pop()
@@ -1523,8 +1543,6 @@ event[msg, me, dm](user, cont: "^/挑战\\s+\\S") => {
         drrr.print("/me @" + users[n].name + " 很抱歉，您今天已经挑战过一次了，并且您的背包中没有挑战卡，无法再次挑战，请前往商店购买，或明天再来挑战")
     }
 }
-
-
 event[msg, me, dm](user, cont: "^/战报") => {
     y = ybt.map((x, i) => (i + 1) + ". " + x)
     drrr.print("最新战报\n" + y.join("\n"))

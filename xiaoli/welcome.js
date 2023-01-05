@@ -51,6 +51,9 @@ event[msg, me, dm](user, cont: "^/留言\\s+\\S", url, tc) => {
 event[msg, me, dm](user, cont: "^/帮助") => {
     drrr.dm(user, "小粒帮助页面：\nhttps://docs.qq.com/sheet/DVkVCWFFueUVFcXNB", "https://docs.qq.com/sheet/DVkVCWFFueUVFcXNB")
 }
+event[msg, me, dm](user, cont: "^/暗号") => {
+    drrr.dm(user, "小粒最可爱")
+}
 event[msg, me, dm](user, cont: "^/留言板") => {
     msg = msgs.map((x, i) => i + 1 + ". " + x)
     drrr.print("留言板\n" + msg.join("\n"))
@@ -278,7 +281,7 @@ event[msg, me, dm](user, cont: "^/删除通知\\s+\\d", url, tc) => {
     }
 }
 timer 10* 60 * 1000 {
-    drrr.dm(drrr.users[0].name, "求求把房主给小粒吧")
+    drrr.dm(drrr.users[0].name, "求求把房主给lulu吧")
 }
 event[msg, me, dm](user, cont:"^/房主", url, tc) => {
     if admins.some(a => a == tc) then {

@@ -26,7 +26,7 @@ award = []
 //宠物数据
 pets = [{ name: "白泽CN", type: "基", weakness: "无", status: 1, stage: 1, exp: 66, bao: 66, life: 666, att: 100 },
 
-{ name: "呆呆兽&可达鸭TT", type: "水", weakness: "草", status: 1, stage: 1, exp: 20, bao: 70, life: 250, att: 210 },
+{ name: "呆呆兽可达鸭TT", type: "水", weakness: "草", status: 1, stage: 1, exp: 20, bao: 70, life: 250, att: 210 },
 { name: "盖欧卡", type: "水", weakness: "草", status: 1, stage: 1, exp: 20, bao: 20, life: 140, att: 120 },
 { name: "急冻鸟GX", type: "水", weakness: "钢", status: 1, stage: 1, exp: 50, bao: 50, life: 170, att: 130 },
 { name: "墨海马", type: "水", weakness: "草", status: 1, stage: 2, exp: 80, bao: 20, life: 100, att: 50, pname: "海刺龙", plife: 150, patt: 100 },
@@ -47,7 +47,7 @@ pets = [{ name: "白泽CN", type: "基", weakness: "无", status: 1, stage: 1, e
 
 { name: "阿罗拉臭泥", type: "超", weakness: "超", status: 1, stage: 2, exp: 80, bao: 20, life: 100, att: 50, pname: "阿罗拉臭臭泥", plife: 120, patt: 130 },
 { name: "骑拉蒂纳", type: "超", weakness: "超", status: 1, stage: 1, exp: 50, bao: 80, life: 180, att: 240 },
-{ name: "耿鬼&秘拟丘TT", type: "超", weakness: "恶", status: 1, stage: 1, exp: 30, bao: 30, life: 130, att: 130 },
+{ name: "耿鬼秘拟丘TT", type: "超", weakness: "恶", status: 1, stage: 1, exp: 30, bao: 30, life: 130, att: 130 },
 { name: "迷拟丘", type: "超", weakness: "无", status: 1, stage: 1, exp: 70, bao: 40, life: 100, att: 90 },
 { name: "卡噗·蝶蝶", type: "超", weakness: "超", status: 1, stage: 1, exp: 70, bao: 50, life: 110, att: 70 },
 { name: "超梦GX", type: "超", weakness: "超", status: 1, stage: 1, exp: 40, bao: 30, life: 140, att: 200 },
@@ -92,7 +92,7 @@ pets = [{ name: "白泽CN", type: "基", weakness: "无", status: 1, stage: 1, e
 { name: "铁哑铃", type: "钢", weakness: "火", status: 1, stage: 3, exp: 60, bao: 40, life: 60, att: 90, pname: "金属怪", plife: 90, patt: 110, ppname: "巨金怪", pplife: 300, ppatt: 110 },
 { name: "基拉祈", type: "钢", weakness: "火", status: 1, stage: 1, exp: 77, bao: 77, life: 177, att: 77 },
 
-{ name: "伊布&卡比兽TT", type: "基", weakness: "斗", status: 1, stage: 1, exp: 50, bao: 20, life: 270, att: 210 },
+{ name: "伊布卡比兽TT", type: "基", weakness: "斗", status: 1, stage: 1, exp: 50, bao: 20, life: 270, att: 210 },
 { name: "洛奇亚GX", type: "基", weakness: "电", status: 1, stage: 1, exp: 80, bao: 20, life: 180, att: 170 },
 { name: "凤王", type: "基", weakness: "电", status: 1, stage: 1, exp: 100, bao: 30, life: 130, att: 90 },
 { name: "卡比兽GX", type: "基", weakness: "斗", status: 1, stage: 1, exp: 0, bao: 0, life: 190, att: 210 },

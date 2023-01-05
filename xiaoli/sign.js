@@ -46,8 +46,8 @@ pets = [{ name: "白泽CN", type: "基", weakness: "无", status: 1, stage: 1, e
 { name: "强颚鸡母虫", type: "电", weakness: "斗", status: 1, stage: 3, exp: 100, bao: 10, life: 100, att: 40, pname: "虫电宝", plife: 100, patt: 90, ppname: "锹农炮虫GX", pplife: 200, ppatt: 190 },
 
 { name: "阿罗拉臭泥", type: "超", weakness: "超", status: 1, stage: 2, exp: 80, bao: 20, life: 100, att: 50, pname: "阿罗拉臭臭泥", plife: 120, patt: 130 },
-{ name: "骑拉蒂纳", type: "超", weakness: "超", status: 1, stage: 1, exp: 50, bao: 80, life: 180, att: 240 },
-{ name: "耿鬼秘拟丘TT", type: "超", weakness: "恶", status: 1, stage: 1, exp: 30, bao: 30, life: 130, att: 130 },
+{ name: "耿鬼秘拟丘TT", type: "超", weakness: "超", status: 1, stage: 1, exp: 50, bao: 80, life: 180, att: 240 },
+{ name: "骑拉蒂纳", type: "超", weakness: "恶", status: 1, stage: 1, exp: 30, bao: 30, life: 130, att: 130 },
 { name: "迷拟丘", type: "超", weakness: "无", status: 1, stage: 1, exp: 70, bao: 40, life: 100, att: 90 },
 { name: "卡噗·蝶蝶", type: "超", weakness: "超", status: 1, stage: 1, exp: 70, bao: 50, life: 110, att: 70 },
 { name: "超梦GX", type: "超", weakness: "超", status: 1, stage: 1, exp: 40, bao: 30, life: 140, att: 200 },

@@ -4,7 +4,7 @@ msgs = JSON.parse(localStorage["msgs"])
 emoji = JSON.parse(localStorage["emoji"])
 blacklist=JSON.parse(localStorage["blacklist"])
 bmd = 0 //白名单功能默认关闭
-whitelist=[".bLVj9fdOM","jq5V9liJ5.","vEg/qFxY/o","Lmiq8cDrgc","/G8YJRcCos","PdBZ5oxgV.","vJEPoEPHsA","YtIMnsXOBE","SArR31xQ8A","Buqi.19uwA","p5Ipr6sT5s","HvKIPcr5Dc","ZAQiVIgoE6","O2WzlQotYE","MI1OxLLaI.","Husou/4PMY","fNTIUI/HZA","sPbGjkIyko","xjD034fDFw","DoKE.PedO.","Okpf18YZ7A","uEmJzKE3eq","CcLJX8UpLg","KmrF.YyFXg","h2sNI6r3Z.","TxDBeebjS6","YOvQdEmfx.","Ancy.WWeeo","Zybq2/fKTE"]
+whitelist=JSON.parse(localStorage["whitelist"])
 amax = (array) => array.findIndex(x => x == Math.max.apply(Math, array))
 amin = (array) => array.findIndex(x => x == Math.min.apply(Math, array))
 curl = (url) => {
@@ -44,6 +44,7 @@ timer 14* 60 * 1000{
     localStorage["msgs"] = JSON.stringify(msgs)
     localStorage["emoji"] = JSON.stringify(emoji)
     localStorage["blacklist"] = JSON.stringify(blacklist)
+    localStorage["whitelist"] = JSON.stringify(whitelist)
 }
 event[msg, me, dm](user, cont: "^/留言\\s+\\S", url, tc) => {
     msg = cont.replace("/留言", "").trim()
@@ -315,7 +316,13 @@ event[msg, me, dm](user, cont: "^/拉黑\\s+\\S", url, tc) => {
         drrr.dm(user, "成功将@"+u+"拉黑" )
     }
 }
-    
+event[msg, me, dm](user, cont: "^/拉白\\s+\\S", url, tc) => {
+    if admins.some(a => a == tc) then {
+        tc = cont.replace("/拉白", "").trim()
+        whitelist.push(tc)
+        drrr.dm(user, "成功将tc ["+tc+"] 拉白" )
+    }
+}   
 event[msg, me, dm](user, cont: "^/黑名单", url, tc) => {
     if admins.some(a => a == tc) then {
     bl = mess(blacklist)

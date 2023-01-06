@@ -25,7 +25,7 @@ ybt = []
 award = []
 //宠物数据
 pets = [{ name: "白泽CN", type: "基", weakness: "无", status: 1, stage: 1, exp: 66, bao: 66, life: 666, att: 100 },
-{ name: "烛龙CN", type: "龙", weakness: "无", status: 1, stage: 1, exp: 100, bao: 90, life: 500, att: 200 },
+{ name: "烛龙CN", type: "龙", weakness: "无", status: 1, stage: 1, exp: 0, bao: 90, life: 500, att: 200 },
 
 { name: "水箭龟波加曼TT", type: "水", weakness: "草", status: 1, stage: 1, exp: 40, bao: 90, life: 270, att: 150 },
 { name: "鲤鱼王吼鲸王TT", type: "水", weakness: "草", status: 1, stage: 1, exp: 20, bao: 50, life: 300, att: 180 },

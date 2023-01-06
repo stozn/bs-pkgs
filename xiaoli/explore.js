@@ -204,7 +204,7 @@ state choose{
 
 state result {
     drrr.print("/me已完成5次冒险，冒险结束，开始统计金币数...")
-    later 5* 1000 drrr.print("排名：\n" + player.sort((x, y) => y.coin - x.coin).map((x, i) => (i + 1) + ".@" + x.name + "\t" + x.coin).join("\n"))
+    later 5* 1000 drrr.print("排名：\n" + player.sort((x, y) => y.coin - x.coin).map((x, i) => (i + 1) + ".@" + x.name + "\t" + x.coin +"金币").join("\n"))
 }
 
 event[msg, me, dm](user, cont: "^/财富$") => {
@@ -213,11 +213,11 @@ event[msg, me, dm](user, cont: "^/财富$") => {
     else   drrr.print("/me @" + user + " 您不是玩家")
 }
 event[msg, me, dm](user, cont: "^/冒险者$") => drrr.print("正在冒险中的有：\n" + explorers.map((x, i) => (i + 1) + ".@" + x.name).join("\n"))
-event[msg, me, dm](user, cont: "^/排名$") => drrr.print("排名：\n" + player.sort((x, y) => y.coin - x.coin).map((x, i) => (i + 1) + ".@" + x.name + "\t" + x.coin).join("\n"))
+event[msg, me, dm](user, cont: "^/排名$") => drrr.print("排名：\n" + player.sort((x, y) => y.coin - x.coin).map((x, i) => (i + 1) + ".@" + x.name + "\t" + x.coin +"金币").join("\n"))
 event[msg, me, dm](user, cont: "^/牌组$") => pz()
 event[msg, me](user, cont: "^/休息\\s+\\d+$") => {
     n = parseInt(cont.replace("/休息", "").trim())
-    if n< 5 || n > 60 then drrr.print("/me 休息时间只能在5-60秒内")
+    if n< 5 || n > 30 then drrr.print("/me 休息时间只能在5-30秒内")
     else {
         wt = n
         drrr.print("/me 休息时间已设置为" + wt + "秒")

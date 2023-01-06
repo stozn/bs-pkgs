@@ -25,7 +25,10 @@ ybt = []
 award = []
 //宠物数据
 pets = [{ name: "白泽CN", type: "基", weakness: "无", status: 1, stage: 1, exp: 66, bao: 66, life: 666, att: 100 },
+{ name: "烛龙CN", type: "龙", weakness: "无", status: 1, stage: 1, exp: 100, bao: 90, life: 500, att: 200 },
 
+{ name: "水箭龟波加曼TT", type: "水", weakness: "草", status: 1, stage: 1, exp: 40, bao: 90, life: 270, att: 150 },
+{ name: "鲤鱼王吼鲸王TT", type: "水", weakness: "草", status: 1, stage: 1, exp: 20, bao: 50, life: 300, att: 180 },
 { name: "呆呆兽可达鸭TT", type: "水", weakness: "草", status: 1, stage: 1, exp: 20, bao: 70, life: 250, att: 210 },
 { name: "盖欧卡", type: "水", weakness: "草", status: 1, stage: 1, exp: 20, bao: 20, life: 140, att: 120 },
 { name: "急冻鸟GX", type: "水", weakness: "钢", status: 1, stage: 1, exp: 50, bao: 50, life: 170, att: 130 },
@@ -35,6 +38,8 @@ pets = [{ name: "白泽CN", type: "基", weakness: "无", status: 1, stage: 1, e
 { name: "鲤鱼王", type: "水", weakness: "电", status: 1, stage: 2, exp: 0, bao: 30, life: 200, att: 20, pname: "暴鲤龙", plife: 200, patt: 120 },
 { name: "呱呱泡蛙", type: "水", weakness: "草", status: 1, stage: 3, exp: 100, bao: 20, life: 100, att: 30, pname: "呱头蛙", plife: 120, patt: 60, ppname: "甲贺忍蛙GX", pplife: 300, ppatt: 210 },
 
+{ name: "双雷丘TT", type: "电", weakness: "斗", status: 1, stage: 1, exp: 40, bao: 90, life: 260, att: 150 },
+{ name: "皮卡丘捷克罗姆TT", type: "电", weakness: "斗", status: 1, stage: 1, exp: 80, bao: 90, life: 240, att: 150 },
 { name: "闪电鸟", type: "电", weakness: "电", status: 1, stage: 1, exp: 50, bao: 60, life: 110, att: 80 },
 { name: "雷公", type: "电", weakness: "电", status: 1, stage: 1, exp: 20, bao: 50, life: 150, att: 80 },
 { name: "帕奇利兹", type: "电", weakness: "斗", status: 1, stage: 1, exp: 100, bao: 40, life: 110, att: 40 },
@@ -45,6 +50,11 @@ pets = [{ name: "白泽CN", type: "基", weakness: "无", status: 1, stage: 1, e
 { name: "阿罗拉小拳石", type: "电", weakness: "斗", status: 1, stage: 3, exp: 100, bao: 70, life: 60, att: 20, pname: "阿罗拉隆隆石", plife: 100, patt: 30, ppname: "阿罗拉隆隆岩", pplife: 160, ppatt: 170 },
 { name: "强颚鸡母虫", type: "电", weakness: "斗", status: 1, stage: 3, exp: 100, bao: 10, life: 100, att: 40, pname: "虫电宝", plife: 100, patt: 90, ppname: "锹农炮虫GX", pplife: 200, ppatt: 190 },
 
+{ name: "索&露TT", type: "超", weakness: "超", status: 1, stage: 1, exp: 0, bao: 50, life: 270, att: 230 },
+{ name: "超梦梦幻TT", type: "超", weakness: "超", status: 1, stage: 1, exp: 10, bao: 70, life: 270, att: 200 },
+{ name: "日伊布&代TT", type: "超", weakness: "超", status: 1, stage: 1, exp: 40, bao: 60, life: 260, att: 190 },
+{ name: "双臭臭泥TT", type: "超", weakness: "超", status: 1, stage: 1, exp: 70, bao: 90, life: 270, att: 120 },
+{ name: "朽木妖黑夜魔灵TT", type: "超", weakness: "恶", status: 1, stage: 1, exp: 50, bao: 80, life: 270, att: 150 },
 { name: "阿罗拉臭泥", type: "超", weakness: "超", status: 1, stage: 2, exp: 80, bao: 20, life: 100, att: 50, pname: "阿罗拉臭臭泥", plife: 120, patt: 130 },
 { name: "耿鬼秘拟丘TT", type: "超", weakness: "超", status: 1, stage: 1, exp: 50, bao: 80, life: 180, att: 240 },
 { name: "骑拉蒂纳", type: "超", weakness: "恶", status: 1, stage: 1, exp: 30, bao: 30, life: 130, att: 130 },
@@ -53,6 +63,7 @@ pets = [{ name: "白泽CN", type: "基", weakness: "无", status: 1, stage: 1, e
 { name: "超梦GX", type: "超", weakness: "超", status: 1, stage: 1, exp: 40, bao: 30, life: 140, att: 200 },
 { name: "好坏星", type: "超", weakness: "超", status: 1, stage: 2, exp: 60, bao: 90, life: 40, att: 60, pname: "超坏星GX", plife: 160, patt: 140 },
 
+{ name: "玛夏多怪力TT", type: "斗", weakness: "超", status: 1, stage: 1, exp: 40, bao: 80, life: 270, att: 160 },
 { name: "小小象", type: "斗", weakness: "草", status: 1, stage: 2, exp: 100, bao: 40, life: 70, att: 40, pname: "顿甲", plife: 130, patt: 90 },
 { name: "岩狗狗", type: "斗", weakness: "草", status: 1, stage: 2, exp: 90, bao: 10, life: 100, att: 50, pname: "鬃岩狼人GX", plife: 200, patt: 150 },
 { name: "投掷猴", type: "斗", weakness: "超", status: 1, stage: 1, exp: 80, bao: 0, life: 110, att: 110 },
@@ -63,6 +74,9 @@ pets = [{ name: "白泽CN", type: "基", weakness: "无", status: 1, stage: 1, e
 { name: "固拉多", type: "斗", weakness: "草", status: 1, stage: 1, exp: 20, bao: 30, life: 130, att: 130 },
 { name: "卡拉卡拉", type: "斗", weakness: "草", status: 1, stage: 1, exp: 70, bao: 30, life: 90, att: 60 },
 
+{ name: "月伊布&达TT", type: "恶", weakness: "超", status: 1, stage: 1, exp: 60, bao: 70, life: 270, att: 150 },
+{ name: "Mega勾魂眼&班TT", type: "恶", weakness: "斗", status: 1, stage: 1, exp: 40, bao: 20, life: 280, att: 210 },
+{ name: "甲贺忍蛙索罗亚克TT", type: "恶", weakness: "斗", status: 1, stage: 1, exp: 50, bao: 50, life: 250, att: 200 },
 { name: "达克莱伊", type: "恶", weakness: "斗", status: 1, stage: 1, exp: 20, bao: 20, life: 160, att: 120 },
 { name: "阿罗拉臭泥", type: "恶", weakness: "斗", status: 1, stage: 3, exp: 100, bao: 60, life: 70, att: 20, pname: "阿罗拉臭臭泥", plife: 70, patt: 70, ppname: "阿罗拉臭臭泥GX", pplife: 220, ppatt: 220 },
 { name: "阿罗拉喵喵", type: "恶", weakness: "斗", status: 1, stage: 2, exp: 70, bao: 50, life: 60, att: 70, pname: "阿罗拉猫老大", plife: 90, patt: 140 },
@@ -72,6 +86,8 @@ pets = [{ name: "白泽CN", type: "基", weakness: "无", status: 1, stage: 1, e
 { name: "胡帕", type: "恶", weakness: "斗", status: 2, stage: 1, exp: 60, bao: 20, life: 120, att: 50, pname: "胡帕GX", plife: 210, patt: 160 },
 { name: "索罗亚", type: "恶", weakness: "斗", status: 1, stage: 2, exp: 70, bao: 50, life: 70, att: 60, pname: "索罗亚克GX", plife: 210, patt: 130 },
 
+{ name: "喷火龙长尾火狐TT", type: "火", weakness: "水", status: 1, stage: 1, exp: 20, bao: 80, life: 270, att: 180 },
+{ name: "莱希拉姆喷火龙TT", type: "火", weakness: "水", status: 1, stage: 1, exp: 30, bao: 20, life: 270, att: 230 },
 { name: "火焰鸟", type: "火", weakness: "水", status: 1, stage: 1, exp: 30, bao: 20, life: 120, att: 130 },
 { name: "火斑喵", type: "火", weakness: "水", status: 1, stage: 3, exp: 60, bao: 10, life: 130, att: 50, pname: "炎热喵", plife: 150, patt: 80, ppname: "炽焰咆哮虎GX", pplife: 250, ppatt: 280 },
 { name: "小火龙", type: "火", weakness: "水", status: 1, stage: 3, exp: 50, bao: 50, life: 70, att: 40, pname: "火恐龙", plife: 80, patt: 80, ppname: "喷火龙GX", pplife: 250, ppatt: 300 },
@@ -84,6 +100,7 @@ pets = [{ name: "白泽CN", type: "基", weakness: "无", status: 1, stage: 1, e
 { name: "莱希拉姆GX", type: "火", weakness: "水", status: 1, stage: 1, exp: 50, bao: 20, life: 180, att: 150 },
 { name: "熔岩虫", type: "火", weakness: "水", status: 1, stage: 2, exp: 60, bao: 30, life: 90, att: 70, pname: "熔岩蜗牛", plife: 100, patt: 160 },
 
+{ name: "路卡利欧美录梅塔TT", type: "钢", weakness: "火", status: 1, stage: 1, exp: 60, bao: 80, life: 260, att: 150 },
 { name: "帝牙卢卡GX", type: "钢", weakness: "火", status: 1, stage: 1, exp: 70, bao: 30, life: 180, att: 150 },
 { name: "科斯莫古", type: "钢", weakness: "火", status: 1, stage: 3, exp: 100, bao: 50, life: 60, att: 40, pname: "科斯莫姆", plife: 90, patt: 60, ppname: "索尔迦雷欧GX", pplife: 200, ppatt: 270 },
 { name: "阿罗拉地鼠", type: "钢", weakness: "火", status: 1, stage: 2, exp: 60, bao: 50, life: 50, att: 90, pname: "阿罗拉三地鼠", plife: 100, patt: 140 },
@@ -92,6 +109,9 @@ pets = [{ name: "白泽CN", type: "基", weakness: "无", status: 1, stage: 1, e
 { name: "铁哑铃", type: "钢", weakness: "火", status: 1, stage: 3, exp: 60, bao: 40, life: 60, att: 90, pname: "金属怪", plife: 90, patt: 110, ppname: "巨金怪", pplife: 300, ppatt: 110 },
 { name: "基拉祈", type: "钢", weakness: "火", status: 1, stage: 1, exp: 77, bao: 77, life: 177, att: 77 },
 
+
+{ name: "Mega长耳兔胖丁TT", type: "基", weakness: "斗", status: 1, stage: 1, exp: 60, bao: 50, life: 240, att: 200 },
+{ name: "火&电&冰鸟TT", type: "基", weakness: "电", status: 1, stage: 1, exp: 0, bao: 30, life: 310, att: 210 },
 { name: "伊布卡比兽TT", type: "基", weakness: "斗", status: 1, stage: 1, exp: 50, bao: 20, life: 270, att: 210 },
 { name: "洛奇亚GX", type: "基", weakness: "电", status: 1, stage: 1, exp: 80, bao: 20, life: 180, att: 170 },
 { name: "凤王", type: "基", weakness: "电", status: 1, stage: 1, exp: 100, bao: 30, life: 130, att: 90 },
@@ -100,6 +120,10 @@ pets = [{ name: "白泽CN", type: "基", weakness: "无", status: 1, stage: 1, e
 { name: "多边兽", type: "基", weakness: "斗", status: 1, stage: 3, exp: 60, bao: 50, life: 80, att: 60, pname: "多边兽2型", plife: 80, patt: 110, ppname: "多边兽乙型", pplife: 130, ppatt: 270 },
 { name: "小箭雀", type: "基", weakness: "电", status: 1, stage: 3, exp: 90, bao: 50, life: 50, att: 60, pname: "火箭雀", plife: 70, patt: 90, ppname: "烈箭雀", pplife: 170, ppatt: 190 },
 
+{ name: "妙蛙花藤藤蛇TT", type: "草", weakness: "火", status: 1, stage: 1, exp: 80, bao: 40, life: 270, att: 160 },
+{ name: "木木枭&椰蛋树TT", type: "草", weakness: "火", status: 1, stage: 1, exp: 40, bao: 40, life: 270, att: 200 },
+{ name: "费洛美螂爆肌蚊TT", type: "草", weakness: "火", status: 1, stage: 1, exp: 40, bao: 60, life: 260, att: 190 },
+{ name: "时拉比妙蛙花TT", type: "草", weakness: "火", status: 1, stage: 1, exp: 50, bao: 80, life: 270, att: 150 },
 { name: "飞天螳螂", type: "草", weakness: "火", status: 1, stage: 2, exp: 80, bao: 0, life: 70, att: 80, pname: "巨钳螳螂GX", plife: 180, patt: 220 },
 { name: "走路草", type: "草", weakness: "火", status: 1, stage: 3, exp: 100, bao: 70, life: 50, att: 30, pname: "臭臭花", plife: 80, patt: 50, ppname: "霸王花", pplife: 150, ppatt: 190 },
 { name: "蛋蛋", type: "草", weakness: "火", status: 1, stage: 2, exp: 100, bao: 50, life: 40, att: 10, pname: "耶蛋树", plife: 170, patt: 40 },
@@ -109,6 +133,11 @@ pets = [{ name: "白泽CN", type: "基", weakness: "无", status: 1, stage: 1, e
 { name: "樱花宝", type: "草", weakness: "火", status: 1, stage: 2, exp: 100, bao: 50, life: 100, att: 50, pname: "樱花儿", plife: 110, patt: 150 },
 { name: "菊叶草", type: "草", weakness: "火", status: 1, stage: 3, exp: 100, bao: 20, life: 70, att: 60, pname: "月桂叶", plife: 100, patt: 80, ppname: "大竺葵", pplife: 160, ppatt: 230 },
 
+{ name: "莱希拉姆捷克罗姆TT", type: "龙", weakness: "斗", status: 1, stage: 1, exp: 40, bao: 70, life: 270, att: 170 },
+{ name: "阿&帝&帕TT", type: "龙", weakness: "妖", status: 1, stage: 1, exp: 30, bao: 90, life: 280, att: 150 },
+{ name: "四颚针龙恶食大王TT", type: "龙", weakness: "妖", status: 1, stage: 1, exp: 40, bao: 50, life: 280, att: 180 },
+{ name: "烈咬陆鲨骑拉帝纳TT", type: "龙", weakness: "妖", status: 1, stage: 1, exp: 40, bao: 80, life: 270, att: 160 },
+{ name: "拉帝亚斯拉帝欧斯TT", type: "龙", weakness: "妖", status: 1, stage: 1, exp: 50, bao: 10, life: 250, att: 240 },
 { name: "裂空座GX", type: "龙", weakness: "妖", status: 1, stage: 1, exp: 80, bao: 40, life: 180, att: 130 },
 { name: "音波龙GX", type: "龙", weakness: "妖", status: 1, stage: 1, exp: 90, bao: 0, life: 220, att: 100 },
 { name: "宝贝龙", type: "龙", weakness: "妖", status: 1, stage: 3, exp: 60, bao: 20, life: 100, att: 70, pname: "甲壳龙", plife: 180, patt: 50, ppname: "暴飞龙", pplife: 180, ppatt: 250 },
@@ -116,6 +145,8 @@ pets = [{ name: "白泽CN", type: "基", weakness: "无", status: 1, stage: 1, e
 { name: "粘粘宝", type: "龙", weakness: "妖", status: 1, stage: 3, exp: 80, bao: 30, life: 40, att: 100, pname: "粘美儿", plife: 70, patt: 120, ppname: "粘美龙", pplife: 160, ppatt: 230 },
 { name: "迷你龙", type: "龙", weakness: "妖", status: 1, stage: 3, exp: 60, bao: 10, life: 60, att: 120, pname: "哈克龙", plife: 120, patt: 110, ppname: "快龙GX", pplife: 200, ppatt: 330 },
 
+{ name: "波&皮&宝TT", type: "妖", weakness: "钢", status: 1, stage: 1, exp: 91, bao: 99, life: 240, att: 120 },
+{ name: "沙奈朵仙伊布TT", type: "妖", weakness: "钢", status: 1, stage: 1, exp: 50, bao: 40, life: 260, att: 200 },
 { name: "哲尔尼亚斯GX", type: "妖", weakness: "钢", status: 1, stage: 1, exp: 60, bao: 10, life: 180, att: 150 },
 { name: "迷拟丘GX", type: "妖", weakness: "无", status: 1, stage: 1, exp: 80, bao: 5, life: 170, att: 150 },
 { name: "咚咚鼠", type: "妖", weakness: "无", status: 1, stage: 1, exp: 100, bao: 90, life: 30, att: 70 },

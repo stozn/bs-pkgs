@@ -3,6 +3,8 @@ notices = JSON.parse(localStorage["notices"])
 msgs = JSON.parse(localStorage["msgs"])
 emoji = JSON.parse(localStorage["emoji"])
 blacklist=JSON.parse(localStorage["blacklist"])
+bmd = 0 //白名单功能默认关闭
+whitelist=[".bLVj9fdOM","jq5V9liJ5.","vEg/qFxY/o","Lmiq8cDrgc","/G8YJRcCos","PdBZ5oxgV.","vJEPoEPHsA","YtIMnsXOBE","SArR31xQ8A","Buqi.19uwA","p5Ipr6sT5s","HvKIPcr5Dc","ZAQiVIgoE6","O2WzlQotYE","MI1OxLLaI.","Husou/4PMY","fNTIUI/HZA","sPbGjkIyko","xjD034fDFw","DoKE.PedO.","Okpf18YZ7A","uEmJzKE3eq","CcLJX8UpLg","KmrF.YyFXg","h2sNI6r3Z.","TxDBeebjS6","YOvQdEmfx.","Ancy.WWeeo","Zybq2/fKTE"]
 amax = (array) => array.findIndex(x => x == Math.max.apply(Math, array))
 amin = (array) => array.findIndex(x => x == Math.min.apply(Math, array))
 curl = (url) => {
@@ -77,8 +79,19 @@ event[msg, me, dm](user, cont: "^/通知\\s+\\S", url, tc) => {
         drrr.dm(user, "成功添加通知：" + nt)
     }
 }
+event[msg, me, dm](user, cont: "^/白名单", url, tc) => {
+    if admins.some(a => a == tc) then{
+        if bmd then{
+            bmd = 0
+            drrr.print("白名单模式已关闭")
+        }else{
+            bmd = 1
+            drrr.print("白名单模式已开启")
+        }
+    } 
+}
 event[msg, me, dm](user, cont: "^/说\\s+\\S", url, tc) => {
-    if admins.some(a => a == tc) then drrr.print(cont.replace("/说", "").trim());
+    if admins.some(a => a == tc) then drrr.print(cont.replace("/说", "").trim())
 }
 event[msg, me, dm](user, cont: "^/通知$") => {
     nt = notices.map((x, i) => i + 1 + ". " + x)
@@ -172,11 +185,16 @@ event[me, msg](user: "", content:"^/再来一杯")  => {
     drrr.print("/me @" + user + "|递【" + n + "~】请慢用")
 }
 event join (user) => {
+    tc = "无"
+    i = drrr.users.findIndex(u => u.name == user)
+    if drrr.users[i].tripcode then tc = drrr.users[i].tripcode
   if blacklist.some(x=> {
     reg = new RegExp(x)
     reg.test(user)
   }) then {
     drrr.ban(user)
+  }else if !whitelist.some(x=> x==tc) && bmd then{
+    drrr.kick(user)
   }else{
     ns = ["|进来了就是美少女", "|今天也请多多喝水", "|你也来喝水啦w"]
     ds = ["酸梅汤", "温水", "柠檬水", "葡萄糖水", "鲜榨🍉汁", "鲜榨🍊汁", "鲜榨🍇汁", "鲜榨🍓汁", "鲜榨🥥汁", "鲜榨🥝汁"]

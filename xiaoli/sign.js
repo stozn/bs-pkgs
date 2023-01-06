@@ -1567,7 +1567,7 @@ event[msg, me, dm](user, cont: "^/挑战\\s+\\S") => {
                 users[m].win++
                 drrr.print("/me 恭喜@" + yn + " 取得胜利，胜利次数+1，共胜利" + users[m].win + "次")
                 ybt.unshift(xn + "➨" + yn + "\t" + "败")
-                if ybt.length == 5 then ybt.splice(4, 1)
+                if ybt.length == 7 then ybt.splice(6, 1)
             }else{
                 users[n].win++
                 users[n].coin += ad

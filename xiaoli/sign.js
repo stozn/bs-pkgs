@@ -1272,6 +1272,7 @@ event[msg, me, dm](user, cont: "^/挑战\\s+\\S") => {
             use(n, "MG-挑战卡")
             drrr.print("/me @" + users[n].name + " 您已使用了一张挑战卡")
         }
+        fen = 6 //****抢6分*****
         afg = 1
         users[n].checkb = false
         ad = rand(12, 18)
@@ -1296,7 +1297,7 @@ event[msg, me, dm](user, cont: "^/挑战\\s+\\S") => {
         j = 1
         xl = users[n].pet[x].life                      //攻方生命值
         yl = users[m].pet[y].life                      //守方生命值
-        while (xf && yf && xsc < 4 && ysc < 4) {
+        while (xf && yf && xsc < fen && ysc < fen) {
             flag = 1
             xt = users[n].pet[x].type                     //属性
             yt = users[m].pet[y].type
@@ -1562,7 +1563,7 @@ event[msg, me, dm](user, cont: "^/挑战\\s+\\S") => {
             t++
         }
         later 4* t * 1000 + 5000{
-            if (xf == 0 || ysc > 3) then{
+            if (xf == 0 || ysc >= fen) then{
                 users[m].win++
                 drrr.print("/me 恭喜@" + yn + " 取得胜利，胜利次数+1，共胜利" + users[m].win + "次")
                 ybt.unshift(xn + "➨" + yn + "\t" + "败")

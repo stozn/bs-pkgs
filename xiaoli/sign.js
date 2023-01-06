@@ -25,7 +25,7 @@ ybt = []
 award = []
 //宠物数据
 pets = [{ name: "白泽CN", type: "基", weakness: "无", status: 1, stage: 1, exp: 66, bao: 66, life: 666, att: 100 },
-{ name: "烛龙CN", type: "龙", weakness: "无", status: 1, stage: 1, exp: 0, bao: 90, life: 500, att: 200 },
+{ name: "烛龙CN", type: "龙", weakness: "无", status: 1, stage: 1, exp: 30, bao: 70, life: 590, att: 160 },
 
 { name: "水箭龟波加曼TT", type: "水", weakness: "草", status: 1, stage: 1, exp: 40, bao: 90, life: 270, att: 150 },
 { name: "鲤鱼王吼鲸王TT", type: "水", weakness: "草", status: 1, stage: 1, exp: 20, bao: 50, life: 300, att: 180 },
@@ -1073,8 +1073,7 @@ event[msg, me, dm](user, cont:"^/出战\\s+\\d")  => {
         drrr.print("/me @" + users[n].name + " 您已将出战宠物由【" + users[n].pet[p].name + "】改为【" + users[n].pet[0].name + "】")
     }
 }
-event[msg, me, dm](user, cont: "^/捕捉\\s+\\d") => {
-    i = parseInt(onekey("/捕捉", cont)) - 1
+event[msg, me, dm](user, cont: "^/捕捉") => {
     n = checku(user)
     if (n == (-1)) then {
         drrr.print("/me @" + user + " 您的tc与已有的用户不匹配")
@@ -1084,10 +1083,9 @@ event[msg, me, dm](user, cont: "^/捕捉\\s+\\d") => {
         drrr.print("/me @" + users[n].name + " 很抱歉，您已拥有6只宠物，已达容量上限，可放生宠物继续捕捉")
     } else if !users[n].bag.some(x => x.name == "MG-精灵球") then {
         drrr.print("/me @" + users[n].name + " 很抱歉，您的背包中没有精灵球，请前往商店购买")
-    }  else if i> (apet.length - 1) then {
-        drrr.print("/me @" + users[n].name + " 输入的序号不存在")
-    } else {
+    }else {
         use(n, "MG-精灵球")
+        i = rand(0,apet.length-1)
         drrr.print("/me @" + users[n].name + " 正在努力捕捉中...")
         k = Math.random() < 0.5  //成功概率0.5
         if !k || (apet.length - 1) < i then {

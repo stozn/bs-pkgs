@@ -339,7 +339,7 @@ event[msg, me, dm](user, cont: "^/解封\\s+\\S", url, tc) => {
             drrr.dm(user, "未找到该用户")
         } else {
             blacklist.splice(n, 1)
-            drrr.dm(user, "成功解封用户@" + del)
+            drrr.dm(user, "成功解封用户@" + u)
         }
     }
 }

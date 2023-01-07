@@ -1263,9 +1263,11 @@ event[msg, me, dm](user, cont: "^/挑战\\s+\\S") => {
         drrr.dm(user, "@" + users[n].name + " 您挑战的用户【" + tou + "】不存在，请检查输入是否为对方【用户名】（可使用查找功能）")
     } else if (users[m].pet.length == 0) then {
         drrr.dm(user, "@" + users[n].name + " 您挑战的用户【" + tou + "】还没有宠物，无法挑战")
+    } else if (users[m].name == users[n].name) then {
+        drrr.dm(user, "@" + users[n].name + " 不能挑战自己")
     } else if (users[n].pet.length == 0) then {
         drrr.dm(user, "@" + users[n].name + " 您还没有宠物，无法挑战")
-    }else if (users[n].checkb || users[n].bag.some(x => x.name == "MG-挑战卡")) then {
+    } else if (users[n].checkb || users[n].bag.some(x => x.name == "MG-挑战卡")) then {
         if (!users[n].checkb) then {
             use(n, "MG-挑战卡")
             drrr.print("/me @" + users[n].name + " 您已使用了一张挑战卡")

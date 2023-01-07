@@ -177,7 +177,7 @@ event[msg, me, dm](user, cont: "^/白名单", url, tc) => {
         }else{
             bmd = 1
             drrr.print("白名单模式已开启")
-            drrr.title("多喝温水-【白名单】")
+            drrr.title("多喝温水-白名单模式👮")
             drrr.descr("本房间暂时进入白名单模式，无tc的用户及tc不在白名单内的用户均无法进入本房间。非白名单用户请在非白名单模式下进入本房间，并尽快获取加群方式申请加入白名单即可.night")
         }
     }
@@ -431,6 +431,18 @@ event[msg, me, dm](user, cont: "^/解封\\s+\\S", url, tc) => {
         } else {
             blacklist.splice(n, 1)
             drrr.dm(user, "成功解封用户@" + u)
+        }
+    }
+}
+event[msg, me, dm](user, cont: "^/解白\\s+\\S", url, tc) => {
+    if admins.some(a => a == tc) then {
+        tc = cont.replace("/解白", "").trim()
+        n = whitelist.findIndex(x => x == tc)
+        if (n == (-1)) then {
+            drrr.dm(user, "未找到该tc")
+        } else {
+            whitelist.splice(n, 1)
+            drrr.dm(user, "成功解白tc " + u)
         }
     }
 }

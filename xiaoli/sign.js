@@ -632,7 +632,7 @@ event[msg, me, dm](user, cont: "^/献礼") => {
 }
 //整点奖励
 event[msg, me, dm](user, cont: "^/领取奖励") => {
-    yb = rand(8,12)
+    yb = rand(8, 12)
     n = checku(user)
     if (n == (-1)) then {
         drrr.print("/me @" + user + " 您的tc与已有的用户不匹配")
@@ -1085,7 +1085,7 @@ event[msg, me, dm](user, cont: "^/捕捉") => {
         drrr.print("/me @" + users[n].name + " 很抱歉，您的背包中没有精灵球，请前往商店购买")
     }else {
         use(n, "MG-精灵球")
-        i = rand(0,apet.length-1)
+        i = rand(0, apet.length - 1)
         drrr.print("/me @" + users[n].name + " 正在努力捕捉中...")
         k = Math.random() < 0.5  //成功概率0.5
         if !k || (apet.length - 1) < i then {
@@ -1563,16 +1563,16 @@ event[msg, me, dm](user, cont: "^/挑战\\s+\\S") => {
         later 4* t * 1000 + 5000{
             if (xf == 0 || ysc >= fen) then{
                 users[m].win++
-                drrr.print("/me 恭喜@" + yn + " 取得胜利，胜利次数+1，共胜利" + users[m].win + "次")
-                ybt.unshift(xn + "➨" + yn + "\t" + "败")
+                drrr.print("/me 恭喜@" + yn + " 取得胜利\t奖励【🏆+1】\t共有 " + users[m].win + "🏆")
+                ybt.unshift(xn + "➨" + yn + "\t" + xsc + " : " + ysc + "\t败")
                 if ybt.length == 7 then ybt.splice(6, 1)
             }else{
                 users[n].win++
                 users[n].coin += ad
                 users[n].pet.forEach(x => x.exp += ae)
-                ybt.unshift(xn + "➨" + yn + "\t" + "胜")
+                ybt.unshift(xn + "➨" + yn + "\t" + xsc + " : " + ysc + "\t胜")
                 if ybt.length == 7 then ybt.splice(6, 1)
-                drrr.print("/me 恭喜@" + xn + " 取得胜利，您获得了" + ad + " DRB，所有宠物增加" + ae + "亲密度，胜利次数+1，共胜利" + users[n].win + "次")
+                drrr.print("/me 恭喜@" + xn + " 取得胜利\t奖励【💵+" + ad + "|❤+" + ae + "|🏆+1】\t共有 " + users[n].win + "🏆")
             }
             users[n].pet.forEach(x => x.status = 1)
             users[m].pet.forEach(x => x.status = 1)

@@ -1563,22 +1563,23 @@ event[msg, me, dm](user, cont: "^/挑战\\s+\\S") => {
         later 4* t * 1000 + 5000{
             if (xf == 0 || ysc >= fen) then{
                 users[m].win++
-                drrr.print("/me 恭喜@" + yn + " 取得胜利\t奖励【🏆+1】\t共有 " + users[m].win + "🏆")
+                users[m].coin += ad
+                users[m].pet.forEach(x => x.exp += ae)
+                drrr.print("/me 恭喜@" + yn + " 取得胜利\t奖励【💵+" + ad + "|❤+" + ae + "|🏆+1】\t共有 " + users[m].win + "🏆")
                 ybt.unshift(xn + "➨" + yn + "\t" + xsc + " : " + ysc + "\t败")
                 if ybt.length == 7 then ybt.splice(6, 1)
             }else{
                 users[n].win++
                 users[n].coin += ad
                 users[n].pet.forEach(x => x.exp += ae)
+                drrr.print("/me 恭喜@" + xn + " 取得胜利\t奖励【💵+" + ad + "|❤+" + ae + "|🏆+1】\t共有 " + users[n].win + "🏆")
                 ybt.unshift(xn + "➨" + yn + "\t" + xsc + " : " + ysc + "\t胜")
                 if ybt.length == 7 then ybt.splice(6, 1)
-                drrr.print("/me 恭喜@" + xn + " 取得胜利\t奖励【💵+" + ad + "|❤+" + ae + "|🏆+1】\t共有 " + users[n].win + "🏆")
             }
             users[n].pet.forEach(x => x.status = 1)
             users[m].pet.forEach(x => x.status = 1)
             afg = 0
         }
-
     } else{
         drrr.print("/me @" + users[n].name + " 很抱歉，您今天已经挑战过一次了，并且您的背包中没有挑战卡，无法再次挑战，请前往商店购买，或明天再来挑战")
     }

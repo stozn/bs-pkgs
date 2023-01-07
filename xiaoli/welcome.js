@@ -442,7 +442,7 @@ event[msg, me, dm](user, cont: "^/解白\\s+\\S", url, tc) => {
             drrr.dm(user, "未找到该tc")
         } else {
             whitelist.splice(n, 1)
-            drrr.dm(user, "成功解白tc " + u)
+            drrr.dm(user, "成功解白tc " + tc)
         }
     }
 }

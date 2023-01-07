@@ -1042,7 +1042,7 @@ sample = array => array[Math.floor(Math.random() * array.length)]
 cpet = () => {
     pet = JSON.parse(JSON.stringify(sample(pets)))
     apet.push(pet)
-    drrr.print("/me 发现一只【" + pet.type + "】属性宝可梦，快来捕捉吧")
+    drrr.print("/me 发现一只野生【" + pet.type + "】系宝可梦！")
     later 15* 60 * 1000 {
         n = apet.findIndex(x => x.name == pet.name)
         if n>= 0 then apet.splice(n, 1)
@@ -1088,18 +1088,18 @@ event[msg, me, dm](user, cont: "^/捕捉") => {
     }else {
         use(n, "MG-精灵球")
         i = rand(0, apet.length - 1)
-        drrr.print("/me @" + users[n].name + " 正在努力捕捉中...")
-        k = Math.random() < 0.5  //成功概率0.5
+        drrr.print("/me @" + users[n].name + " 朝宝可梦的方向扔出了精灵球！")
+        k = Math.random() < 0.6  //成功概率0.6
         if !k || (apet.length - 1) < i then {
-            later 5* 1000 drrr.print("/me @" + users[n].name + " 哎呀，失手了")
+            later 5* 1000 drrr.print("/me @" + users[n].name + " 没中！")
         }else {
             m = apet[i].name
             if users[n].pet.some(a => a.name == m) then{
                 add(n, "MG-召唤球", 1)
-                later 5* 1000 drrr.print("/me @" + users[n].name + " 又捕获一只【" + m + "】，将它放生了，获得一个召唤球")
+                later 5* 1000 drrr.print("/me @" + users[n].name + " 哎呀，是已经有的【" + m + "】，你将它放生了，它给你留下了一个召唤球")
             }else{
                 users[n].pet.push(apet[i])
-                later 5* 1000 drrr.print("/me @" + users[n].name + " 成功捕获一只【" + m + "】")
+                later 5* 1000 drrr.print("/me @" + users[n].name + " 成功了！！你捕获了野生【" + m + "】")
             }
             apet.splice(i, 1)
         }
@@ -1113,25 +1113,25 @@ event[msg, me, dm](user, cont: "^/大师捕捉\\s+\\d") => {
     } else if apet.length == 0 then {
         drrr.print("/me @" + users[n].name + " 现在还没有宠物出没哦")
     } else if users[n].pet.length == 6 then {
-        drrr.print("/me @" + users[n].name + " 很抱歉，您已拥有6只宠物，已达容量上限，可放生宠物继续捕捉")
+        drrr.print("/me @" + users[n].name + " 很抱歉，您已携带了6只宝可梦，已经不能携带更多宝可梦了，先放生一只吧")
     } else if !users[n].bag.some(x => x.name == "MG-大师球") then {
-        drrr.print("/me @" + users[n].name + " 很抱歉，您的背包中没有大师球，请前往商店购买")
+        drrr.print("/me @" + users[n].name + " 您的背包中没有【大师球】，请前往商店购买")
     }  else if i> (apet.length - 1) then {
         drrr.print("/me @" + users[n].name + " 输入的序号不存在")
     } else {
         use(n, "MG-大师球")
-        drrr.print("/me @" + users[n].name + " 正在努力捕捉中...")
+        drrr.print("/me @" + users[n].name + " 你感觉闭着眼扔也能中.......")
         k = Math.random() < 1  //成功概率1
         if !k || (apet.length - 1) < i then {
-            later 5* 1000 drrr.print("/me @" + users[n].name + " 哎呀，失手了")
+            later 5* 1000 drrr.print("/me @" + users[n].name + " 居然！！！失手了？")
         }else {
             m = apet[i].name
             if users[n].pet.some(a => a.name == m) then{
                 add(n, "MG-召唤球", 1)
-                later 5* 1000 drrr.print("/me @" + users[n].name + " 又捕获一只【" + m + "】，将它放生了，获得一个召唤球")
+                later 5* 1000 drrr.print("/me @" + users[n].name + "  哎呀，是已经有的【" + m + "】，你将它放生了，它给你留下了一个召唤球")
             }else{
                 users[n].pet.push(apet[i])
-                later 5* 1000 drrr.print("/me @" + users[n].name + " 成功捕获一只【" + m + "】")
+                later 5* 1000 drrr.print("/me @" + users[n].name + " ~轻松捕获野生【" + m + "】")
             }
             apet.splice(i, 1)
         }
@@ -1145,9 +1145,9 @@ event[msg, me, dm](user, cont: "^/超级捕捉\\s+\\d") => {
     } else if apet.length == 0 then {
         drrr.print("/me @" + users[n].name + " 现在还没有宠物出没哦")
     } else if users[n].pet.length == 6 then {
-        drrr.print("/me @" + users[n].name + " 很抱歉，您已拥有6只宠物，已达容量上限，可放生宠物继续捕捉")
+        drrr.print("/me @" + users[n].name + "  很抱歉，您已携带了6只宝可梦，已经不能携带更多宝可梦了，先放生一只吧")
     } else if !users[n].bag.some(x => x.name == "MG-超级球") then {
-        drrr.print("/me @" + users[n].name + " 很抱歉，您的背包中没有超级球，请前往商店购买")
+        drrr.print("/me @" + users[n].name + " 很抱歉，您的背包中没有【超级球】，请前往商店购买")
     }  else if i> (apet.length - 1) then {
         drrr.print("/me @" + users[n].name + " 输入的序号不存在")
     } else {
@@ -1160,10 +1160,10 @@ event[msg, me, dm](user, cont: "^/超级捕捉\\s+\\d") => {
             m = apet[i].name
             if users[n].pet.some(a => a.name == m) then{
                 add(n, "MG-召唤球", 1)
-                later 5* 1000 drrr.print("/me @" + users[n].name + " 又捕获一只【" + m + "】，将它放生了，获得一个召唤球")
+                later 5* 1000 drrr.print("/me @" + users[n].name + " 哎呀，是已经有的【" + m + "】，你将它放生了，它给你留下了一个召唤球")
             }else{
                 users[n].pet.push(apet[i])
-                later 5* 1000 drrr.print("/me @" + users[n].name + " 成功捕获一只【" + m + "】")
+                later 5* 1000 drrr.print("/me @" + users[n].name + " 成功捕获野生【" + m + "】")
             }
             apet.splice(i, 1)
         }
@@ -1182,7 +1182,7 @@ event[msg, me, dm](user, cont:"^/投喂\\s+\\d")  => {
         use(n, "MG-宠物干粮")
         name = users[n].pet[p].name
         users[n].pet[p].exp += 10
-        drrr.print("/me @" + users[n].name + " 您已投喂了【" + name + "】一份宠物干粮，【" + name + "】增加10亲密度")
+        drrr.print("/me @" + users[n].name + " 您投喂了【" + name + "】一份宠物干粮，【" + name + "】💕+10")
     }
 }
 event[msg, me, dm](user, cont:"^/一本满足\\s+\\d")  => {
@@ -1191,14 +1191,14 @@ event[msg, me, dm](user, cont:"^/一本满足\\s+\\d")  => {
     if (n == (-1)) then {
         drrr.print("/me @" + user + " 您的tc与已有的用户不匹配")
     } else if !users[n].bag.some(x => x.name == "MG-一本满足") then {
-        drrr.print("/me @" + users[n].name + " 很抱歉，您的背包中没有一本满足，请前往商店购买")
+        drrr.print("/me @" + users[n].name + " 很抱歉，您的背包中没有【一本满足】，请前往商店购买")
     } else if p> (users[n].pet.length - 1) then {
         drrr.print("/me @" + users[n].name + " 输入的序号不存在")
     } else {
         use(n, "MG-一本满足")
         name = users[n].pet[p].name
         users[n].pet[p].exp += 100
-        drrr.print("/me @" + users[n].name + " 您投喂了【" + name + "】一本满足，【" + name + "】增加100亲密度")
+        drrr.print("/me @" + users[n].name + " 您投喂了【" + name + "】，它感到一本满足，【" + name + "】💕+100")
     }
 }
 event[msg, me, dm](user, cont: "^/观察") => {
@@ -1206,7 +1206,7 @@ event[msg, me, dm](user, cont: "^/观察") => {
         drrr.print("/me 现在没有宠物出没")
     }else{
         p = apet.reduce((a, x, y) => {
-            a = a + "\n" + (y + 1) + ".【" + x.type + "】属性宝可梦"
+            a = a + "\n" + (y + 1) + ".【" + x.type + "】系宝可梦"
             a
         }, " 现在出没的宠物有:")
         drrr.print(p)
@@ -1295,7 +1295,7 @@ event[msg, me, dm](user, cont: "^/挑战\\s+\\S") => {
         y = 0
         xn = users[n].name                             //攻方
         yn = users[m].name                             //守方
-        drrr.print("/me @" + xn + " 对 @" + yn + " 的挑战开始。")
+        drrr.print("/me @" + xn + " 🆚 @" + yn + "  | 挑战开始。")
         j = 1
         xl = users[n].pet[x].life                      //攻方生命值
         yl = users[m].pet[y].life                      //守方生命值
@@ -1442,8 +1442,8 @@ event[msg, me, dm](user, cont: "^/挑战\\s+\\S") => {
                     if yl<= 0 then{
                         flag = 0
                         sc = 1
-                        if yp.endsWith("GX") then sc = 2
-                        else if yp.endsWith("CN") || yp.endsWith("TT") then sc = 3
+                        if yp.endsWith("GX") || yp.endsWith("V")|| yp.endsWith("VS")then sc = 2
+                        else if yp.endsWith("CN") || yp.endsWith("TT")|| yp.endsWith("VM") then sc = 3
                         xsc += sc
                         tt = ""
                         if xp.endsWith("TT") then {
@@ -1471,8 +1471,8 @@ event[msg, me, dm](user, cont: "^/挑战\\s+\\S") => {
                         if xl<= 0 then{
                             flag = 0
                             sc = 1
-                            if xp.endsWith("GX") then sc = 2
-                            else if xp.endsWith("CN") || xp.endsWith("TT") then sc = 3
+                        if yp.endsWith("GX") || yp.endsWith("V")|| yp.endsWith("VS")then sc = 2
+                        else if yp.endsWith("CN") || yp.endsWith("TT")|| yp.endsWith("VM") then sc = 3
                             ysc += sc
                             tt = ""
                             if yp.endsWith("TT") then {
@@ -1502,8 +1502,8 @@ event[msg, me, dm](user, cont: "^/挑战\\s+\\S") => {
                     if xl<= 0 then{
                         flag = 0
                         sc = 1
-                        if xp.endsWith("GX") then sc = 2
-                        else if xp.endsWith("CN") || xp.endsWith("TT") then sc = 3
+                        if yp.endsWith("GX") || yp.endsWith("V")|| yp.endsWith("VS")then sc = 2
+                        else if yp.endsWith("CN") || yp.endsWith("TT")|| yp.endsWith("VM") then sc = 3
                         ysc += sc
                         tt = ""
                         if yp.endsWith("TT") then {
@@ -1531,8 +1531,8 @@ event[msg, me, dm](user, cont: "^/挑战\\s+\\S") => {
                         if yl<= 0 then{
                             flag = 0
                             sc = 1
-                            if yp.endsWith("GX") then sc = 2
-                            else if yp.endsWith("CN") || yp.endsWith("TT") then sc = 3
+                        if yp.endsWith("GX") || yp.endsWith("V")|| yp.endsWith("VS")then sc = 2
+                        else if yp.endsWith("CN") || yp.endsWith("TT")|| yp.endsWith("VM") then sc = 3
                             xsc += sc
                             tt = ""
                             if xp.endsWith("TT") then {
@@ -1569,14 +1569,14 @@ event[msg, me, dm](user, cont: "^/挑战\\s+\\S") => {
                 users[m].win++
                 users[m].coin += ad
                 users[m].pet.forEach(x => x.exp += ae)
-                drrr.print("/me 恭喜@" + yn + " 以【" + xsc + " : " + ysc + "】取得胜利\t奖励【💰️+" + ad + "|💕+" + ae + "|🏆+1】\t共有 " + users[m].win + "🏆")
+                drrr.print("/me 【胜者：@" + yn + "  | 最终比分（" + xsc + " : " + ysc + "】\t奖励【💰️+" + ad + "|💕+" + ae + "|🏆+1】\t共有 " + users[m].win + "🏆")
                 ybt.unshift(xn + "➨" + yn + "\t" + xsc + " : " + ysc + "\t败")
                 if ybt.length == 7 then ybt.splice(6, 1)
             }else{
                 users[n].win++
                 users[n].coin += ad
                 users[n].pet.forEach(x => x.exp += ae)
-                drrr.print("/me 恭喜@" + xn + " 以【" + xsc + " : " + ysc + "】取得胜利\t奖励【💰️+" + ad + "|💕+" + ae + "|🏆+1】\t共有 " + users[n].win + "🏆")
+                drrr.print("/me 【胜者：@" + xn + " | 最终比分（" + xsc + " : " + ysc + "】\t奖励【💰️+" + ad + "|💕+" + ae + "|🏆+1】\t共有 " + users[n].win + "🏆")
                 ybt.unshift(xn + "➨" + yn + "\t" + xsc + " : " + ysc + "\t胜")
                 if ybt.length == 7 then ybt.splice(6, 1)
             }

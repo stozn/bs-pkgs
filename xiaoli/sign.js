@@ -1565,14 +1565,14 @@ event[msg, me, dm](user, cont: "^/挑战\\s+\\S") => {
                 users[m].win++
                 users[m].coin += ad
                 users[m].pet.forEach(x => x.exp += ae)
-                drrr.print("/me 恭喜@" + yn + " 取得胜利\t奖励【💰︎+" + ad + "|💗+" + ae + "|🏆+1】\t共有 " + users[m].win + "🏆")
+                drrr.print("/me 恭喜@" + yn + " 取得胜利\t奖励【💰️+" + ad + "|💗+" + ae + "|🏆+1】\t共有 " + users[m].win + "🏆")
                 ybt.unshift(xn + "➨" + yn + "\t" + xsc + " : " + ysc + "\t败")
                 if ybt.length == 7 then ybt.splice(6, 1)
             }else{
                 users[n].win++
                 users[n].coin += ad
                 users[n].pet.forEach(x => x.exp += ae)
-                drrr.print("/me 恭喜@" + xn + " 取得胜利\t奖励【💰︎+" + ad + "|💗+" + ae + "|🏆+1】\t共有 " + users[n].win + "🏆")
+                drrr.print("/me 恭喜@" + xn + " 取得胜利\t奖励【💰️+" + ad + "|💗+" + ae + "|🏆+1】\t共有 " + users[n].win + "🏆")
                 ybt.unshift(xn + "➨" + yn + "\t" + xsc + " : " + ysc + "\t胜")
                 if ybt.length == 7 then ybt.splice(6, 1)
             }

@@ -1,7 +1,7 @@
 [{"type":"directory","name": ".","contents":[
     {"type":"directory","name":"xiaoli","contents":[
      {"type":"file","name":"explore.js"},{"type":"file","name":"feeding.js"},{"type":"file","name":"pachinko.js"},
-     {"type":"file","name":"timer.js"},{"type":"file","name":"welcome.js"},{"type":"file","name":"Lucky_sign.js"},
+     {"type":"file","name":"game.js"},{"type":"file","name":"welcome.js"},{"type":"file","name":"Lucky_sign.js"},
      {"type":"file","name":"sign.js"},
      {"type":"file","name":"music.js"}]},
     {"type":"file","name":"index.json"},

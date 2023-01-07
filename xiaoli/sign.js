@@ -26,7 +26,8 @@ award = []
 //宠物数据
 pets = [{ name: "白泽CN", type: "基", weakness: "无", status: 1, stage: 1, exp: 66, bao: 66, life: 666, att: 100 },
 { name: "烛龙CN", type: "龙", weakness: "无", status: 1, stage: 1, exp: 30, bao: 70, life: 590, att: 160 },
-{ name: "鲲CN", type: "无", weakness: "基", status: 1, stage: 3, exp: 0, bao: 30, life: 220, att: 150, pname: "鲲鹏CN", plife: 400, patt: 200, ppname: "鲲鹏TT", pplife: 500, ppatt: 300 },
+{ name: "鲲CN", type: "无", weakness: "基", status: 1, stage: 3, exp: 0, bao: 20, life: 220, att: 100, pname: "鹏CN", plife: 350, patt: 200, ppname: "鲲鹏CNTT", pplife: 500, ppatt: 300 },
+{ name: "龙&虎&雀&玄CNTT", type: "基", weakness: "无", status: 1, stage: 1, exp: 0, bao: 40, life: 300, att: 300 },
 
 { name: "水箭龟波加曼TT", type: "水", weakness: "草", status: 1, stage: 1, exp: 40, bao: 90, life: 270, att: 150 },
 { name: "鲤鱼王吼鲸王TT", type: "水", weakness: "草", status: 1, stage: 1, exp: 20, bao: 50, life: 300, att: 180 },

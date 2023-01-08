@@ -1471,8 +1471,8 @@ event[msg, me, dm](user, cont: "^/挑战\\s+\\S") => {
                         if xl<= 0 then{
                             flag = 0
                             sc = 1
-                        if yp.endsWith("GX") || yp.endsWith("V")|| yp.endsWith("VS")then sc = 2
-                        else if yp.endsWith("CN") || yp.endsWith("TT")|| yp.endsWith("VM") then sc = 3
+                        if xp.endsWith("GX") || xp.endsWith("V")|| xp.endsWith("VS")then sc = 2
+                        else if xp.endsWith("CN") || xp.endsWith("TT")|| xp.endsWith("VM") then sc = 3
                             ysc += sc
                             tt = ""
                             if yp.endsWith("TT") then {
@@ -1502,8 +1502,8 @@ event[msg, me, dm](user, cont: "^/挑战\\s+\\S") => {
                     if xl<= 0 then{
                         flag = 0
                         sc = 1
-                        if yp.endsWith("GX") || yp.endsWith("V")|| yp.endsWith("VS")then sc = 2
-                        else if yp.endsWith("CN") || yp.endsWith("TT")|| yp.endsWith("VM") then sc = 3
+                        if xp.endsWith("GX") || xp.endsWith("V")|| xp.endsWith("VS")then sc = 2
+                        else if xp.endsWith("CN") || xp.endsWith("TT")|| xp.endsWith("VM") then sc = 3
                         ysc += sc
                         tt = ""
                         if yp.endsWith("TT") then {
@@ -1569,14 +1569,14 @@ event[msg, me, dm](user, cont: "^/挑战\\s+\\S") => {
                 users[m].win++
                 users[m].coin += ad
                 users[m].pet.forEach(x => x.exp += ae)
-                drrr.print("/me 【胜者：@" + yn + "  | 最终比分（" + xsc + " : " + ysc + "】\t奖励【💰️+" + ad + "|💕+" + ae + "|🏆+1】\t共有 " + users[m].win + "🏆")
+                drrr.print("/me 【胜者：@" + yn + "  | 最终比分：" + xsc + " : " + ysc + "】\t奖励【💰️+" + ad + "|💕+" + ae + "|🏆+1】\t共有 " + users[m].win + "🏆")
                 ybt.unshift(xn + "➨" + yn + "\t" + xsc + " : " + ysc + "\t败")
                 if ybt.length == 7 then ybt.splice(6, 1)
             }else{
                 users[n].win++
                 users[n].coin += ad
                 users[n].pet.forEach(x => x.exp += ae)
-                drrr.print("/me 【胜者：@" + xn + " | 最终比分（" + xsc + " : " + ysc + "】\t奖励【💰️+" + ad + "|💕+" + ae + "|🏆+1】\t共有 " + users[n].win + "🏆")
+                drrr.print("/me 【胜者：@" + xn + " | 最终比分：" + xsc + " : " + ysc + "】\t奖励【💰️+" + ad + "|💕+" + ae + "|🏆+1】\t共有 " + users[n].win + "🏆")
                 ybt.unshift(xn + "➨" + yn + "\t" + xsc + " : " + ysc + "\t胜")
                 if ybt.length == 7 then ybt.splice(6, 1)
             }

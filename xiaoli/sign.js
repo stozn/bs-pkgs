@@ -1038,6 +1038,7 @@ event[msg, me, dm](user, cont: "^/奖金\\s+\\d", url, tc) => {
 }
 
 //宠物系统
+//发现野生宝可梦时候的文本内容
 sample = array => array[Math.floor(Math.random() * array.length)]
 cpet = () => {
     pet = JSON.parse(JSON.stringify(sample(pets)))
@@ -1048,6 +1049,7 @@ cpet = () => {
         if n>= 0 then apet.splice(n, 1)
     }
 }
+//自动发现野生宝可梦间隔及概率
 timer 20* 60 * 1000{
     t = Math.random()
     if t < 0.1 then {
@@ -1299,7 +1301,7 @@ event[msg, me, dm](user, cont: "^/挑战\\s+\\S") => {
         j = 1
         xl = users[n].pet[x].life                      //攻方生命值
         yl = users[m].pet[y].life                      //守方生命值
-        while (xf && yf && xsc < fen && ysc < fen) {
+        while (xf && yf && xsc < fen && ysc < fen) {    //循环开始
             flag = 1
             xt = users[n].pet[x].type                     //属性
             yt = users[m].pet[y].type
@@ -1434,7 +1436,7 @@ event[msg, me, dm](user, cont: "^/挑战\\s+\\S") => {
 
                 if f== 1 then{
                     if xe< 100 && rand(1, 100) > 80 then{
-                        zdm.push("第" + j + "轮 回合" + i + "\n" + xp + "\t" + xl + "\n　　===\n" + yp + "\t" + yl)
+                        zdm.push("第" + j + "轮 回合" + i + "\n" + xp + "\t" + xl + "\n　　=⇓=\n" + yp + "\t" + yl)
                     }else{
                         yl -= xs
                         zdm.push("第" + j + "轮 回合" + i + "\n" + xp + "\t" + xl + "\n　　" + xr + "\n" + yp + "\t" + yl + "(-" + xs + ")")
@@ -1463,7 +1465,7 @@ event[msg, me, dm](user, cont: "^/挑战\\s+\\S") => {
                         f = 2
                     }else{
                         if ye< 100 && rand(1, 100) > 80 then{
-                            zdm.push("　－回合" + i + "－\n" + xp + "\t" + xl + "\n　　===\n" + yp + "\t" + yl)
+                            zdm.push("　－回合" + i + "－\n" + xp + "\t" + xl + "\n　　=⇑=\n" + yp + "\t" + yl)
                         }else{
                             xl -= ys
                             zdm.push("　－回合" + i + "－\n " + xp + "\t" + xl + "(-" + ys + ")" + "\n　　" + yr + "\n" + yp + "\t" + yl)
@@ -1494,24 +1496,24 @@ event[msg, me, dm](user, cont: "^/挑战\\s+\\S") => {
                     }
                 }else {
                     if ye< 100 && rand(1, 100) > 80 then{
-                        zdm.push("第" + j + "轮 回合" + i + "\n" + xp + "\t" + xl + "\n　　===\n" + yp + "\t" + yl)
+                        zdm.push("第" + j + "轮 回合" + i + "\n" + xp + "\t" + xl + "\n　　=⇑=\n" + yp + "\t" + yl)
                     }else{
                         xl -= ys
                         zdm.push("第" + j + "轮 回合" + i + "\n" + xp + "\t" + xl + "(-" + ys + ")" + "\n　　" + yr + "\n" + yp + "\t" + yl)
                     }
-                    if xl<= 0 then{
-                        flag = 0
-                        sc = 1
-                        if xp.endsWith("GX") || xp.endsWith("V")|| xp.endsWith("VS")then sc = 2
-                        else if xp.endsWith("CN") || xp.endsWith("TT")|| xp.endsWith("VM") then sc = 3
-                        ysc += sc
-                        tt = ""
-                        if yp.endsWith("TT") then {
-                            yl += 100
-                            tt = "\n【" + yp + "】恢复100点生命"
-                        }
-                        zdm.push("【" + xp + "】倒下了" + tt + "\n@" + yn + " 获得" + sc + "分\n目前比分" + xsc + " : " + ysc)
-                        if xd.length == 0 then xf= 0
+                    if xl<= 0 then{                                                                     //如果攻方宠物生命值低于0
+                        flag = 0                                                                        //？
+                        sc = 1                                                                          //1分宠物
+                        if xp.endsWith("GX") || xp.endsWith("V")|| xp.endsWith("VS")then sc = 2         //2分宠物=GX | V 
+                        else if xp.endsWith("CN") || xp.endsWith("TT")|| xp.endsWith("VM") then sc = 3  //3分宠物=CN | TT | VM
+                        ysc += sc                                                                       //守方得分
+                        tt = ""                                                                         //发送文本
+                        if yp.endsWith("TT") then {                                                     //如果守宠名字结尾带TT
+                            yl += 100                                                                   //守宠生命值+100
+                            tt = "\n【" + yp + "】恢复100点生命"                                         //文本内容
+                        }                                                                               //结束
+                        zdm.push("【" + xp + "】倒下了" + tt + "\n@" + yn + " 获得" + sc + "分\n目前比分" + xsc + " : " + ysc)      //攻宠再起不能，守方得分，当前比分
+                        if xd.length == 0 then xf= 0                                                    //如果攻方宠物数量为0，攻方败北
                         mess(xd)
                         x = xd.pop()
                         xl = users[n].pet[x].life
@@ -1523,7 +1525,7 @@ event[msg, me, dm](user, cont: "^/挑战\\s+\\S") => {
                         f = 1
                     }else {
                         if xe< 100 && rand(1, 100) > 80 then{
-                            zdm.push("　－回合" + i + "－\n" + xp + "\t" + xl + "\n　　===\n" + yp + "\t" + yl)
+                            zdm.push("　－回合" + i + "－\n" + xp + "\t" + xl + "\n　　=⇓=\n" + yp + "\t" + yl)
                         }else{
                             yl -= xs
                             zdm.push("　－回合" + i + "－\n" + xp + "\t" + xl + "\n　　" + xr + "\n" + yp + "\t" + yl + "(-" + xs + ")")
@@ -1608,6 +1610,7 @@ event[msg, me, dm](user, cont:"^/放生\\s+\\d")  => {
         drrr.print("/me @" + users[n].name + " 您已成功放生【" + pet.name + "】，获得了" + yb + " DRB，获得一个召唤球，现在您有" + users[n].coin + "DRB")
     }
 }
+//召唤
 event[msg, me, dm](user, cont: "^/召唤", url, tc) => {
     n = checku(user)
     if admins.some(a => a == tc) then {

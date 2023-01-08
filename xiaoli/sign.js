@@ -1502,7 +1502,7 @@ event[msg, me, dm](user, cont: "^/挑战\\s+\\S") => {
                         zdm.push("第" + j + "轮 回合" + i + "\n" + xp + "\t" + xl + "(-" + ys + ")" + "\n　　" + yr + "\n" + yp + "\t" + yl)
                     }
                     if xl<= 0 then{                                                                     //如果攻方宠物生命值低于0
-                        flag = 0                                                                        //？
+                        flag = 0                                                                        //结束这轮战斗
                         sc = 1                                                                          //1分宠物
                         if xp.endsWith("GX") || xp.endsWith("V")|| xp.endsWith("VS")then sc = 2         //2分宠物=GX | V 
                         else if xp.endsWith("CN") || xp.endsWith("TT")|| xp.endsWith("VM") then sc = 3  //3分宠物=CN | TT | VM
@@ -1512,45 +1512,45 @@ event[msg, me, dm](user, cont: "^/挑战\\s+\\S") => {
                             yl += 100                                                                   //守宠生命值+100
                             tt = "\n【" + yp + "】恢复100点生命"                                         //文本内容
                         }                                                                               //结束
-                        zdm.push("【" + xp + "】倒下了" + tt + "\n@" + yn + " 获得" + sc + "分\n目前比分" + xsc + " : " + ysc)      //攻宠再起不能，守方得分，当前比分
+                        zdm.push("【" + xp + "】倒下了" + tt + "\n@" + yn + " 获得" + sc + "分\n目前比分" + xsc + " : " + ysc)      //发送回合战报
                         if xd.length == 0 then xf= 0                                                    //如果攻方宠物数量为0，攻方败北
-                        mess(xd)
-                        x = xd.pop()
-                        xl = users[n].pet[x].life
-                        if users[n].pet[x].status == 2 then{
-                            xl = users[n].pet[x].plife
-                        }else if users[n].pet[x].status == 3 then{
-                            xl = users[n].pet[x].pplife
-                        }
-                        f = 1
-                    }else {
-                        if xe< 100 && rand(1, 100) > 80 then{
-                            zdm.push("　－回合" + i + "－\n" + xp + "\t" + xl + "\n　　=⇓=\n" + yp + "\t" + yl)
-                        }else{
-                            yl -= xs
-                            zdm.push("　－回合" + i + "－\n" + xp + "\t" + xl + "\n　　" + xr + "\n" + yp + "\t" + yl + "(-" + xs + ")")
-                        }
-                        if yl<= 0 then{
-                            flag = 0
-                            sc = 1
-                        if yp.endsWith("GX") || yp.endsWith("V")|| yp.endsWith("VS")then sc = 2
-                        else if yp.endsWith("CN") || yp.endsWith("TT")|| yp.endsWith("VM") then sc = 3
-                            xsc += sc
-                            tt = ""
-                            if xp.endsWith("TT") then {
-                                xl += 100
-                                tt = "\n【" + xp + "】恢复100点生命"
-                            }
-                            zdm.push("【" + yp + "】 倒下了" + tt + "\n@" + xn + " 获得" + sc + "分\n目前比分" + xsc + " : " + ysc)
-                            if yd.length == 0 then yf= 0
-                            mess(yd)
-                            y = yd.pop()
-                            yl = users[m].pet[y].life
-                            if users[m].pet[y].status == 2 then{
-                                yl = users[m].pet[y].plife
-                            }else if users[m].pet[y].status == 3 then{
-                                yl = users[m].pet[y].pplife
-                            }
+                        mess(xd)                                                                        //重新计算下一只出战宝可梦
+                        x = xd.pop()                                                                    //载入该宝可梦的属性
+                        xl = users[n].pet[x].life                                                       //设置攻方宝可梦血量
+                        if users[n].pet[x].status == 2 then{                                            //如果这时候宝可梦是阶段2
+                            xl = users[n].pet[x].plife                                                  //设置为阶段2的血量
+                        }else if users[n].pet[x].status == 3 then{                                      //如果这时候宝可梦是阶段3
+                            xl = users[n].pet[x].pplife                                                 //设置为阶段3的血量
+                        }                                                                               //结束
+                        f = 1                                                                           //开始下一轮决斗
+                    }else {                                                                          //否则
+                        if xe< 100 && rand(1, 100) > 80 then{                                        //攻方亲密度不足100，命中率为80%
+                            zdm.push("　－回合" + i + "－\n" + xp + "\t" + xl + "\n　　=⇓=\n" + yp + "\t" + yl)          //发生傲娇情况
+                        }else{                                                                       //否则
+                            yl -= xs                                                                 //扣除守方生命值
+                            zdm.push("　－回合" + i + "－\n" + xp + "\t" + xl + "\n　　" + xr + "\n" + yp + "\t" + yl + "(-" + xs + ")")   //发送战报
+                        }                                                                            //结束
+                        if yl<= 0 then{                                                              //如果守方宝可梦生命值低于0
+                            flag = 0                                                                 //结束这场战斗
+                            sc = 1                                                                   //守方宠物分数为1分
+                        if yp.endsWith("GX") || yp.endsWith("V")|| yp.endsWith("VS")then sc = 2      //如果是GX|V|VS则为2分
+                        else if yp.endsWith("CN") || yp.endsWith("TT")|| yp.endsWith("VM") then sc = 3  //如果是CN|TT|VM则为3分
+                            xsc += sc                                                               //攻方加分
+                            tt = ""                                                                 //编辑文本
+                            if xp.endsWith("TT") then {                                                 //如果宝可梦是TT结尾
+                                xl += 100                                                               //该宝可梦回复100生命值
+                                tt = "\n【" + xp + "】恢复100点生命"                                     //发送文本内容
+                            }                                                                       //结束
+                            zdm.push("【" + yp + "】 倒下了" + tt + "\n@" + xn + " 获得" + sc + "分\n目前比分" + xsc + " : " + ysc) //发送战报
+                            if yd.length == 0 then yf= 0                                                //如果守方剩余宝可梦为0，那么守方败
+                            mess(yd)                                                                    //重新计算下一只出场宝可梦
+                            y = yd.pop()                                                                //载入宝可梦属性
+                            yl = users[m].pet[y].life                                                   //计算守方宝可梦生命值
+                            if users[m].pet[y].status == 2 then{                                        //如果这时候宝可梦处于阶段2
+                                yl = users[m].pet[y].plife                                              //设置为阶段2的血量
+                            }else if users[m].pet[y].status == 3 then{                                  //如果这时候宝可梦是阶段3
+                                yl = users[m].pet[y].pplife                                             //设置为阶段3的血量
+                            }                                                                      //结束
                             f = 2
                         }
                     }

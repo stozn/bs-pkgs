@@ -45,7 +45,14 @@ tNow = () => {
     String(now.getHours()).padStart(2, "0")
         + ":" + String(now.getMinutes()).padStart(2, "0")
 }
-
+txt = (_data, _name) => {
+    blob = new Blob([JSON.stringify(_data)])
+    aLink = document.createElement('a')
+    aLink.href = URL.createObjectURL(blob)
+    aLink.setAttribute('download', _name)
+    document.body.appendChild(aLink)
+    aLink.click()
+}
 sample = array => array[Math.floor(Math.random() * array.length)]
 
 onTimeDo = (h, m, s, callback) => {
@@ -128,6 +135,8 @@ timer 14* 60 * 1000{
     localStorage["emoji"] = JSON.stringify(emoji)
     localStorage["blacklist"] = JSON.stringify(blacklist)
     localStorage["whitelist"] = JSON.stringify(whitelist)
+    txt(blacklist, "黑名单")
+    txt(whitelist, "白名单")
 }
 event[msg, me, dm](user, cont: "^/留言\\s+\\S", url, tc) => {
     msg = cont.replace("/留言", "").trim()

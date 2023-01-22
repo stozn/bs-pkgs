@@ -1,4 +1,18 @@
 add_mirror("小粒", "gitee.com/Ritsu69")
+//sign.js
+users=
+lottery=[]
+result="无"
+market=[]
+keys=[]
+
+localStorage["users"] = JSON.stringify(users)
+localStorage["lottery"] = JSON.stringify(lottery)
+localStorage["result"] = JSON.stringify(result)
+localStorage["market"] = JSON.stringify(market)
+localStorage["keys"] = JSON.stringify(keys)
+//welcome.js
+
 //批量处理
 a =
 

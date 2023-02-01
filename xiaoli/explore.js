@@ -1,7 +1,7 @@
 ccards = [{ kind: "coin", amt: 1 }, { kind: "coin", amt: 2 }, { kind: "coin", amt: 3 }, { kind: "coin", amt: 4 }, { kind: "coin", amt: 5 },
 { kind: "coin", amt: 5 }, { kind: "coin", amt: 7 }, { kind: "coin", amt: 7 }, { kind: "coin", amt: 9 }, { kind: "coin", amt: 11 },
 { kind: "coin", amt: 11 }, { kind: "coin", amt: 13 }, { kind: "coin", amt: 14 }, { kind: "coin", amt: 15 }, { kind: "coin", amt: 17 }]
-tcards = [{ kind: "trap", name: "天灾" }, { kind: "trap", name: "落石" }, { kind: "trap", name: "落石" }, { kind: "trap", name: "落石" },
+tcards = [{ kind: "trap", name: "天灾" }, { kind: "trap", name: "叛变" }, { kind: "trap", name: "落石" }, { kind: "trap", name: "落石" }, { kind: "trap", name: "落石" },
 { kind: "trap", name: "毒蛇" }, { kind: "trap", name: "毒蛇" }, { kind: "trap", name: "毒蛇" },
 { kind: "trap", name: "咒灵" }, { kind: "trap", name: "咒灵" }, { kind: "trap", name: "咒灵" },
 { kind: "trap", name: "蜘蛛" }, { kind: "trap", name: "蜘蛛" }, { kind: "trap", name: "蜘蛛" },
@@ -33,6 +33,9 @@ pz = () => {
     else c++
     })
     drrr.print("/me陷阱卡已出现" + tcd.length + "张，金币卡有" + a + "张，陷阱卡有" + c + "张，神器卡有" + b + "张\t公共区金币：" + pub.coin + "\t神器：【" + pub.relic.map(x => x.name).join("】【") + "】")
+}
+rand = (a, b) => {
+    Math.floor(Math.random() * Math.floor(1 + b - a)) + a
 }
 mess = (array) => {
     for m = array.length - 1; m > 0; m-- {
@@ -107,6 +110,7 @@ state prelude {
 state explore {
     if player.length > 0 then  {
         chk = false
+        pt = true
         cd = card.shift()
         if cd.kind == "trap" then{
             if tcd.some(x => x.name == cd.name) then {
@@ -123,6 +127,14 @@ state explore {
                 drrr.print("/me冒险第" + ts + "次第" + day + "天【遭遇 " + cd.name + "】!!\t冒险者们仓皇而逃！不惜丢下了身上所有金币，该卡牌已移除牌组。")
                 card.forEach(x => if x.kind == "relic" then ucard.push(x))
                 ucard = ucard.concat(pub.relic)
+            }else if cd.name == "叛变" then{
+                pt = false
+                n = rand(0, explorers.length - 1)
+                ptn = explorers[n].name
+                resters = resters.concat(explorers.splice(n, 1))
+                drrr.print("/me冒险第" + ts + "次第" + day + "天【遭遇 " + cd.name + "】!!\t冒险者【" + ptn + "】居然是叛徒！TA将独自返回营地")
+                pz()
+                going choose
             }else{
                 tcd.push(cd)
                 drrr.print("/me冒险第" + ts + "次第" + day + "天【遭遇 " + cd.name + "】\t幸好本次第一次遭遇该陷阱，无人伤亡。"
@@ -159,7 +171,7 @@ state explore {
             }
         }else{
             pz()
-            later wt* 1000 going choose
+            if pt then later wt* 1000 going choose
         }
     }else going prepare
 }
@@ -204,7 +216,8 @@ state choose{
 
 state result {
     drrr.print("/me已完成5次冒险，冒险结束，开始统计金币数...")
-    later 5* 1000 drrr.print("排名：\n" + player.sort((x, y) => y.coin - x.coin).map((x, i) => (i + 1) + ".@" + x.name + "\t" + x.coin +"金币").join("\n"))
+    later 5* 1000 drrr.print("排名：\n" + player.sort((x, y) => y.coin - x.coin).map((x, i) => (i + 1) + ".@" + x.name + "\t" + x.coin + "金币").join("\n"))
+    event[msg, me, dm](user, cont: "^/排名$") => drrr.print("排名：\n" + player.sort((x, y) => y.coin - x.coin).map((x, i) => (i + 1) + ".@" + x.name + "\t" + x.coin + "金币").join("\n"))
 }
 
 event[msg, me, dm](user, cont: "^/财富$") => {
@@ -213,8 +226,7 @@ event[msg, me, dm](user, cont: "^/财富$") => {
     else   drrr.print("/me @" + user + " 您不是玩家")
 }
 event[msg, me, dm](user, cont: "^/冒险者$") => drrr.print("正在冒险中的有：\n" + explorers.map((x, i) => (i + 1) + ".@" + x.name).join("\n"))
-event[msg, me, dm](user, cont: "^/排名$") => drrr.print("排名：\n" + player.sort((x, y) => y.coin - x.coin).map((x, i) => (i + 1) + ".@" + x.name + "\t" + x.coin +"金币").join("\n"))
-event[msg, me, dm](user, cont: "^/牌组$") => pz()
+event[msg, me, dm](user, cont: "^/状况$") => pz()
 event[msg, me](user, cont: "^/休息\\s+\\d+$") => {
     n = parseInt(cont.replace("/休息", "").trim())
     if n< 5 || n > 30 then drrr.print("/me 休息时间只能在5-30秒内")
@@ -224,7 +236,7 @@ event[msg, me](user, cont: "^/休息\\s+\\d+$") => {
     }
 }
 event[msg, me, dm](user, cont: "^/指令$") => {
-    drrr.print("/指令 本列表\n/冒险者 查看当前冒险者\n/排名 查看金币排名\n/牌组 查看牌组信息\n/财富 查看个人财富\n/休息 秒数 设置休息时长\n/game 开始报名（如有游戏则重开）")
+    drrr.print("/指令 本列表\n/冒险者 查看当前冒险者\n/排名 查看金币排名\n/状况 查看目前状况\n/财富 查看个人财富\n/休息 秒数 设置休息时长\n/game 开始报名（如有游戏则重开）")
 }
 event[msg, me](user, cont: "^/game$") => going prepare
 going prepare

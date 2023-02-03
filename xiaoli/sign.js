@@ -455,21 +455,6 @@ event[msg, me, dm](user, cont: "^/全服奖励\\s+\\S+\\s+\\d", url, tc) => {
     }
 }
 //个人奖励
-event[msg, me, dm](user, cont: "^/奖励\\s+\\d+\\s+\\S+\\s+\\d", url, tc) => {
-    if admins.some(a => a == tc) then {
-        uid = parseInt(threekey("/奖励", cont)[0])
-        nm = threekey("/奖励", cont)[1]
-        cn = parseInt(threekey("/奖励", cont)[2])
-        n = users.findIndex(x => x.uid == uid)
-        if n< 0 then {
-            drrr.dm(user, "未找到UID为【" + uid + "】的用户")
-        }else {
-            users[n].coin += cn
-            send(n, "【个人奖励】*" + nm + "*已发送到您账户，金额为" + cn + " DRB，请留意查收")
-            drrr.dm(user, "【个人奖励】*" + nm + "*已发送到@" + users[n].name + "的账户，金额为" + cn + " DRB")
-        }
-    }
-}
 event[msg, me, dm](user, cont: "^/奖励\\s+\\S+\\s+\\S+\\s+\\d", url, tc) => {
     if admins.some(a => a == tc) then {
         name = checka(threekey("/奖励", cont)[0])
@@ -486,21 +471,6 @@ event[msg, me, dm](user, cont: "^/奖励\\s+\\S+\\s+\\S+\\s+\\d", url, tc) => {
     }
 }
 //个人惩罚
-event[msg, me, dm](user, cont: "^/惩罚\\s+\\d+\\s+\\S+\\s+\\d", url, tc) => {
-    if admins.some(a => a == tc) then {
-        uid = parseInt(threekey("/惩罚", cont)[0])
-        nm = threekey("/惩罚", cont)[1]
-        cn = parseInt(threekey("/惩罚", cont)[2])
-        n = users.findIndex(x => x.uid == uid)
-        if n< 0 then {
-            drrr.dm(user, "未找到UID为【" + uid + "】的用户")
-        }else {
-            users[n].coin -= cn
-            send(n, "【个人惩罚】您因*" + nm + "*受到惩罚，罚金为" + cn + " DRB")
-            drrr.dm(user, "【个人惩罚】@" + users[n].name + "因*" + nm + "*受到惩罚，罚金为" + cn + " DRB")
-        }
-    }
-}
 event[msg, me, dm](user, cont: "^/惩罚\\s+\\S+\\s+\\S+\\s+\\d", url, tc) => {
     if admins.some(a => a == tc) then {
         name = checka(threekey("/惩罚", cont)[0])

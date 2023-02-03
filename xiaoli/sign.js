@@ -1605,11 +1605,11 @@ event join (user) => {
         a = ""
         left = users[n].live
         users[n].live = 0
-      	if left > 2 a += "\n您有" + left + "天没有来看小粒了"
+      	if left > 2 then a += "\n您有" + left + "天没有来看小粒了"
         if users[n].newl then  a += "\n您有新的来信，请留意查收"
         if users[n].letters.length == 4 then  a += "\n您的信箱已满，请及时清理已阅的信件"
       
-        if a != "" drrr.dm(user, "@" + users[n].name + "：" + a)
+        if a != "" then drrr.dm(user, "@" + users[n].name + "：" + a)
     }
 }
 event[msg, me, dm](user, cont: "^/写信\\s+\\S+\\s+\\S") => {

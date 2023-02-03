@@ -1628,22 +1628,18 @@ event[msg, me, dm](user, cont: "^/召唤", url, tc) => {
 //信箱
 event join (user) => {
     n = checku(user)
-    a = ""
     i = drrr.users.findIndex(u => u.name == user)
     if (n == (-1)) then {
         drrr.print("/me @" + user + " 您的tc与已有的用户不匹配")
     } else{
-        b = false
+        a = ""
+        left = users[n].live
         users[n].live = 0
-        if users[n].newl then {
-            a += "\n您有新的来信，请留意查收"
-            b = true
-        }
-        if users[n].letters.length == 4 then{
-            a += "\n您的信箱已满，请及时清理已阅的信件"
-            b = true
-        }
-        if (!(a == "") && b) then  drrr.dm(user, "@" + users[n].name + "：" + a)
+      	if left > 2 a += "\n您有" + left + "天没有来看小粒了"
+        if users[n].newl then  a += "\n您有新的来信，请留意查收"
+        if users[n].letters.length == 4 then  a += "\n您的信箱已满，请及时清理已阅的信件"
+      
+        if a != "" drrr.dm(user, "@" + users[n].name + "：" + a)
     }
 }
 event[msg, me, dm](user, cont: "^/写信\\s+\\S+\\s+\\S") => {
@@ -1784,20 +1780,6 @@ event[msg, me, dm](user, cont: "^/删除\\s+\\S", url, tc) => {
         } else {
             users.splice(n, 1)
             drrr.dm(user, "●成功删除用户" + del)
-        }
-    }
-}
-event[msg, me, dm](user, cont: "^/删除\\s+\\d", url, tc) => {
-    if admins.some(a => a == tc) then {
-        del = parseInt(onekey("/删除", cont))
-        n = users.findIndex(u => u.uid == del)
-        if (n == (-1)) then {
-            drrr.dm(user, "●该用户UID不存在")
-        } else {
-            name = users[n].name
-            pprint(users[n])
-            users.splice(n, 1)
-            drrr.dm(user, "●成功删除用户" + name)
         }
     }
 }

@@ -116,16 +116,17 @@ onTimeDo(-1, 15, 0, () => {
     }
 })
 
-onTimeDo(-1, 5, 0, () => {
+onTimeDo(-1, 55, 0, () => {
     mydate = new Date()
     N = mydate.getDate()
     bs = ["(:3[___]", "(:[___]", "([___]", "(:3[」_]", "(:3[」＿]=:", "|[__]∠)_", "_(:з」∠)_"]
     if !bmd then{
-        if [1, 10, 15, 20, 25, 30].includes(N)  then {
-            drrr.title("喝水|抽签|献礼" + sample(bs))
-        }else {
-            drrr.title("多喝温水" + sample(bs))
-        }
+        gm = sample(bs)
+        if mydate.getDay() == 6 then gm = "|赌狗杯"
+        if [1, 10, 15, 20, 25, 30].includes(N)  then 
+              drrr.title("喝水|抽签|献礼" + gm)
+        else  drrr.title("多喝温水" + gm)
+        
     }
 })
 

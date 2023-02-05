@@ -1,7 +1,9 @@
 ccards = [{ kind: "coin", amt: 1 }, { kind: "coin", amt: 2 }, { kind: "coin", amt: 3 }, { kind: "coin", amt: 4 }, { kind: "coin", amt: 5 },
 { kind: "coin", amt: 5 }, { kind: "coin", amt: 7 }, { kind: "coin", amt: 7 }, { kind: "coin", amt: 9 }, { kind: "coin", amt: 11 },
-{ kind: "coin", amt: 11 }, { kind: "coin", amt: 13 }, { kind: "coin", amt: 14 }, { kind: "coin", amt: 15 }, { kind: "coin", amt: 17 }]
-tcards = [{ kind: "trap", name: "天灾" }, { kind: "trap", name: "叛变" }, { kind: "trap", name: "落石" }, { kind: "trap", name: "落石" }, { kind: "trap", name: "落石" },
+{ kind: "coin", amt: 11 }, { kind: "coin", amt: 13 }, { kind: "coin", amt: 14 }, { kind: "coin", amt: 15 }, { kind: "coin", amt: 17 },
+ { kind: "coin", amt: 19 }, { kind: "coin", amt: 21 }]
+tcards = [{ kind: "trap", name: "天灾" }, { kind: "trap", name: "叛变" }, 
+{ kind: "trap", name: "落石" }, { kind: "trap", name: "落石" }, { kind: "trap", name: "落石" },
 { kind: "trap", name: "毒蛇" }, { kind: "trap", name: "毒蛇" }, { kind: "trap", name: "毒蛇" },
 { kind: "trap", name: "咒灵" }, { kind: "trap", name: "咒灵" }, { kind: "trap", name: "咒灵" },
 { kind: "trap", name: "蜘蛛" }, { kind: "trap", name: "蜘蛛" }, { kind: "trap", name: "蜘蛛" },

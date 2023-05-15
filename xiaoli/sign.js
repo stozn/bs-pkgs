@@ -190,7 +190,7 @@ onTimeDo = (h, m, s, callback) => {
 }
 tDay = () => {
     now = new Date()
-    now.getMonth() + 1 + "月"
+    now.getYear() + "年" + String(now.getMonth() + 1).padStart(2, "0") + "月"
         + String(now.getDate()).padStart(2, "0") + "日"
 }
 txt = (_data, _name) => {

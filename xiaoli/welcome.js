@@ -139,7 +139,7 @@ timer 14* 60 * 1000{
     txt(blacklist, "黑名单")
     txt(whitelist, "白名单")
 }
-event[msg, me, dm](user, cont: "^/留言\\s+\\S", url, tc) => {
+event[msg, me, dm](user, cont: "^/留言\\s+\\S", tc) => {
     msg = cont.replace("/留言", "").trim()
     msgs.unshift("@" + user + "：" + msg)
     drrr.dm(user, "成功留言：" + msg)
@@ -154,7 +154,7 @@ event[msg, me, dm](user, cont: "^/留言板") => {
     msg = msgs.map((x, i) => i + 1 + ". " + x)
     drrr.print("留言板\n" + msg.join("\n"))
 }
-event[msg, me, dm](user, cont: "^/删除留言\\s+\\d", url, tc) => {
+event[msg, me, dm](user, cont: "^/删除留言\\s+\\d", tc) => {
     if admins.some(a => a == tc) then {
         p = parseInt(cont.replace("/删除留言", "").trim()) - 1
         if p> (msgs.length - 1) then {
@@ -166,14 +166,14 @@ event[msg, me, dm](user, cont: "^/删除留言\\s+\\d", url, tc) => {
         }
     }
 }
-event[msg, me, dm](user, cont: "^/通知\\s+\\S", url, tc) => {
+event[msg, me, dm](user, cont: "^/通知\\s+\\S", tc) => {
     if admins.some(a => a == tc) then {
         nt = cont.replace("/通知", "").trim()
         notices.push(nt)
         drrr.dm(user, "成功添加通知：" + nt)
     }
 }
-event[msg, me, dm](user, cont: "^/白名单", url, tc) => {
+event[msg, me, dm](user, cont: "^/白名单", tc) => {
     if admins.some(a => a == tc) then{
         if bmd then{
             bmd = 0
@@ -192,14 +192,14 @@ event[msg, me, dm](user, cont: "^/白名单", url, tc) => {
         }
     }
 }
-event[msg, me, dm](user, cont: "^/说\\s+\\S", url, tc) => {
+event[msg, me, dm](user, cont: "^/说\\s+\\S", tc) => {
     if admins.some(a => a == tc) then drrr.print(cont.replace("/说", "").trim())
 }
 event[msg, me, dm](user, cont: "^/通知$") => {
     nt = notices.map((x, i) => i + 1 + ". " + x)
     drrr.print("通知：\n" + nt.join("\n"))
 }
-event[msg, me, dm](user, cont: "^/导出", url, tc) => {
+event[msg, me, dm](user, cont: "^/导出", tc) => {
     if admins.some(a => a == tc) then {
         pprint(msgs)
     }
@@ -268,7 +268,7 @@ event[msg, me, dm](user, cont: "^/表情$") => {
     gds = good.map((x, i) => i + 1 + ".【 " + x.name + "】")
     drrr.print("表情大全\n" + gds.join("\n"))
 }
-event[msg, me, dm](user, cont: "^/删除表情\\s+\\S", url, tc) => {
+event[msg, me, dm](user, cont: "^/删除表情\\s+\\S", tc) => {
     if admins.some(a => a == tc) then {
         del = cont.replace("/删除表情", "").trim()
         n = emoji.findIndex(u => u.name == del)
@@ -388,7 +388,7 @@ event join (user) => {
         }
     }
 }
-event[msg, me, dm](user, cont: "^/删除通知\\s+\\d", url, tc) => {
+event[msg, me, dm](user, cont: "^/删除通知\\s+\\d", tc) => {
     if admins.some(a => a == tc) then {
         p = parseInt(cont.replace("/删除通知", "").trim()) - 1
         if p> (notices.length - 1) then {
@@ -403,12 +403,12 @@ event[msg, me, dm](user, cont: "^/删除通知\\s+\\d", url, tc) => {
 timer 10* 60 * 1000 {
     drrr.dm(drrr.users[0].name, "求求把房主给lulu吧")
 }
-event[msg, me, dm](user, cont:"^/房主", url, tc) => {
+event[msg, me, dm](user, cont:"^/房主", tc) => {
     if admins.some(a => a == tc) then {
         drrr.chown(user)
     }
 }
-event[msg, me, dm](user, cont: "^/拉黑\\s+\\S", url, tc) => {
+event[msg, me, dm](user, cont: "^/拉黑\\s+\\S", tc) => {
     if admins.some(a => a == tc) then {
         u = cont.replace("/拉黑", "").trim()
         if (u.slice(0, 1) == "@") then {u = u.slice(1) }
@@ -417,21 +417,21 @@ event[msg, me, dm](user, cont: "^/拉黑\\s+\\S", url, tc) => {
         drrr.dm(user, "成功将@" + u + "拉黑")
     }
 }
-event[msg, me, dm](user, cont: "^/拉白\\s+\\S", url, tc) => {
+event[msg, me, dm](user, cont: "^/拉白\\s+\\S", tc) => {
     if admins.some(a => a == tc) then {
         tc = cont.replace("/拉白", "").trim()
         whitelist.push(tc)
         drrr.dm(user, "成功将tc [" + tc + "] 拉白")
     }
 }
-event[msg, me, dm](user, cont: "^/黑名单", url, tc) => {
+event[msg, me, dm](user, cont: "^/黑名单", tc) => {
     if admins.some(a => a == tc) then {
         bl = mess(blacklist)
         if bl.length > 7 then bl= bl.slice(0, 7)
         drrr.dm(user, "黑名单\n" + bl.join("\n"))
     }
 }
-event[msg, me, dm](user, cont: "^/解封\\s+\\S", url, tc) => {
+event[msg, me, dm](user, cont: "^/解封\\s+\\S", tc) => {
     if admins.some(a => a == tc) then {
         u = cont.replace("/解封", "").trim()
         if (u.slice(0, 1) == "@") then {u = u.slice(1) }
@@ -444,7 +444,7 @@ event[msg, me, dm](user, cont: "^/解封\\s+\\S", url, tc) => {
         }
     }
 }
-event[msg, me, dm](user, cont: "^/解白\\s+\\S", url, tc) => {
+event[msg, me, dm](user, cont: "^/解白\\s+\\S", tc) => {
     if admins.some(a => a == tc) then {
         tc = cont.replace("/解白", "").trim()
         n = whitelist.findIndex(x => x == tc)
@@ -456,14 +456,14 @@ event[msg, me, dm](user, cont: "^/解白\\s+\\S", url, tc) => {
         }
     }
 }
-event[msg, me, dm](user, cont:"^/踢\\s+\\S", url, tc) => {
+event[msg, me, dm](user, cont:"^/踢\\s+\\S", tc) => {
     if admins.some(a => a == tc) then {
         u = cont.replace("/踢", "").trim()
         if (u.slice(0, 1) == "@") then {u = u.slice(1) }
         drrr.kick(u);
     }
 }
-event[msg, me, dm](user, cont:"^/kick\\s+\\S", url, tc) => {
+event[msg, me, dm](user, cont:"^/kick\\s+\\S", tc) => {
     if admins.some(a => a == tc) then {
         u = cont.replace("/kick", "").trim()
         if (u.slice(0, 1) == "@") then {u = u.slice(1) }
@@ -471,7 +471,7 @@ event[msg, me, dm](user, cont:"^/kick\\s+\\S", url, tc) => {
     }
 }
 //ban
-event[msg, me, dm](user, cont:"^/ban\\s+\\S", url, tc)  => {
+event[msg, me, dm](user, cont:"^/ban\\s+\\S", tc)  => {
     if admins.some(a => a == tc) then {
         u = cont.replace("/ban", "").trim()
         if (u.slice(0, 1) == "@") then {u = u.slice(1) }

@@ -12,6 +12,16 @@ localStorage["result"] = JSON.stringify(result)
 localStorage["market"] = JSON.stringify(market)
 localStorage["keys"] = JSON.stringify(keys)
 //welcome.js
+notices = []
+msgs = []
+emoji = []
+blacklist=[]
+whitelist=[".bLVj9fdOM","jq5V9liJ5.","vEg/qFxY/o","Lmiq8cDrgc","/G8YJRcCos","PdBZ5oxgV.","vJEPoEPHsA","YtIMnsXOBE","dPxASUlvB2","SArR31xQ8A","Buqi.19uwA","p5Ipr6sT5s","HvKIPcr5Dc","ZAQiVIgoE6","O2WzlQotYE","Husou/4PMY","fNTIUI/HZA","y.GXam5AHs","sPbGjkIyko","xjD034fDFw","DoKE.PedO.","CcLJX8UpLg","KmrF.YyFXg","h2sNI6r3Z.","TxDBeebjS6","YOvQdEmfx.","Ancy.WWeeo","A2Vx90B.MM","Zybq2/fKTE","iz8HE.hUN2",".tLmo2m7Pw","PtdLKwdpJc"]
+localStorage["notices"] = JSON.stringify(notices)
+localStorage["msgs"] = JSON.stringify(msgs)
+localStorage["emoji"] = JSON.stringify(emoji)
+localStorage["blacklist"] = JSON.stringify(blacklist)
+localStorage["whitelist"] = JSON.stringify(whitelist)
 
 //批量处理
 a =

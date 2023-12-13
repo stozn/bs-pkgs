@@ -234,8 +234,8 @@ event[msg, me, dm](user, cont: "^/上传表情\\s+\\S+\\s+\\S") => {
 
 event[msg, me, dm](user, cont: "^/表情\\s+\\S") => {
     tg = onekey("/表情", cont)
-    nm
-    url
+    nm = "none"
+    url = "none"
     res = []
     reg = new RegExp(tg)
     emoji.forEach(x => if reg.test(x.name) then res.push({ name: x.name, url: x.url }) )  

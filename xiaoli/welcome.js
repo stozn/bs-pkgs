@@ -9,7 +9,7 @@ amax = (array) => array.findIndex(x => x == Math.max.apply(Math, array))
 amin = (array) => array.findIndex(x => x == Math.min.apply(Math, array))
 curl = (url) => {
     reg = new RegExp("^http(s)?://(([A-z]|[0-9]|-)+.)?([A-z]|[0-9]|-)+.[A-z]+/([A-z]|[0-9]|[_~:/?#@!$%&'*+-,;=.])+$")
-    return reg.test(url)
+    reg.test(url)
 }
 mess = (array) => {
     for m = array.length - 1; m > 0; m-- {

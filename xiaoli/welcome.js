@@ -265,7 +265,7 @@ event[msg, me, dm](user, cont: "^/查找表情\\s+\\S") => {
 event[msg, me, dm](user, cont: "^/表情$") => {
     good = mess(emoji)
     if good.length > 7 then good= good.slice(0, 7)
-    gds = good.map((x, i) => i + 1 + ".【 " + x.name + "】")
+    gds = good.map((x, i) => i + 1 + ".【" + x.name + "】")
     drrr.print("表情大全\n" + gds.join("\n"))
 }
 event[msg, me, dm](user, cont: "^/删除表情\\s+\\S", tc) => {
